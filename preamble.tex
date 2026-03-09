@@ -1,0 +1,141 @@
+%Chargement des paquets
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{xparse, etoolbox}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{mathabx}
+\usepackage{babel}[french]
+
+%environment
+\input{environment}
+
+%Ensembles de nombres
+\newcommand{\N} {\mathbb{N}}
+\newcommand{\Ne}{\N^\ast}
+\newcommand{\Z} {\mathbb{Z}}
+\newcommand{\Q} {\mathbb{Q}}
+\newcommand{\R} {\mathbb{R}}
+\newcommand{\Rb}{\overline{\mathbb{R}}}
+\newcommand{\Rp}{\R_+}
+\newcommand{\Rm}{\R_-}
+\newcommand{\K} {\mathbb{K}}
+\newcommand{\Ket} {\mathbb{K^{\ast}}}
+\newcommand{\Cx}{\mathbb{C}}
+
+%Ensembles, tribus
+\newcommand{\A}{\mathbb{A}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\C} {\mathcal{C}}
+\newcommand{\ouv}{\mathcal{O}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\etag}{\mathcal{E}}
+\newcommand{\etagOp}{\etag^{+}(\Omega)}
+\newcommand{\etagO}{\etag(\Omega)}
+%%Lp avant quotientage
+\newcommand{\Lic}{\mathcal{L}^1}
+\newcommand{\Lpc}{\mathcal{L}^p}
+\newcommand{\Linfc}{\mathcal{L}^{\infty}}
+\newcommand{\Lifull}{\Lic(\Omega, \B, m)}
+\newcommand{\Lpfull}{\Lpc(\Omega, \B, m)}
+\newcommand{\Linffull}{\Linfc(\Omega, \B, m)}
+%%Lp après quotientage
+\newcommand{\Li}{L^1}
+\newcommand{\Ld}{L^2}
+\newcommand{\Lp}{L^p}
+\newcommand{\Linf}{L^{\infty}}
+\newcommand{\Listd}{\Li(\Omega, m)} 
+\newcommand{\Ldstd}{\Ld(\Omega, m)} 
+\newcommand{\Lpstd}{\Lp(\Omega, m)} 
+
+%Quelques opérateurs
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\vect}{Vect}
+\DeclareMathOperator{\ima}{Im}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\ext}{ext}
+\newcommand{\ind}{\mathbbm{1}}
+\newcommand*{\spr}[2]{\left(\,#1\,\middle|\,#2\,\right)}
+\newcommand{\interior}[1]{%
+  {\kern0pt#1}^{\mathrm{o}}%
+}
+\DeclareMathOperator{\card}{card}
+\DeclareMathOperator{\ppcm}{ppcm}
+
+%Commandes de pure flemme
+\newcommand{\veps}{\varepsilon}
+\newcommand{\intab}{\int_{a}^{b}}
+\newcommand{\intR}{\int_{-\infty}^{\infty}}
+\newcommand{\intinf}{\int_{- \infty}^{+ \infty}}
+\newcommand{\equi}{\Leftrightarrow}
+\newcommand{\Kev}{$\K$-espace vectoriel }
+\newcommand{\Kevs}{$\K$-espaces vectoriels }
+\newcommand{\Rev}{$\R$-espace vectoriel }
+\newcommand{\Revs}{$\R$-espaces vectoriels }
+\newcommand{\Cev}{$\Cx$-espace vectoriel }
+\newcommand{\Cevs}{$\Cx$-espaces vectoriels }
+\newcommand{\evn}{(E, \norm{.})}
+\newcommand{\interf}[2]{[#1,#2]}
+\newcommand{\limb}{\lim\limits_}
+\newcommand{\lebn}{\lambda_n}
+\newcommand{\pp}{\text{~presque partout}}
+\newcommand{\derivp}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\famiu}{(u_i)_{i \in I}}
+\newcommand{\sev}{\text{~s.e.v.}}
+\newcommand{\Mnp}{M_{n,p}(\K)}
+\newcommand{\Mn}{M_{n}(\K)}
+\newcommand{\tq}{\text{~t.q.~}}
+\newcommand{\mq}{~montrer~que~}
+\newcommand{\et}{\quad \text{et} \quad}
+\newcommand{\ou}{\text{~ou~}}
+\newcommand{\Kx}{\K[X]}
+
+
+%Commandes de gars chelou
+\renewcommand{\subset}{\subseteq}
+
+%Commande restriction, ty duckduckgo
+\def\restr#1#2{\mathchoice
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restraux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restraux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restraux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restraux{#1}{#2}}}
+\def\restraux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}} 
+
+%Quelques normes
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\labs{\bigl\lvert}{\bigr\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiterXPP\normi[1]{}\lVert\rVert{_1}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterXPP\normd[1]{}\lVert\rVert{_2}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterXPP\normp[1]{}\lVert\rVert{_p}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterXPP\normq[1]{}\lVert\rVert{_q}{\ifblank{#1}{\:\cdot\:}{#1}}
+\DeclarePairedDelimiterXPP\norminf[1]{}\lVert\rVert{_\infty}{\ifblank{#1}{\:\cdot\:}{#1}}
+
+%Bracket en angle
+\DeclarePairedDelimiter\angl{\langle}{\rangle}
+
+%Set, parenthèses
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\bigset}[1]{\bigl\{ #1 \bigr\}}
+\newcommand{\Bigset}[1]{\Bigl\{ #1 \Bigr\}}
+\newcommand{\bigpar}[1]{\bigl( #1 \bigr)}
+\newcommand{\Bigpar}[1]{\Bigl( #1 \Bigr)}
+
+%Opitmisation des opérateurs de comparaison
+\DeclarePairedDelimiter\tio{o (}{)}
+\DeclarePairedDelimiter\gro{O (}{)}
