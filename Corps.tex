@@ -1,0 +1,780 @@
+\documentclass{article}
+
+\input{preamble}
+\renewcommand{\L} {\mathbb{L}}
+\renewcommand{\F} {\mathbb{F}}
+\newcommand{\U} {\mathcal{U}}
+\newcommand{\D} {\mathcal{D}}
+
+\begin{document}
+
+Dans ce développement, tout corps est supposé commutatif. Le symbole $\K$ désigne toujours un corps.
+
+\section{Prérequis}
+
+\subsection{Théorème de Lagrange}
+
+Dans cette partie, on adopte une notation multiplicative pour les groupes. L'élément neutre est donc dénoté par $1$.
+
+\begin{defn}[Ordre d'un groupe fini]
+On appelle ordre d'un groupe fini son cardinal.
+\end{defn}
+
+\begin{thm}
+Soit $(G, \cdot)$ un groupe et $H$ un sous groupe de $G$. La relation $R_g$ définie sur $G$ par :
+\[ g_1 R g_2 \iff g_1^{-1}g_2 \in H \]
+est une relation d'équivalence.
+\end{thm}
+
+\begin{proof}
+Soit $g \in G$, on a $g^1 g = 1 \in H$, la relation est donc réflexive. \newline
+Soient $g_1, g_2$ tels que $g_1 R g_2$, alors $(g_1^{-1}g_2)^{-1} = g_2^{-1}g_1 \in H$, la relation est donc symétrique. \newline
+Soient $g_1, g_2, g_3$ tels que $g_1 R g_2$ et $g_2 R g_3$. Alors $g_1^{-1}g_2 g_2^{-1}g_3 = g_1^{-1}g_3 \in H$,
+la relation est donc transitive.
+\end{proof}
+
+\begin{defn}[Classe à gauche]
+Pour un groupe $G$ et $H$ un sous groupe de $G$ on appelle classe à gauche modulo $H$ d'un élément $g \in G$ l'ensemble 
+\[ \bar{g} = \set{x \in G \tq g \R_g x} . \]
+On remarquera que $x \in \bar{g} \iff g^{-1}x \in H \iff \exists h \in H \tq x = gh$. On a donc $\bar{g} = gH$.
+\end{defn}
+
+\begin{rmq}
+On aurait pu définir la relation d'équivalence (et les classes) à droite.
+\end{rmq}
+
+%\begin{nota}
+%On note $G/H$ l'ensemble des classes d'équivalence modulo $H$.
+%\end{nota}
+
+\begin{thm}
+\label{thm:partGroup}
+Soit $G$ un groupe et $H$ un sous-groupe de $G$, l'ensemble des classes à gauche modulo $H$ deux à deux distinctes
+forment une partition de $G$.
+\end{thm}
+
+\begin{proof}
+Notons $\bigcup_{i \in I} \widebar{g_i}$ l'ensemble des classes d'équivalence modulo $H$ deux à deux distinctes.
+Soit $g \in G$, si $g \not \in \bigcup_{i \in I} \widebar{g_i}$ alors $\bar{g}$ est une classe d'équivalence distincte de toutes les classes
+indicées par $I$ ce qui est exclu. Donc $G = \bigcup_{i \in I} \widebar{g_i}$. 
+Supposons maintenant que $g \in \widebar{g_i} \cap \widebar{g_k}$ avec $i, k \in I$. 
+Alors $g R g_i$ et $g R g_k$ donc, par symétrie et transitivité, $\widebar{g_i} = \widebar{g_k}$, et donc $i=k$.
+\end{proof}
+
+%\begin{defn}
+%Pour un sous-groupe $H$ de $G$, le cardinal de $G/H$ est appelé l'indice de $H$ dans $G$ et on le note $[G : H]$.
+%\end{defn}
+
+\begin{thm}[Lagrange]
+\label{thm:lagrange}
+Soit $G$ un groupe fini d'ordre $n \geq 2$ et $H$ un sous-groupe de $G$. L'ordre de $H$ divise l'ordre de $G$.
+\end{thm}
+
+\begin{proof}
+Soit $g \in G$ fixé, on considère l'application :
+\[ \begin{array}{c c c c}
+\varphi : & G & \to & G \\
+& x & \mapsto & gx
+\end{array} \]
+qui est une permutation des éléments du groupe $G$. En conséquence, sa restriction à $H$ est une bijection de $H$ sur $gH$.
+On conclut donc que $H$ et $gH$ ont même cardinal, et ce quelque soit $g \in G$. 
+Comme l'ensemble des classes modulo $H$ deux à deux distinctes forment une partition de $G$ (cf. théorème $\ref{thm:partGroup}$, 
+on en déduit que leur ordre (et donc celui de $H$) divise l'ordre de $G$. 
+\end{proof}
+
+%\subsection{Sous-groupe multiplicatif d'un corps} 
+%
+%\begin{defn}[Goupe monogène, cyclique]
+%On dit qu'un groupe $G$ est monogène s'il existe un élément $g$ de $G$ tel que $G = \angl{g}$. 
+%Si de plus $G$ est fini, on dit alors qu'il est cyclique.
+%\end{defn}
+%
+%%\begin{rmq}
+%%Pour un groupe multiplicatif cyclique, on a :
+%%\[ \angl{g} = \Bigset{ \prod_{k=1}^r g^{\veps_k} ; \forall 1 \leq k \leq r, r \in \Ne, \veps_k \pm 1 } . \]
+%%\end{rmq}
+%
+%\begin{defn}[Ordre d'un élément]
+%L'ordre d'un élément $g$ d'un groupe $G$ est 
+%\[ \theta(g) = \card{\angl{g}} \in \Ne \cup \set{\infty}. \]
+%\end{defn}
+%
+%\begin{coro}
+%Soit $G$ un groupe fini d'ordre $n \geq 1$. Alors l'ordre de tout élément $g$ de $G$ divise $n$.
+%\end{coro}
+%
+%\begin{proof}
+%il s'agit (pour $n \geq 2$) d'une conséquence du théorème $\ref{thm:lagrange}$.
+%\end{proof}
+%
+%\begin{thm}
+%\label{thm:ordppcm}
+%Soit $(G, \cdot)$ un groupe abélien, $r \geq 2$ un entier et $g_1, \dots, g_r$ des éléments deux à deux distincts de $G$ 
+%d'ordres respectifs $m_1, \dots, m_r \in \Ne$.
+%Il existe dans $G$ un élément $g_0$ d'ordre égal au $\ppcm$ de ces ordres.
+%\end{thm}
+%
+%\begin{proof}
+%On utilisera le fait suivant :
+%
+%\begin{fait}
+%Soit $a_1, a_2, \dots, a_n$ des nombres entiers, $n \geq 2$. On a :
+%\[ \ppcm(\ppcm(a_1, \dots, a_{n-1}), a_n) = \ppcm(a_1, \dots, a_n) . \]
+%\end{fait}
+%
+%On commence par le cas $r=2$. Si les ordres $m_1$ et $m_2$ sont premiers entre eux, alors $\ppcm(m_1, m_2) = m_1 m_2$ 
+%et l'ordre de l'élément $g_0 = g_1 g_2$ est $m_1 m_2$. \newline
+%Sinon, on peut toujours écrire :
+%\[ m_1 = \prod_{i=1}^n p_i^{\alpha_i} \et m_2 = \prod_{i=1}^n p_i^{\beta_i}, \]
+%avec les $p_i$ des nombres premiers et les $\alpha_i$ et $\beta_i$ des élements de $\N$ (éventuellement nuls).
+%De plus, on organise ces décompositions en facteurs premiers de telle façon que :
+%\[ \alpha_i > \beta_i \text{~pour~} i \leq k \text{~et~} \alpha_i \leq \beta_i \text{~sinon}, \]
+%avec $0 \leq k \leq n+1$. On a alors :
+%\[ m_1 = \prod_{i=1}^k p_i^{\alpha_i} \prod_{i=k+1}^n p_i^{\alpha_i} \et 
+%	m_2 = \prod_{i=1}^k p_i^{\beta_i} \prod_{i=k+1}^n p_i^{\beta_i}, \]
+%en fixant les produits vides à 1 si $k=0$ ou $k=n+1$. 
+%On pose $q_1 =  \prod_{i=1}^k p_i^{\alpha_i}$ et $q_2 = \prod_{i=k+1}^n p_i^{\beta_i}$, 
+%et on a $\ppcm(m_1, m_2) = q_1 q_2$, avec$q_1$ et $q_2$ premiers entre eux.
+%Enfin, en écrivant $m_1 = q_1 r_1$ et $m_2 = q_2 r_2$, on trouve que les éléments $g_1^{r_1}$ et $g_2^{r_2}$ 
+%sont d'ordres respectifs $q_1$ et $q_2$. 
+%Donc, l'élément $g_0 = g_1^{r_1} g_2^{r_2}$ est d'ordre $q_1 q_2 = \ppcm(m_1, m_2)$. \newline
+%
+%Supposons le résultat vrai pour $r \geq 2$ quelconque et soient $g_1, \dots, g_{r+1}$ d'ordres respectifs $m_1, \dots, m_{r+1}$.
+%Selon l'hypothèse de récurrence, il existe un élément $g_0'$ d'ordre $\ppcm(m_1, \dots, m_r)$ 
+%et, selon le cas $r=2$, il existe un élément $g_0$ d'ordre :
+%\[ \ppcm(\ppcm(m_1, \dots, m_r), m_{r+1}) = \ppcm(m_1, \dots, m_r, m_{r+1}). \]
+%\end{proof}
+%
+%\begin{thm}
+%\label{thm:ssgrpK}
+%Soit $\K$ un corps. Tout sous-groupe fini du groupe multiplicatif $\Ket$ est cyclique.
+%\end{thm}
+%
+%\begin{proof}
+%On utilisera les faits suivants :
+%
+%\begin{fait}
+%Dans un groupe fini, l'ordre de tous les éléments est fini.
+%\end{fait}
+%
+%\begin{fait}
+%Un polynôme de degré $n$ sur $\K[X]$ a, au plus, $n$ racines.
+%\end{fait}
+%
+%\begin{fait}
+%Un groupe fini d'ordre $n$ admettant un élément d'ordre $n$ est cyclique.
+%\end{fait}
+%
+%Soit $(G, \cdot)$ un sous-groupe fini d'ordre $n$ de $\Ket$. Selon le théorème $\ref{thm:ordppcm}$,
+%il existe dans $G$ un élément $g_0$ d'ordre $m \leq n$ égal au ppcm des ordres des éléments de $G$. 
+%Ainsi, tout élément $g \in G$ est racine du polynôme $X^m-1$, donc $m \geq n$.
+%On en conclut que $m=n$ et donc que $G$ est cyclique.
+%\end{proof}
+
+\subsection{Les anneaux $\Z$ et $\K[X]$}
+
+\begin{defn}[Idéal]
+Une partie $I$ d'un anneau $\A$ est appelée un idéal à gauche (resp. à droite) de $\A$ lorsque :
+\begin{enumerate}[label=(\roman*)]
+\item $(I,+)$ est un sous-groupe additif de $\A$ ;
+\item pour tout $(x, a) \in I \times \A ; xa \in I$ (resp. $ax \in I$). 
+\end{enumerate}
+En particulier, un idéal est dit bilatère s'il est idéal à gauche et à droite.
+\end{defn}
+
+\begin{defn}[Idéal engendré]
+Soit $P$ une partie d'un anneau $\A$, on appelle idéal engendré à gauche (resp. à droite) par $P$,
+l'intersection de tous les idéaux à gauche (resp. à droite) de $\A$ contenant $P$.
+\end{defn}
+
+\begin{nota}
+Pour $a \in \A$, on note $(a) = a \A = \{a \cdot q ; q\in \A\}$ l'idéal engendré par $a$.
+\end{nota}
+
+\begin{defn}[Idéal principal]
+On dit qu'un idéal de $\A$ est principal s'il est engendré par un unique élément de $\A$.
+\end{defn}
+
+\begin{lem}[Sous-groupes de $\Z$]
+\label{lem:nZ}
+Les sous-groupes de $(\Z,+)$ sont les ensembles
+\[ n\Z = \{ n \cdot k ; k \in \Z  \} \text{~pour~} n \in \N . \]
+\end{lem}
+
+\begin{proof}
+Il est évident que $(n\Z, +)$ est un sous groupe de $(\Z,+)$. Par ailleurs, notons $G$ un sous-groupe de $\Z$.
+Si $G$ ne contient qu'un seul élément, comme $0 \in G$ alors $G = 0\Z$. 
+Sinon, $G$ contient au moins un élément non nul. Comme de plus $G$ est un groupe, il contient un élément strictement positif.
+Notons $n = \min{ x \in G ; x > 0 }$, $n$ est bien défini et prenons $a$ un élément quelconque de $G$.
+Si $a=0$, on écrit $a=0\cdot n$. Si $a >0$, en effectuant la division euclidienne de $a$ par $n$, on trouve :
+\[ a = q \cdot n + r \text{~avec~} 0 \leq r < n . \]
+Or, $r = a - q \cdot n \in G$ donc $r=0$ par définition de $n$, et $a = q \cdot n$.
+Si $a<0$, on a $-a \in G$ et $-a = q \cdot n$ et donc $a=-q \cdot n$. 
+On a donc $G \subset n\Z$. Il est de plus évident de $n\Z \subset G$.
+Finalement, $\exists n \in \N \tq G = n\Z$. 
+\end{proof}
+
+\begin{thm}[Idéaux de $\Z$]
+Les idéaux de $\Z$ sont les $n\Z$, pour $n \in \N$.
+\end{thm}
+
+\begin{proof}
+Selon le lemme $\ref{lem:nZ}$, les idéaux de $\Z$, comme sous-groupes, sont nécessairement des éléments de $\{ n\Z ; n \in \N \}$.
+Réciproquement, soit $n \in \N$ et soient $x \in n\Z, y \in \Z$, on a :
+\[ x \cdot y = y \cdot x = n \cdot k \cdot y \in n\Z , \]
+avec $k \in \Z \tq x = n \cdot k$.
+\end{proof}
+
+\begin{coro}
+Tous les idéaux de $\Z$ sont principaux (et donc l'anneau $\Z$ est principal).
+\end{coro}
+
+\begin{thm}
+\label{thm:ideauxKx}
+Soit $\K$ un corps. L'anneau $\K[X]$ est principal. Précisément, pour tout idéal $I$ de l'anneau $\K[X]$, non réduit à $\set{0}$, 
+il existe un unique polynôme unitaire $A$ tel que $I=(A)$. 
+\end{thm}
+
+\begin{proof}
+Soit $I$ un idéal de $\K[X]$ non réduit à $\set{0}$. L'ensemble $\set{\deg{P} ; P \in I \setminus \set{0}}$ admet un minimum 
+que l'on note $n_0$.
+Prenons $A \in I \tq \deg{A} = n_0$ et soit $B \in I$, en effectuant la division euclidienne de $B$ par $A$ on obtient :
+\[ B = AQ + R \text{~avec~} \deg{R} < n_0 ,\] 
+donc, par définition de $A, R = 0$ et $I \subset (A)$.
+Réciproquement, si $B \in (A), B = QA$ et donc $B \in I$ (car $I$ est un idéal).
+Supposons maintenant que $(A)$ admette un second générateur $(B)$, alors $A$ divise $B$ et $B$ divise $A$, 
+donc il existe $\lambda \in \Ket \tq A = \lambda B$. Le générateur unitaire est donc unique. \newline
+
+Si $I= \set{0}$, alors $I=(0)$. Finalement, tous les idéaux de $\K[X]$ sont principaux.
+\end{proof}
+
+\subsection{Morphismes d'anneaux et idéaux}
+
+\begin{defn}[Morphisme d'anneaux]
+Soient $\A, \A'$ deux anneaux unitaires. 
+Un morphisme d'anneaux et une application de $\A$ dans $\A'$, compatible avec les lois des anneaux,
+et qui envoie le neutre multiplicatif de $\A$ sur le neutre multiplicatif de $\A'$.
+\end{defn}
+
+\begin{lem}
+Soit $f$ un tel morphisme d'anneaux. Alors, pour tout $a \in \A$, on a
+\begin{enumerate}[label=(\roman*)]
+\item $f(0_{\A}) = 0_{\A'}$ ;
+\item $f(-a) = -f(a)$.
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+\item Soit $a \in \A$, on a $f(a)=f(a+0_{\A})=f(a)+f(0_{\A})$ donc $f(0_{\A})=0_{\A'}$. 
+\item Soit $a \in \A$, on a $f(0_{\A}) = f(a-a) = f(a) + f(-a) = 0_{\A'}$, d'où $f(-a) = -f(a)$.
+\end{enumerate}
+\end{proof}
+
+\begin{thm}[Noyau et idéal]
+\label{lem:noyau}
+Soient $\A, \A'$ deux anneaux unitaires et $f$ un morphisme d'anneaux. 
+Alors, le noyau de $f$ est un idéal (bilatère) de $\A$.
+\end{thm}
+
+\begin{proof}
+Il est clair que $\ker(f) \subset \A$. Soient $x, y \in \ker(f)$, on a :
+\[ f(x+y) = f(x) + f(y) = 0_{\A'} \et f(-x) = -f(x) = 0_{\A'} , \]
+donc $\ker(f)$ est un sous-groupe additif de $\A$. \newline
+Soit maintenant $a \in \ker(f)$, alors pour tout $b \in A, f(a \cdot b) = f(a) \cdot f(b) = 0_{\A'}$. De même pour $f(b \cdot a)$. 
+Donc $\ker(f)$ est un idéal bilatère de $\A$.
+\end{proof}
+
+\begin{defn}
+Soit $\A$ un anneau commutatif unitaire, soit $I$ un idéal de $\A$ et soient $a, b \in \A$. 
+On dit que $a$ est congru à $b$ modulo $I$ si $b-a \in I$. 
+On note alors $a\equiv b \pod{I}$ .
+\end{defn}
+
+\begin{thm}
+La relation de congruence modulo $I$ est une relation d'équivalence sur $\A$.
+\end{thm}
+
+\begin{proof}
+$I$ est un groupe additif donc $0 \in I$ donc $\forall a \in \A, a \equiv a \pod{I}$. 
+Toujours de par la structure de groupe de $I, \forall a,b \in I$ si $b-a \in I$ alors $a-b \in I$.
+La transitivité de la relation de congruence est évidente.
+\end{proof}
+
+\begin{nota}
+Pour tout $a \in \A$, on note $\bar{a} = \{b \in \A ; b \equi a \pod{I} \}$ la classe d'équivalence de $a$ pour la relation de congruence.
+On note $\A/I$ l'ensemble des classes d'équivalences modulo $I$.
+\end{nota}
+
+\begin{thm}
+\label{thm:surjection}
+Il existe une unique structure d'anneau commutatif unitaire sur $\A/I$ telle que la surjection canonique :
+\[ \begin{array}{c c c c}
+\pi_I : & \A & \to & \A/I \\
+& a & \mapsto & \bar{a}
+\end{array} \]
+soit un morphisme d'anneaux.
+\end{thm}
+
+\begin{proof}
+Soient $a,b \in I$ et $c \in \bar{a}, d \in \bar{b}$ on a :
+\[ (c+d) - (a+b) = (c-a) + (d-b) \in I , \]
+donc la relation de congruence est compatible avec l'addition. De même :
+\[ cd - ab = c(d - b) - b(a - c) \in I , \]
+donc la relation de congruence est aussi compatible avec la multiplication. 
+On peut donc munir $\A/I$ d'une structure d'anneau avec les opérations ainsi définies
+\[ \forall x, y \in \A/I \left \{ \begin{array}{c c c}
+x + y & = & \widebar{a+b} \\
+xy & = & \widebar{ab}
+\end{array} \right. \]
+avec $a$ et $b$ des éléments quelconques de $\bar{x}$ et $\bar{y}$ respectivement. 
+En effet, si on prend  $a' \in \bar{x}$ et $b' \in \bar{y}$ distincts de $a$ et $b$, comme $a \equiv a'$ et $b \equiv b'$ on a :
+\[ \widebar{a+b} = \widebar{a'+b'} \et \widebar{ab} = \widebar{a'b'} . \]
+Les opérations ne dépendent donc pas des représentants choisis. 
+On vérifie aussi facilement que les opérations définies sur $\A/I$ héritent des propriétés de commutativité (loi +), 
+d'associativité et de commutativité (loi $\cdot$), et de distributivité (loi $\cdot$ par rapport à la loi $+$). \newline
+On remarque que $\widebar{1_{\A}}$ est neutre pour la multiplication dans $\A/I$ donc $\A/I$ est unitaire.
+Enfin, la compatibilité de la relation de congruence avec les lois $+$ et $\cdot$ démontre que
+ $\pi_I$ est bien un morphisme d'anneaux, ce qui achève la démonstration de la structure mentionnée dans le théorème. \newline
+ 
+Démontrons maintenant son unicité, si l'on suppose existante une telle structure, pour $a, b \in \A$, on a :
+\[ \pi_I(a+b) = \pi_I(a) + \pi_I(b) \Rightarrow \widebar{a+b} = \bar{a} + \bar{b} , \]
+et de même pour la multiplication. On revient donc à la structure précédemment exhibée. 
+\end{proof}
+
+%\begin{coro}
+%Les idéaux de $\A$ sont les noyaux des morphismes d'anneaux $f : \A \to \A'$ où $\A'$ est un anneau commutatif unitaire.
+%\end{coro}
+%
+%\begin{proof}
+%On a déjà vu (cf. lemme $\ref{lem:noyau}$) que les noyaux de tels morphismes sont des idéaux de $\A$. 
+%Réciproquement, si $I$ est un idéal de $\A$, alors $I$ est le noyau de la surjection de $\A$ dans $\A/I$ 
+%définie dans le théorème $\ref{thm:surjection}$.
+%\end{proof}
+
+%\subsection{Idéal maximal}
+%
+%\begin{defn}
+%Un idéal $I$ de $\A$ est dit maximal s'il est distinct de $\A$ et si $I$ et $A$ sont les seuls idéaux de $\A$ qui contiennent $I$.
+%\end{defn}
+
+%\begin{thm}
+%\label{thm:idmax}
+%Un idéal $I$ de $\A$ est maximal si, et seulement si, l'anneau quotient $\A/I$ est un corps.
+%\end{thm}
+%
+%\begin{proof}
+%
+%Pour démontrer ce théorème, on utilisera le fait suivant :
+%\begin{fait}
+%Soient $I, J$ deux idéaux d'un anneau $\A$. Alors le sous-groupe $I+J = \{ x+y \tq x \in I, y \in J \}$ est un idéal de $\A$.
+%\end{fait}
+%
+%Soit $I$ un idéal maximal de $\A$ et soit $a \not \in I$ (i.e. $\bar{a} \neq \bar{0}$).
+%Le groupe $(a) + I$ est un idéal de $\A$ qui contient $I$, donc, par maximalité, $(a) + I = I \ou \A$.
+%Dans le premier cas, $(a) = \{0\}$ et nécessairement $a=0$. Or ceci est exclu.
+%Dans le second cas, il existe $(q, x) \in \A \times I \tq aq + x = 1$, soit $\bar{a}\bar{q} = \bar{1}$.
+%Donc $\bar{a}$ est inversible dans $\A/I$, ce qui démontre que $\A/I$ est un corps. \newline
+%
+%Réciproquement, supposons que $\A/I$ est un corps et supposons que $I$ n'est pas maximal.
+%Soit $J$ un idéal de $\A$ tel que $I \subsetneq J \subsetneq A$.
+%Prenons $a \in J \setminus I$, on a $\bar{a} \neq 0$, il existe donc $(q,x) \in \A \times I$ tel que $aq + x = 1$.
+%Or $aq \in J$ car $J$ est un idéal et $x \in I \subsetneq J$ donc $1 \in J$ et $J = \A$.
+%On arrive à une contradiction, donc $I$ est maximal.
+%\end{proof}
+
+\subsection{Les anneaux $\Z/n\Z$}
+
+\begin{thm}
+L'ensemble $\Z/n\Z$, pour $n \in \N$ est un anneau commutatif unitaire. 
+De plus, $\Z/n\Z = \{\widebar{0}, \widebar{1}, \dots, \widebar{n-1} \}$.
+\end{thm}
+
+\begin{proof}
+Il s'agit d'une conséquence du théorème $\ref{thm:surjection}$.
+\end{proof}
+
+\begin{thm}
+L'anneau $\Z/n\Z$ est un corps si, et seulement si, $n$ est un nombre premier.
+\end{thm}
+
+\begin{proof}
+Soit $x \in \{1, \dots, n-1\}$, on cherche $u$ tel que :
+\[ x \cdot u \equiv 1 \pod{n} \iff \exists v \in \Z \tq x \cdot u + n \cdot v = 1, \]
+autrement dit, $x$ et $n$ sont premier entre eux.
+Donc, $\Z/n\Z$ est intègre si $n$ est premier avec tous les entiers $\{1, \dots, n-1\}$. 
+Ce qui revient à affirmer que $n$ est premier. \newline
+Réciproquement, si $n$ est premier, il est premier avec tous les entiers $\{1, \dots, n-1\}$ ce qui implique que $\Z/n\Z$ est un corps.
+\end{proof}
+
+\begin{lem}
+Tout anneau intègre fini est un corps.
+\end{lem}
+
+\begin{proof}
+Soient $\A$ un anneau intègre fini et $a \in \A$, non nul. On considère l'application :
+\[ \begin{array}{c c c c}
+\sigma_a : & \A & \to & \A \\
+& x & \mapsto & ax
+\end{array} \]
+Comme $\A$ est intègre, $\sigma_a$ est une injection. Comme l'anneau est fini, elle est bijective.
+On peut donc définir sa réciproque et $\sigma_a^{-1}(1) = a^{-1}$. Ceci étant vrai pour tout $a \in \A$ non nul, $\A$ est bien un corps.
+\end{proof}
+
+\begin{coro}
+\label{coro:integrZnZ}
+L'anneau $\Z/n\Z$ est intègre si, et seulement si, $n$ est un nombre premier.
+\end{coro}
+
+\subsection{Les anneaux $\K[X]/(P)$}
+
+\begin{thm}
+L'ensemble $\K[X]/(P)$ pour $P \in \K[X]$ est un anneau commutatif unitaire. 
+\end{thm}
+
+\begin{proof}
+Il s'agit d'une conséquence du théorème $\ref{thm:surjection}$.
+\end{proof}
+
+\begin{thm}
+\label{thm:algbrKsP}
+Soit $P \in \K[X]$ un polynôme unitaire de degré $n \geq 1$. 
+\begin{enumerate}
+\item L'algèbre $\K[X]/(P)$ est de dimension $n$ et $\bigpar{\widebar{X^k}}_{0 \leq k \leq n-1}$ en est une base.
+\item Les conditions suivantes sont équivalentes :
+	\begin{enumerate}[label=(\alph*)]
+	\item $\K[X]/(P)$ est un corps ;
+	\item l'anneau $\K[X]/(P)$ est intègre ;
+	\item le polynôme $P$ est irréductible.
+	\end{enumerate}
+\end{enumerate}
+\end{thm}
+
+
+\begin{proof}
+$\K[X]/(P)$ est un anneau selon le théorème $\ref{thm:surjection}$. De plus, la restriction de la surjection canonique de $\K[X]$ 
+dans $\K[X]/(P)$ à $\K$ est injective ($a = 0 \cdot P +a$), on peut donc identifier tout scalaire $a$ à sa classe module $P$, 
+ce qui permet de munir l'anneau quotient $\K[X]/(P)$ d'une structure de $\K$-espace vectoriel, et donc d'algèbre. \newline
+
+\begin{enumerate}
+\item
+Soit $A \in \K[X]$, par division euclidienne, $A = PQ + R$ avec $R \in \K_{n-1}[X]$ et 
+$\bar{A} = \bar{P} = \sum_{n=0}^{k-1} \widebar{X^k}$, donc $\bigpar{\widebar{X^k}}_{0 \leq k \leq n-1}$ est une famille génératrice 
+de $\K[X]/(P)$.
+De plus :
+\[ \bar{R} = \sum_{k=0}^{n-1} a_ k \widebar{X^k} = \bar{0} \iff R \in \bar{P} . \] 
+Comme le degré de $R$ est strictement inférieur à celui de $P$, ceci est équivalent à :
+\[ R = 0 \iff \forall k \in \set{0, \dots, n-1}, a_k=0 . \]
+La famille $\bigpar{\widebar{X^k}}_{0 \leq k \leq n-1}$ est donc une base de $\K[X]/(P)$. \newline
+
+\item 
+Si $\K[X]/(P)$ est un corps, alors c'est un anneau intègre. Si c'est un anneau intègre, une égalité $P=AB$, 
+avec $A, B$ de degré au moins 1 donnerait $\bar{A}\bar{B} = \bar{0}$ ce qui est contradictoire.
+Si le polynôme $P$ est irréductible, alors tout polynôme non nul $A$ de degré strictement inférieur à $n$ est premier avec $P$ et,
+selon le théorème de Bézout, il existe deux polynômes $U$ et $V$ tels que $AU+PV=1$, soit $\bar{A}\bar{U} = 1$.
+Or, tout élément de $\K[X]/(P)$ est de degré au plus $n-1$ selon le point 1., donc inversible.
+\end{enumerate}
+\end{proof}
+
+\begin{rmq}
+On remarquera que, par compatibilité de la loi $\cdot$ dans $\K[X]/(P)$, on a $\widebar{X^k} = \widebar{X}^k$.
+\end{rmq}
+
+\subsection{Caractéristique d'un corps}
+
+\begin{thm}
+\label{thm:morpCarac}
+On suppose que $\A$ est un anneau unitaire. Alors l'application
+\[ \begin{array}{c c c c}
+\varphi : & \Z & \to & \A \\
+& n & \mapsto & n \cdot 1_{\A}
+\end{array} \]
+est l'unique morphisme d'anneau de $\Z$ dans $\A$.
+\end{thm}
+
+\begin{proof}
+$\varphi$ est bien un morphisme d'anneaux par associativité et distribituvité de la loi $\cdot$ par rapport à la loi $+$. \newline
+Supposons qu'il existe un second tel morphisme que l'on note $f$. 
+Soit $n \in \N$, on peut écrire $n = \underbrace{1 + \dots + 1}_{\text{n fois}}$ et donc $f(n) = n.1_{\A}$. 
+Pour $n \tq -n \in \N$, on raisonne de la même manière en remarquant que $f(-1) = -1_{\A}$.
+\end{proof}
+
+\begin{rmq}
+Comme $\varphi$ est un morphisme d'anneau, d'après le lemme $\ref{lem:noyau}$, son noyau est un idéal de $\Z$,
+il existe donc $p \in \N$ tel que $\ker(\varphi)=p\Z$.
+\end{rmq}
+
+\begin{defn}[Caractéristique d'un anneau unitaire]
+Soit $\A$ un anneau unitaire, on définit la caractéristique de $\A$ comme l'entier naturel $p$ 
+tel que $p\Z$ est le noyau du morphisme $\varphi$.
+\end{defn}
+
+\begin{lem}
+\label{lem:caracSS}
+Soit $\A'$ un sous-anneau d'un anneau unitaire $\A$, alors la caractéristique de $\A'$ est égale à la caractéristique de $\A$.
+\end{lem}
+
+\begin{proof}
+Il suffit de restreindre $\varphi$ à $\A'$ et de considérer le fait que $1_{\A} = 1_{\A'}$.
+\end{proof}
+
+\begin{lem}
+\label{lem:isoKer}
+L'application :
+\[ \begin{array}{c c c c c}
+\varphi' : & \Z/\ker{\varphi} & \to & \A & \\
+& x & \mapsto & \varphi(a) & \text{~avec~} a \in x
+\end{array} \]
+est un morphisme d'anneaux injectif.
+\end{lem}
+
+\begin{proof}
+On démontre d'abord que $\varphi'$ est bien définie, c'est-à-dire que l'image de $x \in \Z/\ker{\varphi}$ par $\varphi'$ 
+ne dépend pas du représentant $a \in x$ choisi.
+Soient $a, a' \in x$, il existe $k \in \Z \tq a'=a+k \cdot p$ et donc :
+\[ \varphi(a') = \varphi(a) + \varphi(k) \cdot \varphi(p) = \varphi(a) , \]
+car $\ker(\varphi) = p\Z$.
+Ainsi $\varphi'$ est bien défini, c'est donc un morphisme d'anneaux car $\varphi$ est un morphisme d'anneaux.
+Il est injectif par construction.
+\end{proof}
+
+\begin{thm}[Cas d'un anneau unitaire intègre]
+\label{thm:caracIntegre}
+La caractéristique d'un anneau unitaire intègre $\A$ est 0 ou un nombre premier. 
+Dans le cas où la caractéristique est nulle, l'anneau est infini.
+\end{thm}
+
+\begin{proof}
+Pour démontrer ce théorème, on utilise les deux faits suivants :
+
+\begin{fait}
+Soit $f: \A \to \A'$ un morphisme d'anneaux. Alors $f(\A)$ est un sous-anneau de $\A'$.
+\end{fait}
+
+\begin{fait}
+Soit $\A$ un anneau intègre et $\A'$ un sous-anneau de $\A$. Alors $\A'$ est intègre.
+\end{fait}
+
+Supposons que $p \neq 0$, selon le lemme $\ref{lem:isoKer}$ l'anneau $\Z/p\Z$ est ismorphe à son image par $\varphi'$,
+c'est-à-dire à un sous-anneau de $\A$. Donc $\Z/p\Z$ est isomorphe à un anneau intègre, il est donc intègre 
+ce qui implique que $p$ est premier (cf corollaire $\ref{coro:integrZnZ}$) \newline
+Si $p=0$ alors $\varphi$ est un morphisme d'anneaux injectif, 
+donc $\varphi(\Z)$ est un sous-anneau de $\A$, isomorphe à $\Z$ donc infini, ce qui implique que $\A$ est infini.
+\end{proof}
+
+\begin{coro}
+La caractéristique d'un corps est 0 ou un nombre premier.
+\end{coro}
+
+\subsection{Sous-corps premier}
+
+Dans cette partie, pour un nombre $p$ premier, on écrira $\F_p = \Z / p\Z$.
+
+\begin{defn}
+Le plus petit sous-corps d'un corps $\K$, noté $\K_0$ est appelé sous-corps premier de $\K$.
+\end{defn}
+
+\begin{lem}
+\label{lem:kev}
+Soit $\L$ un corps et $\K$ un sous-corps de $\L$. Alors $\L$ est muni d'une structure de $\K$-espace vectoriel.
+Si de plus $\L$ est fini, alors il existe $n \in \N$ tel que $\card{~\L} = \card{~\K}^n$
+\end{lem}
+
+\begin{proof}
+$(\L, +, \cdot)$ est un corps, donc $(\L, +)$ est un groupe abélien.  De plus, en restreignant la loi $\cdot$ sur $(\K \times \L)$, 
+on aura bien une loi de composition externe distributive et vérifiant une associativité mixte avec la loi $+$.
+Enfin, l'ensemble des éléments de $\L$ est une famille génératrice du $\K$-e.v. $\L$, ce qui implique que sa dimension est finie.
+\end{proof}
+
+\begin{lem}
+\label{lem:isoFp}
+Si $\K$ est de caractéristique $p \geq 2$ premier, le sous-corps premier de $\K$ est isomorphe à $\F_p$.
+\end{lem}
+
+\begin{proof}
+On utilisera le fait suivant :
+
+\begin{fait}
+Tout sous-corps fini d'un corps de caractéristique $p \geq 2$ est de cardinal au moins $p$.
+\end{fait}
+
+On considère le morphisme $\varphi : \Z \to \K$ introduit au théorème $\ref{thm:morpCarac}$. 
+Par définition, son noyau est $p \Z$ et donc le corps $\Z / p \Z$ est isomorphe à son image par $\varphi$ que l'on note $\K_0$.
+Or $(\K_0, +)$ est un groupe d'ordre $p$ premier donc, selon le théorème de Lagrange, les sous-groupes de $(\K_0, +)$ sont $\K_0$
+et $\set{0}$. A fortiori, le seul sous-corps de $\K_0$ est $\K_0$. C'est donc le sous-corps premier de $\K$.
+\end{proof}
+
+%\begin{lem}
+%$\A$ est un corps si, et seulement si, les seuls idéaux de $\A$ sont $\A$ et $\{0\}$.
+%\end{lem}
+%
+%\begin{proof}
+%Supposons que $\A$ est un corps. Considérons $I$ un idéal de $\A$ que l'on suppose distinct de $\A$.
+%Prenons $a \in I \setminus \{0\}$, comme $a$ est inversible, il existe $b \in \A \tq ab = 1$.
+%Donc $1 \in I$ et $I = \A$ ce qui est exclu. Donc $I = \{0\}$. \newline
+%
+%Supposons maintenant que les seuls idéaux de $\A$ soient $\A$ et $\{0\}$.
+%Soit $a \in \A$ non nul, alors $(a) = \A$, donc il existe $b \in \A \tq ab = 1$. $\A$ est bien un corps.
+%\end{proof}
+
+%\begin{lem}
+%\label{lem:injectif}
+%Un morphisme d'anneaux de $\K$ dans un anneau unitaire $\A$ est nécessairement injectif.
+%\end{lem}
+%
+%\begin{proof}
+%Le noyau d'un tel morphisme est un idéal du corps $\K$, c'est donc tout le corps ou $\{0\}$. 
+%Mais comme le morphisme envoie $1_{\K}$ sur $1_{\A}$, son noyau est nécessairement réduit à $\{0\}$. 
+%\end{proof}
+
+%\begin{defn}[Extension de corps]
+%Une extension d'un corps $\K$ est la donnée d'un couple $(\L, \sigma)$ formé d'un corps commutatif $\L$ 
+%et d'un morphisme de corps $\sigma : \K \to \L$.
+%\end{defn}
+%
+%\begin{nota}
+%Pour tout $\omega$ dans une extension $\L$ de $\K$, on note $\K[\omega] = \bigset{P(\omega) ; P \in \K[X]}$,
+%et on désigne par $\K(\omega)$ le plus petit sous-corps de$\L$ qui contient $\K$ et $\omega$.
+%\end{nota}
+%
+%\begin{defn}
+%On dit qu'un élément $\omega$ d'une extension $\L$ de $\K$ est algébrique sur $\K$, s'il existe un polynôme non nul $P$ 
+%dans $\K[X]$ tel que $P(\omega)=0$.
+%\end{defn}
+%
+%\begin{lem}[Polynôme minmal]
+%Si un élément $\omega$ d'une extension $\L$ de $\K$ est algébrique sur $\K$, il existe un unique polynôme unitaire $P_{\omega}$
+%tel que $P_{\omega}(\omega)=0$. Plus précisément, $\bigset{P \in \K[X] ; P(\omega) = 0} = (P_{\omega})$.
+%\end{lem}
+%
+%\begin{proof}
+%On considère le morphisme d'anneaux de $\K[X]$ sur $\L$, son noyau est un idéal de $\K[X]$, d'où le résultat 
+%(cf. théorème $\ref{thm:ideauxKx}$).
+%\end{proof}
+%
+%\begin{defn}[Corps de rupture]
+%On dit qu'une extension $\L$ de $\K$ est un corps de rupture d'un polynôme non constant $P \in \K[X]$, si le polynôme $P$
+%a une racine $\omega$ dans $\L$ telle que $\L=\K[\omega]$.
+%\end{defn}
+%
+%\begin{thm}
+%Si $P(X) = \sum_{k=0}^n a_k X^k$ est un polynôme irréductible unitaire de degré $n \geq 1$ dans $\K[X]$, 
+%alors $\K[X]/(P)$ est un corps de rupture de $P$ et $P$ est le polynôme minimal de $\omega = \widebar{X}$ sur $\K$.
+%\end{thm}
+%
+%\begin{proof}
+%Selon le théorème $\ref{thm:algbrKsP}$, le couple $\bigpar{\K[X]/(P), \sigma}$ (en posant $\sigma : x \in \K \mapsto \bar{x}$) 
+%est une extension de corps sur $\K$ de degré $n$ et de base 
+%\[ \bigpar{\widebar{X^k}}_{0 \leq k \leq n-1} = (\widebar{\omega^k})_{0 \leq k \leq n-1} . \]
+%De plus, pour tout $Q = \sum_{k=0}^n b_k X^k \in \K[X]$
+%\[ Q(\omega) = \sum_{k=0}^n b_k \omega^k = \sum_{k=0}^n b_k \widebar{X}^k = \widebar{Q}, \]
+%en particulier $P(\omega) = \widebar{P} = 0$. 
+%Finalement, $\K[X]/(P) = \K[\omega]$, ce qui démontre que $\K[X]/(P)$ est un corps de rupture de $P$. \\
+%Enfin, pour $Q \in \K[X] $ on a $(Q(\omega)=\bar{0}) \iff (\bar{Q} = \bar{0} \iff Q \in (P)$. 
+%$P$ étant unitaire, il est le polynôme minimal de $\omega$. 
+%\end{proof}
+
+\section{Construction de corps finis}
+
+\begin{limi}
+Dans tout ce paragraphe, $p \geq 2$ est un nombre premier. \newline
+
+Pour tout entier $n \geq 1$, on note $\U_n(p)$ l'ensemble des polynômes unitaires irréductibles de degré $n$ dans $\F_p[X]$
+et $I_n(p)$ le cardinal de $\U_n(p)$. On note aussi $\D_n$ l'ensemble des diviseurs de $n$ dans $\Ne$. \newline
+
+Pour tout polynôme $P \in \U_n(p)$, le quotient $\F_p[X]/(P)$ est une $\F_p$-algèbre de dimension $n$, 
+de base $\bigpar{\widebar{X^k}}_{0 \leq k \leq n-1}$ et c'est donc un corps fini de cardinal $p^n$ 
+(cf. théorème $\ref{thm:algbrKsP}$). \newline
+
+Pour $P \in \U_n(p)$, on notera $\F_{p^n} = \F_p[X]/(P)$.
+\end{limi}
+
+\begin{thm}
+\label{thm:cardinal}
+Si $\K$ est un corps fini, il est de cardinal $p^n$, où $p \geq 2$ est un nombre premier (sa caractéristique) et $n \in \Ne$.
+Dans ce cas, tout sous-corps de $\K$ est de cardinal $p^d$ où $d$ est un diviseur de $n$.
+Réciproquement, pour tout diviseur $d$ de $n$, il existe un unique sous-corps de $\K$ de cardinal $p^d$,
+à savoir le corps $\F = \Bigset{x \in \F_{p^n} ; x^{p^d} = x }$.
+\end{thm}
+
+\begin{proof}
+
+Selon le théorème $\ref{thm:caracIntegre}$, la caractéristique du corps $\K$ est un nombre premier que l'on note $p$.
+Par ailleurs, $\K$ peut être muni d'une structure de $\K_0$-espace vectoriel de dimension finie (cf. lemme $\ref{lem:kev}$),
+donc $\K$ est isomorphe à $(\K_0)^n$ avec $n \in \Ne$. Or, selon le lemme $\ref{lem:isoFp}, \K_0$ est isomorphe à $\F_p$.
+Finalement, $\card{K} = \bigpar{\card{F_p}}^n = p^n$. \newline
+
+Considérons maintenant un sous-corps $\F$ de $\K$. 
+La caractéristique de $\F$ est la même que celle de $\K$ (cf. lemme $\ref{lem:caracSS}$, on a donc $\card{F} = p^d$ avec $d \leq n$. 
+Or, le corps $\K$ pouvant être muni d'un structure de $\F$-espace vectoriel, il est isomorphe à
+$\F^q$ avec $q \in \Ne$, donc $p^n = (p^d)^q$ soit $n = dq$, donc $d$ est bien un diviseur de $n$. \newline
+
+Réciproquement, soit $d$ un diviseur de $n$ et soit $\F$ un éventuel sous-corps de $\K$ de cardinal $p^d$. 
+Soit $x \in \F$, selon le théorème de Lagrange, le groupe monogène $\angl{x} = \bigset{x^n ; n \in \N}$ 
+est d'ordre divisant l'ordre de $\Ket$ = $p^d-1$.
+Il suit que, pour tout $x \in \F, x^{p^d} = x$ et donc que le sous-corps $\F$ est inclus dans l'ensemble des racines du polynôme 
+$P_d(X) = X^{p^d} - X$. \\
+Comme ce polynôme a, au plus, $p^d$ racine et que $\card{F} = p^d$, on conclut que, si un tel $\F$ existe, il est unique et égal à
+l'ensemble des racines du polynôme $P_d(X)$. \newline
+
+Il reste à montrer que l'ensemble des racines du polynôme $P_d(X)$ (noté $\F$) est bien un sous-corps de $\K$ à $p^d$ éléments.
+Il est clair que $P_d(0) =P_d(1) = 0$. Soient $x, y \in \F$, on a :
+\[ (x-y)^{p^d} = x^{p^d} + \sum_{k=1}^{p^d-1} \binom{p^d}{k} x^k (-y)^{p^d-k} + (-y)^{p^d}, \]
+or, $p$ étant premier il divise tous les coefficients binomiaux 
+\[ \binom{p^d}{k}, k \in \set{1, \dots, p^d-1} , \]
+de plus, $p$ étant soit égal à 2 (et dans ce cas $1=-1$) soit impair, on a :
+\[ (x-y)^{p^d} = x^{p^d} - y^{p^d} = x - y, \]
+Donc $(\F, +)$ est un groupe abélien. 
+Soient $x, y \in \F^{\ast}$, on a 
+\[ \Bigpar{\dfrac{x}{y}}^{p^d} = \dfrac{x^{p^d}}{y^{p^d}} = \dfrac{x}{y}, \]
+Donc $(\F^{\ast}, \cdot)$ est un groupe abélien. \\
+Ensuite, comme $d$ divise $n$, il existe $q \in \Z$ tel que $n = qd$ et 
+\[ p^n-1 = p^{qd}-1 = (p^d-1)(1+p^d+\dots+p^{(q-1)d}) = (p^d-1)m . \]
+Et donc :
+\[ X^{p^n-1} - 1 = X^{(p^d-1)m}-1 = (X^{p^d-1} -1)(1 + X^{p^d-1} + \dots + X^{(p^d-1)(m-1)}) . \]
+Comme $X^{p^n-1}-1$ admet tous les éléments de $\Ket$ pour racines (toujours selon le théorème de Lagrange), 
+il en est donc de même pour $X^{p^d-1} -1$ et finalement $P_d(X) = (X^{p^d-1} -1)X$ est scindé avec $p^d$ racines dans $\K$.
+\end{proof}
+
+\begin{lem}
+\label{lem:PdivPn}
+Pour tout diviseur $d$ de $n$, tout polynôme $P \in \U_d(p)$ divise le polynôme $P_n(X) = X^{p^n} - X$ dans $\F_p[X]$.
+\end{lem}
+
+\begin{proof}
+Soit $P \in \U_d(p), \F_{p^d}$ est un corps de cardinal $p^d$, donc $\F_{p^d}^{\ast}$ est un corps multiplicatif de cardinal $p^d-1$,
+et $\bar{X}^{p^d-1} = \bar{1}$ (théorème de Lagrange), donc $\bar{X}^{p^d} = \bar{X}$. Par récurrence, on peut montrer que 
+$\bar{X}^{p^{kd}} = \bar{X}$ pour tout $k \in \N$ (en effet $\bar{X}^{p^{(k+1)d}} = \bigpar { \bar{X}^{p^{kd}} }^{p^d}$). \\
+Comme $d$ divise $n$, il existe $q$ tel que $n=dq$ et par conséquence, $\bar{X}^{p^n} = \bar{X}^{p^{qd}} = \bar{X}$, 
+autrement dit, $\widebar{P_n} = \bar{0}$ dans $F_{p^d}$.
+\end{proof}
+
+\begin{thm}[Unicité des corps finis]
+A un isomorphisme près, il n'existe qu'un seul corps à $p^n$ éléments, c'est le corps $\F_{p^n} = \F_p[X] / (P)$,
+où $P \in U_n(p)$.
+\end{thm}
+
+\begin{proof}
+On désigne par $\K$ un corps fini à $p^n$ éléments, donc de caractéristique $p$ (cf. théorème $\ref{thm:cardinal}$).
+Selon le lemme $\ref{lem:isoFp}$, le sous-corps premier de $\K$ est isomoprhe à $\F_p$. 
+On peut donc identifier tout polynôme dans $\F_p[X]$ à un polynôme dans $\K[X]$. \newline
+
+Selon le lemme $\ref{lem:PdivPn}$, le polynôme $P$ divise $P_n(X) = X^{p^n} - X$ dans $F_p[X]$ donc dans $\K[X]$. 
+Or, toujours selon le théorème de Lagrange, comme $\card{\Ket} = p^n-1$, on a $\lambda^{p^n} = \lambda$ 
+pour tout $\lambda$ dans $\K$ donc  le polynôme $P_n$ est nul pour tout élément de $\K$, on peut donc écrire :
+\[ P_n(X) = \prod_{\lambda \in \K} (X - \lambda) . \]
+$P_n$ est scindé et à racines simples dans $\K[X]$, il en est de même pour $P$ qui divise $P_n$.
+Considérons maintenant l'application :
+\[ \begin{array}{c c c c}
+f : & \F_p[X] & \to & \K \\
+& Q & \mapsto & Q(\lambda) , 
+\end{array} \]
+avec $\lambda \in \K$ racine de $P$. $f$ est un morphisme d'anneaux et son noyau est donc un idéal de $\K[X]$.
+Comme l'anneau $\K[X]$ est principal (cf. théorème $\ref{thm:ideauxKx}$), il existe $Q \in \F_p[X]$ unitaire et tel que $\ker{f} = (Q)$.
+De plus, l'idéal $(P)$ est inclus dans $(Q)$, donc le polynôme $Q$ divise le polynôme unitaire irréductible $P$ dans $\F_p[X]$.
+Le cas $Q=1$ est exclu, car alors $\lambda$ est racine de tout polynôme de $\F_p[X]$ ce qui est absurde. 
+On conclut donc que $P=Q$ et, par suite, $\ker{f} = (P)$. La restriction de $f$ à $\F_{p^n}$ est donc une injection dans $\K$.
+Ces deux corps étant de même cardinalité (voir limaire), on conclut qu'ils sont isomorphes.
+\end{proof}
+
+\end{document}

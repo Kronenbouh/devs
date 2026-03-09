@@ -1,0 +1,296 @@
+\documentclass{article}
+
+\input{environment}
+
+\begin{document}
+
+Dans ce développement, $(E,d)$ est un espace métrique que l'on désignera simplement par $E$.	
+
+\begin{defn}[Complétude]
+On dit qu'une partie $K$ de $E$ est complète si toute suite de Cauchy d'éléments de $K$ converge dans $K$.
+\end{defn}
+
+\begin{defn}[Précompacité]
+On dit qu'une partie $K$ de $E$ est précompacte si, pour tout réel $r>0$, 
+$K$ peut être recouvert par un nombre fini de boules ouvertes de rayon $r$ et centrées en des éléments de $K$. 
+\end{defn}
+
+\begin{defn}[Compacité]
+On dit qu'une partie $K$ de $E$ est compacte si, de toute suite de points de $K$, on peut extraire une sous-suite qui converge dans $K$.
+\end{defn}
+
+\begin{lem}
+\label{lem:precomp}
+Toute partie compacte de $E$ est précompacte.
+\end{lem}
+
+\begin{proof}
+Supposons qu'il existe $r>0$ tel que $K$ ne puisse pas être recouvert par un nombre \textbf{fini} de boules ouvertes de rayon $r$.
+Prenons $u_0 \in K$, par hypothèse, il existe $u_1 \in K \setminus B(u_0,r)$.
+De proche en proche, on construit une suite $(u_n)_{\N}$ telle que
+\[ \forall n \geq 1, u_{n+1} \in K \setminus \bigcup_{k=0}^{n} B(u_k, r). \]
+Par compacité, on peut extraite le suite $(u_n)$ une suite $(u_n)_S$ convergente ($S$ est une partie infinie de $\N$). 
+En particulier, cette sous-suite est de Cauchy, donc il existe un rang $N \in S$ tel que :
+\[ \forall n \in S : n, m \geq N \Rightarrow d(u_n,u_m) < r \]
+ce qui est contradictoire, par construction.
+\end{proof}
+
+\begin{lem}
+Toute partie compacte de $E$ est fermée.
+\end{lem}
+
+\begin{proof}
+Soit $(u_n)_S$ une suite convergente de $K$, comme il existe une suite extraite de $(u_n)$ convergente dans $K$ 
+et qu'une suite extraite a même limite que sa suite parente, on en déduit que $(u_n)_S$ converge dans $K$.
+\end{proof}
+
+\begin{prop}
+Toute partie compacte de $E$ est séparable.
+\end{prop}
+
+\begin{proof}
+Soit $K$ une partie compacte de $E$, selon le lemme $\ref{lem:precomp}$, 
+il existe un recouvrement fini de $K$ par des boules de rayon $r>0$ arbitraire.
+On note 
+\[ \B=\{ B(u(n,k), 1/2^n) ; n \in \N, 1 \geq k \geq m_n \}, \]
+avec, pour $n \in \N$ fixé, les boules $B(u(n,k), 1/2^n)$ recouvrant l'ensemble $K$ ($m_n$ étant le nombre de ces boules pour le rayon $1/2^n$).
+$\B$ est dénombrable, comme réunion dénombrable d'ensembles finis, par suite 
+\[ U = \{ u(n,k) ; n \in \N, 1 \leq k \leq m_n \}  \subset K \]
+est un ensemble dénombrable d'éléments de $K$, il reste à montrer qu'il est partout dense dans $K$. Soit $\veps >0$ et $x \in K$, on peut toujours prendre $n \in \N$, tel que $1/2^n < \veps$, puis, par construction des recouvrements, on prend $k, 1 \leq k \leq m_n$ tel que 
+\[ x \in B(u(n,k), 1/2^n) . \]
+Ainsi, $d(x, u(n,k)) < 1/2^n < \veps$, et $K$ est bien séparable.
+\end{proof}
+
+\begin{lem}[Lebesgue]
+\label{lem:lebesg}
+Soient $K$ un compact de $E$ et $(O_i)_{i \in I}$ une famille d'ouverts de $E$ recouvrant $K$. Alors, il existe un réel $r>0$ tel que toute boule ouverte de centre $x \in K$ et de rayon $r$ soit contenue dans l'un des $O_i$.
+\end{lem}
+
+\begin{proof}
+Supposons que cette propriété soit fausse, alors :
+\[ (\forall r > 0) : (\exists x_r \in K ; \forall i \in I, B(x_r, r) \not \subset O_i). \]
+En particulier, en prenant pour $r$ les valeurs $1/2^n$ pour $n \in \N$, on construit une suite $(x_n)_{\N}$ d'éléments de $K$ vérifiant 
+\[ \forall n \in \N, \forall  i \in I, B(x_n, 1/2^n) \not \subset O_i). \]
+Par compacité de $K$, on peut extraire de cette suite une sous-suite de support $S \subset \N$ (S partie infinie) et convergente. Notons $x$ la limite de cette suite, par hypothèse, il existe $i \in I$ tel que $x \in O_i$ et, par suite, il existe $r >0$ tel que $B(x,r) \subset O_i$. Prenons $\veps \in ]0, r/2 [$, il existe un rang $N \in S$ tel que 
+\[ \forall n \in S : n \geq N \Rightarrow d(x_n,x) < \veps . \]
+Considérons maintenant $x' \in B(x_n, r/2)$, on a
+\[ d(x', x) \leq d(x', x_n) + d(x_n, x) < r \]
+donc $\forall n \in S : n \geq N \Rightarrow B(x_n, r/2) \subset O_i$. En prenant $n \in S, n \geq N$ tel que $1/2^n < r/2$ on arrive à une contradiction.
+\end{proof}
+
+\begin{lem}
+\label{lem:adhCauchy}
+Soit $(u_n)_S$ une suite de Cauchy de $E$. Si $(u_n)_S$ admet une valeur d'adhérence, alors $(u_n)_S$ est convergente.
+\end{lem}
+
+\begin{proof}
+Notons $u$ la valeur d'adhérence de cette suite et considérons $\veps >0$. Prenons $N \in S$ tel que 
+\[ \forall p, q \in S, p \geq N, q \geq N, d(u_p, u_q) < \veps/2 , \]
+Comme il existe $n_0 \in S, n_0 \geq N$ tel que $d(u_{n_0}, u) < \veps/2$ on conclut que 
+\[ \forall n \in S : n \geq n_0 \Rightarrow d(u_n, u) < \veps \]
+ce qui démontre la convergence de $(u_n)_S$ vers $u$.
+\end{proof}
+
+\begin{thm}
+Soit $K$ une partie non vide de $E$. Les propriétés suivantes sont équivalentes :
+\begin{enumerate}[label=(\roman*)]
+\item $K$ est compact ;
+\item de tout recouvrement de $K$ par des ouverts, on peut en extraire un sous-recouvrement fini (propriété de Borel Lebesgue) ;
+\item $K$ est précompact et complet.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+$(i) \Rightarrow (ii)$ Supposons que $K$ est compact et qu'il existe une famille $(O_i)_{i \in I}$ d'ouverts de $E$ telle que 
+\[ K \subset \bigcup_{i \in I} O_i . \]
+Selon le lemme $\ref{lem:lebesg}$, il existe un rayon $r>0$ tel que, 
+toute boule ouverte de centre $x \in K$ et de rayon $r$ soit contenue dans l'un des $O_i$. Or
+\[ \bigcup_{x \in K} B(x, r) \]
+forme un recouvrement trivial de $K$, par précompacité de $K$ on extrait de ce recouvrement un recouvrement fini noté 
+\[ \bigcup_{k=1}^n B(x_k, r), n \in \N . \]
+Comme chacune des boules du recouvrement appartient à un ouvert de la famille, on conclut aisément. \newline
+
+$(ii) \Rightarrow (iii)$ Pour $r>0$, on considère le recouvrement :
+\[ K \subset \bigcup_{x \in K} B(x,r) \]
+dont on extrait un sous-recouvrement fini, ce qui démontre la précompacité de $K$. 
+Supposons maintenant qu'il existe une suite $(u_n)_S$ de $K$ n'admettant pas de valeur d'adhérence. Alors
+\[ \forall x \in K, \exists \veps_x >0, \exists N_x \in S, \forall n \geq N_x, d(u_n, x) \geq \veps_x . \]
+Prenons le recouvrement 
+\[ K \subset \bigcup_{x \in K} B(x, \veps_x) \]
+dont on extrait un sous recouvrement fini. $n \geq 1$ étant le cardinal de ce recouvrement, on note
+ $x_1, \dots x_n \in K$ et $\veps_1, \dots,\veps_n \in ]0, \infty[$ les centres et rayons tels que 
+\[ K \subset \bigcup_{i =1}^n B(x_i, \veps_i) . \]
+Notons $N = \max \{ N_x, x \in \{x_1, \dots, x_n \} \}$, alors, pour $n \in S, n \geq N$, 
+le terme $u_n$ n'appartient pas à $\bigcup_{i =1}^n B(x_i, \veps_i)$, ce qui est contradictoire. 
+Donc, toute suite de $K$ admet une valeur d'adhérence. 
+On conclut en utilisant le lemme $\ref{lem:adhCauchy}$. \newline
+
+$(iii) \Rightarrow (i)$ Soit $(u_n)_S$ une suite de poins de $K$. Notons, pour $N \in \N$
+\[ A_N = \{u_n ; n \in S, n \geq N \} \text{ et } \mu_N = \inf \{ d(u_N, u_p) ; p \in S, p \geq N \} ,\]
+Supposons que $\mu_N >0$, on recouvre $K$ par un nombre fini de boules de rayon $\mu_N$, 
+alors au moins deux points de l'ensemble $A_N$ sont dans la même boule, ce qui est contradictoire. 
+Donc $\mu_N=0$. Autrement dit
+\[ \forall \veps > 0, \forall N \in \N, \exists p \geq N, \tq d(u_p, u_N) < \veps. \]
+On construit donc une suite extraite $(u_n)_T$ ($T \subset S$) telle que :
+\[ \forall N \in T, p \geq N, q \geq N  \Rightarrow d(u_p, u_q) < 1/2^{n+1} \]
+autrement dit une suite de Cauchy. Cette suite converge dans $K$ par complétude, $K$ est donc compact.
+
+\end{proof}
+
+\begin{thm}[Dini]
+\label{thm:Dini}
+Soient $K$ un compact de $E, (f_n)_{n \in \N}$ une suite croissante dans $\C^0(K, \R)$ (i.e. pour tout $x \in K$, la suite réelle $(f_n(x))_{n \in \N}$ est croissante) et $f \in \C^0(K, \R)$. La suite $(f_n)_{n \in \N}$ converge uniformément vers la fonction $f$ si, et seulement si, elle converge simplement vers $f$.
+\end{thm}
+
+\begin{proof}
+La condition nécessaire est évidente. Il suffit donc de démontrer la condition suffisante. \newline
+
+%Comme $K$ est compact, il vérifie la propriété de Borel-Lebesgue. Soit $\veps >0$, pour $x \in K$, notons $\alpha_x >0$ le réel tel que :
+%\[ y \in B(x, \alpha_x) \Rightarrow d(f(x), f(y)) < \veps/3.  \]
+%$\alpha_x$ existe par continuité de la fonction $f$ sur K. On extrait du recouvrement :
+%\[ K \subset \bigcup_{x \in K} B(x, \alpha_x) \]
+%un recouvrement fini. Notons $N \geq 1$ le cardinal du recouvrement, $x_1, \dots, x_N$ les centres des boules et $\alpha_1, \dots,  \alpha_N$ les rayons associés. Pour $x \in K$ quelconque, il existe $i \in \{1, \dots, N\} \tq x \in B(x_i, \alpha_i)$ et, par suite :
+%\[ d(f(x), f(x_i)) < \veps/3 . \]
+%Par convergence simple de la suite $(f_n)_{n \in \N}$, on a 
+%\[ \forall i \in \{1, \dots, N\}, \exists M_i \in \N, \forall n \in N : n \geq M_i \Rightarrow d(f_n(x_i),f(x_i)) < \veps/3 . \]
+%Notons $M = \max \{M_i, i \in \{1, \dots, N\} \}$, pour $n \geq M$ on a 
+%\[ \forall i \in \{1, \dots, N\},  d(f_n(x_i),f(x_i)) < \veps/3 . \] 
+%De plus, par croissance et convergence de la suite $(f_n)_{n \in \N}$, il existe $M' \in \N$ tel que 
+%\[ n \geq M' d(f(x), f_n(x)) < \veps/3 . \] 
+%Finalement, en notant $M''=max(M, M')$ 
+%\[ n \geq M'' \Rightarrow \forall x \in K, d(f(x), f_n(x)) < \veps, \]
+%ce qui démontre bien la convergence uniforme.
+
+Soit $\veps >0$, onsidérons les ensembles, 
+\[ O_{n, \veps} = \{x \in K ; f(x)-f_n(x) < \veps \} . \] 
+On remarque que, pour tout $n \in \N, O_{n, \veps}=(f-f_n)^{-1}(]-\infty, \veps[)$, 
+et comme les fonctions $f-f_n$ sont continues sur $K$ pour tout $n \in \N$, 
+on en déduit que les ensembles $O_{n, \veps}$ sont des ouverts.
+De plus, par convergence simple de la suite $(f_n)_{n \in \N}$ vers f, on a
+\[ K \subset \bigcup_{n \in \N} O_{n, \veps} . \]
+Par compacité de $K$, il existe $m \in \N$ tel que 
+\[ K \subset \bigcup_{i=1}^m O_{n_i, \veps} \text{ avec la suite des indices $(n_i)$ croissante,} \]
+et comme la suite $f_n$ est croissante, $\forall n \in \N, O_{n, \veps} \subset O_{n+1,\veps}$. Finalement 
+\[ K \subset O_{n_m, \veps} . \]
+On conclut donc que :
+\[ \exists n_m \in \N, \forall n \in \N : n \geq n_m \Rightarrow \forall x \in K, \abs{f(x)-f_n(x)} < \veps , \]
+ce qui démontre la convergence uniforme de la suite $(f_n)$.
+\end{proof}
+
+\begin{lem}
+\label{lem:Weier}
+La suite de fonctions polynomiales $(P_n)_{n \in \N}$, définie sur $[-1,1]$ par $P_0(x)=0$ et $P_{n+1}(x)=P_n(x) + \frac{x^2-P_n^2(x)}2$ converge uniformément sur $[-1,1]$ vers la fonction $x \mapsto \abs{x}$.
+\end{lem}
+
+\begin{proof}
+On commence par \mq 
+\[ \forall n \in \N : 0 \leq P_n(x) \leq P_{n+1}(x) \leq \abs{x} \]
+Comme $P_1(x)=x^2/2$, l'affirmation est vraie pour $n=0$. On va la supposer vraie pour $n \in \N$ quelconque. On a 
+\[ P_{n+2}(x) = P_{n+1}(x) + \dfrac{x^2 - P_{n+1}^2(x)}2 . \]
+Or, par croissance de la fonction $x \mapsto x^2$ sur $\Rp$, on a $0 \leq P_{n+1}^2(x) \leq x^2$ et donc 
+\[ P_{n+2}(x) - P_{n+1}(x) \geq 0 \qquad \text{et} \qquad P_{n+2}(x) \geq 0 . \]
+De plus, $\abs{x} - P_{n+2}(x) = (\abs{x} - \frac12 x^2) - ( P_{n+1}(x) - \frac12 P_{n+1}^2(x)$. 
+Par croissance de la fonction $x \mapsto x - \frac12 x^2$ sur [0,1] on conclut que 
+\[ \abs{x} - P_{n+2}(x) \geq 0 \text{~~car~} 0 \leq P_{n+1}(x) \leq \abs{x} \leq 1 . \]
+L'affirmation est donc vraie pour $n+1$, elle est donc vraie pour tout $n \in \N$. \newline
+
+On a donc montré que, pour tout $x \in [-1, 1]$, la suite $(P_n(x))_{n \in \N}$ était croissante et majorée, elle admet donc une limite l(x).
+Cette limite vérifie $l(x)=l(x)+\frac{x^2-l(x)^2}2$ soit $x^2-l(x)^2=0$ et donc $l(x)=\abs{x}$. 
+La suite de fonctions $(P_n)_{n \in \N}$ est croissante dans $\C^0([-1,1], \R)$ 
+et converge simplement vers la fonction continue $x \mapsto \abs{x}$ donc,
+d'après le théorème de Dini, elle converge uniforémement vers cette fonction.
+\end{proof}
+
+\begin{defn}[Algèbre]
+On appelle $\K$-algèbre un \Kev $\A$ muni d'une seconde loi interne (notée $\times$) vérifiant :
+\begin{enumerate}[label=(\roman*)]
+\item $(\A, +, \times)$ est un anneau ;
+\item $\forall (x,y) \in \A^2, \forall \lambda \in \K, \lambda \cdot (x \times y) = (\lambda \cdot x) \times y = x \times (\lambda \cdot y)$.
+\end{enumerate}
+Si de plus, $(\A, +, \times)$ est munie d'un élément neutre pour la loi $\times$, on parle d'algèbre unitaire.
+\end{defn}
+
+\begin{defn}[Algèbre normée]
+Soit $\A$ une $\K$-algèbre uniatire d'unité notée 1. Une norme $N$ sur $\A$ est dite sous-multiplicative si elle vérifie :
+\[ \forall (x,y) \in \A^2, N(xy) \leq N(x)N(y). \]
+Une algèbre normée est une algèbre munie d'une norme sous-multiplicative $N$ et telle $N(1)=1$. 
+Dans le cas où de plus l'espace normé $(\A, N)$ est complet, on parle d'algèbre de Banach.
+\end{defn}
+
+\begin{thm}[Stone-Weierstrass]
+Soit $K$ un compact contenant au moins deux points dans un espace métrique $E$ et 
+$\A$ une sous-algèbre de $\C^0(K, \R)$ qui contient les constantes et sépare les points de $K$
+dans le sens où pour tous $x \neq y$ dans $K$, il existe $f \in \A$ \tq $f(x) \neq f(y)$.
+Dans ce cas $\A$ est partout dense dans $(\C^0(K, \R), \norminf{.})$.
+\end{thm}
+
+\begin{proof}
+~
+\begin{enumerate}[start=1,label={\bfseries Etape~\arabic* :}, wide, labelwidth=!, labelindent=0pt]
+\item
+On va d'abord \mq, pour toute fonction $f \in \A$, la fonction $\abs{f}$ est dans l'adhérence de $\A$ (relativement à $\C^0(K, \R)$). 
+C'est clair pour la fonction nulle. 
+Si $f \neq 0$, la fonction $x \mapsto \frac{f}{\norminf{f}}$ est bien définie et à valeurs dans $[-1,1]$.
+On considère la suite de fonctions polynomiales $(P_n)_{n \in \N}$ définie dans le lemme $\ref{lem:Weier}$ et,
+pour $n \in \N$, on définit la fonction $g_n = P_n \left ( \frac{f}{\norminf{f}} \right )$. 
+La suite $(g_n)_{n \in \N}$ est une suite de $\A$ puisque $\A$ est une sous-algèbre de $\C^0(K, \R)$ qui contient les constantes.
+De plus, cette suite converge uniformément vers la fonction $g = \frac{\abs{f}}{\norminf{f}}$ car
+\[ \abs{g_n(x) - g(x)} = \abs*{ P_n \left ( \frac{f}{\norminf{f}} \right ) - \frac{\abs{f}}{\norminf{f}}} \leq 
+\sup_{t \in [-1;1]} (P_n(x) - \abs{x}) , \]
+car les fonctions $g_n, n \in \N$ et $g$ sont à valeurs dans $[-1,1]$ et
+\[ \forall \veps >0, \exists N \in \N ; \forall n \in \N : n \geq N \Rightarrow \sup_{t \in [-1;1]} (P_n(x) - \abs{x}) < \veps , \]
+toujours selon le lemme $\ref{lem:Weier}$. En d'autres termes, la suite de fonctions $g_n$ converge vers $g$ pour la norme infinie, 
+soit $g \in \bar A$ et, par suite, $f = \norminf{f} g \in \bar A$.
+\item
+Il en résulte que, pour toutes fonctions $f$ et $g$ dans $\A$, 
+les fonctions $\max(f,g)=\frac{f+g}2 + \frac{\abs{g-f}}{2}$ et $\min(f,g)=\frac{f+g}2 - \frac{\abs{g-f}}{2}$ appartiennent à $\bar \A$.
+On en déduit (par récurrence) que pour toute suite $(f_k)_{1 \leq k \leq n}$ de fonctions de $\A$, 
+les fonctions $\max_{1 \leq k \leq n} f_k$ et $\min_{1 \leq k \leq n} f_k$ sont dans $\bar \A$.
+\item
+On vérifie ensuite que pour deux points $x \neq y$ dans $K$ et pour deux réels quelconques $a$ et $b$,
+il existe une fonction $g \in \A$ telle que $g(x)=a$ et $g(y)=b$. 
+Par hypothèse, il existe $f \in \A \tq f(x) \neq f(y)$, on définit donc $g$ sur $K$ par :
+\[ g(z) = a\dfrac{f(z) - f(y)}{f(x) - f(y)} + b\dfrac{f(z) - f(x)}{f(y) - f(x)} . \]
+\item 
+On prend une fonction $f \in \C^0(K, \R)$ et $\veps >0$. 
+On va \mq il existe une fonction $g \in \bar A$ telle que $\norminf{f-g} < \veps$.
+Pour $x \in K$ donné et pour tout $y \neq x$ dans $K$, selon l'étape 3, il existe une fonction $g_y \in \A$ telle que
+$g_y(x)=f(x)$ et $g_y(y)=f(y)$. Pour chacun des $y$ considérés, on définit l'ensemble 
+\[ O_y = \ens{t \in K ; g_y(t) > f(t) - \veps } . \]
+Ces ensembles sont des ouverts de $E$ (comme préimages par une fonction continue d'ouverts de $\R$) 
+et ils contiennent les points $x$ et $y$. De plus 
+\[ K \subset \bigcup_{y \in K \setminus \ens{x}} O_y, \]
+par compacité de $K$, on peut donc extraire un sous-recouvrement fini de ce recouvrement que l'on note 
+\[ K \subset \bigcup_{1 \leq i \leq N} O_{y_i} , \]
+les points $y_i$ étant tous différents de $x$.
+Selon l'étape 2, la fonction $f_x = \max_{1 \leq i \leq N} g_{y_i}$ est dans $\bar A$ et elle vérifie $f_x(x)=f(x)$. De plus 
+\[ \forall t \in K, \exists i \in \ens{1, \dots, N} ; t \in O_{y_i} , \]
+et on a 
+\[ f_x(t) \geq g_{y_i}(t) > f(t) - \veps . \]
+Pour tout $x \in K$, l'ensemble 
+\[ \Omega_x = \ens{t \in K ; f_x(t) < f(t) + \veps } \] 
+est un ouvert de $E$ (toujours par continuité) qui contient x. Du recouvrement
+\[ K \subset \bigcup_{x \in K} \Omega_x \]
+on extrait un sous recouvrement fini 
+\[ K \subset \bigcup_{1 \leq i \leq M} \Omega_{x_i} . \]
+On définit ensuite la fonction $g = \min_{1 \leq i \leq M} f_{x_i}$ qui est dans $\bar A$ selon l'étape 2.
+Pour tout $t \in K$, il existe un entier $i$ compris entre 1 et $M$ et tel que $t \in \Omega_{x_i}$ et on a :
+\[ g(t) \leq f_{x_i}(t) < f(t) + \veps \]
+Comme de plus, $\forall t \in K, \forall i \in \ens{1, \dots, M}, f(t) - \veps < f_{x_i}$ on conclut que :
+\[ \forall t \in K :  f(t) - \veps < g(t) <  f(t) + \veps . \]
+Donc $\norminf{g-f} < \veps$, ce qui démontre que l'algèbre $\bar A$ est partout dense dans $(\C^0(K, \R), \norminf{.})$.
+Il en est donc de même pour l'algèbre $A$.
+\end{enumerate}
+\end{proof}
+
+\begin{coro}
+Toute fonction continue $f:[a,b] \to \R$ est limite uniforme sur $[a,b]$ d'une suite de fonctions polynomiales.
+\end{coro}
+
+\begin{proof}
+$[a,b]$ est un compact de $(\R, \abs{.}$ contenant au moins deux points.
+L'ensemble des fonctions polynomiales sur $[a,b]$ est bien une algèbre séparante.
+On applique directement le théorème précédent.
+\end{proof}
+
+\end{document}
