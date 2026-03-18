@@ -1,4 +1,12 @@
+% Format doc
+\documentclass[a4paper, 10pt]{extarticle}
+\usepackage[
+a4paper,
+margin=2cm,
+]{geometry}
+
 %Chargement des paquets
+\usepackage{fancyhdr}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -9,7 +17,7 @@
 \usepackage{enumerate}
 \usepackage{enumitem}
 \usepackage{mathabx}
-\usepackage{babel}[french]
+\usepackage[frenchb]{babel}
 
 %environment
 \input{environment}
@@ -139,3 +147,6 @@
 %Opitmisation des opérateurs de comparaison
 \DeclarePairedDelimiter\tio{o (}{)}
 \DeclarePairedDelimiter\gro{O (}{)}
+
+%Stats ftw
+\DeclareMathOperator{\var}{var}

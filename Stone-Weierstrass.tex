@@ -1,6 +1,9 @@
-\documentclass{article}
+\input{preamble}
 
-\input{environment}
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorème de Stone-Weierstrass}
+\fancyhead[R]{}
 
 \begin{document}
 
@@ -16,7 +19,8 @@ $K$ peut être recouvert par un nombre fini de boules ouvertes de rayon $r$ et c
 \end{defn}
 
 \begin{defn}[Compacité]
-On dit qu'une partie $K$ de $E$ est compacte si, de toute suite de points de $K$, on peut extraire une sous-suite qui converge dans $K$.
+On dit qu'une partie $K$ de $E$ est compacte si, de toute suite de points de $K$, on peut extraire une sous-suite qui converge 
+dans $K$.
 \end{defn}
 
 \begin{lem}
@@ -256,19 +260,19 @@ On prend une fonction $f \in \C^0(K, \R)$ et $\veps >0$.
 On va \mq il existe une fonction $g \in \bar A$ telle que $\norminf{f-g} < \veps$.
 Pour $x \in K$ donné et pour tout $y \neq x$ dans $K$, selon l'étape 3, il existe une fonction $g_y \in \A$ telle que
 $g_y(x)=f(x)$ et $g_y(y)=f(y)$. Pour chacun des $y$ considérés, on définit l'ensemble 
-\[ O_y = \ens{t \in K ; g_y(t) > f(t) - \veps } . \]
+\[ O_y = \set{t \in K ; g_y(t) > f(t) - \veps } . \]
 Ces ensembles sont des ouverts de $E$ (comme préimages par une fonction continue d'ouverts de $\R$) 
 et ils contiennent les points $x$ et $y$. De plus 
-\[ K \subset \bigcup_{y \in K \setminus \ens{x}} O_y, \]
+\[ K \subset \bigcup_{y \in K \setminus \set{x}} O_y, \]
 par compacité de $K$, on peut donc extraire un sous-recouvrement fini de ce recouvrement que l'on note 
 \[ K \subset \bigcup_{1 \leq i \leq N} O_{y_i} , \]
 les points $y_i$ étant tous différents de $x$.
 Selon l'étape 2, la fonction $f_x = \max_{1 \leq i \leq N} g_{y_i}$ est dans $\bar A$ et elle vérifie $f_x(x)=f(x)$. De plus 
-\[ \forall t \in K, \exists i \in \ens{1, \dots, N} ; t \in O_{y_i} , \]
+\[ \forall t \in K, \exists i \in \set{1, \dots, N} ; t \in O_{y_i} , \]
 et on a 
 \[ f_x(t) \geq g_{y_i}(t) > f(t) - \veps . \]
 Pour tout $x \in K$, l'ensemble 
-\[ \Omega_x = \ens{t \in K ; f_x(t) < f(t) + \veps } \] 
+\[ \Omega_x = \set{t \in K ; f_x(t) < f(t) + \veps } \] 
 est un ouvert de $E$ (toujours par continuité) qui contient x. Du recouvrement
 \[ K \subset \bigcup_{x \in K} \Omega_x \]
 on extrait un sous recouvrement fini 
@@ -276,7 +280,7 @@ on extrait un sous recouvrement fini
 On définit ensuite la fonction $g = \min_{1 \leq i \leq M} f_{x_i}$ qui est dans $\bar A$ selon l'étape 2.
 Pour tout $t \in K$, il existe un entier $i$ compris entre 1 et $M$ et tel que $t \in \Omega_{x_i}$ et on a :
 \[ g(t) \leq f_{x_i}(t) < f(t) + \veps \]
-Comme de plus, $\forall t \in K, \forall i \in \ens{1, \dots, M}, f(t) - \veps < f_{x_i}$ on conclut que :
+Comme de plus, $\forall t \in K, \forall i \in \set{1, \dots, M}, f(t) - \veps < f_{x_i}$ on conclut que :
 \[ \forall t \in K :  f(t) - \veps < g(t) <  f(t) + \veps . \]
 Donc $\norminf{g-f} < \veps$, ce qui démontre que l'algèbre $\bar A$ est partout dense dans $(\C^0(K, \R), \norminf{.})$.
 Il en est donc de même pour l'algèbre $A$.

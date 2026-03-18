@@ -1,0 +1,54 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorème du point fixe de Banach-Picard}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Analyse - Rombaldi - page 67
+
+\begin{lem}
+Soit $(E,d)$ un espace métrique et $f:E \to E$ une application $k$-contractante, $k \in [0,1[$, 
+alors $f$ est uniformément continue sur $E$.
+\end{lem}
+
+\begin{proof}
+Le cas $k=0$ est trivial car $f$ est la fonction nulle. 
+Sinon, soit $\veps > 0$, en prenant $\alpha = \veps / k$ on obtient :
+\[ \forall x, y \in E, d(x, y) \leq \alpha \Rightarrow d(f(x), f(y)) \leq k d(x,y) \leq \veps . \]
+\end{proof}
+
+\begin{thm}
+Soit $(E,d)$ un espace métrique complet et $f:E \to E$ une application $k$-contractante, $k \in [0,1[$. 
+Alors $f$ possède un unique point fixe $l$ dans $E$ et ce point fixe est la limite de toute orbite $(x_n)_\N$ suivant $f$. 
+De plus, une majoration de l'erreur d'approximation de $l$ par les $x_n$ est donnée par :
+\[ d(l, x_n) \leq \dfrac{k^n}{1-k} d(x_1, x_0) \text{ pour tout } n \in \N , \] 
+i.e. la convergence est géométrique.
+\end{thm}
+
+\begin{proof}
+Soit $(x_n)_\N$ un orbite selon $f$, i.e. :
+\[ x_0 \in E \et \forall n \in \N, x_{n+1} = f(x_n) . \]
+On vérifie facilement qu'un tel orbite est de Cauchy dans $E$.
+On démontre d'abord par récurrence que, pour tout $n \in \N$ :
+\[ d(x_{n+1}, x_n) \leq k^n d(x_1, x_0) . \]
+Cette proposition est vraie pour $n = 0$ et, si on la suppose vraie pour $n \in \N$ quelconque, 
+on conclut qu'elle est héréditaire car $f$ est $k$-contractante. \\
+
+Par suite, on peut écrire :
+\begin{align*}
+d(x_n, x_{n+p}) & \leq d(x_n, x_{n+1}) + \dots + d(x_{n+p-1}, x_{n+p}) \\ 
+& \leq k^n d(x_1, x_0) + \dots + k^{n+p-1} d(x_1, x_0) \\
+& \leq k^n d(x_1, x_0) \dfrac{1-k^p}{1-k} \qquad (*)
+\end{align*}
+
+Soit $d(x_n, x_{n+p}) \to 0$ pour $n \to \infty$ (car $k \in [0,1[$). Comme $E$ est complet, la suite $(x_n)_\N$ est convergente et, 
+comme $f$ est continue (car contractante), on a $f(l) = l$ avec $l$ la limite de $(x_n)_\N$.
+Supposons maintenant que $f$ admette un second point fixe, noté $l' \neq l$. On a alors $d(f(l), f(l')) = d(l,l') < d(l, l')$ ce qui est absurde.
+Enfin, la majoration de l'erreur peut être obtenue en faisant tendre $p \to \infty$ dans (*), soit :
+\[ d(x_n, l) \leq \dfrac{k^n}{1-k} d(x_1, x_0) \]
+
+\end{proof}
+\end{document}
