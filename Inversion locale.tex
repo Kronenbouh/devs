@@ -1,0 +1,228 @@
+\input{preamble}
+\renewcommand{\L}{\mathcal{L}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorème d'inversion locale}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Analyse - Gourdon - page 341 \newline
+
+\underline{Leçons :}
+\begin{itemize}
+\item 215 : Applications différentiables définies sur un ouvert de Rn. Exemples et applications.
+\item 214 : Théorème d’inversion locale, théorème des fonctions implicites. Illustrations en analyse et en géométrie.
+\end{itemize}
+\vspace{5pt}
+
+\underline{Introduction :} ce théorème repose sur une idée simple, on considère une fonction $f$ entre deux espaces vectoriels et on
+suppose que sa différentielle en un point est inversible. En d'autres termes, $f$ peut être localement approximée par un isomorphisme
+d'espaces vectoriels. On peut donc légitimement supposer que, au moins localement, $f$ est inversible.
+C'est ce que l'on démontre en imposant la continuité de la différentielle (ce qui permet de contrôler l'aspect local du résultat). 
+La bicontinuité de la différentielle permet d'obtenir une inverse locale continue.
+
+\begin{defn}
+Soient $E$ et $F$ deux \Rev, $U$ un ouvert de $E$ et $a \in U$. Une application $f:U \to F$ est dite différentiable au point $a$, s'il existe
+une application linéaire continue de $E$ dans $F, L \in \L_C(E,F)$, et telle que :
+\[ f(a+h) = f(a) + L(h) + o(\norm{h}) \text{ lorsque } h \to 0 . \]
+\end{defn}
+
+\begin{lem}
+Si une telle application linéaire existe, elle est unique. On l'appelle différentielle de $f$ en $a$ et on la note $df_a$.
+\end{lem}
+
+\begin{proof}
+Prenons deux telles applications linéaires notées $L$ et $L'$. On pose $u = L - L'$ et on veut montrer que $u=0$.
+On prend $s$ un vecteur de norme 1 dans $E$ et $V$ un voisinage de 0 dans $F$, on a $u \in o(\norm{h})$, donc on peut trouver
+$\alpha > 0$ tel que si $\norm{h} \leq \alpha$ alors $\dfrac{u(h)}{\norm{h}} \in V$. Or, par linéarité de $u$ :
+\[ u(s) = \dfrac{u(\alpha s)}{\alpha} = \dfrac{u(\alpha s)}{\norm{\alpha s}} \in V. \]
+Ainsi, $u(s)$ est dans tous les voisinages de $0$, donc $u(s) = 0$ par séparation de $F$. Autrement dit, $u$ est une application linéaire nulle
+sur toute la boule unité de $E$, elle est donc nulle sur tout $E$.
+\end{proof}
+
+\begin{nota}
+Dans la suite, pour $r>0$ on note $B_r$ la boule ouverte de centre 0 et de rayon $r$ et $\widebar{B_r}$ la boule fermée correspondante.
+$\L_C(E,F)$ est l'ensemble des applications linéaires continues de $E$ dans $F$. On norme ce \Rev par 
+\[ \normt{u} = \sup_{x \in B_1} \norm{u(x)} . \]
+\end{nota}
+
+\begin{defn}
+Si $f$ est différentiable en tout point de $U$, on dit que $f$ est différentiable sur $U$ et l'application :
+\[ \begin{array}{c c c c}
+df : & U & \to & \L_C(E,F) \\
+& a & \mapsto & df_a
+\end{array} \]
+est appelée application différentielle de $f$. Si $df$ est continue, on dit que $f$ est de classe $\C^1$ sur $U$.
+\end{defn}
+
+\begin{lem}
+\label{lem:inv}
+Soient $E$ un espace de Banach et $u \in \L_C(E)$ telle que $\normt{u} <1$. Alors $\id - u$ est inversible et son inverse est :
+\[ \sum_{n=0}^{\infty} u^n \in \L_C(E) . \]
+\end{lem}
+
+\begin{proof}
+Comme $\L_C(E)$ est une algèbre normée, on a $\forall n \in \N, \normt{u^n} \leq \normt{u}^n < 1$ donc la série $\sum u_n$ converge
+absolument. On vérifie ensuite le résultat par calcul :
+\[ (\id-u) \left ( \sum_{n=0}^{\infty} u^n \right ) = \sum_{n=0}^{\infty} u^n - \sum_{n=1}^{\infty} u^n = \id, \]
+et de même pour $\left ( \sum_{n=0}^{\infty} u^n \right ) (\id - u)$.
+\end{proof}
+
+\begin{thm}
+Soient $E$ et $F$ deux espaces de Banach, $U$ un ouvert de $E$ et $f:U \to F$ une application de classe $\C^1$.
+On suppose qu'il existe $a \in U$ tel que $df_a$ soit un isomorphisme bicontinu de $E$ sur $F$. 
+Alors il existe un voisinage ouvert $V$ de $a$ et un voisinage ouvert $W$ de $f(a)$ tels que :
+\begin{enumerate}[label=(\roman*)]
+\item la restriction $\restr{f}{V}$ de $f$ à $V$ est une bijection de $V$ sur $W$ ;
+\item l'application inverse $g:W \to V$ est continue ;
+\item $g$ est de classe $\C^1$ et, pour tout $x \in V, dg_{f(x)} = df_x^{-1}$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+On commence par simplifier le problème, on peut en effet toujours se ramener au cas $a=0, f(a)=0$ et $df_0 = \id$ (et donc $E=F$)
+en considérant l'application $x \mapsto df_a^{-1}(f(a+x) -f(a))$ définie sur $E$. \\
+Comme $f$ est de classe $\C^1$ sur $U$, on peut trouver $r>0$ tel que $\widebar{B_r} \subset U$ et, pour tout $x \in \widebar{B_r}$ :
+\[ \normt{df_x - df_0} = \normt{df_x - \id} \leq 1/2 . \]
+Pour $x \in \widebar{B_r}$, on peut écrire $df_x = \id - (\id - df_x)$ et comme $\normt{\id - df_x} < 1, df_x$ est inversible d'inverse 
+$df_x^{-1} = \sum_{n=0}^{\infty} (\id - df_x)^n$ (voir lemme $\ref{lem:inv}$) et de plus :
+\[ \normt{df_x} \leq \sum_{n=0}^{\infty} \normt{u}^n \leq \sum_{n=0}^{\infty} \dfrac12^n = 2 . \qquad (*) \]
+Autrement dit $df_x$ est un isomorphisme bicontinu.
+
+\begin{enumerate}[label=(\roman*)]
+
+\item 
+
+On veut montrer que $f$ admet localement une fonction inverse, pour cela on va démontrer que :
+\[ \forall y \in B_{r/2}, \exists ! x \in B_r \tq y=f(x). \]
+On fixe donc $y \in B_{r/2}$ et on considère la fonction $h : B_r \to E, x \mapsto y + x - f(x)$. 
+Le problème que l'on se pose revient à démontrer que $h$ admet un unique point fixe. 
+$h$ est de classe $\C^1$, et, pour tout $x \in B_r, \normt{dh_x} = \normt{\id - df_x} \leq 1/2$, 
+donc, d'après l'inégalité des accroissements finis :
+\[ \forall x, x' \in \widebar{B_r}, \norm{h(x)-h(x')} \leq \dfrac12 \norm{x-x'} . \qquad (**) \]
+En particulier, pour tout $x \in \widebar{B_r}, \norm{x-f(x)} = \norm{h(x) - h(0)} \leq \norm{x}/2$, donc :
+\[ \forall x \in \widebar{B_r}, \norm{h(x)} \leq \norm{y} + \norm{x-f(x)} \leq \norm{y} + \dfrac12 \norm{x} 
+	\leq \dfrac{r}2 +\dfrac{r}2 \leq r . \]
+Ainsi, $h$ est une fonction de $\widebar{B_r}$ dans $B_r \subset \widebar{B_r}$ et elle est $1/2$-contractante. 
+Donc, selon le théorème du point fixe de Banach-Picard, elle admet un unique point fixe $x \in B_r$. \\
+En résumé, nous avons montré que pour tout $y \in B_{r/2}$ il existe un unique $x \in B_r$ tel que $f(x)=y$. 
+Ainsi, $V = f^{-1}(B_{r/2}) \cap B_r$ est un ouvert qui contient $0$ (car $f$ est continue et $f(0)=0$). 
+En posant $W = B_{r/2}$, on a bien démontré que $\restr{f}{V}$ est une bijection de $V$ sur $W$.
+
+\item
+
+Notons $g: W \to V$ l'application inverse de $\restr{f}{V}$. On considère l'application $h$ du point précédent pour $y=0$, soit 
+$h : B_r \to E, x \mapsto x - f(x)$. On remarque que $x = f(x) + h(x)$ pour tout $x$ dans $B_r$. Ainsi :
+\[ \forall x, x' \in B_r, \norm{x-x'} \leq \norm{h(x)-h(x')} + \norm{f(x)-f(x')} \leq \dfrac12 \norm{x-x'} + \norm{f(x)-f(x')}, \]
+donc $\norm{x-x'} \leq 2\norm{f(x)-f(x')}$. On en déduit :
+\[ \forall y, y' \in W, \norm{g(y) - g(y')} \leq 2 \norm{f(g(y)) - f(g(y'))} = 2 \norm{y-y'} \qquad (***) \]
+autrement dit, $g$ est lipschitzienne, donc continue.
+
+\item
+
+On fixe $x \in V$ et on pose $y = f(x) \in W$. Soit $w$ tel que $y+w \in W$, et on note $v = g(y+w) - g(y)$.
+On a $\norm{v} \leq 2 \norm{w}$ d'après (***), et :
+\begin{align*}
+\delta(w) & = g(y+w) - g(y) - df_x^{-1}(w) \\
+& = v - df_x^{-1}(f(x+v)-f(x)) \\
+& = - df_x^{-1}(f(x+v)-f(x)-df_x(v)) 
+\end{align*}
+Or $\normt{df_x^{-1}} \leq 2$ d'après (*) donc :
+\[ \norm{\delta(w)} \leq 2 \norm{f(x+v)-f(x)-df_x(v)} = 2 \norm{v} \veps(v) , \]
+avec $\lim_{v \to 0} \veps(v) = 0$, et :
+\[ \norm{\delta(w)} \leq 4 \norm{w} \veps(g(y+w)-g(y)) = 4 \norm{w} \veps'(w) . \]
+Par continuité de la fonction $g$ en 0, on a $\lim_{w \to 0} \veps'(w) = 0$, donc $\norm{\delta(w)} = o(\norm{w})$.
+La fonction $g$ est donc différentiable en $y$ et $dg_y = df_x^{-1}$. \\
+Enfin, comme $f$ est de classe $\C^1$, que la fonction $g$ est continue et que la fonction $u \mapsto u^{-1}$ (définie sur $\L_C(E)$)
+est continue, l'application $y \mapsto dg_y = df_{g(y)}^{-1}$ est continue, donc $g$ est de classe $\C^1$.
+
+\end{enumerate}
+
+\end{proof}
+
+\section*{Annexe : inégalités des accroissements finis}
+
+\begin{thm}[cas $\R \to F$]
+Soient deux réels $a < b$ et deux fonctions $f : [a,b] \to F$ et $g : [a,b] \to \R$, toutes deux continues sur $[a,b]$ et dérivables sur
+$]a,b[$. Si :
+\[ \forall t \in ]a,b[, \quad \norm{f'(t)} \leq g'(t) \]
+alors :
+\[ \norm{f(b)-f(a)}\leq g(b) - g(a) . \]
+\end{thm}
+
+% preuve 1, vraiment pas fan (source wikiversité)
+
+%\begin{proof}
+%Pour $\veps > 0$ et $u \in ]a,b[$, on définit sur $[u,b]$ la fonction $h$ par :
+%\[ h(t) = \norm{f(t)-f(a)} - g(t) - \veps t . \]
+%Comme $h$ est continue, on note $c$ le point de $[u,b]$ pour lequel $h$ atteint son minimum. On va démontrer que $c=b$. \\
+%Sinon, l'intervalle $]c,b[$ est non vide, on peut donc trouver $t \in ]c,b[$ tel que :
+%\[ \norm*{\dfrac{f(t)-f(c)}{t-c}} - \dfrac{\veps}{2} < \norm{f'(c)} \leq g'(c)  < \dfrac{g(t)-g(c)}{t-c} > + \dfrac{\veps}{2} \]
+%soit :
+%\[ \norm{f(t)-f(c)} < g(t) - g(c) + \veps(t-c), \]
+%et donc :
+%\begin{align*} 
+%h(t) - h(c) & = \norm{f(t) - f(a)} - g(t) - \veps t - ( \norm{f(c) - f(a)} - g(c) - \veps c ) \\
+%& = \norm{f(t) - f(c) + f(c) - f(a)} - \norm{f(c) - f(a)} - g(t) + g(c) - \veps (t-c) \\
+%& \leq \norm{f(t) - f(c)} + \norm{f(c) - f(a)} - \norm{f(c) - f(a)} - g(t) + g(c) - \veps (t-c) \\
+%& < 0
+%\end{align*}
+%soit $h(t) < h(c)$, ce qui contredit le choix de $c$. Donc $c=b$, en particulier $h(b) \leq h(u)$ i.e. :
+%\[ \norm{f(b) - f(a)} \leq \norm{f(u) - f(a)} + g(b) - g(u) + \veps(b-u) . \]
+%On conclut en passant à la limite pour $\veps \to 0^{+}$ et $u \to a^{+}$.
+%\end{proof}
+
+% preuve 2 du Gourdon, plus longue et même idée mais ça fait moins parachuté
+
+\begin{proof}
+On suppose d'abord que $norm{f'(t)} < g'(t)$ sur $]a,b[$. Donc, pour tout $x \in ]a,b[$, on a :
+\[ \lim_{\substack{t \to x \\ t > x}} \norm*{\dfrac{f(t)-f(x)}{t-x}} - \dfrac{g(t)-g(x)}{t-x} < 0 , \]
+on peut donc trouver un intervalle de borne inférieure $x$ sur laquelle cette inégalité est vraie, soit :
+\[ \forall x \in ]a,b[, \exists y > x, \forall t \in ]x, y], \norm*{\dfrac{f(t)-f(x)}{t-x}} < \dfrac{g(t)-g(x)}{t-x} , \]
+avec égalité des numérateurs pour $t=x$ soit :
+\[ \forall x \in ]a,b[, \exists y > x, \forall t \in [x, y], \norm*{f(t)-f(x)} \leq g(t)-g(x) . \qquad (*) \]
+Considérons maintenant un compact $[c,d] \subset ]a,b[$ et montrons que :
+\[ \norm{f(d)-f(c)} \leq g(d)-g(c) . \qquad (**) \]
+Pour cela, on considère l'ensemble :
+\[ \Delta = \set{ z \in ]c,d], \forall t \in [c, z], \norm{f(t)-f(c)} \leq g(t) - g(c) } . \]
+$\Delta$ est non vide d'après (*), il admet donc une borne supérieure que l'on note $m$. 
+On veut montrer que $m=d$ ce qui prouvera que l'inégalité (**) est vraie.
+Comme $f$ et $g$ sont continues, on a $\norm{f(m)-f(c)} \leq g(m) - g(c)$. 
+Supposons que $m < d$, alors d'après (*) :
+\[ \exists \gamma \in ]m, d], \forall t \in [m, \gamma], \norm{f(t)-f(m)} \leq g(t) - g(m) , \]
+donc 
+\[ \forall t \in [m, \gamma], \norm{f(t)-f(c)} \leq \norm{f(t)-f(m)} + \norm{f(m)-f(c)} \leq g(t) - g(c) . \]
+Autrement dit, $\gamma \in \Delta$ ce qui est absurde car $\gamma > m = \sup{\Delta}$. \\
+On a donc prouvé l'inégalité (**), ce qui permet de déduire, en faisant tendre $c \to a$, $d \to b$, et
+en vertue de la continuité des fonctions $f$ et $g$ :
+\[ \norm{f(b)-f(a)}\leq g(b) - g(a) . \]
+
+On se ramène au cas général en définissant, pour $\veps >0$, la fonction $g_{\veps}$ par :
+\[ g_{\veps}(t) = g(t) + \veps t . \]
+On a bien $\norm{f'(t)} < g_{\veps}'(t)$ sur $]a,b[$ donc, d'après ce que l'on vient de démontrer :
+\[ \norm{f(b)-f(a)}\leq g(b) - g(a) + \veps (b-a) . \]
+On conclut en faisant tendre $\veps \to 0$.
+\end{proof}
+
+\begin{thm}[cas $E \to F$]
+Soit $f:U \to F$, où $E$ et $F$ sont deux e.v.n et $U$ un ouvert de $E$. 
+Soient $a,b \in U$ tels que le segment $[a,b]$ soit inclus dans $U$. 
+Si $f$ est continue sur $[a,b]$, différentiable en tout point de $]a,b[$ et s'il existe $M>0$ tel que $\normt{df_c} \leq M$ pour tout 
+$c \in ]a,b[$, alors :
+\[ \norm{f(b)-f(a)} \leq M \norm{b-a} . \]
+\end{thm}
+
+\begin{proof}
+La fonction $g : [0,1] \to F, t \mapsto f(a+t(b-a))$ est continue sur [0,1], dérivable sur ]0,1[ et :
+\[ \forall t \in ]0,1[, \quad g'(t) = df_{a+t(b-a)}(b-a) , \]
+autrement dit, $\norm{g'(t)} \leq M \norm{b-a}$ sur $]0,1[$. Donc, en appliquant le théorème dans le cas $\R \to F$, on conclut que :
+\[ \norm{g(1) - g(0)} = \norm{f(b)-f(a)} \leq M \norm{b-a} . \] 
+\end{proof}
+
+\begin{rmq}
+On peut étendre ce résultat à toute partie convexe de $U$, voir à tout étoilé de $U$ en fixant un point de référence.
+\end{rmq}
+
+\end{document}
