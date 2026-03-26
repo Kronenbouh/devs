@@ -128,6 +128,12 @@ margin=2cm,
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\labs{\bigl\lvert}{\bigr\rvert}
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\DeclarePairedDelimiterX{\normt}[1]
+	{\vvvert}
+	{\vvvert}
+	{\ifblank{#1}{\:\cdot\:}{#1}}
+	
 \DeclarePairedDelimiterXPP\normi[1]{}\lVert\rVert{_1}{\ifblank{#1}{\:\cdot\:}{#1}}
 \DeclarePairedDelimiterXPP\normd[1]{}\lVert\rVert{_2}{\ifblank{#1}{\:\cdot\:}{#1}}
 \DeclarePairedDelimiterXPP\normp[1]{}\lVert\rVert{_p}{\ifblank{#1}{\:\cdot\:}{#1}}

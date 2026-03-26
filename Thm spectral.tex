@@ -1,0 +1,200 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Grifone - Algèbre linéaire - page 252 puis page 286 
+
+\section{Cas euclidien}
+
+Dans cette section $E$ est un espace euclidien (de dimension $n \geq 1$) muni d'un produit scalaire dénoté par $\angl{.}$.
+
+\begin{defn}[Endomorphisme autoadjoint]
+Un endomorphisme $f$ de $E$ est dit autoadjoint si :
+\[ \forall x,y \in E, \angl{f(x), y} = \angl{x, f(y)} . \]
+\end{defn}
+
+\begin{lem}
+\label{lem:1}
+Un endomorphisme est autoadjoint si, et seulement si, sa matrice dans une base orthonormée est symétrique.
+\end{lem}
+
+\begin{proof}
+Soit $f$ un endomorphisme autoadjoint, notons $A$ sa matrice dans une base orthonormée de $E$. 
+Dans cette même base, on a :
+\[ \forall X, Y \in M_{n,1}(\R), \quad (AX)^T Y = X^T (AY) , \]
+soit :
+\[ \forall X, Y \in M_{n,1}(\R), \quad X^TA^T Y = X^T AY , \]
+ce qui est équivalent à $A = A^T$. 
+La réciproque est évidente. 
+\end{proof}
+
+\begin{thm}[Théorème spectral euclidien]
+Soit $f$ un endomorphisme autoadjoint d'un espace euclidien. Alors :
+\begin{enumerate}[label=(\roman*)]
+\item $f$ est diagonalisable ;
+\item les sous espaces propres de $f$ sont deux à deux orthogonaux. En particulier, on peut construire une base orthonormée 
+de vecteurs propres en choisissant une base orthonormée dans chaque espace propre.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+
+\item
+On muni $E$ d'une base orthonormée, et on note $A$ la matrice de $f$ dans cette base. 
+On montre d'abord que le polynôme caractéristique $P_f$ de $f$ est scindé, c'est-à-dire que toutes ses valeurs propres sont réelles.
+Le corps $\Cx$ étant algébriquement clos, $P_f$ admet au moins une racine complexe que l'on note $\lambda$.
+On veut montrer que $\lambda \in \R$. 
+Soit $x$ un vecteur propre associé à $\lambda$ et $X$ sa matrice colonne (à coefficients éventuellements complexes) dans la base
+choisie. Comme $A$ est symétrique, on a :
+\[ (AX)^T \widebar{X} = X^T A \widebar{X} . \]
+D'autre part, $AX = \lambda X$ donc $\widebar{AX} = \widebar{A} \widebar{X} = \widebar{\lambda} \widebar{X}$, 
+et, comme $A$ est réelle :
+\[ (\lambda X)^T \widebar{X} = X^T \widebar{\lambda} \widebar{X}, \]
+autrement dit :
+\[ \lambda (\abs{x_1}^2 + \dots + \abs{x_n}^2) = \widebar{\lambda} (\abs{x_1}^2 + \dots + \abs{x_n}^2) , \]
+et donc $\lambda =  \widebar{\lambda}$ puisque $v \neq 0$. Les valeurs propres de $f$ sont donc toutes réelles 
+(et par conséquence, les vecteurs propres sont à coefficients réels dans la base orthonormée).
+
+\item
+On va montrer, par récurrence sur la dimension $n$ de $E$, qu'il existe une base de $E$ formées de vecteurs propres de $f$. \\
+Pour $n=1$, la propriété est trivialement vraie.
+Supposons la vraie pour $n-1 \geq 1$ quelconque et montrons qu'elle reste vraie au rang $n$. 
+Soit $\lambda$ une valeur propre de $f$ et $v$ un vecteur propre correspondant. 
+On pose $H = \vect(v)^{\perp}$, on remarque que $\dim{H} = n-1$ (car $H$ est le noyau de la forme linéaire $x \mapsto\angl{x,v}$). \\
+De plus, $H$ est stable par $f$, en effet si $x \in H$, alors :
+\[ \angl{f(x), v} = \angl{x, f(v)} = \lambda \angl{x, v} = 0 . \]
+Ainsi, la restriction de $f$ à $H$ est un endomorphisme de $H$. \\
+Par ailleurs, $\restr{f}{H}$ est un endomorphisme autoadjoint de $H$ (pour la restriction du produit scalaire à $H$), en effet :
+\[ \angl{\restr{f}{H}(x), y}_H = \angl{f(x) , y} = \angl{x, f(y)} = \angl{x, \restr{f}{H}(y)}_H \quad \forall x, y \in H  ,\]
+(il s'agit d'un simple jeu d'écriture). Or, $\dim{H} = n-1$, donc, d'après l'hypothèse de récurrence, il existe une base $\B$ formée
+des vecteurs propres de $\restr{f}{H}$. Comme $E = H \oplus \set{x}$, 
+la base $\B \cup \set{x}$ est bien une base de $E$ formée des vecteurs propres de $f$. 
+Ainsi, la propriété est héréditaire, donc vraie pour tout $n \geq 1$. \\
+Ce qui permet d'affirmer que $f$ est diagonalisable.
+
+\item
+Enfin, on va démontrer que les sous-espaces propres de $f$ sont deux à deux orthogonaux. 
+Soient $\lambda_1$ et $\lambda_2$ deux valeurs propres distinctes de $f$ et $v_1, v_2$ les vecteurs propres correspondants.
+Il s'agit de montrer que $\angl{v_1, v_2} = 0$. On a :
+\[ \angl{f(v_1), v_2} = \lambda_1 \angl{v_1, v_2} \et \angl{v_1, f(v_2)} = \lambda_2 \angl{v_1, v_2} . \]
+Or $f$ est autoadjoint, donc $(\lambda_1 - \lambda_2) \angl{v_1 , v_2} = 0$ 
+soit $\angl{v_1 , v_2} = 0$, puisque $\lambda_1 \neq \lambda_2$.
+
+\end{enumerate}
+\end{proof}
+
+D'après le lemme $\ref{lem:1}$ on peut donner une formulation matricielle de ce théorème :
+
+\begin{thm}
+Toute matrice symétrique réelle est diagonalisable dans $\R$ et ses sous-espaces propres sont deux à deux orthogonaux pour le 
+produit scalaire canonique de $\R^n$.
+\end{thm}
+
+\section{Cas hermitien}
+
+\begin{nota}
+Dans cette section $E$ est un espace hermitien (de dimension $n \geq 1$) muni d'un produit scalaire dénoté par $\angl{.,.}$. \\
+Pour $f$ un endomorphisme de $E$, $f^{\ast}$ désigne l'endomorphisme adjoint de $f$. \\
+Pour $A \in M_n(\C), A^{\ast}$ désigne la matrice transconjugée de $A$.
+\end{nota}
+
+\begin{defn}[Endomorphisme normal]
+Un endomorphisme $f$ d'un espace hermitien est dit normal si :
+\[ f^{\ast} \circ f = f \circ f^{\ast} . \]
+\end{defn}
+
+\begin{rmq}
+De façon équivalente, une matrice $A \in M_n(\C)$ est dite normale si :
+\[ A^{\ast} A = A A^{\ast} . \]
+Les matrices normales sont les matrices qui représentent les endomorphismes normaux dans une base orthonormée.
+\end{rmq}
+
+\begin{lem}
+\label{lem:2}
+Un endomorphisme $f$ est normal si, et seulement si :
+\[ \forall x, y \in E, \quad \angl{ f(x), f(y) } = \angl{ f^{\ast}(x), f^{\ast}(y) } . \] 
+\end{lem}
+
+\begin{proof}
+Simple jeu d'écriture, par exemple pour la condition nécessaire, soient $x, y \in E$.
+\begin{align*}
+\angl{ f(x), f(y) } & = \angl{ x, f^{\ast} \circ f(y) } \\
+& = \angl{ x, f \circ f^{\ast}(y) } \\
+& = \angl{ f^{\ast}(x),  f^{\ast}(y) } .
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Soit $f$ un endomorphisme normal d'un espace hermitien. Alors :
+\begin{enumerate}[label=(\roman*)]
+\item $f$ est diagonalisable ;
+\item les sous espaces propres de $f$ sont deux à deux orthogonaux. En particulier, on peut construire une base orthonormée 
+de vecteurs propres en choisissant une base orthonormée dans chaque espace propre.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+On démontre ce résultat par récurrence sur la dimension $n$ de $E$. \\
+Il est clairement vrai pour $n=1$, on le suppose vrai jusqu'à l'ordre $n-1 \geq 1$ et on démontre qu'il reste vrai à l'ordre $n$.
+Soit $\lambda$ une valeur propre de $f$ et $E_{\lambda}$ le sous-espace propre corresondant, on peut écrire :
+\[ E = E_{\lambda} \oplus E_{\lambda}^{\perp} , \]
+avec $\dim{E_{\lambda}^{\perp}} \geq n-1$. On procède comme dans le cas euclidien.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+On veut montrer que $E_{\lambda}^{\perp}$ est stable par $f$. On note d'abord que $E_{\lambda}$ est stable par $f^{\ast}$.
+En effet, pour $x \in E_{\lambda}$, on a :
+\[ f \circ f^{\ast} (x) = f^{\ast} \circ f (x) = \lambda f^{\ast} (x) . \]
+Prenons maintenant $y \in E_{\lambda}^{\perp}$, alors pour tout $x \in E_{\lambda}$ :
+\[ \angl{ f(y) , x } = \angl{ y , f^{\ast}(x) } = 0 , \]
+par stabilité de $E_{\lambda}$ par $f^{\ast}$. Ce qui revient à dire que $f(y) \in E_{\lambda}^{\perp}$.
+
+\item
+On veut ensuite montrer que la restriction de $f$ à $E_{\lambda}^{\perp}$ est un endomorphisme normal.
+On note d'abord que $E_{\lambda}^{\perp}$ est stable par $f^{\ast}$. 
+En effet, pour $y \in E_{\lambda}^{\perp}$ fixé et pour tout  $x \in E_{\lambda}$ on a :
+\[ \angl{ y , f(x) } = \lambda \angl{ y, x} = 0 = \angl{ f^{\ast}(y), x} . \]
+En utilisant le lemme $\ref{lem:2}$ et la stabilité de $E_{\lambda}^{\perp}$ par $f$ et $f^{\ast}$ on peut écrire 
+$\forall x, y \in E_{\lambda}^{\perp}$ :
+\begin{align*}
+\angl{ \restr{f}{E_{\lambda}^{\perp}}(x) , \restr{f}{E_{\lambda}^{\perp}}(y)}_{E_{\lambda}^{\perp}} & = \angl{ f(x), f(y) } \\
+& = \angl{ f^{\ast}(x), f^{\ast}(y) } \\
+& =  \angl{ \restr{f}{E_{\lambda}^{\perp}}^{\ast}(x) , \restr{f}{E_{\lambda}^{\perp}}^{\ast}(y)}_{E_{\lambda}^{\perp}} ,
+\end{align*}
+autrement dit, toujours d'après le lemme $\ref{lem:2}$, $\restr{f}{E_{\lambda}^{\perp}}$ est normale.
+
+\item 
+On peut maintenant conclure. La propriété est vraie (par hypothèse) pour $\restr{f}{E_{\lambda}^{\perp}}$, qui est donc diagonalisable
+et dont les sous-espaces propres sont deux à deux orthogonaux. 
+$E = E_{\lambda} \oplus E_{\lambda}^{\perp}$ la propriété est clairement vraie pour $f$, ce qui achève la récurrence.
+
+\end{enumerate}
+\end{proof}
+
+Un endomorphisme autoadjoint étant clairement normal, on en tire le corollaire suivant 
+
+\begin{coro}[Théorème spectral hermitien]
+Soit $f$ un endomorphisme autoadjoint d'un espace hermitien. Alors :
+\begin{enumerate}[label=(\roman*)]
+\item les valeurs propres de $f$ sont toutes réelles ;
+\item $f$ est diagonalisable ;
+\item les sous espaces propres de $f$ sont deux à deux orthogonaux. En particulier, on peut construire une base orthonormée 
+de vecteurs propres en choisissant une base orthonormée dans chaque espace propre.
+\end{enumerate}
+\end{coro}
+
+\begin{proof}
+Seul le point (i) est à démontrer (les deux autres sont conséquences du théorème précédent). Soit $\lambda$ une valeur propre de $f$
+et $v$ un vecteur propre associé, on a :
+\[ \angl{ f(v) ,v } = \widebar{\lambda} \norm{v} \et \angl{ f(v) ,v } = \angl{v, f(v)} = \lambda \norm{v} . \]
+Do'ù $\lambda \in \R$ (car $v$ non nul).
+\end{proof}
+
+\end{document}
