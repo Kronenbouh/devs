@@ -1,0 +1,135 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Matrice et déterminant de Gram}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Gourdon - Algèbre - page 274 et Grifone - Algèbre linéaire - page 268 (cas euclidien) \\
+
+\underline{Leçons possibles :} 
+\begin{itemize}
+\item 149 : déterminant. Exemples et applications.
+\item 157 : matrices symétriques réelles, matrices hermitiennes.
+\item 206 : exemples d'utilisation de la notion de dimension finie en analyse.
+\end{itemize}
+
+\begin{nota}
+Dans ce développement, $E$ est un espace préhilbertien (réel ou complexe), son produit scalaire (éventuellement hermitien) 
+est désigné par $\angl{ \cdot, \cdot}$. 
+Cet espace est muni de la norme $\norm{.}$ induite par son produit scalaire. \\
+Pour toute matrice $M$ à coefficients complexes, on note $M^{\ast}$ sa matrice transconjugée. 
+Une matrice égale à sa transconjugée est dite hermitienne.
+\end{nota}
+
+\begin{defn}[Matrice de Gram]
+Soient $x_1, \dots, x_n$ des vecteurs de $E, n \in \Ne$. 
+On appelle matrice de Gram de $x_1, \dots, x_n$ la matrice carrée dont le coefficient d'indice $(i,j)$ est $\angl{x_i, x_j}$. 
+Le déterminant de Gram est le déterminant de cette matrice.
+\end{defn}
+
+\begin{nota}
+Pour une famille $x_1, \dots, x_n$, on note usuellement $G(x_1, \dots, x_n)$ le déterminant de Gram associé.
+\end{nota}
+
+\begin{thm}
+Toute matrice de Gram est hermitienne positive. Réciproquement, toute matrice hermitienne positive est une matrice de Gram.
+De plus, la matrice de Gram de $n$ vecteurs $x_1, \dots, x_n$ est définie si, et seulement si, la famille de vecteurs est libre.
+\end{thm}
+
+\begin{proof}
+
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Soient $x_1, \dots, x_n$ des vecteurs de $E$ et $G$ leur matrice de Gram. Soit $F = \vect(x_1, \dots, x_n)$ et $m = \dim{F}$. 
+On fixe $\B$ une base orthonormée de $F$ (toujours possible en dimension finie), et on note $X_i$ le vecteur colonne des coordonnées
+de $x_i$ dans la base $\B$ et $M$ la matrice $(m \times n)$ dont les colonnes sont les $X_i$, de sorte que :
+\[ \angl{x_i , x_j} = X_i^{\ast} X_j \et G = M^{\ast}M . \]
+On en déduit que la matrice $G$ est hermitienne ($G^{\ast} = M ^{\ast} M^{\ast\ast} = M^{\ast} M = G$) et positive (pour tout vecteur 
+colonne $X$, on a $X^{\ast}GX = X^{\ast} M^{\ast} M X = (MX)^{\ast} MX = \norm{MX}$). 
+
+\item
+Réciproquement, si $A$ est une matricienne hermitienne positive, d'après le théorème spectral, il existe une matrice unitaire $U$
+telle que $D = U^{\ast} A U$ soit diagonale réelle. De plus, comme $A$ est positive, les coefficients de $D$ sont positifs 
+(pour s'en convaincre, on remarquera que le coefficient $i$ de $D$ est le résultat du produit $C_i^{\ast} A C_i$ où $C_i$ est la colonne
+$i$ de la matrice $U$). On peut donc écrire $D= (D')^2$ avec $D'$ une autre matrice diagonale à coefficients réels positifs, et donc :
+\[ A = (U D' U^{\ast} ) (U D' U^{\ast}) = B^2 = B^{\ast} B , \]
+car $B$ est une matrice hermitienne. Donc, si on désigne par $X_i$ les colonnes de la matrice $B$, le coefficient $(i,j)$ de $A$ est 
+\[ (X_i)^{\ast} X_j = \angl{x_i, x_j} \]
+et $A$ est une matrice de Gram. 
+
+\item
+On reprend les notations du point (a) pour étudier le cas défini, on note donc $G = M^{\ast}M$. 
+La matrice $G$ est définie si, et seulement $(\forall Y \in M_{n,1}(\Cx), Y^{\ast} G Y = 0 \Rightarrow X = 0)$ ce qui est aussi équivalent à
+$(\forall Y \in M_{n,1}(\Cx), \norm{M Y} = 0 \Rightarrow Y = 0)$ ce qui est une formulation matricielle de la liberté de la famille 
+$x_1, \dots, x_n$.
+
+\end{enumerate}
+\end{proof}
+
+L'intérêt des matrices de Gram est, que leurs déterminants permettent de calculer la distance d'un point à un s.e.v. en utilisant le 
+théorème suivant.
+
+\begin{thm}
+Soit $E$ un espace préhilbertien, $V$ un sous-espace de $E$ muni d'une base quelconque $(e_1, \dots, e_n)$. 
+Alors, la distance de $x$ à $V$ définie comme $d = \inf_{v \in V} \norm{x-v}$ vérifie :
+\[ d^2 = \dfrac{G(e_1, \dots, e_n, x)}{G(e_1, \dots, e_n)} . \]
+\end{thm}
+
+\begin{proof}
+On suppose acquis le fait que $d$ vérifie $d = \norm{x - p_V(x)}$ où $p_V(x)$ est la projection orthogonale de $x$ sur $V$. 
+On note $y = p_V(x)$ et on a :
+\[ \forall i \in \set{1, \dots, n}, \quad \angl{e_i, x } = \angl{e_i, y} \et \norm{x} = \norm{x-y} + \norm{y} , \]
+car $\angl{ x-y, y} = 0$. On en déduit que :
+\[ \left | \begin{array}{c | c}
+\begin{matrix}
+\angl{e_1, e_1} & \dots & \angl{e_1, e_n} \\
+\vdots & & \vdots \\
+\angl{e_n, e_1} & \dots & \angl{e_n, e_n}
+\end{matrix} & \begin{matrix} \angl{e_1, x} \\ \vdots \\ \angl{e_n, x} \end{matrix} \\
+\hline 
+\begin{matrix} \angl{x, e_1} & \dots & \angl{x, e_n} \end{matrix} & \angl{x, x}
+\end{array} \right | 
+= \left | \begin{array}{c | c}
+\begin{matrix}
+\angl{e_1, e_1} & \dots & \angl{e_1, e_n} \\
+\vdots & & \vdots \\
+\angl{e_n, e_1} & \dots & \angl{e_n, e_n}
+\end{matrix} & \begin{matrix} \angl{e_1, y} \\ \vdots \\ \angl{e_n, y} \end{matrix} \\
+\hline 
+\begin{matrix} \angl{y, e_1} & \dots & \angl{y, e_n} \end{matrix} & \angl{y,y} + d^2
+\end{array} \right | \]
+Soit, en utilisant la linéarité du déterminant par rapport à la dernière colonne :
+\[ G(e_1, \dots, e_n, x) =
+\left | \begin{array}{c | c}
+\begin{matrix}
+\angl{e_1, e_1} & \dots & \angl{e_1, e_n} \\
+\vdots & & \vdots \\
+\angl{e_n, e_1} & \dots & \angl{e_n, e_n}
+\end{matrix} & \begin{matrix} \angl{e_1, y} \\ \vdots \\ \angl{e_n, y} \end{matrix} \\
+\hline 
+\begin{matrix} \angl{y, e_1} & \dots & \angl{y, e_n} \end{matrix} & \angl{y,y}
+\end{array} \right |
++ \left | \begin{array}{c | c}
+\begin{matrix}
+\angl{e_1, e_1} & \dots & \angl{e_1, e_n} \\
+\vdots & & \vdots \\
+\angl{e_n, e_1} & \dots & \angl{e_n, e_n}
+\end{matrix} & \begin{matrix} 0 \\ \vdots \\ 0 \end{matrix} \\
+\hline 
+\begin{matrix} \angl{y, e_1} & \dots & \angl{y, e_n} \end{matrix} & d^2
+\end{array} \right | \]
+Or, le premier déterminant de cette somme est nul car $y \in \vect(e_1, \dots, e_n)$, d'où il vient :
+\[ G(e_1, \dots, e_n, x) = d^2 G(e_1, \dots, e_n) , \]
+en développant le second déterminant de la somme selon la dernière colonne.
+\end{proof}
+
+\begin{rmq}
+Il convient de noter que le premier théorème nous assure que $G(e_1, \dots, e_n)$ est non nul dans le second théorème 
+(car la famille de vecteurs est une base, en particulier, est libre).
+\end{rmq}
+
+\end{document}

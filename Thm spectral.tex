@@ -11,16 +11,16 @@
 
 \section{Cas euclidien}
 
-Dans cette section $E$ est un espace euclidien (de dimension $n \geq 1$) muni d'un produit scalaire dénoté par $\angl{.}$.
+Dans cette section $E$ est un espace euclidien (de dimension $n \geq 1$) muni d'un produit scalaire dénoté par $\angl{ \cdot, \cdot}$.
 
 \begin{defn}[Endomorphisme autoadjoint]
 Un endomorphisme $f$ de $E$ est dit autoadjoint si :
-\[ \forall x,y \in E, \angl{f(x), y} = \angl{x, f(y)} . \]
+\[ \forall x,y \in E, \quad \angl{f(x), y} = \angl{x, f(y)} . \]
 \end{defn}
 
 \begin{lem}
 \label{lem:1}
-Un endomorphisme est autoadjoint si, et seulement si, sa matrice dans une base orthonormée est symétrique.
+Un endomorphisme d'un espace euclidien est autoadjoint si, et seulement si, sa matrice dans une base orthonormée est symétrique.
 \end{lem}
 
 \begin{proof}
@@ -96,12 +96,20 @@ Toute matrice symétrique réelle est diagonalisable dans $\R$ et ses sous-espac
 produit scalaire canonique de $\R^n$.
 \end{thm}
 
+De plus, comme une matrice de passage d'une base orthonormée à une autre est une matrice orthogonale, on peut (encore) 
+reformuler ce théorème :
+
+\begin{thm}
+Si $A$ est une matrice symétrique réelle, alors il existe une matrice orthogonale $P$ telle que la matrice $P^T A P$ est diagonale.
+\end{thm}
+
 \section{Cas hermitien}
 
 \begin{nota}
 Dans cette section $E$ est un espace hermitien (de dimension $n \geq 1$) muni d'un produit scalaire dénoté par $\angl{.,.}$. \\
 Pour $f$ un endomorphisme de $E$, $f^{\ast}$ désigne l'endomorphisme adjoint de $f$. \\
-Pour $A \in M_n(\C), A^{\ast}$ désigne la matrice transconjugée de $A$.
+Pour $A \in M_n(\C), A^{\ast}$ désigne la matrice transconjugée de $A$. \\
+Dans un espace hermitien, l'analogue des matrices othogonales sont les matrices unitaires.
 \end{nota}
 
 \begin{defn}[Endomorphisme normal]
@@ -178,7 +186,7 @@ $E = E_{\lambda} \oplus E_{\lambda}^{\perp}$ la propriété est clairement vraie
 \end{enumerate}
 \end{proof}
 
-Un endomorphisme autoadjoint étant clairement normal, on en tire le corollaire suivant 
+Un endomorphisme autoadjoint étant clairement normal, on en tire le corollaire suivant.
 
 \begin{coro}[Théorème spectral hermitien]
 Soit $f$ un endomorphisme autoadjoint d'un espace hermitien. Alors :
@@ -196,5 +204,24 @@ et $v$ un vecteur propre associé, on a :
 \[ \angl{ f(v) ,v } = \widebar{\lambda} \norm{v} \et \angl{ f(v) ,v } = \angl{v, f(v)} = \lambda \norm{v} . \]
 Do'ù $\lambda \in \R$ (car $v$ non nul).
 \end{proof}
+
+Ou encore, en s'appuyant sur le lemme ci-dessous (analogue au lemme $\ref{lem:1}$ du cas euclidien les formulations matricielles.
+
+\begin{lem}
+Un endomorphisme d'un espace hermitien est autoadjoint si, et seulement si, sa matrice dans une base orthonormée est hermitienne.
+\end{lem}
+
+\begin{thm}
+Toute matrice hermitienne est diagonalisable dans $\R$ et ses sous-espaces propres sont deux à deux orthogonaux pour le 
+produit scalaire hermitien canonique de $\C^n$.
+\end{thm}
+
+\begin{thm}
+Si $A$ est une matrice hermitienne, alors il existe une matrice unitaire $U$ telle que la matrice $U^{\ast} A U$ est diagonale réelle.
+\end{thm}
+
+\begin{rmq}
+Dans un espace hermitien, les endomorphismes autoadjoints sont aussi appelés... endomorphismes hermitiens. 
+\end{rmq}
 
 \end{document}
