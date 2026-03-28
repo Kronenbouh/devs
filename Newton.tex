@@ -1,0 +1,72 @@
+\input{preamble}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead[C]{\textbf{La méthode de Newton}}
+
+\underline{Objectif :} recherche d'une racine d'une fonction $\C^2$ sur un compact. \\
+
+\underline{Heuristique :} la méthode de Newton consiste à prendre un point $x_0$ sur le graphe de la fonction $f$ 
+puis à remplacer la fonction par sa tangente en ce point, c'est-à-dire par le droite d'équation $y = f'(x_0)(x-x_0) + f(x_0)$.
+Si $f$ n'est pas localement constante, la tangente coupe l'axe des abscisses en un nouveau point $x_1 = x_0 + \dfrac{f(x_0)}{f'(x_0)}$ 
+ce qui permet, à priori, de créer une suite. \\
+Lorsque la fonction $f$ est strictement croissante, toutes ses tangents vont effectivement couper l'axe des abscisses ce qui permet de 
+définir effectivement une suite $(x_n)_\N$. \\
+Si de plus $f$ est strictement convexe (c'est-à-dire que son graphe est au-dessus de toutes ses tangentes), alors on peut garantir que 
+tous les points de la suite sont plus grand que $a$, et même, en conditionnant le choix de $x_0$ de garantir que la suite converge vers le
+zéro de la fonction. 
+
+\begin{thm}
+Soit $f:[c,d] \to \R$ une fonction de classe $\C^2$ ; on suppose que $c < d, f(c) < 0 < f(d)$ et f$'(x) >0$ pour tout $x \in [c,d]$.  \\
+On considère la suite $(x_n)$, définie sur $\N$ par :
+\[ x_0 \in [c,d] \et x_{n+1} = F(x_n), \text{ avec } F(x) = x - \dfrac{f(x)}{f'(x)} . \]
+Alors, $f$ admet un unique zéro sur $[c,d]$, que l'on note $a$, et :
+\begin{enumerate}[label=(\roman*)]
+\item il existe un intervalle $I$ centré en $a$, stable par $F$, et tel que, pour tout $x_0 \in I$, la suite $(x_n)_\N$ converge
+quadratiquement vers $a$.
+\item si de plus $f''(x)>0$ pour tout $x \in [c,d]$, alors pour tout $x_0 \in [a,d]$, la suite $(x_n)_\N$ est strictement décroissante 
+(ou constante) et converge quadratiquement vers $a$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+$f$ étant de classe $\C^2$ sur $[c,d]$, en particulier continue et strictement continue sur $[c,d]$, elle admet bien un zéro unique, $a$, 
+sur cet intervalle. 
+
+\begin{enumerate}[label=(\roman*)]
+
+\item En utilisant la formule de Taylor sur l'intervalle d'extrémités $x$ et $a$, 
+on montre qu'il existe $z$ dans l'intérieur de cet intervalle tel que :
+\begin{gather*}
+f(a) = f(x) + f'(x)(a-x) + \dfrac12 f''(z)(a-x)^2 = 0 \\
+\text{soit, } f'(x)(x-a) - f(x) = \dfrac12 f''(z)(x-a)^2
+\end{gather*}
+on en déduit que : 
+\begin{align*}
+F(x) - a & = (x-a) - \dfrac{f(x)}{f'(x)} \\
+ & = \dfrac{f'(x)(x-a) - f(x)}{f'(x)} \\
+ & = \dfrac12 \dfrac{f''(z)}{f'(x)}(x-a)^2 \qquad (*)
+\end{align*}
+
+La fonction $x \mapsto \dfrac12 \dfrac{f''(x)}{f'(x)}$ étant continue sur $[c,d]$ elle est bornée, notons $C$ sa borne (en valeur absolue), 
+on en déduit que :
+\[ \abs{F(x)-a} \leq C \abs{x-a}^2 \qquad (**) \]
+Ainsi, en prenant $\alpha > 0$ tel que $C \alpha < 1$ et $I = [a-\alpha ; a+\alpha] \subset [c,d]$, on obtient, pour tout $x \in I$ :
+\[ \abs{F(x) - a} < C\abs{x-a}^2 < C \alpha^2 < \alpha , \]
+ce qui démontre que l'intervalle $I$ est stable par $F$. 
+De plus, pour $x_0 \in I$, comme $x_{n+1} = F(x_n)$ on montre par récurrence que :
+\[ C \abs{x_n - a}  \leq  ( C \alpha)^{2n} , \]
+ce qui garantit la convergence quadratique car $C \alpha < 1$.
+
+\item Si de plus $f''>0$ sur $[c,d]$, on déduit de (*) que $\forall x \in [c,d], F(x) > a$.
+Par ailleurs, $F(x)-x = - \dfrac{f(x)}{f'(x)} \leq 0$ avec égalité si, et seulement si, $x=a$. 
+On en déduit que l'intervalle $[a,d]$ est stable par $F$ et que, si $x_0 = a$ alors la suite $(x_n)_\N$ est constante, égale à $a$, 
+sinon, pour $x_0 \in ]a,d]$, la suite est strictement décroissante. \\
+Ainsi, la suite converge sur $[a,d]$, et sa limite est un point fixe de $F$ sur cet intervalle soit $a$. \\
+De plus  l'inégalité (**) étant toujours valable, on en déduit que la convergence est bien quadratique.
+\end{enumerate}
+\end{proof}
+
+
+\end{document}
