@@ -1,0 +1,117 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorèmes de Riesz-Fisher}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Sources :} Rudin - Analyse - page 79 puis 82.
+
+$X$ est un espace mesuré de mesure $m$. Par convention, $0 \times \infty = 0$.
+
+\begin{thm}[inégalités de Hölder et Minkowski]
+Soient $p, q \in [1, \infty[$ vérifiant $\dfrac1{p} + \dfrac1{q} = 1$ et soient $f, g$ deux mesurables sur $X$ et à valeurs dans $[0, \infty]$.
+On a :
+\begin{align}
+\int_X fg dm \leq \left( \int_X f^p dm \right )^{1/p} \left( \int_X g^q dm \right )^{1/q}
+\end{align}
+et
+\begin{align}
+\left ( \int_X (f+g)^p dm \right )^{1/p} \leq \left( \int_X f^p dm \right )^{1/p} +  \left( \int_X g^p dm \right )^{1/^p}
+\end{align}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+
+\item
+On note $A$ et $B$ les deux facteurs du membre de droite de l'inégalité (1). Si $A=0$ alors $f$ est nulle presque partout, 
+et par suite $fg$  l'est aussi, et l'inégalité est vérifiée. Si $A>0$ et $B = \infty$, l'inégalité est aussi trivialement vraie. \\
+On suppose donc que $0 < A, B < \infty$ et on pose :
+\[ F = \dfrac{f}{A} \et G = \dfrac{g}{B} , \]
+autrement dit (et sans rigueur, car la notion de norme $p$ ou $q$ n'est pas encore démontrée), 
+on \og normalise \fg{} les fonctions $f$ et $g$.
+Ceci donne :
+\[ \int_X F^p dm = \int_X G^p dm = 1 . \]
+Pour $x \in X$ vérifiant $0 < F(x), G(x) < \infty$, il existe deux nombres réels $s, t$ tels que :
+\[ F(x) = e^{s/p} \et G(x) = e^{t/q} . \]
+La fonction exponentielle étant convexe sur $\Rp$, et comme $\dfrac1{p} + \dfrac1{q} = 1$, on a :
+\[ e^{\dfrac{s}{p} + \dfrac{t}{q}} \leq \dfrac1{p} e^s + \dfrac1{q} e^t . \]
+Autrement dit, pour tout $x \in X$ :
+\[ F(x)G(x) \leq \dfrac1{p} F(x)^p + \dfrac1{q} G(x)^q , \]
+d'où, en intégrant cette dernière inégalité, on obtient :
+\[ \int_X F(x)G(x) dm \leq \dfrac1{p} + \dfrac1{q} = 1 . \]
+Il ne reste plus qu'à remplacer $F$ et $G$ par leurs expressions et on conclut.
+
+\item
+Comme précédemment, l'inégalité est évidente si le membre de gauche est nulle, soit $f+g$ nulle presque partout.
+De même, l'inégalité est évidente si le membre de droite est infini. 
+On suppose donc qu'on n'est dans aucun de ces cas et on écrit :
+\[ (f+g)^p = f(f+g)^{p-1} + g(f+g)^{p-1} , \]
+puis, en appliquant deux fois l'inégalité de Hölder :
+\begin{align*}
+\int_X (f+g)^p dm & \leq \left [ \left( \int_X f^p dm \right )^{1/p} + \left( \int_X q^p dm \right )^{1/p} \right ] 
+ \left ( \int_X  (f+g)^{(p-1)q} \right )^{1/q} \\
+& \leq \left [ \left( \int_X f^p dm \right )^{1/p} + \left( \int_X g^p dm \right )^{1/p} \right ]  \left ( \int_X  (f+g)^p dm \right )^{1/q}  
+\end{align*}
+car $pq = p + q$. Ainsi, cette inégalité sera équivalente à (2) si $\int_X (f+g)^p dm \in ]0, \infty[$. 
+Or $f+g$ n'est pas nulle presque partout par hypothèse et, par convexité de la fonction $x \mapsto x^p$, on a 
+\[ \left(\dfrac{f+g}2 \right)^p \leq \left( \dfrac1{2} f \right )^p + \left( \dfrac1{2} g \right )^p , \]
+ce qui assure que l'intégrale est finie par hypothèse, donc :
+\[ \left ( \int_X (f+g)^p dm \right )^{1/p} \leq \left( \int_X f^p dm \right )^{1/p} + \left( \int_X g^p dm \right )^{1/p} \]
+car $1-1/q = 1/p$.
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+Pour $0< p < \infty$, et pour toute fonction mesurable à valeurs complexes définie sur $X$, on pose :
+\[ \normp{f} = \left ( \int_X \abs{f}^p dm \right )^{1/p} \]
+et on appelle $\Lp(m)$ l'ensemble de toutes les fonctions à valeurs complexes pour lesquelles :
+\[ \normp{f} < \infty . \]
+Pour $p = \infty$, la norme $\norminf{f}$ est définie comme la plus petite constante $C$ telle que $\abs{f} \leq C$ presque partout,
+et l'espace $\Linf$ est celui des fonctions essentiellement bornées.
+\end{defn}
+
+\begin{lem}
+Les espaces $\Lp(m)$ pour $1 \leq p \leq \infty$ sont des \Cev.
+\end{lem}
+
+\begin{thm}[Riesz-Fisher]
+Pour $1 \leq p \leq \infty$ et pour toute mesure positive $m$, $\Lp(m)$ est un espace métrique complet.
+\end{thm}
+
+\begin{proof}
+On suppose d'abord $1 \leq p < \infty$ et soit $(f_n)_{\Ne}$ une suite de Cauchy dans $\Lp$.
+Il existe une sous-suite $(f_{n_i})_{\Ne}, n_1 < n_2 < \dots$ telle que :
+\[ \forall i \geq 1, \quad \normp{f_{n_{i+1}} + f_{n_i}} < 2^{-i} . \]
+On pose :
+\[ g_k = \sum_{i=1}^k \abs*{f_{n_{i+1}} - f_{n_i}} \et g = \sum_{i=1}^{\infty} \abs{f_{n_{i+1}} - f_{n_i}} . \]
+D'après l'inégalité de Minkowski, on a $\normp{g_k} < 1$ pour $k \geq 1$, donc en appliquant le lemme de Fatou à la suite positive
+$(g_k^p)_{\Ne}$ on obtient :
+\[ \int_X \liminf g_k^p dm = \int_X g^p dm \leq 1 , \]
+de sorte que $\normp{g} \leq 1$. En particulier, $g(x) < \infty$, presque partout, de sorte que la série :
+\[ f_{n_1}(x) + \sum_{i=1}^{k-1} (f_{n_{i+1}}(x) - f_{n_i}(x)) , \]
+est absolument convergente pour presque tout $x \in E$. On appelle $f(x)$ sa limite lorsque $x$ est tel qu'elle converge, et posons
+$f(x)=0$ sur l'ensemble restant, qui est de mesure nulle. Puisque :
+\[ f_{n_1} + \sum_{i=1}^{k-1} (f_{n_{i+1}} - f_{n_i}) = f_{n_k} , \]
+on voit que :
+\[ f(x) = \lim_{i \to \infty} f_{n_i}(x) \pp . \]
+La fonction $f$ est donc limite simple presque partout de la suite extraite $(f_{n_i})_{\Ne}$, il reste à démontrer que cette fonction est la 
+limite de la suite $(f_n)_{\Ne}$ au sens de la norme $\normp{\cdot}$. \\
+Comme cette suite est de Cauchy, pour $\veps >0$, il existe un rang $N$ à partir duquel $\normp{f_{n+k}-f_n} < \veps$ 
+pour $n \geq N$ et $k \geq 0$. En appliquant le lemme de Fatou, on obtient :
+\[ \int_X \abs{f-f_n}^p dm = \int_X \liminf_k \abs{f_{n+k}-f_n}^p dm \leq \liminf_k \int_X \abs{f_{n+k}-f_n}^p dm \leq \veps^p . \]
+En particulier, cette inégalité démontre que $f \in \Lp(m)$ (car $f-f_n \in \Lp$ et $f = f-f_n + f_n$) 
+puis que $\normp{f-f_n} \to 0$ pour $n \to \infty$, ce qui achève la démonstration pour $1 \leq p < \infty$. \newline
+
+Pour $p=\infty$, on exhibe à nouveau une suite $(f_n)_{\Ne}$ de Cauchy dans $\Linf(m)$. 
+On note $A_k$ les ensembles (négligeables) sur lesquels $\abs{f_k(x)} > \norminf{f_k}$ 
+et $B_{n,m}$ les ensembles (eux aussi négligables) sur lesquels $\abs{f_n-f_m} > \norminf{f_n-f_m}$. 
+En notant $E$ la réunion de tous ces ensembles, on a $m(E) = 0$ et la suite $(f_n)_{\Ne}$ converge uniformément vers une fonction
+bornée $f$ sur le complémentaire de $E$ (chaque suite $(f_n(x))_{\Ne}$ est convergente par complétude de $\Cx$).
+On pose $f(x)=0$ sur $E$, clairement $f \in \Linf(m)$ et, par construction $\norminf{f_n - f} \to f$ quand $n \to \infty$.
+\end{proof}
+
+\end{document}

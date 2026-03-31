@@ -1,0 +1,119 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Lemme de Fatou et théorèmes de convergence}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rudin - Analyse - page 20 \newline
+
+\underline{Leçons :} 
+\begin{itemize}
+\item 234 : Fonctions et espaces de fonctions Lebesgue-intégrables.
+\item 235 : Problèmes d’interversion de symboles en analyse
+\item 239 : Fonctions définies par une intégrale dépendant d’un paramètre. Exemples et applications.
+\item 241 : Suites et séries de fonctions. Exemples et contre-exemples.
+\end{itemize}
+
+\begin{nota}
+Dans ce document, $(X, \T, m)$ est un espace mesuré.
+Pour toute application $f$ définie sur $X$, on note :
+\[ \set{f > a} = \set{x \in X ; f(x) > a} \et \set{f< b} = \set{x \in X ; f(x) < b} \]
+\end{nota}
+
+\begin{lem}
+Soit $f : X \to \Rb$, les assertions suivantes sont équivalentes :
+\begin{enumerate}[label=(\roman*)]
+\item $f$ est mesurable ;
+\item $\set{f > a} \in \T$ pour tout $a \in \R$ ;
+\item $\set{f < b} \in \T$ pour tout $b \in \R$ ;
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+On rappelle que la tribu borélienne de $\Rb$ est engendré par les intervalles de la forme $]a, \infty]$ ou par les intervalles de la forme
+$[-\infty, b[$. De plus, $\set{f > a} = f^{-1}(]a, \infty]$ et $\set{f < b} = f^{-1}([-\infty, b[)$.
+\end{proof}
+
+\begin{thm}[de convergence monotone]
+Soit $(f_n)_\N$ une suite de fonctions mesurables et positives sur $X$ et supposons que :
+\begin{enumerate}[label=(\roman*)]
+\item $\forall x \in X, \quad 0 \leq f_0(x) \leq f_1(x) \leq \dots \leq \infty$ ;
+\item $\forall x \in X, \quad f_n(x) \to f(x)$ pour $x \to \infty$ ;
+\end{enumerate}
+autrement dit, la suite $(f_n)_\N$ est croissante et converge simplement vers une fonction $f$.
+Alors $f$ est une fonction mesurable et :
+\[ \int_X f_n dm \to \int_X f dm \text{ pour } n \to \infty . \]
+\end{thm}
+
+\begin{proof}
+La suite de réels $\left( \int_X f_n dm \right)_\N$ est croissante, elle est donc convergente dans $[0, \infty]$. 
+On note $a$ sa limite. La fonction $f$ est mesurable comme limite simple d'une suite de fonctions mesurables.
+De plus, comme $f_n \leq f$, on sait que $\int_X f_n dm \leq \int_X f dm$ pour tout $n \in \N$ et, par passage à la limite :
+\[ a \leq \int_X f dm . \]
+Soit $s$ une fonction étagée mesurable telle que $0 \leq s \leq f$, et soit $c$ une constante $0<c<1$. On définit :
+\[ E_n = \set{x ; f_n(x) \geq cs(x) } \quad \forall n \in \N . \]
+Chaque ensemble $E_n = \{ f_n - cs \geq 0 \}$ est mesurable, $E_0 \subset E_1 \subset \dots$ et $X = \bigcup E_n$.
+En effet, si $x=0$ alors $x \in E_0$, sinon $f(x) >0, cs(x) < f(x)$ (car $c<1$) et par définition de la limite, il existe un rang à partir duquel
+$f_n(x) \geq cs(x)$, donc $x \in E_n$ pour au moins un rang $n$. Par conséquent :
+\[ \int_X f_n dm \geq \int_{E_n} f_n dm \geq c \int_{E_n} s dm \quad \forall n \in \N . \]
+L'application $E \mapsto \int_{E} s dm$ définit une mesure de $\T$ et, par $\sigma$-additivité :
+\[ \lim_{n \to \infty} \int_{E_n} s dm = \int_X s dm , \]
+et donc, par passage à la limite :
+\[ a \geq c \int_X s dm . \]
+Ceci étant vrai pour toute constante $c \in ]0,1[$ et pour toute fonction étagée mesurable telle que $0 \leq s \leq f$, on déduit :
+\[ a \geq \inf_X f dm . \]
+Finalement, $a = \inf_X f dm$, ce qui démontre le résultat.
+\end{proof}
+
+\begin{lem}[de Fatou]
+Soit $(f_n)_\N$ une suite de fonctions mesurables positives définies sur $X$. On a :
+\[ \int_X \liminf f_n dm \leq \liminf \int_X f_n dm . \] 
+\end{lem}
+
+\begin{proof}
+On définit :
+\[ g_k(x) = \inf_{i \geq k} f_i(x) \quad \forall k \geq 1 ; \forall x \in X , \]
+de sorte que :
+\[ \int_X g_k dm \leq \inf_{i \geq k} \int_X f_i dm \quad \forall k \geq 1 . \]
+Par ailleurs, la suite $(g_k)_\N$ est croissante et, la mesurabilité étant stable par passage à la borne inférieure, on peut appliquer 
+le théorème de convergence monotone à la suite $(g_k)_\N$, ce qui donne :
+\begin{align*}
+\int_X \liminf f_n dm & = \int_X \lim_{n \to \infty} g_n dm \\
+& = \lim_{n \to \infty} \int_X g_n dm \\
+& \leq \lim_{n \to \infty} \inf_{i \geq n} \int_X f_i dm \\
+& \leq \liminf \int_X f_n dm
+\end{align*}
+\end{proof}
+
+\begin{thm}[de convergence dominée]
+Soit $(f_n)_\N$ une suite de fonctions complexes mesurables sur $X$. On définit $f$ sur $X$ par :
+\[ f(x) = \lim_{n \to \infty} f_n(x) . \]
+On suppose qu'il existe une fonction $g$ d'intégrale finie et telle que :
+\[ \abs{f_n(x)} \leq g(x) \quad \forall n \geq 1 ; \forall x \in X , \]
+alors l'intégrale de $f$ est finie, et :
+\begin{align} \lim_{n \to \infty} \int_X \abs{f_n-f} dm = 0 , \end{align}
+ainsi que :
+\begin{align} \lim_{n \to \infty} \int_X f_n dm = \int_X f dm . \end{align}
+\end{thm}
+
+\begin{proof}
+Par passage à la limite, on a $\abs{f} \leq g$ sur $X$, donc l'intégrale de $f$ est finie.
+On remarque que $2g - \abs{f_n - f} \geq 0$, on applique le lemme de Fatou à cette suite :
+\begin{align*}
+\int_X 2g dm & = \int_X \liminf (2g - \abs{f_n - f}) dm \\
+& \leq \liminf \int_X (2g - \abs{f_n - f}) dm \\
+& \leq \int_X 2g dm + \liminf \left ( - \int_X \abs{f_n - f}) dm \right ) \\
+& \leq \int_X 2g dm - \limsup \int_X \abs{f_n - f} dm .
+\end{align*}
+Puisque $\int_X 2g dm$ a une valeur finie, on le retranche des deux membres de l'inégalité pour obtenir :
+\[ \limsup \int_X \abs{f_n - f}) dm \leq 0 , \]
+Ce qui implique nécessairement (1). 
+Par ailleurs, comme $\abs*{\int_X f dm} \leq \int_X \abs{f} dm$, l'inégalité (1) implique :
+\[ 0 \leq \lim_{n \to \infty} \abs*{ \int_X f_n dm - \int_X f dm} \leq 0 , \]
+ce qui implique (2).
+\end{proof}
+
+\end{document}
