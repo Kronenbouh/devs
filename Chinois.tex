@@ -1,0 +1,110 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorème des restes Chinois}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Sources :} Rombaldi - Algèbre - page 249. \newline
+
+\underline{Leçons :} 
+\begin{itemize}
+\item 120 : Anneaux Z/nZ. Applications.
+\item 122 : Anneaux principaux. Exemples et applications.
+\item 142 : PGCD et PPCM, algorithmes de calcul. Applications.
+\end{itemize}
+\vspace{10pt}
+
+Ce résultat date du IIIème siècle, il est d'abord formulé par le philosophe chinois Sun Zi (d'où le nom du théorème), 
+puis reprit par le mathématicien chinois Qin Jiushao sous cette forme :
+
+\begin{center}
+\textit{Soient des objets en nombre inconnu. Si on les range par 3 il en reste 2. Si on les range par 5, il en reste 3 et si on les range par 7, il en reste 2. Combien a-t-on d'objets ?}
+\end{center}
+
+On propose une généralisation de ce résultat dans un anneau principal, puis une application dans les anneaux quotients $\Z / n\Z$.
+
+\section{Le théorème}
+
+\begin{nota}
+Soit $A$ un anneau principal, et $(a_j)_{1 \leq j \leq r}$ une suite de $r \geq 2$ éléments non nuls et non inversibles de $A$. On note :
+\[ a = \prod_{j=1}^r a_j . \]
+Pour tout indice $j$, $\pi_j$ désigne la surjection canonique de $A$ sur l'anneau quotient $A / (a_j)$. \\
+On muni le produit cartésient $\prod_j A / (a_j)$ d'une structure d'anneau commutatif unitaire en posant :
+\[ \left \{ \begin{array}{c c c} 
+(\pi_1(x_1), \dots, \pi_r (x_r)) + (\pi_1(y_1), \dots, \pi_r (y_r)) & = & ( \pi_1(x_1+y_1), \dots, \pi_r(x_r+y_r) \\
+(\pi_1(x_1), \dots, \pi_r (x_r)) \cdot (\pi_1(y_1), \dots, \pi_r (y_r)) & = & ( \pi_1(x_1\cdot y_1), \dots, \pi_r(x_r \cdot y_r)
+\end{array} \right. \]
+(autrement dit, on définit l'addtion et la multiplication composante par composante). \\
+On note $\pi$ la surjection canonique de $A$ sur l'anneau quotient $A/ (a)$. \\
+Enfin, on désigne par $(b_j)_{1 \leq j \leq r}$ la suite d'éléments de $A$ définie par :
+\[ b_j = \dfrac{a}{a_j} = \prod_{i \neq j} a_i . \]
+\end{nota}
+
+\begin{lem}
+Si les éléments $a_j$ sont deux à deux premiers entre eux, alors les $b_i$ sont premiers entre eux dans leur ensemble.
+\end{lem}
+
+\begin{proof}
+Supposons que les $b_i$ ne soient pas premiers entre eux dans leur ensemble et exhibons $d$, 
+élément premier de $A$ et diviseur commun 
+des $b_i$ (ceci est possible dans un anneau principal, donc en particulier factoriel). 
+En particulier, comme $d$ divise $b_1$, par primalité il divise au moins un $a_j$ pour $j \geq 2$. 
+Mais comme $d$ divise aussi $b_j$, il va diviser deux éléments$a_j, a_{j'}$ distincts, ce qui contredit le fait que les $a_j$ sont 
+deux à deux premiers entre eux.
+\end{proof}
+
+\begin{thm}[des restes Chinois]
+On suppose les $a_j$ deux à deux premiers entre eux, alors l'application :
+\[ \varphi : x \in A \mapsto (\pi_1(x), \dots, \pi_r(x)) \in \prod_{j=1}^r A / (a_j) , \]
+est un morphisme d'anneau surjectif de noyau $\ker{\varphi} = \left ( \prod a_j \right )$, 
+et $\varphi$ induit un isomorphisme d'anneau :
+\[ \veps : \pi(x) \in A / \left ( \prod a_j \right ) \mapsto (\pi_1(x), \dots, \pi_r(x)) \in \prod_{j=1}^r A / (a_j) , \]
+Autrement dit, les anneaux $A / \prod a_j $ et $A / (a_1) \times \dots \times A / (a_r)$ sont isomorphes.
+De plus, l'inverse de $\veps$ est donné par :
+\[ \veps^{-1} : (\pi_1(x), \dots, \pi_r(x)) \in \prod_{j=1}^r A / (a_j) \mapsto 
+	\widebar{\sum_{i=1}^r x_i u_i b_i } \in A / \left ( \prod a_j \right ), \]
+où $(u_i)_{1 \leq i \leq r}$ est une suite d'éléments de $A$ telle que $\sum u_i b_i = 1$.
+\end{thm}
+
+\begin{proof}
+En reprenant les notations introduites en début de développement, il est clair que l'application $\varphi$ est un morphisme d'anneaux.
+Par ailleurs, un élément $x \in A$ est tel que $x \in \ker{\varphi}$ si, et seulement si, $\pi_j(x)=0$ pour tout $j$, ce qui équivaut à 
+$x \in (a_j)$ pour tout $j$, soit $x \in (\ppcm(a_j))$. 
+Comme les $a_j$ sont premiers entre eux, on a bien $\ker{\varphi} = \left ( \prod a_j \right )$. \\
+Comme les $b_i$ sont premiers entre eux dans leur ensemble, le théorème de Bézout nous permet d'affirmer qu'il existe une suite  
+$(u_i)_{1 \leq j \leq r}$ d'éléments de $A$ telle que $\sum u_i b_i = 1$. De plus, pour tour $1 \leq j \leq r$, si $i \neq j$ alors
+$\pi_j(b_i) = \pi_j(0)$ (car $b_i$ est multiple de $a_j$), ce qui donne :
+\[ 1 = \pi_j(1) = \pi_j \left( \sum_{i=1}^r u_i b_i \right) = \pi_j(u_j) \pi_j(b_j) , \]
+autrement dit, $\pi_j(b_j)$ est inversible dans $A / (a_j)$ et son inverse est $\pi_j(u_j)$. \\
+Ainsi, pour un $r$-uplet $(\pi_j(x_j))_j$ donné dans $\prod_j A / (a_j)$, en posant :
+\[ x = \sum_{i=1}^r x_i u_i b_i , \qquad (*) \]
+on a :
+\[ \pi_j (x) = \pi_j(x_j) \pi_j(u_j) \pi_j(b_j) = \pi_j(x_j) , \]
+ce qui démontre qe le morphisme $\varphi$ est surjectif. En quotientant $A$ par le noyau de $\varphi$, on obtient bien l'isomorphisme
+$\veps$ annoncé. En considéant la classe d'équivalence (dans $A / \left ( \prod a_j \right ) )$ de $x$ défini par (*), 
+on obtient bien la définition de la fonction inversé annoncée.
+\end{proof}
+
+\section{Application}
+
+On veut résoudre le problème historique de Sun Zi, ce qui revient à résoudre le système modulaire :
+\[ \left \{ \begin{array}{c} 
+x \equiv 2 \pmod 3 \\ 
+x \equiv 3 \pmod 5 \\ 
+x \equiv 2 \pmod 7
+\end{array} \right.  \]
+Selon notre théorème, les anneaux $\Z/3\Z, \Z/5\Z$ et $\Z/7\Z$ sont isomorphes à l'anneau $\Z/105\Z$. 
+De plus, résoudre le problème revient à trouver un inverse du triplet $(2,5,2)$.
+Les trois \og produits partiels \fg{} (les $b_i$) sont 15, 21 et 35. On cherche un triplet $(u_1,u_2,u_3)$ tel que :
+\[ 15x + 21y + 31z = 1 . \]
+Comme $\gcd(35,21)=7$ et $\gcd(7,15)=1$, on cherche d'abord $a,b$ tels que $35a + 21b = 7$ puis $r,s$ tels que $7r + 15s = 1$.
+On trouve :
+\[ 2 \times 35 - 4 \times 21 + 15 = 1 \quad \text{soit } \left \{ \begin{array}{c} u_1 = 2 \\ u_2 = -4 \\ u_3 = 1 \end{array} \right.  \]
+Il reste à calculer :
+\[ x = 2 \times 2 \times 35 + 3 \times (-4) \times 21 + 2 \times 15 = -82 \]
+Or $\widebar{-82} = 23$, donc le nombre d'objet est un élement de $\set{23 + 105 k ; k \in \N }$.
+
+\end{document}
