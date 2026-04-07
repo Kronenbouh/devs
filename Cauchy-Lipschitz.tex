@@ -1,0 +1,125 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rouvière - Calcul différentiel - page 170 \newline 
+
+\underline{Leçons :}
+\begin{itemize}
+
+\item 205 : Espaces complets. Exemples et applications.
+\item 220 : Illustrer par des exemples la théorie des équations différentielles ordinaires.
+\item 221 : Equations différentielles linéaires. Systèmes d’équations différentielles linéaires. Exemples et applications.
+
+\end{itemize}
+
+Soit $m \geq 1$ un entier, l'espace vectoriel $\R^m$ est muni d'une norme quelconque.
+
+\begin{thm}
+Soit $I$ un intervalle de $\R$ et $f : I \times R^m \to \R^m$ une application continue, supposée globalement lipschitzienne en $y$ au sens suivant : pour tout intervalle compact $K \subset I$, il existe $k >0$ tel que :
+\[ \forall t \in K,  \forall y, z \in \R^m, \quad \norm{f(t,y) - f(t,z)} \leq k \norm{y-z} . \]
+Alors, le système différentiel :
+\begin{equation} 
+y'(t) = f(t,y(t)) \et y(t_0)=x ,
+\end{equation}
+avec $t_0 \in I$ et $x \in \R^m$, admet une solution unique $t \mapsto y(t)$, définie sur $I$ tout entier.
+\end{thm}
+
+\begin{proof}
+On suppose tout d'abord $I$ compact, et on note $E$ l'espace des fonctions $t \mapsto y(t)$ continues de $I$ dans $\R^m$, 
+muni de la norme $\norminf{y} = \max_{t \in I} \norm{y(t)}$. Pour $y \in E$ et $t \in I$ on définit :
+\begin{equation}
+F(y)(t) = x + \int_{t_0}^t f(s,y(s))ds 
+\end{equation}
+\begin{enumerate}[label=(\roman*)]
+\item 
+Sous ces condtions, on montre que le système différentiel (1) est équivalent à $y \in E$ et $F(y)=y$. \\
+Si $y$ est solution de (1) alors $y$ est continue sur $I$ et à valeurs dans $\R^m$, donc est élément de $E$.
+De plus, pour $t \in I$, on a :
+\[ F(y)(t) = x + \int_{t_0}^t y'(s) ds = x + y(t) - y(t_0) = y(t) , \]
+soit $F(y) = y$ sur $I$. Réciproquement, si $y \in E$ vérifie (2) pour tout $t \in I$ alors :
+\[ \forall t \in I, \quad y'(t) = f(t, y(t)) , \]
+et en particulier, pour $t=t_0, y(t_0) = x$, donc $y$ est solution de (1) sur $I$.
+
+\item
+On note $l$ la longueur de l'intervalle $I$. On veut montrer que $F$ est lipschitzienne sur $E$ de rapport $kl$. \\
+Soit $y, z \in E$, et $t \in I$ on a :
+\begin{align*}
+\norm{F(y)(t) - F(z)(t)} & = \norm*{\int_{t_0}^t [ f(s, y(s)) - f(s, z(s)) ] ds} \\
+& \leq \abs*{\int_{t_0}^t \norm*{ f(s, y(s)) - f(s, z(s)) } ds } \qquad \text{la valeur absolue est nécessaire car on peut avoir } t \leq t_0 \\
+& \leq \abs*{\int_{t_0}^t k \norm{ y(s) - z(s) } ds } \\
+& \leq k \abs{t-t_0} \norminf{y-z}
+\end{align*}
+d'où on déduit immédiatement que $\norminf{F(y)-F(z)} \leq kl \norminf{y-z}$.
+
+\item
+On veut maintenant montrer que, pour tout entier $p \geq 1$, l'application itérée $F^p$ est lipschitzienne de rapport $(kl)^p/p!$. \\
+Pour cela, on va démontrer par récurrence sur $p$ le résultat suivant :
+\[ \forall y, z \in E, \forall t \in I, \quad \norm{F^p(y)(t) - F^p(z)(t)} \leq \dfrac{(k\abs{t-t_0})^p}{p!} \norminf{y-z} . \]
+Pour $p=1$, le résultat a déjà été démontré au point (ii). Supposons donc que le résultat est vrai pour $p \geq 1$ quelconque
+et on va montrer qu'il reste vrai au rang $p+1$. Soient $y, z \in E, t \in I$, on écrit :
+\begin{align*}
+\norm{ F^{p+1}(y)(t) - F^{p+1}(z)(t) } & = \norm{ F(F^p(y))(t) - F(F^p(z))(t) } \\
+& = \norm*{ \int_{t_0}^t [ f(s, F^p(y)(s)) - f(z, F^p(y)(z)) ] ds } \\
+& \leq \abs*{ \int_{t_0}^t \norm*{ f(s, F^p(y)(s)) - f(z, F^p(y)(z)) } ds } \\
+& \leq \abs*{ \int_{t_0}^t k \norm*{ F^p(y)(s) - F^p(y)(z) } ds } \\
+& \leq \dfrac{k^{p+1}}{p!} \norminf{y-z} \abs*{ \int_{t_0}^t k \abs{t-t_0}^p ds } \qquad \text{(hypothèse de récurrence)} \\
+& \leq \dfrac{(k\abs{t-t_0})^{p+1}}{(p+1)!} \norminf{y-z}
+\end{align*}
+Ainsi, le résultat est héréditaire, donc vrai pour tout entier $p \geq 1$. En passant à la norme infini, on conclut que :
+\[ \forall p \geq 1, \quad \norminf{ F^{p+1}(y) - F^{p+1}(z) } \leq \dfrac{(kl)^{p+1}}{(p+1)!} \norminf{y-z} . \]
+
+\item 
+On remarque que le rapport $(kl)^p/p!$ est le terme $p$ de la série entière $\sum_p (kl)^p/p!$ qui converge vers $e^{kl}$. 
+En particulier, la suite $((kl)^p/p!)_{p \geq 1}$ converge vers 0, il existe donc un rang $p$ pour lequel $(kl)^p/p! < 1$.
+Selon le théorème du point fixe de Picard, la fonction $F^p$ (pour un tel $p$) admet un unique point fixe $y \in E$.
+Or, $F(y) = F(F^p(y)) = F^p(F(y))$, donc $F(y)$ est aussi un point fixe de $F^p$, on conclut, par unicité, que $y$ est le point fixe de $F$.
+Selon (i), on conclut que le système différentiel (1) admet une unique solution $y \in E$.
+\end{enumerate}
+
+On suppose maintenant que $I$ n'est pas compact. On peut toujours se ramener au cas compact :
+\begin{itemize}
+\item si $I = ]a, b]$ avec $a$ fini, on note :
+\[ I = \bigcup_{n \in \N} [a + 1/n , b], \]
+avec chaque $K_n = [a + 1/n , b]$ compact ;
+\item si $I= ]-\infty, b]$, on note :
+\[ I = \bigcup_{n \in \N} [-n , b], \]
+avec chaque $K_n = [-n , b]$ compact.
+\end{itemize}
+(Et de même pour la borne supérieure de $I$). 
+On remarque que les $K_n$ forment, dans tous les cas, une suite croissante d'intervalles emboîtés 
+et, selon ce qu'on a montré précédemment, le système différentiel admet une unique solution $y_n$ sur chaque compact $K_n$.
+On définit la fonction $y$ sur $I$ par :
+\[ y(t) = \sum_{n \in \N} y_n(t) \ind_{K_n}(t) , \] 
+cette fonction est continue, bien définie et solution du système (1). \\
+Supposons maintenant qu'il existe une seconde solution $z$ du système différentiel (1), alors $z$ coïncide avec les $y_n$ sur chaque
+compact $K_n$ (par unicité) et est donc égale à $y$, d'où l'unicité.
+\end{proof}
+
+\begin{appl}[Equation du pendule]
+L'équation du pendule correspond au système différentiel ci-dessous :
+\begin{equation}
+u'' = - \sin(u) \quad , \quad u(0) = a \quad , \quad u'(0) = b . 
+\end{equation}
+Cette équation admet une solution unique définie sur $\R$ tout entier.
+\end{appl}
+
+\begin{proof}
+On se ramène à un système différentiel du premier ordre $y'=f(t,y)$ et $y(0)=x$ en posant :
+\[ y = \begin{pmatrix}y_1 \\ y_2 \end{pmatrix} = \begin{pmatrix} u \\ u' \end{pmatrix}, x = \begin{pmatrix}a \\ b \end{pmatrix}, 
+f \begin{pmatrix}y_1 \\ y_2 \end{pmatrix} = \begin{pmatrix}y_2 \\ -\sin{y_1} \end{pmatrix} . \]
+Pour $y, z \in \R^2$ muni de la norme $\normi{\cdot}$, on a :
+\begin{align*}
+\normi{f(y)-f(z)} & = \normi*{\begin{pmatrix} y_2-z_2 \\ \sin{z_1} - \sin{y_1} \end{pmatrix} } = \abs{y_2-z_2} + \abs{\sin{y_1} - \sin{z_1}} \\
+& \leq  \abs{y_2-z_2} +  \abs{y_1-z_1} = \normi{y-z} \qquad \text{(inégalité des accroissements finis)} . 
+\end{align*}
+Donc $f$ est globalement lipschitizienne en $y$, d'après le théorème précédent, 
+il existe une unique solution de (3) définie sur $\R$ tout entier.
+\end{proof}
+
+\end{document}
