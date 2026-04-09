@@ -1,0 +1,120 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Le premier théorème d'isomorphisme}
+\fancyhead[R]{}
+
+\newcommand{\Rg}{\mathcal{R}_g}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - page 4 \newline
+
+\underline{Leçon :} 103 : Conjugaison dans un groupe. Exemples de sous-groupes distingués et de groupes quotients. Applications. 
+
+\begin{nota}
+Soit $G$ un groupe noté multiplicativement et d'élément neutre $1_G$ le plus souvent noté simplement 1. 
+Pour une partie $H$ non vide de $G$ on note :
+\[ gH = \set{gh ; h \in H} \et Hg = \set{hg; h \in H}. \]
+On dit qu'un sous groupe $H$ de $G$ est distingué si on a $gH = Hg$ pout tout $g \in G$. 
+\end{nota}
+
+\begin{lem}
+Pour tout sous-groupe $H$ de $G$, la relation \og à gauche \fg{} notée $\Rg$ définie sur $G$ par 
+$g_1 \Rg g_2$ si, et seulement si, $g_1^{-1} g_2 \in H$ est une relation d'équivalence. 
+\end{lem}
+
+\begin{proof}
+\begin{itemize}
+\item 
+Il est clair que, pour tout $g \in G, g \Rg g$ car $1 \in H$, la relation est réflexive.
+\item
+Si, $g_1 \Rg g_2$, comme $H$ est un groupe, alors $(g_1^{-1} g_2)^{-1} = g_2^{-1} g_1 \in H$, la relation est symétrique.
+\item
+Si $g_1 \Rg g_2$ et $g_2 \Rg g_3$, comme $H$ est un groupe, alors $(g_1^{-1} g_2) ( g_2^{-1} g_3) = g_1^{-1} g_3 \in H$, 
+la relation est transitive.
+\end{itemize}
+\end{proof}
+
+\begin{nota}
+La relation $\Rg$ permet de définir des classes d'équivalence (dites \og à gauche \fg) modulo $H$. 
+Pour $g \in G$, on note $\overline{g}$ sa classe d'équivalence.
+\end{nota}
+
+\begin{lem}
+\label{lem:compat}
+Si $H$ est un sous groupe de $G$, la relation d'équivalence $\Rg$ associée à $H$ est compatible avec la loi de $G$ 
+si, et seulement si, $H$ est distingué.
+\end{lem}
+
+\begin{proof}
+Supposons $\Rg$ compatible avec la loi de $G$. Prenons $g \in G$ et $x \in gH$, on a donc $g^{-1} \Rg x$, soit, par compatibilité,
+$1 \Rg x g^{-1}$ et donc $x g^{-1} \in H \Rightarrow x \in Hg$. Autrement dit $gH \subset Hg$. 
+On démontre de même l'inclusion réciproque. \newline
+
+Supposons maintenant que $H$ est dinstingué.
+La relation $\Rg$ est trivialement compatible avec la loi de $G$ à gauche car :
+\[ \forall g, g', x \in G, \quad  (xg)^{-1} (xg') = g^{-1} x^{-1} x g' = g^{-1} g' , \]
+ainsi $g \Rg g' \Rightarrow xg \Rg xg'$. Pour la compatibilité à droite, on écrit :
+\[ (gx)^{-1} (g'x) = x^{-1} g^{-1} g' x , \]
+or, si $g \Rg g'$ alors $g^{-1} g' \in H$ et par suite $g^{-1} g' x \in Hg = gH$. 
+On peut donc exhiber $h \in H$ tel que $g^{-1} g' x = x h$ puis :
+\[ (gx)^{-1} (g'x) = x^{-1} x h  = h \in H , \]
+ce qui démontre la compatibilité à droite.
+\end{proof}
+
+\begin{lem}
+\label{lem:disting}
+Un sous groupe $H$ de $G$ est distingué si, et seulement si pour tout couple $(h,g) \in H \times G, g^{-1} h g \in H$.
+\end{lem}
+
+\begin{proof}
+Si $H$ est distingué, $gH = Hg$ pour tout $g \in G$, ainsi pour un couple $(h,g) \in H \times$ on a $gh = hg$ soit $g^{-1}hg = h \in H$.
+Réciproquement, si pour tout couple $(h,g) \in H \times G, g^{-1} h g \in H$, alors on peut écrire tout élement $hg \in Hg$ comme
+$gh' \in Gh$. De même, pour tout élément $gh \in gH$. On a donc $gH = Hg$.
+\end{proof}
+
+\begin{thm}[1er d'isomoprhisme]
+Un sous-groupe $H$ de $G$ est distingué si, et seulement si, il existe une unique structure de groupe sur l'ensemble quotient $G/H$
+des classes à gauche modulo $H$ telle que la surjection canonique $\pi_H :  G \to G/H$ soit un morphisme de groupes.
+\end{thm}
+
+\begin{proof}
+Supposons que $G/H$ est muni d'une structure de groupe telle que $\pi_H$ soit un morphisme de groupes. 
+Alors, pour tous $g, g' \in G$, on a :
+\[ \overline{g} \overline{g'} = \pi_H(g) \pi_H(g') = \pi_H(g g') = \overline{ g g'} , \]
+autrement dit, la loi de $G$ est compatible avec les classes d'équivalence, ce qui garantit l'unicité de la structure de groupe sur $G/H$.
+De plus, pour un couple $(g, h) \in G \times H$, on a alors :
+\[ \overline g^{-1} h g = \overline{g^{-1}} \overline{h} \overline{g} = \overline{g^{-1}} \overline{g} = 
+\overline{g^{-1} g} = \overline{1} = H , \]
+autrement dit, $g^{-1}hg \in H$ donc, d'après le lemme $\ref{lem:disting}, H$ est un sous-groupe distingué de $G$. \newline
+
+Réciproquement, supposons que $H$ est un sous-groupe distingué de $G$. 
+On a déjà vu dans la démonstration de la condition nécessaire que, si $G/H$ est muni d'une structure de groupe telle que 
+$\pi_H$ est un morphisme de groupe, alors la seule loi possible sur $G/H$ est telle que :
+\[ \forall \overline{g}, \overline(g') \in G/H, \quad \overline{g} \overline{g'} = \overline{ g g'} . \]
+Il reste à démontrer qu'une telle définition est possible, c'est-à-dire qu'elle ne dépend pas du choix des représentants de 
+$\overline{g}$ et $\overline{g'}$.
+Notons $g_1$ et $g'_1$ des élements de $G$ tels que $g_1 \Rg g$ et $g'_1 \Rg g'$. On veut montre que :
+\[ \overline{g g'} = \overline{g_1 g'_1} . \]
+Comme $H$ est dinstingué, selon le lemme $\ref{lem:compat}$, la loi de $G$ est compatible avec la relation d'équivalence donc :
+\[ gg' \R g_1 g' \et g_1 g' \Rg g_1 g'_1 \quad \text{ donc } \quad gg' \Rg g_1 g'_1 , \]
+autrement dit $\overline{gg'} = \overline{g_1 g'_1}$. \\
+Il reste à montrer que, muni de cette loi, $G/H$ est bien un groupe. 
+\begin{enumerate}[label=(\roman*)]
+\item Soient $\overline{g_1}, \overline{g_2}, \overline{g_3} \in G/H$, on a :
+\[ \overline{g_1} ( \overline{g_2} \overline{g_3} ) = \overline{g_1} \overline{g_2 g_3} = \overline{g_1 g_2 g_3}
+ = \overline{g_1 g_2} \overline{g_3} = (\overline{g_1} \overline{g_2}) \overline{g_3} , \]
+ donc la loi est associative. 
+\item Pour $\overline{g} \in G/H$, on a :
+\[ \overline{g} \overline{1} = \overline{g \cdot 1} = \overline{g} , \]
+et de même à gauche, donc $\overline{1}$ est l'élément neutre.
+\item Toujours pour $\overline{g} \in G/H$, on a :
+\[ \overline{g} \overline{g^{-1}} = \overline{g g^{-1}} = \overline{1}, \]
+donc tout élement de $G/H$ admet un inverse dans $G/H$.   
+\end{enumerate}
+Ainsi, $G/H$ est muni d'une structure de groupe et, par construction, $\pi_H$ est un morphisme de groupe.
+\end{proof}
+
+\end{document}

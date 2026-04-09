@@ -1,0 +1,119 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Réduction des isométries}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Algèbre - Gourdon - page 268 (ou voir Grifone, exercice 28 page 259) \newline
+
+\underline{Leçons :}
+\begin{itemize}
+\item 101 : Groupe opérant sur un ensemble. Exemples et applications.
+\item 106 : Groupe linéaire d’un espace vectoriel de dimension finie E, sous-groupes de GL(E). Applications.
+\item 161 : Espaces vectoriels et espaces affines euclidiens : distances, isométries.
+\end{itemize}
+
+\begin{nota}
+Par défaut, le produit scalaire (éventuellement hermitien) est dénoté par $\angl{\cdot, \cdot}$.
+\end{nota}
+
+\begin{lem}
+\label{lem:stab}
+Soit $E$ un espace euclidien (resp. hermitien) et $u$ une isométrie (resp. un endomorphisme unitaire). 
+Si $F$ est un s.e.v. de $E$ stable par $u$, alors $F^{\perp}$ est stable par $u$.
+\end{lem}
+
+\begin{proof}
+Soit $x \in F^{\perp}$ fixé, on veut montrer que, pour tout $y \in F, \angl{u(x), y} = 0$.
+Comme $F$ est stable par $u$ et que $\ker{u} = \set{0}$ on déduit que $F$ et $u(F)$ sont isomorphes.
+Ainsi, pour $y \in F$, on exhibe $x' \in F \tq y = u(x')$ puis on écrit :
+\[ \angl{u(x), y} = \angl{u(x), u(x')} = \angl{x, x'} = 0 . \] 
+Ce qui achève la démonstration. 
+\end{proof}
+
+\begin{thm}
+Soit $E$ un espace euclidien et $u$ une isométrie de $E$. Alors, il existe une base orthonormale $\B$ de $E$ 
+dans laquelle la matrice de $u$ a la forme par blocs :
+\begin{equation}
+M_{\B}(u) = \begin{pmatrix}
+R(\theta_1) & & & & & \\
+ & \ddots & & & 0 & \\
+ & & R(\theta_r) & & & \\
+ & & & \veps_1 & & \\
+ & 0 & & & \ddots & \\
+ & & & & & \veps_s
+\end{pmatrix}
+\end{equation}
+où, pour tout $j, \veps{j} \in \set{-1,1}$ et, pour tout i,
+\[ R(\theta_i) = \begin{pmatrix} \cos{\theta_i} & - \sin{\theta_i} \\ \sin{\theta_i} & \cos{\theta_i} \end{pmatrix} \in M_2(\R), \quad
+\text{avec} \quad \theta_i \in \R, \theta_i \not \equiv 0 \pmod \pi. \]
+\end{thm}
+
+\begin{proof}
+On procède par récurrence sur $n = \dim{E}$. Pour $n=1$, c'est évident. \\
+Supposons le résultat vrai jusqu'au rang $n-1 \geq 1$ quelconque et démontrons qu'il reste vrai au rang $n$. 
+On sépare la démonstration en deux cas.
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Si l'isométrie $u$ admet au moins une valeur propre $\lambda$ réelle, alors en exhibant $x$ un vecteur propre associée à $\lambda$
+on a :
+\[ \norm{u(x)} = \norm{x} = \norm{\lambda x} = \abs{\lambda} \norm{x} , \]
+et donc $\lambda \in \set{-1, 1}$.
+De plus, $F = \vect{x}$ est stable par $u$ donc, d'après le lemme $\ref{lem:stab}$, il en est de même pour $F^{\perp}$.
+Ainsi, $\restr{u}{F^{\perp}}$ est une isométrie de $F^{\perp}$, on peut donc lui appliquer l'hypothèse de récurrence et exhiber une base
+orthonormale $\B_0$ de $F^{\perp}$ dans laquelle la matrice de $\restr{u}{F^{\perp}}$ a la forme (1).
+La base $\B = \B_0 \cup \set{x/\norm{x}}$ est orthonormale et, dans cette base, la matrice de $u$ a aussi la forme attendue.
+
+\item 
+Si l'isométrie $u$ n'a aucune valeur propre réelle, on définit l'endomorphisme $v$ par $v=u+u^{\ast}$.
+Comme $u$ est autoadjoint, il est diagonalisable, en particulier toutes ses valeurs propres sont réelles c'est le théorème spectral).
+Notons $\lambda$ une telle valeur propre et $x$ un vecteur propre associé, on a donc $u(x) + u^{\ast}(x) = \lambda x$, soit :
+\begin{align*}
+u(u(x) + u^{\ast}(x)) & = u^2(x) + x \\
+& = \lambda u(x) ,
+\end{align*}
+autrement dit :
+\begin{equation}
+u^2(x) = \lambda u(x) -  x .
+\end{equation}
+Par ailleurs, la famille $(x, u(x))$ est libre puisque $u$ n'admet pas de valeur propre réelle. 
+On pose $F = \vect(x, u(x))$, $F$ est de dimension 2 et est stable par $u$ selon (2).
+Notons $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$ la matrice de l'isométrie $\restr{u}{F}$ dans une base orthonormale $\B_0$
+de F. Comme $A A^{T} = A^{T} A = I_n$ on déduit que :
+\[ \left \{ \begin{array}{c}
+a^2 + b^2 = 1 \\
+ac + bd = 0 \\
+c^2 + d^2 = 1 \\
+a^2 + c^2 = 1 \\
+ab + cd = 0 \\
+b^2 + d^2 = 1 
+\end{array} \right . \]
+En combinant la première et la quatrième de ces équations, on a $b^2 = c^2$ donc $b = \pm c$.
+Or $b=c$ est impossible, sinon $A$ serait symétrique et les valeurs propres de $\restr{u}{F}$ seraient réelles 
+(toujours le théorème spectral !). De même, $b=c=0$ est impossible, donc $b=-c \neq 0$.
+En remplaçant, par exemple dans la deuxième équation, on trouve $a=d$.
+Enfin, comme $a^2 + c^2 = 1$, il existe un réel $\theta \in \R$ tel que :
+\[ \left \{ \begin{array}{c c}
+a & = \cos{\theta} \\
+c & = \sin{\theta}
+\end{array} \right . , \]
+autrement dit, la matrice $A$ est de la forme :
+\[ A = \begin{pmatrix} \cos{\theta} & - \sin{\theta} \\ \sin{\theta} & \cos{\theta} \end{pmatrix} , \]
+avec de plus $\theta \not \equiv 0 \pmod \pi$ car $b \neq 0$. \\
+On finit la démonstration en notant que, d'après le lemme $\ref{lem:stab}$, $F^{\perp}$ est stable par $u$, on peut donc appliquer
+l'hypothèse de récurrence à l'endomorphisme $\restr{u}{F^{\perp}}$ et exhiber une base orthonormale $\B_1$ dans laquelle
+la matrice de $\restr{u}{F^{\perp}}$ a la forme (1). On conclut en concatenant $\B_0$ et $\B_1$.
+\end{enumerate}
+\end{proof}
+
+On peut aussi énoncer une version matricielle de ce théorème.
+
+\begin{thm}
+Soit $M \in M_n(\R)$ une matrice orthogonale. Alors il existe une matrice orthogonale $P$ telle que $P^{T}AP$ ait la forme (1).
+\end{thm}
+
+\end{document}

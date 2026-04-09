@@ -1,0 +1,79 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Le théorème du point fixe de Bouwer}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rouvière - Calcul différentiel - page 165. \newline
+
+\underline{Leçon :} 204 : Connexité. Exemples d’applications. \newline
+
+\begin{nota}
+On suppose $\R^n, n \geq 1$ muni du produit scalaire canonique, dénoté par $\angl{\cdot, \cdot}$, 
+et de la norme induite $\norm{\cdot}$.
+On note respectivement $B$ et $S$ la boule unité fermée et la sphère unité de $\R^n$ (pour cette norme).
+\end{nota}
+
+\begin{lem}
+\label{lem:lacets}
+Il n'existe pas de retraction forte par déformation de la boule unité fermée de $\R^n$ sur la sphère unité, 
+c'est-à-dire d'application $G :  B \to S$ continue et dont la restriction à $S$ est l'identité. 
+\end{lem}
+
+\begin{proof}
+Supponsons qu'une telle application $G$ existe, alors on définit la fonction $F$ par :
+\[ \forall t,x \in [0,1], \quad F(t,x) = G \left ( xe^{i2\pi t} \right) , \]
+Pour $x=1$ on obtient un lacet d'extrémité $F(0)$ et qui fait le tour du disque. 
+Pour $x=0$, on obtient un lacet constant de valeur $F(0)$.
+Or ces deux lacets sont homotopes, ce qui est absurde (vous pouvez me faire confiance, j'ai essayé à la maison).
+\end{proof}
+
+\begin{thm}[du point fixe de Brouwer]
+Toute application continue de $B$ dans $B$ admet au moins un point fixe.
+\end{thm}
+
+\begin{proof}
+Soit $f$ une telle fonction.
+
+\begin{enumerate}[label=(\roman*)]
+
+\item
+On commence par démontrer le résultat pour $n=1$, c'est-à-dire pour une fonction $f$ continue de $[-1, 1]$ dans lui-même.
+Supposons que $f$ n'admette pas de point fixe sur cet intervalle, par continuité on a :
+\[ \forall x \in [-1, 1], \quad f(x) > x \ou f(x) < x , \]
+et aucune de ces conditions n'est possible aux bornes de l'intervalle. Le résultat est donc démontré pour $n=1$.
+
+\item
+On fixe maintenant $n \geq 2$ et on suppose à nouveau le résultat faux. 
+On va montrer qu'il existe alors une rétraction forte par déformation de la boule unité sur la sphère, que l'on notera $G$.
+Soit donc $f : B \to B$ sans point fixe. 
+Pour tout $x \in B , f(x) \neq x$, on peut donc définir une unique demi-droite $(D_x)$ d'origine $f(x)$ et passant par $x$.
+En notant $G(x)$ l'intersection de cette demi-droite avec $S$ (origine exclue), on a défini une application de $B$ dans $S$. 
+Il reste à montrer que cette application est continue et que sa restriction à $S$ est l'identité. \\
+Le second point est clair, $x$ étant pris sur $S$.
+On peut paramétrer la droite $(D_x)$ par $(D_x) : \lambda x +(1-\lambda) f(x)$ avec $\lambda >0$. 
+Pour trouver l'intersection de la demi-droite avec $S$ on doit donc trouver $\lambda > 0$ tel que :
+\[ \norm{\lambda x + (1-\lambda)f(x)}^2 = 1 , \]
+ce qui équivaut à résoudre :
+\[ P_x(\lambda) = \lambda^2 \norm{x-f(x)}^2 + 2 \lambda \angl{ x - f(x), f(x)} + \norm{f(x)}^2 - 1 = 0 . \]
+On doit donc résoudre une équation du second degré (en $\lambda$) de discriminant 
+\begin{align*}
+\Delta(x) & = (2\angl{ x - f(x), f(x)})^2 - 4  \norm{x-f(x)}^2 (\norm{f(x)}^2 - 1) \\
+& = 4 \Bigpar{ \angl{ x - f(x), f(x)}^2 - \norm{x-f(x)}^2 \norm{f(x)}^2 } + 4 \norm{x-f(x)}^2 \\
+& = A + B ,
+\end{align*}
+avec $A \geq 0$ (c'est l'inégalité de Cauchy-Schwarz) et $B > 0$ ($f$ n'admet pas de point fixe). 
+Donc $P_x$ admet deux racines réelles distinctes. 
+Comme de plus $P_\lambda(0) \leq 0$ (et $\norm{x-f(x)}^2 > 0$),  $P_x$ admet nécessairement une racine sur $\Rp$. 
+Cette racine a pour expression explicite :
+\[ \lambda(x) = \dfrac{ - \angl{ x - f(x), f(x)} + \sqrt{\Delta(x)} }{ \norm{x-f(x)}^2 } , \]
+qui est une fonction continue en $x$. Or $G(x) = \lambda(x)$, on a donc démontré la continuité de $G$. \\
+Ainsi, on arrive à une contradiction selon le lemme $\ref{lem:lacets}$ ce qui nous permet de conclure.
+\end{enumerate}
+
+\end{proof}
+
+\end{document}

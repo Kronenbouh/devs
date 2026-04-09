@@ -1,0 +1,98 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Les théorèmes de Dini}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Analayse - page 239 (premier théorème) puis page 304. \newline
+
+\underline{Leçon 241 :} Suites et séries de fonctions. Exemples et contre-exemples. \newline
+
+
+\begin{thm}[Premier théorème de Dini]
+\label{thm:Dini}
+Soient $K$ un compact de $E, (f_n)_{n \in \N}$ une suite croissante dans $\C^0(K, \R)$ 
+(i.e. pour tout $x \in K$, la suite réelle $(f_n(x))_{n \in \N}$ est croissante) et $f \in \C^0(K, \R)$. 
+La suite $(f_n)_{n \in \N}$ converge uniformément vers la fonction $f$ si, et seulement si, elle converge simplement vers $f$.
+\end{thm}
+
+\begin{proof}
+La condition nécessaire est évidente. Il suffit donc de démontrer la condition suffisante. \newline
+
+%Comme $K$ est compact, il vérifie la propriété de Borel-Lebesgue. Soit $\veps >0$, pour $x \in K$, notons $\alpha_x >0$ le réel tel que :
+%\[ y \in B(x, \alpha_x) \Rightarrow d(f(x), f(y)) < \veps/3.  \]
+%$\alpha_x$ existe par continuité de la fonction $f$ sur K. On extrait du recouvrement :
+%\[ K \subset \bigcup_{x \in K} B(x, \alpha_x) \]
+%un recouvrement fini. Notons $N \geq 1$ le cardinal du recouvrement, $x_1, \dots, x_N$ les centres des boules et $\alpha_1, \dots,  \alpha_N$ les rayons associés. Pour $x \in K$ quelconque, il existe $i \in \{1, \dots, N\} \tq x \in B(x_i, \alpha_i)$ et, par suite :
+%\[ d(f(x), f(x_i)) < \veps/3 . \]
+%Par convergence simple de la suite $(f_n)_{n \in \N}$, on a 
+%\[ \forall i \in \{1, \dots, N\}, \exists M_i \in \N, \forall n \in N : n \geq M_i \Rightarrow d(f_n(x_i),f(x_i)) < \veps/3 . \]
+%Notons $M = \max \{M_i, i \in \{1, \dots, N\} \}$, pour $n \geq M$ on a 
+%\[ \forall i \in \{1, \dots, N\},  d(f_n(x_i),f(x_i)) < \veps/3 . \] 
+%De plus, par croissance et convergence de la suite $(f_n)_{n \in \N}$, il existe $M' \in \N$ tel que 
+%\[ n \geq M' d(f(x), f_n(x)) < \veps/3 . \] 
+%Finalement, en notant $M''=max(M, M')$ 
+%\[ n \geq M'' \Rightarrow \forall x \in K, d(f(x), f_n(x)) < \veps, \]
+%ce qui démontre bien la convergence uniforme.
+
+Soit $\veps >0$, onsidérons les ensembles, 
+\[ O_{n, \veps} = \{x \in K ; f(x)-f_n(x) < \veps \} . \] 
+On remarque que, pour tout $n \in \N, O_{n, \veps}=(f-f_n)^{-1}(]-\infty, \veps[)$, 
+et comme les fonctions $f-f_n$ sont continues sur $K$ pour tout $n \in \N$, 
+on en déduit que les ensembles $O_{n, \veps}$ sont des ouverts.
+De plus, la suite $(f_n)_\N$ étant croissante, on a $f(x) - f_{n+1}(x) \leq f(x)-f_n(x)$ donc $O_{n, \veps} \subset O_{n+1, \veps}$.
+Enfin, par convergence simple de la suite $(f_n)_{n \in \N}$ vers f, on a :
+\[ K \subset \bigcup_{n \in \N} O_{n, \veps} , \]
+en effet, pour tout $x \in K, f(x) = \lim_\N f_n(x)$, donc il existe $n \in \N$ tel que $f(x)-f_n(x) < \veps$. \\
+Par compacité de $K$, on extrait un sous-recouvrement fini de ce recouvrement, il existe donc $m \in \N$ tel que :
+\[ K \subset \bigcup_{i=1}^m O_{n_i, \veps} \text{ en choisissant la suite des indices $(n_i)$ croissante,} \]
+soit, par croissance des ensembles $O_{n_i, \veps}$ :
+\[ K \subset O_{n_m, \veps} . \]
+On conclut donc que :
+\[ \exists n_m \in \N, \forall n \in \N : n \geq n_m \Rightarrow \forall x \in K, \abs{f(x)-f_n(x)} = f(x) - f_n(x) < \veps , \]
+ce qui démontre la convergence uniforme de la suite $(f_n)$.
+\end{proof}
+
+\begin{thm}[Deuxième théorème de Dini]
+\label{thm:Dini2}
+Soit $(f_n)_\N$ une suite de fonctions continues et monotones de $[a,b]$ dans $\R$ et qui converge simplement sur $[a,b]$
+vers une fonction continue $f$. Alors la convergence est uniforme.
+\end{thm}
+
+\begin{proof}
+Quitte à remplacer la suite $(f_n)_\N$ par la suite $(-f_n)_\N$ on peut supposer que chaque fonction $f_n$ est croissante.
+La fonction $f$ étant continue sur le compact $[a,b]$, elle est, d'après le théorème de Heine, uniformément continue sur ce compact.
+Pour tout réel $\veps >0$, on peut donc exhiber $\eta >0$ tel que :
+\[ \forall x,y \in [a,b], \quad \abs{x-y} < \nu \Rightarrow \abs{f(x)-f(y)} < \veps . \]
+Soit $a=a_0 < \dots < a_r=b, r \geq 0$, une subdivision de $[a,b]$ de pas maximal $\eta$. 
+Tout réel $x \in [a,b]$ est dans un intervalle de la forme $[a_k, a_{k+1}]$, on a donc :
+\begin{align*}
+\abs{f(x)-f_n(x)} & \leq \abs{f(x) - f(a_k)} + \abs{f(a_k)-f_n(a_k)} + \abs{f_n(a_k) - f_n(x)} \\
+& \leq \veps + \abs{f(a_k)-f_n(a_k)} + f_n(x) - f_n(a_k) \\
+& \leq \veps + \abs{f(a_k)-f_n(a_k)} + f_n(a_{k+1}) - f_n(a_k) .
+\end{align*}
+Or, $\lim_{n \to \infty} f_n(a_k) = f(a_k)$, il existe donc un rang $N_1 \in \N$ à partir duquel $\abs{f(a_k)-f_n(a_k)} < \veps$.
+De plus, $\lim_{n \to \infty} f_n(a_{k+1}) - f_n(a_k) = f(a_{k+1}) - f(a_k) < \veps$, on peut donc trouver un second rang $N_2 \in \N$
+à partir duquel $f_n(a_{k+1}) - f_n(a_k) < 2 \veps$. 
+Finalement, pour $n \geq \max(N_1, N_2)$ on a :
+\[ \abs{f(x)-f_n(x)} < 4 \veps , \]
+et ce pour tout $x \in [a,b]$, ce qui démontre la convergence uniforme de la suite $(f_n)_\N$.
+\end{proof}
+
+\begin{appl}
+La suite de fonctions $\left ( \left (1+\dfrac{x}{n} \right)^n \right)_{\Ne}$ converge uniformément vers la fonction $x \mapsto e^x$ sur
+tout compact de la forme $[-a, a], a \in \R$.
+\end{appl}
+
+\begin{proof}
+Les fonctions $x \mapsto \left (1+\dfrac{x}{n} \right)^n$ sont continues et croissantes sur $[-a,a]$.
+De plus, comme :
+\[ \left (1+\dfrac{x}{n} \right)^n = \exp \left ( n \ln \left ( 1 + \dfrac{x}{n} \right) \right ) \sim_{\infty} \exp(x), \]
+on a convergence simple de la suite vers la fonction exponentielle. On déduit du théorème de de Dini $\ref{thm:Dini2}$ que la
+convergence est uniforme.
+\end{proof}
+
+\end{document}
