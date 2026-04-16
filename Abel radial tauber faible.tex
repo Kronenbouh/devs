@@ -1,0 +1,114 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorème d'Abel radial et taubérien faible}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :}
+\begin{itemize}
+\item Rombaldi - Analyse - page 384 (Abel radial) 
+\item Gourdon - Analyse - page 264 (Taubérien faible)
+\end{itemize} 
+
+\underline{Leçons :}
+\begin{itemize}
+
+\item 243 : Séries entières, propriétés de la somme. Exemples et applications.
+\item 241 : Suites et séries de fonctions. Exemples et contre-exemples.
+
+\end{itemize}
+
+\begin{nota}
+On considère une série entière $\sum a_n z^n$ à coefficients complexes, de rayon de convergence fini $R \in ]0, \infty[$ et dont 
+la somme est notée $f(z)$ pour $z \in D(0, R)$.
+\end{nota}
+
+\begin{thm}[Abel radial]
+On suppose qu'il existe $z_0 \in S(0,R)$ tel que la série $\sum a_n z_0^n$ soit convergente. 
+Dans ce cas, on a :
+\[ \lim_{t \to 1^{-}} \sum_{n=0}^{\infty} a_n z_0^n t^n = \sum_{n=0}^{\infty} a_n z_0^n . \]
+\end{thm}
+
+\begin{proof}
+Pour tous $n \in \Ne, t \in [0,1]$ on note :
+\[ S_n(t) = \sum_{k=0}^n a_k z_0^k t^k \et \varphi(t) = f(tz_0) = \sum_{n=0}^{\infty} a_n z_0^n t^n  . \]
+En effectuant une transformation d'Abel, on trouve :
+\begin{align*}
+S_n(t) & = a_0 + \sum_{k=1}^n a_k z_0^k t^k \\
+& = S_0(1) + \sum_{k=1}^n (S_k(1)-S_{k-1}(1)) t^k \\
+& = S_0(1) t^0 + \sum_{k=1}^n S_k(1) t^k - \sum_{k=0}^{n-1} S_k t^{k+1} \\
+& = \sum_{k=0}^{n-1} S_k(1)(t^k-t^{k+1}) + S_n(1)t^n \\
+& = (1-t) \sum_{k=0}^{n-1} S_k(1) t^k + S_n(1)t^n \qquad (*)
+\end{align*}
+Si $t \in [0,1[$, on sait que $\lim_{n \to \infty} S_n(1)t^t = \lim_{n \to \infty} \varphi(1) t = 0$, 
+donc, par passage à la limite dans (*), on en déduit que $\sum S_k(1) t^k$ est fini (pour $t <1$) et que :
+\[ \varphi(t) = (1-t) \sum_{n=0}^{\infty} S_n(1) t^n \qquad (t \in [0,1[) . \]
+En utilisant l'égalité $\sum_{\N} t^n = \dfrac1{1-t}$ pour $t \in [0,1[$, on peut écrire :
+\begin{align*}
+\varphi(t) - \varphi(1) & = (1-t) \sum_{n=0}^{\infty} S_n(1) t^n - \varphi(1) (1-t) \sum_{\N} t^n \\
+& = (1-t) \sum_{n=0}^{\infty} (S_n(1) - \varphi(1)) t^n \qquad (t \in [0,1[) . 
+\end{align*}
+Comme $\lim_{n \to \infty} S_n(1) = \varphi(1)$, pour tout $\veps >0$, il existe un entier $n_{\veps}$ tel que :
+\[ \forall n \geq n_{\veps}, \abs*{S_n(1) - \varphi(1)} < \veps , \]
+ce qui donne :
+\begin{align*}
+\abs{\varphi(t) - \varphi(1)} & < (1-t) \left ( \sum_{k=0}^{n_{\veps}} \abs*{S_k(1) - \varphi(1)} t^k + 
+\veps \sum_{k=n_{\veps +1}}^{\infty} t^k \right ) \\
+& < (1-t) \sum_{k=0}^{n_{\veps}} \abs*{S_k(1) - \varphi(1)} + \veps (1-t) \sum_{k=0}^{\infty} t^k \\
+& < (1-t) A_{\veps} + \veps  \qquad (t \in [0,1[),
+\end{align*}
+en posant $A_{\veps} = \sum_{k=0}^{n_{\veps}} \abs*{S_k(1) - \varphi(1)}$. 
+En prenant $t$ dans $[\delta_{\veps},1[$ de façon à ce que $(1-t) \leq \dfrac{\veps}{A_{\veps}}$ on a :
+\[ \abs{\varphi(t) - \varphi(1)} < 2\veps , \]
+et ceci étant possible pour toute valeur de $\veps$, on en déduit que :
+\[ \lim_{t \to 1^{-}} \varphi(t) = \varphi(1) , \]
+ce qui est exactement le résultat énoncé.
+\end{proof}
+
+\begin{rmq}
+Ce théorème est un résultat de prolongement par continuité : si une fonction $f$ développable en série entière sur un disque $D(0, R)$ 
+est telle que son développement converge en un point du cercle de rayon $R$, alors la restriction de $f$ à $]-R, R[$ se prolonge par
+continuité en $R$.
+\end{rmq}
+
+\begin{rmq}
+A noter que la réciproque du théorème radial d'Abel est fausse, par exemple, on a :
+\[ \lim_{t \to 1^{-1}} \sum_{n=0}^{\infty} (-1)^n t^n = \lim_{t \to 1^{-1}}  \dfrac1{1+t} = \dfrac12 , \]
+or la série $\sum (-1)^n$ diverge grossièrement. Cependant, une réciproque partielle est donnée par le théorème taubérien faible.
+\end{rmq}
+
+
+\begin{thm}[Taubérien faible]
+On suppose que $R=1$. Si :
+\[ \lim_{t \to 1^{-}} \sum_{n=0}^{\infty} a_n t^n = S \in \Cx \et a_n = o_{\infty} \left(\dfrac1{n} \right) , \]
+alors $\sum_{n=0}^{\infty} a_n = S$.
+\end{thm}
+
+\begin{proof}
+L'hypothèse $a_n = o_{\infty} \left(\dfrac1{n} \right)$ permet d'affirmer que $\lim_{n \to \infty} n \abs{a_n} = 0$. 
+Ainsi, la suite $(n \abs{a_n})_\N$ est majorée et on note $M$ son majorant.
+On note $S_n = \sum_{k=0}^n a_n$ pour tout $n \in \N$. On a :
+\[ \forall n \in \Ne, \forall x \in ]0,1[,  , \quad S_n - f(x) = \sum_{k=1}^n a_k (1-x^k) - \sum_{k=n+1}^{\infty} a_k x^k . \]
+Or $1-x^k = (1-x)(1+x+\dots + x^{k-1}) \leq k(1-x)$ pour $x \in ]0,1[$, d'où on déduit :
+\begin{align*}
+\abs{S_n - f(x)} & \leq (1-x) \sum_{k=1}^n k \abs{a_k} + \sum_{k=n+1}^{\infty} \dfrac{k \abs{a_k}}{n} x^k \\
+& \leq (1-x) Mn + \dfrac{\sup_{k>n} k \abs{a_k}}{n(1-x)} .
+\end{align*}
+Fixons $\veps \in ]0,1[$, en substituant $x=1-\veps/n$ dans l'inégalité précédente, on obtient :
+\[ \forall n \in \Ne, \quad \abs*{S_n - f \left (1 - \dfrac{\veps}{n} \right ) } \leq M \veps + \dfrac{\sup_{k>n} k \abs{a_k}}{\veps} . \]
+Prenons maintenant $N_0$ un rang à partir duquel on a $n \abs{a_n} < \veps^2$ (c'est possible car $n \abs{a_n} \to 0$), on en déduit :
+\[ \forall n \geq N_0, \quad \abs*{S_n - f \left (1 - \dfrac{\veps}{n} \right ) } \leq M \veps + \veps = (M+1) \veps . \]
+Or, par hypothèse, $f(x) \to S$ pour $x \to 1^{-1}$, on peut donc trouver un rang $N_1$ tel que :
+\[ \forall n \geq N_1, \quad \abs*{S - f \left (1 - \dfrac{\veps}{n} \right )} < \veps , \]
+donc, en imposant de plus $N_1 \geq N_0$, on déduit :
+\begin{align*}
+\abs{S_n - S} & \leq \abs*{S_n - f \left (1 - \dfrac{\veps}{n} \right )} + \abs*{S - f \left (1 - \dfrac{\veps}{n} \right )} \\
+& < (M+1) \veps + \veps = (M+2) \veps ,
+\end{align*}
+et ceci étant vrai pour $\veps \in ]0, 1[$, on en déduit que $S_n \to S$, d'où le résultat.
+\end{proof}
+
+\end{document}

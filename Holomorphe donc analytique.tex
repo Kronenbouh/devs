@@ -1,0 +1,411 @@
+\input{preamble}
+
+\newcommand{\gast}{\gamma^{\ast}}
+\DeclareMathOperator{\Ind}{Ind}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Analycité des fonctions holomorphes}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rudin - Analyse - page 244 puis 247-251
+
+\underline{Leçons :}
+\begin{itemize}
+\item
+    230 : Séries de nombres réels et complexes. Comportement des restes ou des sommes partielles des séries numériques. Exemples.
+\item
+    241 : Suites et séries de fonctions. Exemples et contre-exemples.
+\item
+    245 : Fonctions holomorphes et méromorphes sur un ouvert de $\Cx$. Exemples et applications.
+
+\end{itemize}
+
+\section{Prérequis topologiques}
+
+\begin{lem}
+Si $f$ est une fonction continue de $E$ dans $F$, alors pour tout connexe $C$ de $E$, l'image $f(C)$ est un connexe de $F$.
+\end{lem}
+
+\begin{proof}
+Posons $C'=f(C)$ et notons $O_1, O_2$ deux ouverts de $F$ tels que $C' \subset O_1 \cap O_2$ 
+et $C' \cap O_1 \cap O_2 = \emptyset$. 
+On a alors $C \subset f^{-1}(C') \subset f^{-1}(O_1) \cup f^{-1}(O_2)$ avec $ f^{-1}(O_1)$ et $f^{-1}(O_2)$ des ouverts de $E$ par
+continuité de $f$. De plus, $C \cap  f^{-1}(O_1) \cap f^{-1}(O_2) = \emptyset$, ce qui entraîne $C \cap  f^{-1}(O_1) = \emptyset$ ou
+$C \cap f^{-1}(O_2) = \emptyset$ par connexité de $C$, et donc que $C' \cap O_1 = \emptyset$ ou $C' \cap O_2 = \emptyset$.
+L'ensemble $f(C)$ est bien connexe dans $F$.
+\end{proof}
+
+\begin{thm}[des fermés emboîtés]
+Soit $E$ un espace métrique complet, et $(F_n)_\N$ une suite de fermés emboîtés dans $E$, i.e. :
+\[ E \supseteq F_0 \supseteq F_1 \supseteq \dots \]
+et dont le diamètre tend vers 0. Alors l'intersection des $F_n$ est réduite à un point.
+\end{thm}
+
+\begin{proof}
+Pour $n \in \N$, on fixe un point $x_n \in F_n$. On crée ainsi une suite $(x_n)_\N$ qui est de Cauchy.
+En effet, comme le diamètre des fermés $F_n$ tend vers 0, pour tout $\veps > 0$, il existe un rang $N \in \N$ tel que ce diamètre 
+est majoré par $\veps$. Alors, pour deux points $(x_p,x_q)$ tels que $p, q \geq N$ on a bien $d(x_p,x_q) \leq \veps$.
+Comme $E$ est complet, cette suite est convergente et sa limite appartient à tous les fermés $F_n$ 
+(car chaque suite $(x_m)_{m \geq n}$ est à valeurs dans $F_n$ fermé et est convergente).
+En notant $l$ cette limite, on a $l \in \bigcap_{\N} F_n$. 
+Or, pour tout $n \in \N$ le diamètre de $\bigcap_{\N} F_n$ est majoré par le diamètre de $F_n$ qui tend vers 0.
+Ainsi, $\bigcap_{\N} F_n$ est réduit au singleton $\set{l}$.
+\end{proof}
+
+\section{Prérequis d'analyse complexe}
+
+\begin{defn}[Holomorphie]
+Soit $f$ une fonction complexe définie sur un ouvert $\Omega$ du plan. 
+Pour $z_0 \in \Omega$, on dit que $f$ est différentiable en $z_0$ si, pour tout $\veps >0$, il existe $\delta >0$ tel que :
+\[ \forall z \in D(z_0, \delta), \quad \abs*{ \dfrac{ f(z)-f(z_0) }{ z-z_0 } -f'(z_0) } < \veps . \]
+Autrement dit, le quotient $\dfrac{ f(z)-f(z_0) }{ z-z_0 }$ admet une limite en $z_0$ que l'on appelle la dérivée de $f$ en $z_0$ 
+(et notée $f'(z_0$)). Si cette dérivée existe pour tout point de $\Omega$, on dit que $f$ est holomorphe sur $\Omega$.
+\end{defn}
+
+\begin{lem}
+L'ensemble des fonctions holomorphes sur un ouvert $\Omega$ du plan forme un anneau 
+(pour l'addition et la multiplication des fonctions).
+\end{lem}
+
+\begin{proof}
+Les fonctions holomorphes étant en particulier continues, on le déduit en caractérisant séquentiellement les limites sur $\Omega$.
+\end{proof}
+
+\begin{thm}
+\label{thm:1}
+Soit $\mu$ une mesure complexe (finie) sur un espace mesurable $X$, $\varphi$ une fonction complexe mesurable sur $X, \Omega$
+un ouvert du plan qui ne rencontre pas $\varphi(X)$, et posons :
+\begin{equation}
+f(z) = \int_X \dfrac{d\mu(t)}{\varphi(t)-z} \qquad (z \in \Omega) . \label{eq:1}
+\end{equation}
+Alors, la fonction $f$ est développable en série entière sur $\Omega$.
+\end{thm}
+
+\begin{proof}
+Prenons un disque $D(a, r) \subset \Omega$. Pour tout $z \in D(a, r)$ et pour tout $t \in X$, on a :
+\[ \abs*{ \dfrac{z-a}{\varphi(t)-a }} \leq \dfrac{\abs{z-a}}{r} < 1 . \]
+Car $D(a, r) \subset \Omega$ et $\varphi(X)$ ne rencontre pas $\Omega$, donc $\abs{\varphi(t)-a } \geq r$.
+On en déduit que la série géométrique :
+\[ \sum_{n \in \N} \dfrac{ (z-a)^n }{ (\varphi(t)-a)^{n+1} } = \dfrac1{\varphi(t)-z} , \]
+converge uniformément sur $X$, en effet :
+\[ \sum_{n \geq N+1}  \dfrac{ (z-a)^n }{ (\varphi(t)-a)^{n+1} } = \left ( \dfrac{ z-a }{\varphi(t)-a} \right )^{N+1} \dfrac1{\varphi(t)-z} , \]
+et $\abs*{ \dfrac{z-a}{\varphi(t)-a }}^{N+1} \to_{n \to \infty} 0$. 
+On peut donc substituer cette série dans l'intégrale \ref{eq:1} puis intervertir les signes sommes et intégrales, on obtient :
+\[  f(z) = \sum_{n \in \N} c_n (z-a)^n \qquad (z \in D(a,r)) , \]
+en posant :
+\[ c_n = \int_X \sum_{n \in \N} \dfrac{ (z-a)^n }{ (\varphi(t)-a)^{n+1} } \qquad (n \in \N) . \]
+\end{proof}
+
+\section{Indices et chemins}
+
+\begin{defn}[Chemin]
+On appelle chemin une courbe dans le plan continuement différentiable par morceaux.
+Plus précisément, un chemin dont le segment de paramétrage est le segment compact $[a, b] \in \R$ est une fonction $\gamma$,
+continue et à valeurs dans $\Cx$ et vérifiant :
+\begin{enumerate}[label=(\roman*)]
+\item il existe un nombre fini de points $s_j$ tels que $a = s_0 < \dots < s_n = b$, et $\gamma$ a une dérivée continue sur chaque
+$[s_j, s_{j+1} ]$ ;
+\item aux points $s_1, \dots, s_{n-1}$ (si existants) les dérivées à droite et à gauche de $\gamma$ peuvent différer.
+\end{enumerate}
+Le chemin est dit fermé si $\gamma(a) = \gamma(b)$.
+\end{defn}
+
+\begin{nota}
+On nota $\gast$ l'image du chemin $\gamma$.
+\end{nota}
+
+\begin{thm}[Indice]
+\label{thm:ind}
+Soit $\gamma$ un chemin fermé, $\Omega$ le complémentaire de $\gast$ (relativement au plan complexe), et définissons :
+\begin{equation}
+\Ind_{\gamma}(z) = \dfrac1{2i\pi} \int_{\gamma} \dfrac{dt}{t-z} \qquad (z \in \Omega) . \label{eq:indice}
+\end{equation}
+La fonction $\Ind_{\gamma}$ est à valeurs entières sur $\Omega$, constante sur chaque composante connexe de $\Omega$ et nulle
+sur la composante connexe non bornée de $\Omega$.
+\end{thm}
+
+\begin{proof}
+Notons $[a,b]$ le paramétrage du chemin $\gamma$ et fixons $z \in \Omega$. Par changement de variable, on a :
+\[ \Ind_{\gamma}(z) = \dfrac1{2i\pi} \intab \dfrac{\gamma'(s)}{\gamma(s)-z}ds . \]
+Or $w / 2i\pi$ est un entier si, et seulement si, $e^w = 1$. 
+Autrement dit, le première assertion du théorème est équivalente à $\varphi(b)=1$, en posant :
+\[ \varphi(t) = \exp \left ( \int_a^t \dfrac{\gamma'(s)}{\gamma(s)-z}ds \right ) \qquad (t \in [a,b]) . \]
+On peut différentier $\varphi$, sur $[a,b]$ (excepté en les éventuels points $s_1, \dots, s_{n-1}$ définis plus hauts) et on trouve :
+\[ \dfrac{\varphi'(t)}{\varphi(t)} = \dfrac{\gamma'(t)}{\gamma(t)-z} . \]
+Or $\gamma$ est un chemin fermé, soit $\varphi(b) = 1$ ce qui montre que $\Ind_{\gamma}$ est à valeurs entières sur $\Omega$. \\
+
+D'après le théorème $\ref{thm:1}$, la fonction $\Ind_{\gamma}$ est dévelopable en série entière sur tout $\Omega$, donc
+en particulier continue sur cet ensemble. Ainsi, l'image de toute partie connexe de $\Omega$ par $\Ind_{\gamma}$ sera un connexe
+de $\N$ soit un singleton ce qui démontre que $\Ind_{\gamma}$ est constante sur chaque composante connexe de $\Omega$.
+Enfin, pour $z$ de module suffisament grand, l'expression \ref{eq:indice} est de module strictement inférieur à 1, 
+ce qui démontre que $\Ind_{\gamma}(z) = 0$ sur la composante non bornée de $\Omega$.
+\end{proof}
+
+\begin{rmq}
+L'image $\gast$ étant un compact, il est contenu dans un disque borné $D$ dont le complémentaire $\overline{D}$ est connexe.
+Donc $\overline{D}$ est inclus dans une des composantes de $\Omega$, ce qui justifie l'appelation \og la composante connexe
+non bornée \fg.
+\end{rmq}
+
+\begin{thm}
+\label{ind:cercle}
+Si $\gamma$ est le cercle orienté positivement de centre $a$ et de rayon $r$, alors :
+\[ \Ind_{\gamma}(z) = \left \{ \begin{array}{c c} 1 & \text{  si  } \abs{z-a}<r \\ 0 & \text{  si  } \abs{z-a}>r . \end{array} \right. \]
+\end{thm}
+
+\begin{proof}
+$\gamma$ est paramétrise sur $[0, 2\pi]$ par $\gamma(t) = a + re^{it}$. 
+D'après le théorème $\ref{thm:ind}$, la fonction $\Ind_{\gamma}$ est nulle sur la composante connexe non bornée de $\Omega$
+qui est ici le complémentaire du disque. 
+Toujours d'après ce théorème, $\Ind_{\gamma}$ est constante sur le disque, on l'estime donc en son centre soit :
+\begin{align*}
+\Ind_{\gamma}(a) & = \dfrac1{2i\pi} \int_{\gamma} \dfrac{d\zeta}{\zeta-a} \\
+& = \dfrac1{2i\pi} \int_0^{2\pi} \dfrac{\gamma'(t)}{\gamma(t)-a} dt \\
+& = \dfrac1{2i\pi} \int_0^{2\pi} it dt = 1
+\end{align*}
+\end{proof}
+
+\section{Théorème local de Cauchy et conséquence}
+
+\begin{thm}
+\label{thm:deriv}
+Soient $F$ une fonction holomorphe sur un ouvert $\Omega$ et $F'$ une fonction continue sur $\Omega$, 
+pour tout chemin fermé $\gamma$ dans $\Omega$, on a :
+\[ \int_{\gamma} F'(z) dz = 0 . \]
+\end{thm}
+
+\begin{proof}
+Notons $[a,b]$ le segment de paramétrage de $\gamma$, comme $\gamma(a) = \gamma(b)$, on déduit :
+\[ \int_{\gamma} F'(z) dz = \intab F'(\gamma(t)) \gamma'(t) dt = F(\gamma(b)) - F(\gamma(a)) = 0 . \]
+\end{proof}
+
+\begin{coro}
+\label{coro:1}
+Pour $n \in \Ne$ et pour tout chemin fermé $\gamma$, on a :
+\[ \int_{\gamma} z^n dz = 0 . \]
+\end{coro}
+
+\begin{proof}
+Il suffit de considérer la fonction $z \mapsto z^n$ comme dérivée de la fonction $z \mapsto z^{n+1}/(n+1)$.
+\end{proof}
+
+\begin{nota}
+Soit $(a,b,c)$ un triplet de nombres complexes, on note $\Delta$ le triangle de sommets $a,b,c$ et pour toute fonction $f$
+continue sur la frontière de $\Delta$, on définit l'intégrale :
+\[ \int_{\partial \Delta} f = \int_{[a,b]} f + \int_{[b,c]} f + \int_{[c,a]} f . \]
+En fait, $\partial \Delta$ est le chemin obtenu en joignant les 3 intervalles.
+\end{nota}
+
+\begin{thm}[Cauchy pour un triangle]
+\label{cauchy:tgl}
+Soit $\Delta$ un triangle fermé, inclus dans un ouvert $\Omega$ du plan.
+Soit $p \in \Omega$ et soit $f$ une fonction continue sur $\Omega$ et holomorphe sur $\Omega$ privé de $p$.
+On a:
+\[ \int_{\partial \Delta} f(z) dz = 0 . \]
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+
+\item
+Supposons d'abord que $p \not \in \Delta$. On note $a', b', c'$ les milieux des segments $[b,c], [c,a]$ et $[a,b]$ respectivement.
+On note $\Delta_j$ les quatre triangles formés par les triplets :
+\[ \set{a,c',b'}, \quad \set{b,a',c'}, \quad \set{c, a', b'}, \quad \set{a',b',c'} . \]
+On a alors :
+\[ J = \int_{\partial \Delta} f(z) d = \sum_{j=1}^4 \int_{\partial \Delta_j} f(z) d . \]
+
+\begin{center}
+\begin{tikzpicture}
+
+% --- Points ---
+\coordinate (a) at (0,0);
+\coordinate (b) at (8,0);
+\coordinate (c) at (3,4);
+\coordinate (a') at (5.5,2);
+\coordinate (b') at (1.5,2);
+\coordinate (c') at (4,0);
+
+% --- Segments ---
+\draw[black, thick] (a) -- (b);
+\draw[black, thick] (b) -- (c);
+\draw[black, thick] (c) -- (a);
+
+\draw[black] (a') -- (b');
+\draw[black] (b') -- (c');
+\draw[black] (c') -- (a');
+
+% --- Marques en croix ---
+\foreach \P in {a,b,c,a',b',c'}
+{
+    \draw[black] 
+        ($(\P)+(-0.15,-0.15)$) -- ($(\P)+(0.15,0.15)$)
+        ($(\P)+(-0.15,0.15)$) -- ($(\P)+(0.15,-0.15)$);
+}
+
+% --- Labels ---
+\node[above] at (a) {a};
+\node[above] at (b) {b};
+\node[above] at (c) {c};
+\node[right] at (a') {a'};
+\node[left] at (b') {b'};
+\node[left] at (c') {c'};
+
+\end{tikzpicture}
+\end{center} 
+
+Par inégalité triangulaire, la valeur absolue d'au moins une des intégrales du terme de droite est supérieure ou égale à $\abs{J/4}$.
+Quitte à réorganiser les indices, supposons que ce triangle est $\Delta_1$. 
+On itère alors la procédure ci-dessus sur ce triangle et on forme ainsi une suite $(\Delta_n)_\N$ de triangles tels que :
+\[ \Delta \supseteq \Delta_1 \supseteq \Delta_2 \supseteq \dots \]
+La longueur du chemin $\partial \Delta_n$ est donnée par $2^{-n}L$, où $L$ désigne la longueur de $\partial \Delta$. 
+En outre :
+\begin{equation}
+\abs{J} \leq 4^n \abs*{ \int_{\partial \Delta_n} f(z) d } \qquad (n \in \Ne). \label{ineq:1}
+\end{equation}
+D'après le théorème des fermés emboîtés, il existe un unique point commun aux triangles $\Delta_n$ que l'on note $z_0$.
+Ce point est aussi un élément de $\Delta$, et $f$ est différentiable en $z_0$. \\
+Soit $\veps > 0$, il existe $r > 0$ tel que, pour $z \in D(z_0, r)$ :
+\[ \abs*{ \dfrac{ f(z)-f(z_0) }{ z-z_0 } - f'(z_0) } < \veps , \]
+ou, de façon équivalente :
+\begin{equation}
+\abs*{f(z)-f(z_0) - f'(z_0)(z-z_0) } < \veps \abs{z-z_0} . \label{ineq:2}
+\end{equation}
+De plus, on peut trouver $n \in \N$ tel que $z \in D(z_0, r)$ pour tout $z \in \Delta_n$.
+Pour cet entier $n$ on a aussi $ \abs{z-z_0} \leq 2^{-n}L$ pour tout $z \in \Delta_n$.
+Or, selon le corollaire $\ref{coro:1}$ on a :
+\[ \int_{\partial \Delta_n} f(z_0) + f'(z_0)(z-z_0) dz = 0 , \]
+(car linéaire en $z$), on peut donc écrire :
+\[  \int_{\partial \Delta_n} f(z) dz =  \int_{\partial \Delta_n} f(z) - f(z_0) - f'(z_0)(z-z_0) dz , \]
+de sorte que \ref{ineq:1} entraîne :
+\[ \abs*{  \int_{\partial \Delta_n} f(z) dz } \leq \veps (2^{-n}L)^2 . \]
+En repartant de l'inégalité \ref{ineq:2}, on obtient :
+\[ \abs{J} \leq 4^n \veps 4^{-n} L^2 = \veps L^2 , \]
+ceci étant vrai pour tout $\veps >0$, on conclut que $J=0$ pour $p \not \in \Delta$.
+
+\item
+Supposons maintenant que $p$ est un sommet de $\Delta$, par exemple $p=a$. 
+Si les points $a, b, c$ sont alignés, alors le résultat est trivialement nul (on intègre en faisant un \og aller-retour \fg{} sur un segment). \\
+Sinon, on choisit $x \in [a,b]$ et $y \in [a,c]$ tous les deux voisins de $a$ et on observe que l'intégrale de $f$ sur $\partial \Delta$
+est la somme des intégrales sur les frontières des trois triangles $\set{a,x,y}, \set{b,x,y}$ et $\set{b,c,y}$.
+\begin{center}
+\begin{tikzpicture}
+
+% --- Points ---
+\coordinate (a) at (0,0);
+\coordinate (b) at (8,0);
+\coordinate (c) at (3,4);
+\coordinate (x) at (2,0);
+\coordinate (y) at (0.6,0.8);
+
+% --- Segments ---
+\draw[black, thick] (a) -- (b);
+\draw[black, thick] (b) -- (c);
+\draw[black, thick] (c) -- (a);
+
+\draw[black] (x) -- (y);
+\draw[black] (b) -- (y);
+
+% --- Marques en croix ---
+\foreach \P in {a,b,c,x,y}
+{
+    \draw[black] 
+        ($(\P)+(-0.15,-0.15)$) -- ($(\P)+(0.15,0.15)$)
+        ($(\P)+(-0.15,0.15)$) -- ($(\P)+(0.15,-0.15)$);
+}
+
+% --- Labels ---
+\node[left] at (a) {a};
+\node[above] at (b) {b};
+\node[above] at (c) {c};
+\node[below] at (x) {x};
+\node[left] at (y) {y};
+
+\end{tikzpicture}
+\end{center} 
+Ces deux dernières intégrales sont nulles : les triangles ne contenant pas $p$, on leur applique le résultat (i).
+Il en résulte que :
+\[ \int_{\partial \Delta} f(z) d = \int_{[a,x]} f(z) dz + \int_{[x,y]} f(z) dz + \int_{[y,a]} f(z) dz , \]
+Chacun de ces intervalles peut être rendu arbitrairement petit et $f$ est bornée sur chacun de ces intervalles (car continue), 
+donc l'intégrale de $f$ sur le chemin $\partial \Delta$ est nulle.
+
+\item
+Finalement, supposons que $p$ est un point quelconque du triangle (hors sommet), alors on applique le point (ii) aux trois triangles
+$\set{a,b,p}, \set{b,c,p}$ et $\set{a,c,p}$ ce qui achève la démonstration.
+
+\end{enumerate}
+\end{proof}
+
+\begin{thm}[Cauchy pour un ensemble convexe]
+\label{Cauchy:conv}
+Soit $\Omega$ un ouvert convexe, $p \in \Omega$, $f$ une fonction continue sur $\Omega$ et holomorphe sur $\Omega$
+privé de $p$. Pour tout chemin fermé $\gamma$ dans $\Omega$ :
+\[ \int_{\gamma} f(z) dz = 0 . \]
+\end{thm}
+
+\begin{proof}
+On fixe $a \in \Omega$. Pour tout $z\in \Omega$, on a $[a,z] \in \Omega$ par convexité, de sorte qu'on peut définir :
+\[ \forall z \in \Omega, \quad F(z) ) \int_{[a,z]} f(t) dt . \]
+Pour tous $z, z_0 \in \Omega$, le triangle $\Delta = \set{a, z, z_0}$ es inclus dans $\Omega$, donc :
+\[ \int_{\partial \Delta} f(t) dt = 0 = \int_{[a,z]} f(t) dt + \int_{[z,z_0]} f(t) dt + \int_{[z_0,a]} f(t) dt , \]
+d'après le théorème $\ref{cauchy:tgl}$. On en déduit que :
+\[ \int_{[z_0, z]} f(t) dt = F(z) - F(z_0) . \]
+En fixant $z_0 \in \Omega$ et en considérant $z \neq z_0$, on obtient :
+\[ \dfrac{F(z)-F(z_0)}{z-z_0} - f(z_0) = \dfrac1{z-z_0} \int_{[z_0, z]} (f(t) - f(z_0)) dt . \]
+Soit $\veps >0$, par continuité de $f$ en $z_0$, il existe $\delta >0$ tel que :
+\[ \forall t \tq \abs{t-z_0} < \delta, \quad \abs{f(t)-f(z_0)} < \veps ; \]
+autrement dit, $F'(z_0) = f(z_0)$ pour tout $z_0 \in \Omega$ et on déduit le résultat du théorème $\ref{thm:deriv}$.
+\end{proof}
+
+\begin{thm}[formule de Cauchy pour un ensemble convexe]
+\label{form:Cauchy}
+Soit $\gamma$ un chemin fermé dans un ouvert convexe $\Omega$, et soit $f$ une fonction holomoprhe sur $\Omega$. 
+Si $z \in \Omega$ et si $z \not \in \gast$, on a :
+\[ f(z) \Ind_{\gamma}(z) = \dfrac1{2\pi i} \int_{\gamma} \dfrac{f(t)}{t-z} dt . \]
+\end{thm}
+
+\begin{proof}
+Soit $z$ tel qu'énoncé et définissons :
+\[ g(t) = \left \{ \begin{array}{c c}
+\dfrac{ft)-f(z)}{t-z} & \text{  si  } t \in \Omega, t \neq z \\
+f'(z) & \text{  si  } t = z .
+\end{array} \right . \]
+La fonction $g$ satisfait aux hypothèses du théorème $\ref{Cauchy:conv}$ d'où :
+\[ \dfrac1{2\pi i} \int_{\gamma} g(t) dt = 0 , \]
+autrement dit, comme $z \not \in \gast$ :
+\begin{align*}
+\dfrac1{2\pi i} \int_{\gamma} \dfrac{ft)-f(z)}{t-z} dt & = 0 \\
+& = \dfrac1{2\pi i} \int_{\gamma} \dfrac{f(t)}{t-z} dt - \dfrac1{2\pi i} \int_{\gamma} \dfrac{f(z)}{t-z} dt \\
+& = \dfrac1{2\pi i} \int_{\gamma} \dfrac{f(t)}{t-z} dt - f(z) \Ind_{\gamma}(z)
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Pour tout ouvert $\Omega$ du plan, toute fonction holomorphe sur $\Omega$ est développable en série entière dans $\Omega$.
+\end{thm}
+
+\begin{proof}
+Soient $f$ une telle fonction et $D(a, R) \subset \Omega$. 
+Si $\gamma$ est un cercle orienté positivement, de centre $a$ et de rayon $r < R$, la convexité de $D(a, R)$ nous permet d'appliquer
+la formule de Cauchy (cf. $\ref{form:Cauchy}$) soit :
+\[ f(z) \Ind_{\gamma}(z)  = \dfrac1{2\pi i} \int_{\gamma} \dfrac{f(t)}{t-z} dt  \qquad (z \in D(a,r)) \]
+et $\Ind_{\gamma}(z) = 1$ pour $z \in D(a,r)$ selon le théorème $\ref{ind:cercle}$.
+Par changement de variable, on obtient :
+\[ f(z) = \int_0^{2\pi} \dfrac { f(\gamma(t)) \gamma'(t) dt }{\gamma(t)-z} \qquad (z \in D(a,r)) \]
+On applique maintenant le théorème $\ref{thm:1}$ en prenant $X= [0, 2\pi], d\mu(t) = f(\gamma(t)) \gamma'(t) dt$ 
+et $\varphi = \gamma$. 
+Les hypothèses du théorème sont satisfaites et on conclut que $f$ est développable en série entière sur $D(a,r), r < R$.
+L'unicité d'un tel développement, assure que l'on obtient la même représentation pour tout $r < R$, 
+donc que ce développement en séries entières est valable pour tout $z \in D(a, R)$, ce qui termine la démonstration.
+\end{proof}
+
+\begin{rmq}
+La fonction $f$ étant holomorphe sur $\Omega$ (en particulier continue), en définissant :
+\[ F(w) = \int_a^w f(t) dt \qquad (w \in \Omega) . \]
+La fonction $F \circ \gamma$ définie bien une mesure complexe sur $[0, 2\pi]$.
+\end{rmq}
+
+
+\end{document}

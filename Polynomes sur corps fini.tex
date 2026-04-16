@@ -1,0 +1,245 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Dénombrement des polynômes unitaires irréductibles sur un corps fini}
+\fancyhead[R]{}
+
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Fp}{\mathbb{F}_p}
+\newcommand{\Fpd}{\mathbb{F}_{p^d}}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - pages 422 à 424 (331 pour Möbius et 375 pour la structure d'algèbre). \newline
+
+\underline{Leçons :}
+\begin{itemize}
+\item    123 : Corps finis. Applications.
+\item    125 : Extensions de corps. Exemples et applications
+\item    141 : Polynômes irréductibles à une indéterminée. Corps de rupture. Exemples et applications.
+\item    190 : Méthodes combinatoires, problèmes de dénombrement.
+\end{itemize}
+
+\begin{nota}
+Pour tout nombre premier $p \geq 2$, on note $\Fp$ le corps $\Z/p\Z$. 
+Pour tout entier $n \geq 1$, on note $\U_n(p)$ l'ensemble de tous les polynômes unitaires irréductibles de degré $n$ dans $\Fp[X]$,
+et $I_n(p)$ le cardinal de cet ensemble. On notera aussi $\D_n$ l'ensemble des diviseurs de $n$ dans $\Ne$.
+Enfin, on note $P_n(X) = X^{p^n} - x \in \Fp[X]$.
+\end{nota}
+
+\section{Résultats préliminaires}
+
+La démonstration de ces résultats peut éventuellement être passée à l'oral.
+
+\subsection{Fonction de Möbius}
+
+\begin{defn}[fonction de Möbius]
+On définit la fonction de Möbius $\mu$ sur $\Ne$ par :
+\[ \left \{ \begin{array}{c c} 
+1 & \text{ si } n = 1 \\
+(-1)^r & \text{ si } n = \prod_{i=1}^r p_i \\
+0 & \text{ sinon}.
+\end{array} \right. \]
+Cette fonction est donc une suite réelle définie sur $\Ne$.
+\end{defn}
+
+\begin{defn}[produit de convolution]
+Le produit de convolution de deux suites réelles $u, v$ définies sur $\Ne$ est la suite $u \ast v$ définie par :
+\[ \forall n \in \Ne, \quad (u \ast v)(n) = \sum_{d \in \D_n} u(d) v \left ( \dfrac{n}{d} \right) . \]
+On note $e$ l'élément neutre pour le produit de convolution, on a $e=(1, 0, \dots )$.
+\end{defn}
+
+\begin{lem}
+Le produit de convolution est commutatif.
+\end{lem}
+
+\begin{proof}
+Soient $u, v$ deux suites réelles définies sur $\Ne$, et $n \in \Ne$, on a :
+\[ (u \ast v)(n) = \sum_{d \in \D_n} u(d) \left ( \dfrac{n}{d} \right) = \sum_{d' \in \D_n} u \left ( \dfrac{n}{d'} \right)  = (v \ast u)(n) . \]
+\end{proof}
+
+\begin{lem}
+En notant $\omega$ la suite constante égale à 1, on a :
+$\mu \ast \omega = e$.
+\end{lem}
+
+\begin{proof}
+Pour $n=1$, on a $(\mu \ast \omega)(1) = \mu(1) \omega(1) = 1$ 
+et pour $n \geq 2, (\mu \ast \omega)(n) = \sum_{d \in \D_n} \mu(d)$. \\ 
+Notons $n = \prod_{i=1}^r p_i^{\alpha_i}$ la décomposition en facteurs premiers de $n$, 
+tous les diviseurs $d$ de $n$ sont de la forme :
+\[ d = \prod_{i=1}^r p_i^{\beta_i} , \]
+avec chaque $\beta_i$ compris entre 0 et $\alpha_i$. 
+Or $\mu(d) = 0$ si un $\beta_i$ est strictement plus grand que $1$, on déduit que :
+\[ (\mu \ast \omega)(n) = \sum_{(\beta_1, \dots, \beta_r) \in \set{0,1}^r} \mu \left ( \prod_{i=1}^r p_i^{\beta_i} \right ) . \]
+On s'intéresse donc aux $r$-uplets $(\beta_1, \dots, \beta_r)$ formés de 0 et de 1. 
+On sait qu'il y a exactement $\binom{r}{k}$ $r$-uplet comportant exactement $k$ 1,
+et pour un tel $r$-uplet la fonction de Möbius prend la valeur $(-1)^k$. 
+On en déduit que :
+\[ \forall n \geq 2, \quad (\mu \ast \omega)(n) = \sum_{k=0}^r \binom{r}{k} (-1)^k = (1-1)^r = 0 . \]
+soit $\mu \ast \omega = e$.
+\end{proof}
+
+\begin{thm}[formule d'inversion de Möbius]
+\label{thm:invMob}
+Soient $u, v$ deux suites réelles, les assertions ci-dessous sont équivalentes :
+\begin{align}
+    \forall n \in \Ne, \quad u(n) = \sum_{d \in \D_n} v(d) \label{eq:m1} \\
+    \forall n \in \Ne, \quad v(n) = \sum_{d \in \D_n} \mu(d) u \left (\dfrac{n}{d} \right ) \label{eq:m2}
+\end{align}
+\end{thm}
+
+\begin{proof}
+Supposons que l'assertion (\ref{eq:m1}) soit vraie. On a alors $u = v \ast \omega$, ce qui implique que 
+$u \ast \mu = v \ast \omega \ast \mu = v$ soit $v = \mu \ast u$, par commutativité, soit l'assertion (\ref{eq:m2}).
+On démontre la réciproque de façon identique.
+\end{proof}
+
+\section{Dénombrement des polynômes}
+
+\begin{lem}
+\label{lem:divis}
+Soit $p \geq 2$ un nombre premier et $n \geq 1$ un entier. 
+Alors $p$ divise tous les coefficients binomiaux $\binom{p^n}{k}$, avec $k \in \set{0, \dots, p^n-1}$.
+\end{lem}
+
+\begin{proof}
+Pour $k \in \set{0, \dots, p-1}$, on a :
+\[ \binom{p}{k} = \dfrac{p \cdot (p-1) \cdots (p-k+1)}{k \cdot (k-1) \cdots 1} = \dfrac{a}{k!} \in \N , \]
+On peut écrire $a = \binom{p^n}{k} k!$.
+On remarque que $p$ et $k!$ sont premiers entre eux, or $p$ divise $a$, donc (théorème de Gauss), $p$ divise $\binom{p^n}{k}$. \\
+Considérons maintenant le polynôme $(1+X)^{p^n}$. 
+Pour $n=1$, on déduit de ce que l'on vient de démontrer que 
+\begin{equation} (1+X)^p \equiv 1 + X^p \pmod p , \label{eq:3} \end{equation}
+Supposons qu'on ait, pour $n \geq 1$ quelconque :
+\begin{equation} (1+X)^{p^n} \equiv 1 + X^{p^n} \pmod p , \label{eq:4} \end{equation}
+alors, on écrit :
+\begin{align*}
+(1+X)^{p^{n+1}} & = \left ( (1+X)^{p^n} \right )^p \equiv (1 + X^{p^n})^p \pmod p \qquad \text{(d'après (\ref{eq:4}))} \\
+ & \equiv 1 + X^{p^{n+1}} \pmod p \qquad \text{(d'après (\ref{eq:3}))} 
+\end{align*}
+On a donc démontré par récurrence que $(1+X)^{p^n} \equiv 1 + X^{p^n} \pmod p$ pour tout $n \geq 1$.
+En particulier, cela signifie que tous les coefficients binomiaux $\binom{p^n}{k}$ sont divisibles par $p$.
+\end{proof}
+
+\begin{thm}
+\label{thm:structpoly}
+Soit $\K$ un corps et $P \in \K[X]$ un polynôme unitaire de degré $n \geq 1$. 
+Alors $\K[X]/(P)$ est une algèbre de dimension $n$ et $(\overline{X^k})_{0 \leq k \leq n-1}$ en est une base. 
+De plus, si le polynôme $P$ est irréductible, alors $\K[X]/(P)$ est un corps.
+\end{thm}
+
+\begin{proof}
+Le fait que $\K[X]/(P)$ soit un anneau résulte de la compatibilité des lois de l'anneau $\K[X]$ avec les classes d'équivalence modulo $P$.
+On vérifie facilement que cet anneau est commutatif et unitaire. 
+De plus, on peut le munir d'une opération externe en définissant :
+\[ \forall (\lambda, \overline{A}) \in \K \times \K[X]/(P), \quad \lambda \overline{A} = \overline{\lambda A} . \]
+Ensuite, tout polynôme de $A \in \K[X]$ s'écrit $A = PQ + R$ avec $R$ de degré au plus $n-1$. 
+On déduit donc que $\overline{A} = \overline{R} \in \vect(\overline{X^k})_{0 \leq k \leq n-1}$, la famille exhibée est génératrice.
+Supposons qu'il existe une combinaison linéaire telle que :
+\[ \sum_{k=0}^{n-1} a_k \overline{X^k} = \overline{0} , \]
+alors le polynôme $a_{n1} X^{n-1} + \dots + a_0$ est multiple de $P$, donc, par contrainte de degré, est nul, 
+donc tous les $a_k$ sont nuls et on déduit que la famille est libre donc une base. \newline
+
+Suppons que $P$ soit irréductible et prenons $A \in \K[X]$ non nul. On note $R$ le reste de la division euclidienne de $A$ par $P$.
+Comme $P$ est irréductible et de degré strictement supérieur à $R$, ces deux polynômes sont premiers entre eux et, d'après le théorème 
+de Bézout, il existe $U, V \in \K[X]$ tels que $RU + PV = 1$. 
+Comme $\overline{A} = \overline{R}$, on a $\overline{A}\overline{U} = \overline{1}$. 
+En considérant que $\K[X]$ est appliqué surjectivement dans $\K[X]/(P)$, 
+on a bien démontré que tout élément de ce dernier admet un inverse, c'est donc un corps.
+\end{proof}
+
+
+\begin{lem}
+\label{lem:divPn}
+Tout diviseur irréductible de $P_n$ dans $\Fp[X]$ est de degré divisant $n$. Réciproquement, pour tout diviseur $d$ de $n$, 
+tout polynôme $P \in \U_d(p)$ divise $P_n$.
+\end{lem}
+
+\begin{proof}
+Pour tout $P \in \U_d(p)$, selon le théorème $\ref{thm:structpoly}$, l'ensemble $\Fpd = \Fp[X]/(P)$ est un corps 
+ainsi qu'un espace vectoriel de dimension $d$. C'est donc un corps fini de cardinal $p^d$. \newline
+
+Soit $P$ un diviseur irréductible de $P_n$, on note $d$ le degré de $P$. A une constante multiplicative près, $P \in \U_d(p)$,
+on peut donc ajouter cette hypothèse sans perte de généralité. 
+Selon la remarque ci-dessous, $\Fpd$ est un corps et $\overline{P_n} = \overline{0}$ dans ce corps, autrement dit, 
+$\overline{X}^{p^n} = \overline{X}$. 
+Considérons $\overline{Q} \in \Fpd$, on peut l'écrire :
+\[ \overline{Q} = \sum_{k=0}^{d-1} a_k \overline{X}^k , \]
+avec les $a_k$ des éléments de $F_p$. D'après le lemme $\ref{lem:divis}$, on a :
+\[ \overline{Q}^{p^n} = \left ( \sum_{k=0}^{d-1} a_k \overline{X}^k \right )^{p^n} 
+= \sum_{k=0}^{d-1} a_k^{p^n} \left ( \overline{X}^k \right )^{p^n} , \]
+avec de plus $a_k^{p^n} = a_k$ dans $\Fp$ d'après le théorème de Fermat, et :
+\[ \left ( \overline{X}^{p^n} \right )^k = \overline{X}^k , \]
+ce qui donne :
+\[ \overline{Q}^{p^n} = \sum_{k=0}^{d-1} a_k \overline{X}^k = \overline{Q} . \]
+Ainsi, pour tout polynôme $Q$ de $\Fp[X]$ non multiple de $P$ :
+\[ \overline{Q}^{p^n-1} = \overline{1} . \]
+$\Fpd^{\ast}$ est un groupe multiplicatif d'ordre $p^d-1$, donc pour tout élément $\overline{Q} \in \Fpd^{\ast}$ on a 
+$\overline{Q}^{p^d-1} = \overline{1}$. Autrement dit, $p^n-1$ est un multiple de $p^d-1$.
+Supposons que $d$ ne divise pas $n$, on écrit $n=qd + r$ avec $0<r<d$ et :
+\[ p^n-1 = p^qd p^r -1 = p^r ( p^{qd} - 1) + p^r - 1 , \]
+or $p^d - 1$ divise $p^n -1$ et $p^{qd}-1$, donc va aussi diviser $p^r-1$ ce qui est impossible ($p^r-1 < p^d-1$).
+Finalement, $d$ divise $n$ ce qui achève la démonstration de la condition nécessaire.
+
+Réciproquement, soit $d$ un diviseur de $n$ et soit $P \in \U_d(p)$. 
+$\Fpd^{\ast}$ est un groupe multiplicatif d'ordre $p^d-1$,  donc, d'après le théorème de Lagrange :
+\[ \forall X \in \Fp[X], \quad \overline{X}^{p^d-1} = \overline{1} . \]
+On en déduit que $\overline{X}^{p^d} = \overline{X}$, ce qui permet de démontrer (par récurrence) que :
+\[ \forall k \in \Ne, \quad \overline{X}^{p^kd} = \overline{X} . \]
+Comme $d$ divise $n$, on a, en particulier $\overline{X}^{p^n} = \overline{X}$. 
+Autrement dit, le polynôme $P$ divise $X^{p^n} - x = P_n(X)$.
+\end{proof}
+
+\begin{thm}
+Le polynôme $P_n(X) = X^{p^n} - X$ est sans facteur carré dans $\Fp[X]$ et on a la décomposition en facteurs irréductibles :
+\[ X^{p^n} - X = \prod_{d \in \D_n} \prod_{P \in \U_d(p)} P . \]
+\end{thm}
+
+\begin{proof}
+Comme $P'_n(X) = p^n X^{p^n-1} - 1 = - 1$ dans $\Fp[X]$, les polynômes $P_n$ et $P'_n$ sont premiers entre eux et $P_n$ est sans 
+facteurs carrés dans $\Fp[X]$. 
+La formule exhibée dans le théorème est donc une conséquence directe du lemme $\ref{lem:divPn}$.
+\end{proof}
+
+\begin{thm}
+Pour tout $n \in \Ne$, on a : 
+\[ n I_n(p) = \sum_{d \in \D_n} \mu \left ( \dfrac{n}{d} \right ) p^d . \]
+\end{thm}
+
+\begin{proof}
+En prenant les degrés dans la formule du théorème précédent on trouve :
+\[ \forall n \Ne, \quad p^n = \sum_{d \in \D_n} \sum_{0 \in \U_d(p)} \deg(P) = \sum_{d \in \D_n} d I_d(p) , \]
+En utilisant la formule d'inversion de Möbius (cf. théorème $\ref{thm:invMob}$), on peut écrire :
+\[ \forall n \Ne, \quad n I_n(p) = \sum_{d \in \D_n}  \mu(d) p^{n/d} = \sum_{d \in \D_n} \mu \left ( \dfrac{n}{d} \right ) p^d . \]
+\end{proof}
+
+\begin{coro}
+Pour tout entier naturel $n$ non nul, il existe dans $\Fp[X]$ des polynômes irréductibles de degré $n$ et on a :
+\[ I_n(p) \sim_{n \to \infty} \dfrac{p^n}{n} . \]
+\end{coro}
+
+\begin{proof}
+On veut tout d'abord montrer que $I_n(p) > 0$ pour tout entier $n$ non nul. \\
+Pour $n=1$, on a $I_1(p) = p \geq 2$. Pour $n=2$, on a $I_2(p) = \dfrac{p(p-1)}2 \geq 1$. \\
+Pour $n \geq 3$, on a 
+\[ n I_n(p) = p^n + \sum_{d \in \D_n \setminus \set{n}} \mu \left ( \dfrac{n}{d} \right ) p^d . \]
+Or :
+\begin{align*}
+\abs*{  \sum_{d \in \D_n \setminus \set{n}} \mu \left ( \dfrac{n}{d} \right ) p^d } 
+& \leq \sum_{d \in \D_n \setminus \set{n}} \abs{*\mu \left ( \dfrac{n}{d} \right )} p^d \\
+& \leq \sum_{d \in \D_n \setminus \set{n}} p^d \qquad (\mu \text{ à valeurs dans } \set{-1,0,1}) \\
+& \leq \sum_{k=1} ^{E[n/2]} p^k \qquad (*) \\
+& \leq p \dfrac{p^{E[n/2]} - 1}{p-1} < p^{E[n/2]} - 1 \leq p^{n/2+1} .
+\end{align*}
+L'inégalité (*) étant obtenue en considérant qu'un diviseur de $n$ strictement inférieur à $n$ est, au plus égal à $n/2$. 
+Finalement, on peut minorer $n I_n(p)$ par :
+\[ n I_n(p) > p^n - p^{n/2+1} > 0 . \]
+Enfin, en considérant que
+\[ \abs*{ \dfrac{n I_n(p)}{p^n} -1 } < \dfrac{p^{n/2+1}}{p^n} \to_{n \to \infty} 0 , \]
+on a bien $I_n(p) \sim_{n \to \infty} \dfrac{p^n}{n}$.
+\end{proof}
+
+\end{document}
