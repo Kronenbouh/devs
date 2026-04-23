@@ -1,0 +1,139 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} 
+
+\begin{itemize}
+\item Tauvel - Analyse complexe - page 52
+\item Hassan - Topologie - page 169 (pour la connexité)
+\end{itemize}
+
+\underline{Leçons :}
+\begin{itemize}
+\item
+\end{itemize}
+
+\begin{defn}
+Un espace topologique $X$ est convexe s'il n'est pas réunion de deux ensembles ouverts non vides disjoints.
+\end{defn}
+
+\begin{thm}[Caractérisation de la connexité]
+Soit $X$ un espace topologique, les propriétés suivants sont équivalentes :
+\begin{enumerate}
+\item $X$ est connexe ;
+\item $X$ n'est pas réunion de deux fermés non vides disjoints ;
+\item il n'existe pas dans $X$ d'autres parties ouvertes et fermées que $X$ et $\emptyset$ ;
+\item toute application continue de $X$ dans l'espace discret $\Z$ est constante ;
+\item toute application continue de $X$ dans l'espace discret $\set{0,1}$ est constante.
+\end{enumerate}
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+$(i) \Rightarrow (ii)$ Supposons que $X = F \cup G$, avec $F, G$ fermés non vides disjoints.
+Clairement, $(X \setminus F) \cup (X \setminus G) = F$ et les ensembles du membre de gauche sont des ouverts, ce qui est contradictoire. \\
+
+$(ii) \Rightarrow (iii)$ Soit $\emptyset \subsetneq F \subsetneq X$, avec $F$ ouvert et fermé. 
+Clairement $X= F \cup (X \setminus F)$ réunion de deux fermés. \\
+
+$(iii) \Rightarrow (iv)$ Soit $x_0 \in X$ et $f(x_0) \in \Z$. L'ensemble $\set{f(x_0)}$ est ouvert et fermé dans $\Z$, 
+donc son image réciproque par $f$ est un ouvert et fermé non vide de $X$, c'est donc $X$, $f$ est constante.
+
+$(iv) \Rightarrow (v)$ On considère $i$ l'injection canonique de $\set{0,1}$ dans $\Z$. Soit $f$ continue de $X$ dans $\set{0,1}$,
+alors $i \circ f$ est continue donc constante, ce qui implique que $f$ est constante.
+
+$(v) \Rightarrow (i)$ Supposons $X$ non connexe, soit $X = U \cup V$ avec $U, V$ des ouverts non vides de $X$.
+L'application $f$ définie sur $X$ par $f(x) = 0$ si $x \in U$ ; $f(x) = 1$ sinon, est continue donc constante, ce qui est absurde.
+\end{proof}
+
+\begin{thm}[Principe du prolongement analytique]
+\label{thm:1}
+Soient $U$ un ouvert connexe de $\Cx$, a \in U$ et $f$ une fonction analytique sur $U$. Les conditions suivantes sont équivalentes :
+\begin{enumerate}[label=(\roman*)]
+\item $f$ est identiquement nulle sur $U$ ;
+\item $f$ est identiquement nulle sur un voisinage de $a$ ;
+\item pour tout $n \in \N$, on a $f^{(n)}(a) = 0$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+Les implications $(i) \Rightarrow (ii) \Rightarrow (iii)$ sont claires. \\
+
+$(iii) \Rightarrow (ii)$ Par définition, il existe un voisinage de $a$ sur lequel $f$ est égale à son développement en série entière,
+donc identiquement nulle sur ce voisinage. \\
+
+$(ii) \Rightarrow (i)$ Soit $V$ l'ensemble des $z \in U$ tel que $f$ soit identiquement nulle dans un voisinage de $z$.
+$V$ est non vide par hypothèse et si $z \in V$, alors il existe un ouvert contenant $z$ et sur lequel $f$ est identiquement nulle.
+Donc cet ouvert est dans $V$ ce qui démontre que $V$ est ouvert.
+Prenons $(z_n)_\N$ une suite de points de $V$ convergeant vers $z \in U$. 
+Pour tous $n,k$ \in \N$, on a $f^{k}(z_n)=0$. Par continuité de chaque $f^{k}$, il vient que $f^{k}(z)=0$ pour tout $k \in \N$.
+Comme $f$ est développable en série entière autour de $z$, on en déduit que $f$ est identiquement nulle au voisinage de $z$, soit 
+$z \in V$ et $V$ est fermé. Par connexité de $U$, on déduit que $U=V$ et la fonction est identiquement nulle sur $U$.
+\end{proof}
+
+\begin{coro}
+Soient $U$ un ouvert connexe de $\Cx$ e $f, g$ analytiques sur $U$. 
+Si $f$ et $g$ coïncident au voisinage d'un point de $U$ alors $f$ et $g$ sont égales sur tout $U$.
+\end{coro}
+
+\begin{defn}[partie discrète]
+Soient $U$ un ouvert de $\Cx$ et $A$ une partie de $U$. On dit que $A$ est une partie discrète de $U$ s, pour tout $a \in U$, 
+il existe $r>0$ tel que $D(a,r) \cap A = \set{a}$.
+\end{defn}
+
+\begin{thm}
+\label{thm:2}
+Soient $U$ un ouvert de $\Cx$ et $A$ une partie de $U$. Les propositions suivantes sont équivalentes.
+\begin{enumerate}[label=(\roman*)]
+\item Tout $z \in U$ possède un voisinage $V$ tel que $V \cap A$ soit fini ;
+\item pour tout compact $K$ de $U$, l'ensemble $K \cap A$ est fini ;
+\iem $A$ est une partie discrète et fermée de $U$.
+\end{enumerate}
+Si ces conditions sont vérifiées, on dit que $A$ est une partie localement finie de $U$.
+\end{thm}
+
+\begin{proof}
+$(i) \Rightarrow (ii)$ Pour $z \in K$ on note $V_z$ un voisinage de $z$ tel que $V \cap A$ soit fini.
+Alors $K \subset \bigcup_{z} V_z$ et on extrait de de recouvrement un sous recouvrement fini. 
+Ainsi, $K \cap A$ est fini. \\
+
+$(ii) \Rightarrow (iii)$ Comme $\Cx$ est localement compact, tout point $z \in U$ possède un voisinage compact que l'on note $V_z$,
+et $V_z \cap A$ est fini. 
+Par séparation de $\Cx$, chaque point de $V_z \cap A$ admet un voisinage disjoint des voisinages des autres points, on peut donc
+exhiber un voisinage $W_z$ de $z$ tel que $W_z \cap A = \set{z}$ donc $A$ est une partie discrète. \\
+Prenons maintenant $z \in \overline{A}$, l'adhérence de $A$ dans $U$, si $z \not \in A$, alors le voisinage $W_z$ précédemment
+exhibé est tel que $W_z \cap A = \emptyset$ ce qui est contradictoire. Donc $A$ est fermé. \\
+
+$(iii) \Rightarrow (i)$ Prenons $z \in U$, si $z \in A$ alors il existe un voisinage $V$ de $z$ tel que $V \cap A = \se{z}$ car $A$
+est une partie discrète. Sinon, comme $A$ est fermé, il existe un voisinage $V$ de $z$ tel que $V \cap A = \emptyset$.
+\end{proof}
+
+\begin{thm}[Principe des zéros isolés]
+Soient $U$ un ouvert connexe de $\Cx$ et $f$ une fonction analytique sur $U$ non identiquement nulle. 
+L'ensemble $Z(f)$ des zéros de $f$ est une partie localement finie de $U$.
+\end{thm}
+
+\begin{proof}
+$Z(f) = f^{-1}(\set{0})$, c'est donc un fermé par continuité de $f$. 
+Il reste donc à montrer que $Z(f)$ est une partie discrète de $U$ (cf. théorème $\ref{thm:2}$). 
+Soit $u \in U$, d'après le théorème $\ref{thm:1}$, il existe $k \in \N$ tel que $f^{k}(u) \neq 0$. 
+On note $k$ le plus petit de ces entiers, au voisinage de $u$, on a :
+\[ f(z) = a_k (z-u)^k + (z-u)^k \sum_{n=1}^{\infty} a_{n+k} (z-u)^n , \]
+avec $a_k \neq 0$. On définit la fonction $g$ sur ce voisinage par :
+\[ g(z) = \sum_{n=1}^{\infty} a_{n+k} (z-u)^n . \]
+Cette fonction est nulle en $u$ et développable en série entière en ce point, et en particulier continue en $u$.
+Donc, il existe un voisinage $V$ de $u$ sur lequel $\abs{g(z)} \leq \abs{a_k}$.
+Ainsi, pour tout $z \in V \setminus \set{z}$, on a :
+\[ \abs{f(z)} \ leq \abs{z-u}^k ( \abs{a_k} - \abs{g(z)} > 0 . \]
+Ainsi, $Z(f) \cap V = \set{u}$, ce qui achève la démonstration.
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,161 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Analyse - page 43 puis 47
+
+\underline{Leçons :}
+\begin{itemize}
+\item
+\end{itemize}
+
+\begin{intro}
+La notion de compacité présente une importante diversité de présentation parmi les auteurs des manuels les plus utilisés.
+On constate par exemple que :
+\begin{itemize}
+\item dans son ouvrage de topologie générale, l'auteur Nawfal El Hage Hassan définit la compacité comme la propriété d'un espace
+topologique séparé d'admettre un sous-recouvrement fini de tout recouvrement par des ouverts ;
+\item dans son ouvrage destiné aux CPGE, Xavier Gourdon donne une définition similaire de la compacité, en se restreignant néanmoins
+aux espaces métriques (donc séparés).
+\item dans son ouvrage de préparation à l’agrégation, Jean-Etienne Rombaldi définit la compacité d'une partie d'un espace métrique
+comme la propriété de toute suite de cette partie d'admettre une sous-suite convergente.
+\end{itemize}
+On voit ainsi se dessiner une équivalence entre deux propriétés et on comprend cette équivalence à gros traits : 
+en un sens on peut recouvrir l'espace d'un nombre fini d'ensembles arbitrairement \og petits \fg{}, et toute suite aura nécessairement 
+une infinité de points dans un de ces ensembles. 
+Dans un second sens, tout recouvrement par des ouverts peut être assimilé à une suite de voisinage des points d'une suite. 
+Or cette suite aura une infinité de points dans un ensemble arbitrairement \og petit \fg{}, et en construisant des ouverts
+suffisamment \og grands \fg{} autour du nombre (fini) de points restants, on aura un recouvrement fini. \\
+C'est en partant de cette intuition que l'on va démontrer l'équivalence les propriétés de Borel-Lebesgue et de Bolzano-Weierstrass
+dans le cadre des espaces métriques.
+\end{intro}
+
+$(E,d)$ est un espace métrique et $K$ est une partie non vide de $E$
+
+\begin{prop}[de Bolzano-Weierstrass]
+De toute suite de points de $K$ on peut extraire une sous-suite qui converge dans $K$.
+\end{prop}
+
+\begin{lem}
+\label{lem:1}
+Si $K$ vérifie la propriété de Bolzano-Weierstrass, alors, pour tout rayon $r > 0$, 
+il existe une suite finie $(a_k)_{1 \leq k \leq r}$ d'éléments de $K$ telle que :
+\[ K \subset \bigcup_{k=1}^r B(a_k, r) \]
+\end{lem}
+
+\begin{proof}
+Supposons qu'il existe $r > 0$ tel que cette propriété ne soit pas vraie. 
+Prenons $u_0 \in K$, il existe alors $u_1 \in K \setminus B(u_0, r)$ et donc $d(u_0, u_1) \geq r$.
+Supposons construite une suite finie $(u_0, \dots, u_n)$ de points de $K$ telle que $d(u_i, u_j) \geq r$ pour $i \neq j$.
+Il existe alors $u_{n+1} \in K$ telle que $d(u_{n+1}, u_i) \geq r$ pour tout $i \in \set{1, \dots, n}$. 
+Ainsi, on peut construire une suite $(u_n)_\N$ de $\K$ de laquelle il est impossible d'extraire une sous-suite convergente, ce qui est
+contradictoire.
+\end{proof}
+
+\begin{lem}
+\label{lem:2}
+Soit $K$ vérifiant la propriété de Bolzano-Weierstrass et $(O_i)_I$ une famille d'ouverts recouvrant $K$.
+Alors, il existe un réel $r>0$ tel que toute boule ouverte de centre $x \in K$ et de rayon $r$ soit contenue dans l'un des $O_i$.
+\end{lem}
+
+\begin{proof}
+Supposons que pour tout réel $r>0$, il existe une boule ouverte de centre $x \in K$ et de rayon $r$ qui ne soit contenu dans aucun
+des $O_i$. On construit alors une suite $B \left ( x_n, \dfrac1{n} \right )$ de boules ouvertes de centre $x_n \in K$ qui ne sont incluses
+dans aucun des $O_i$. De la suite $(x_n)_\N$ on peut extraire sous-suite $(x_{\varphi(n)})_\N$ qui converge vers $x \in K$.
+Il existe $i \in I$ tel que $x \in O_i$ et donc un rayon $r>0$ tel que $B(x, r) \subset O_i$.
+En prenant $N \in \N$ tel que :
+\[ \forall n \geq N, \quad d(x_{\varphi(n)}, x) < \dfrac{r}2 \et \abs*{\dfrac1{\varphi(n)}} < \dfrac{r}2, \]
+on a alors, toujours pour $n \geq N$ :
+\[ B \left ( x_{\varphi(n)}, \dfrac1{\varphi(n)} \right ) \subset B(x, r) \subset O_i , \]
+ce qui est contradictoire.
+\end{proof}
+
+\begin{prop}[de Borel-Lebesgue]
+De tout recouvrement de $K$ par des ouverts on peut extraire un sous-recouvrement fini.
+\end{prop}
+
+\begin{thm}
+Les propriétés de Bolzano-Weierstrass et Borel-Lebesgue sont équivalentes.
+\end{thm}
+
+\begin{proof}
+Soit $K$ vérifiant la propriété de Bolzano-Weierstrass, et $(O_i)_I$ une famille d'ouverts recouvrant $K$.
+D'après le lemme $\ref{lem:2}$ il existe un rayon $r$ tel que toute boule ouverte de centre $x \in K$ de rayon $r$ soit contenu dans l'un
+des $O_i$. Et d'après le lemme $\ref{lem:2}$, il existe une suite finie $(a_1, \dots, a_r)$ d'éléments K telle que :
+\[  K \subset \bigcup_{k=1}^r B(a_k, r) \subset \bigcup_{k=1}^r O_{i_k} , \]
+avec $O_{i_k}$ l'ouvert contenant $B(a_k, r)$. \\
+
+Soit maintenant $K$ vérifiant la propriété de Borel-Legesgue et supposons qu'il existe une suite $(u_n)_\N$ de points de $K$ et
+n'admettant pas de valeurs d'adhérence dans $K$. 
+Donc, pour tout point $x \in K$, il existe un réel $r_x$ tel que $B(x, r_x)$ ne contienne qu'un nombre fini d'éléments de la suite.
+On extrait un sous-recouvrement fini du recouvrement $\bigcup_{x \in K} B(x, r_x)$ de $K$ et on déduit que la suite $(u_n)_\N$ prend
+un nombre fini de valeurs, donc admet une valeur d'adhérence, ce qui est contradictoire.
+\end{proof}
+
+On peut ainsi définir la notion de compacité :
+
+\begin{defn}
+Une partie $K$ d'un espace métrique $(E,d)$ est dite compacte si elle vérifie la propriété de Bolzano-Weierstrass ou la propriété de 
+Borel-Lebesgue.
+\end{defn}
+
+\begin{rmq}
+La propriété du lemme $\ref{lem:1}$ est appelée \og pré-compacité \fg{}. 
+Une partie $K$ de $E$ est ainsi dite pré-compacte si elle vérifie cette propriété.
+D'après ce que l'on a démontré, il est clair que la compacité implique la pré-compacité. \\
+De la définition de la compacité, on tire les corollaires ci-dessous.
+\end{rmq}
+
+\begin{coro}
+Une partie compacte de $E$ est fermée et bornée.
+\end{coro}
+
+\begin{proof}
+Si $K$ est compact il vérifie la propriété de Bolzano-Weirstrass, donc est fermé. 
+Il vérifie aussi la propriété de Borel-Lebesgue, donc deux points quelconques de $K$ seront distant d'au plus deux fois le maximum
+des diamètres des ouverts recouvrant $K$ additioné du maximum des distances entre les ouverts du recouvrement considérés deux à
+deux. 
+\end{proof}
+
+\begin{coro}
+Une partie compacte de $E$ est complète.
+\end{coro}
+
+\begin{proof}
+Soit $K$ un compact de $E$ et $(u_n)_\N$ une suite de points de $K$ de Cauchy. Cette suite admet une sous-suite $(u_{\varphi(n)})_\N$
+convergente dans $K$ (ce dernier étant fermé), donc une valeur d'adhérence $l \in \K$.
+La suite étant de Cauchy, pour tout $\veps >0$, on peut trouver $N \in \N$ tel que : 
+\[ \forall p, q \geq N, \quad d(u_p, u_q) < \veps/2 . \]
+Il existe aussi $N_1 \in \N$ tel que $\forall n \geq N, d(u_{\varphi(n)}, l) < \veps/2$.
+Ainsi, en prenant $N_2 \in \N$ tel que $n \geq N_2 \Rightarrow \varphi(n) \geq \max(N, N_1)$, on a :
+\[ \forall n \geq \max(N, N_2), \quad d(u_n, l) < d(u_n, u_{\varphi(n)}) + d(u_{\varphi(n)}, l) < \veps , \]
+ce qui montre que la suite est convergente.
+\end{proof}
+
+La réciproque est évidemment fausse (considérer $\R$), on a néanmoins la propriété suivante :
+
+\begin{thm}
+Une partie complète et précompacte de $E$ est compacte.
+\end{thm}
+
+\begin{proof}
+Supposons $K \subset E$ telle qu'énoncée et prenons $(u_n)_\N$ une suite d'éléments de $K$.
+Par précompacité, on recouvre $K$ de boules ouvertes de rayon $1/2$, il existe alors une partie infinie de $\N$, que l'on note $J_0$,
+et telle que la suite extraite $(u_n)_{J_0}$ soit incluse dans la boule $B(x_0, 1/2)$ avec $x_0 \in K$. \\
+De même, on recouvre $K$ de boules ouvertes de rayon $1/4$, il existe alors une partie infinie de $J_0$, que l'on note $J_1$,
+et telle que la suite extraite $(u_n)_{J_1}$ soit incluse dans la boule $B(x_1, 1/4)$ avec $x_0 \in K$. \\
+En supposant ainsi construis les points $(x_0, \dots, x_n)$ et les parties $(J_0, \dots, J_n)$, on peut de même construire
+$J_{n+1} \subset J_n$ infinie et telle que la suite $(u_n)_{J_{n+1}}$ soit incluse dans la boule $B(x_1, 1/2^{n+1})$ avec $x_{n+1} \in K$. 
+On construit ainsi une suite décroissante (au sens de l'inclusion) de parties infinies de $\N$, 
+on peut maintenant construire une extractrice $\varphi$ en posant :
+\[ \varphi(0) = \min{J_0} \et \varphi(n+1) = \min( J_{n+1} \cap [\varphi(n) + 1 , \infty [ . \]
+On note que $\varphi$ est bien définie car, pour tout $n \in \N, J_n$ n'est pas majoré (sinon il serait fini).
+La suite extraite $(u_{\varphi(n)})_\N$ est de Cauchy, donc convergente, ce qui démontre que $K$ est compact.
+\end{proof}
+
+\end{document}

@@ -15,12 +15,20 @@ margin=2cm,
 \usepackage{bbm}
 \usepackage{xparse, etoolbox}
 \usepackage{enumerate}
-\usepackage{enumitem}
+\usepackage{enumitem, multicol}
 \usepackage{mathabx}
 \usepackage[frenchb]{babel}
 
 %environment
 \input{environment}
+
+%tikz
+\usepackage{tikz, pgfplots}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary {angles}
+\usepackage{tkz-euclide}
 
 %Ensembles de nombres
 \newcommand{\N} {\mathbb{N}}
@@ -79,6 +87,7 @@ margin=2cm,
 }
 \DeclareMathOperator{\card}{card}
 \DeclareMathOperator{\ppcm}{ppcm}
+\DeclareMathOperator{\pgcd}{pgcd}
 
 %Commandes de pure flemme
 \newcommand{\veps}{\varepsilon}
@@ -105,7 +114,7 @@ margin=2cm,
 \newcommand{\tq}{\text{~t.q.~}}
 \newcommand{\mq}{~montrer~que~}
 \newcommand{\et}{\quad \text{et} \quad}
-\newcommand{\ou}{\text{~ou~}}
+\newcommand{\ou}{\quad \text{ou} \quad}
 \newcommand{\Kx}{\K[X]}
 
 

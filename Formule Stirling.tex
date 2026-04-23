@@ -1,0 +1,109 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Gourdon - Analyse - pages 219 et 130
+
+\underline{Leçons :}
+\begin{itemize}
+\item 223 : Suites num´eriques. Convergence, valeurs d’adh´erence. Exemples et applications.
+\item 224 : Exemples de d´eveloppements asymptotiques de suites et de fonctions.
+\item 236 : Illustrer par des exemples quelques m´ethodes de calcul d’int´egrales de fonctions d’une ou plusieurs variables.
+\end{itemize}
+
+\begin{defn}[Intégrale de Wallis]
+Pour $n \in \N$ on définit l'intégrale de Wallis de rang $n$ par :
+\[ W_n = \int_{0}^{\pi/2} \sin^n{x} dx . \]
+\end{defn}
+
+\begin{lem}
+\label{lem:1}
+Pour tout $p \in \N$, on a :
+\[ W_{2p+1} = \dfrac{4^p (p!)^2}{(2p+1)!} \et W_{2p} = \dfrac{2p!} {4^p (p!)^2} \dfrac{\pi}{2} . \]
+\end{lem}
+
+\begin{proof}
+On remarque que $W_0 = \pi/2$ et $W_1 = 1$. \\
+Pour $n \geq 2$, on réalise une intégration par partie en posant :
+\[ \begin{matrix}
+u(x) = \sin^{n-1}{x} & u'(x) = (n-1) \sin^{n-2}{x} \cos{x} \\
+v'(x) = \sin{x} & v(x) = - \cos{x}
+\end{matrix} \]
+on a alors :
+\begin{align*}
+W_n & = \underbrace{ \left[ -\cos{x} \sin^{n-1}{x} \right ]}_{=0} + (n-1) \int_{0}^{\pi/2} \sin^{n-2}{x} \cos^2{x} dx \\
+& = (n-1) \int_{0}^{\pi/2} \sin^{n-2}{x} (1-\sin^2{x}) dx \\
+& = (n-1) W_{n-2} + (n-1) W_n ,
+\end{align*}
+d'où on tire la relation de récurrence $W_n = \dfrac{n-1}{n} W_{n-2}$. En réalisant une récurrence sur les intégrales de rangs pairs
+et une seconde sur les intégrales de rangs impairs, on trouve :
+\[ \forall p \in \N, \quad W_{2p} = \dfrac{(2p-1) \cdots 3 \cdot 1}{2p \cdots 4 \cdot 2} \dfrac{\pi}{2} \et
+W_{2p+1} = \dfrac{2p \cdots 4 \cdot 2}{(2p+1) \cdots 3 \cdot 1} . \]
+\end{proof}
+
+\begin{lem}[Formule de Wallis]
+\label{lem:Wallis}
+Lorsque $p \to \infty$, on a :
+\[ \dfrac1{p} \left ( \dfrac{2p \cdots 4 \cdot 2}{(2p-1) \cdots 3 \cdot 1} \right )^2 \to \pi \]
+\end{lem}
+
+\begin{proof}
+Soit $x \in [0, \pi/2]$ et $p \in \Ne$, on a $\sin{x} \in [0,1]$ donc :
+\[ \sin^{2p+1}{x} \leq \sin^{2p}{x} \leq \sin^{2p-1}{x} , \]
+d'où on tire, par intégration, 
+\[ W_{2p+1} \leq W_{2p} \leq W_{2p-1} \qquad \text{donc} \qquad 1 \leq \dfrac{W_{2p}}{W_{2p+1}} \leq \dfrac{W_{2p-1}}{W_{2p+1}}
+= \dfrac{2p+1}{2p} , \]
+en utilisant le résultat du lemme $\ref{lem:1}$ (avec $W_{2p-1} = W_{2(p-1)+1}$). 
+On déduit, par passage à la limite, que :
+\[ \lim_{p \to \infty} \dfrac{W_{2p}}{W_{2p+1}} = 1 , \qquad (*) \]
+avec :
+\[ \dfrac{W_{2p}}{W_{2p+1}} = \dfrac{\pi}2 \left ( \dfrac{(2p-1) \cdots 3 \cdot 1}{2p \cdots 4 \cdot 2} \right )^2 (2p+1) . \]
+Autrement dit :
+\[ \lim_{p \to \infty} p \left ( \dfrac{(2p-1) \cdots 3 \cdot 1}{2p \cdots 4 \cdot 2} \right )^2 = \dfrac1{\pi} . \]
+%d'où on tire l'équivalence pour $p \to \infty$ :
+%\[ \dfrac{(2p-1) \cdots 3 \cdot 1}{2p \cdots 4 \cdot 2} \sim \dfrac1{\sqrt{p \pi}} , \]
+%soit, toujours d'après le lemme $\ref{lem:1}$ et la relation (*) :
+%\[ W_{2p} \sim \dfrac12 \sqrt{\dfrac{\pi}{p}} \et W_{2p} \sim W_{2p+1} . \]
+%On conclut en remplaçant $p$ par $n/2$ dans l'équivalence.
+\end{proof}
+
+\begin{thm}[Formule de Stirling]
+Lorsque $n \to \infty$, on a :
+\[ n! \sim \sqrt{2\pi n}\cdot n^ne^{-n} . \]
+\end{thm}
+
+\begin{proof}
+On définit, pour $n \in \Ne$, les suites $(u_n)$ et $(v_n)$ par :
+\[ u_n = \dfrac{n^ne^{-n}\sqrt{n}}{n!} \et v_n=\log{u_{n+1}/u_n} . \]
+On estime $v_n$ pour $n \to \infty$
+\begin{align*}
+v_n & = \log \left [ \left ( \dfrac{n+1}{n} \right )^{n+1/2} e^{-1} \right ] \\
+& = -1 + \left ( n+\dfrac12 \right ) \left ( \dfrac1{n} - \dfrac1{2n^2} + O \left ( \dfrac1{n^3} \right ) \right ) \\
+& = -1 + 1 -  \dfrac1{2n} + \dfrac1{2n} + O  \left ( \dfrac1{n^2} \right ) \\
+& = O  \left ( \dfrac1{n^2} \right )
+\end{align*}
+Ainsi, la suite $(\abs{v_n})$ est dominée par la suite $(1/n^2)$ et la série $\sum 1/n^2$ est convergente, on en déduit que $\sum v_n$
+converge. Or, pour $N \in \Ne$ :
+\begin{align*}
+\sum_{n=1}^{N} v_n & =  \sum_{n=1}^{N} ( \log{u_{n+1}} - \log{u_n} ) \\
+& = \log{u_{N+1}} - \log{u_1}
+\end{align*}
+Par passage la limite et par continuité de la fonction $\log$ on en déduit que la suite $(u_n)$ admet une limite en l'infini.
+On note $k = \lim{u_n} > 0$ ($k=0$ est impossible car $\log{u_n}$ converge vers une limite finie) et on déduit que :
+\begin{align} n! \sim k \sqrt{n} n^n e^{-n} \qquad n \to \infty . \label{eq:1} \end{align}
+D'après la formule de Wallis, on a :
+\[ \lim_{p \to \infty} \dfrac1{p} \left ( \dfrac{2p \cdots 4 \cdot 2}{(2p-1) \cdots 3 \cdot 1} \right )^2 = \pi \]
+ce qu'on peut réécrire ainsi :
+\[ \lim_{p \to \infty} \dfrac1{p} \left ( \dfrac{2^{2p} (p!)^2}{(2p)!} \right )^2 = \pi , \]
+soit, en utilisant l'équivalent (\ref{eq:1}) : 
+\[ \dfrac1{p} \left ( \dfrac{2^{2p} (p!)^2}{(2p)!} \right )^2 \sim \dfrac{2^{4p}k^4p^{4p+2}e^{-4p}}{pk^2(2p)^{4p+1}e^{-4p}}
+= \dfrac{k^2}2 , \]
+autrement dit $\pi = k^2/2$ soit $k=\sqrt{2\pi}$, ce qui permet de conclure.
+\end{proof}
+
+\end{document}
