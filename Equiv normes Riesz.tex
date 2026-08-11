@@ -1,0 +1,156 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} 
+\begin{itemize}
+\item Gourdon - Analyse - pages 50, 57 (pour les démonstrations) ;
+\item Hassan - Topologie - pages 121, 126, 128 (pour les prérequis).
+\end{itemize}
+
+\underline{Leçons :}
+\begin{itemize}
+\item  203 : Utilisation de la notion de compacité.
+\item  206 : Exemples d’utilisation de la notion de dimension finie en analyse.
+\item  208 : Espaces vectoriels normés, applications linéaires continues. Exemples.
+\end{itemize}
+
+\begin{nota}
+$E$ est un \Kev et $\K$ est $\R$ ou $\Cx$.
+\end{nota}
+
+\section{Quelques prérequis de topologie}
+
+\begin{defn}[Précompacité]
+Un espace métrique $E$ est dit précompact si, pour tout $\veps>0$, il existe un recouvrement fini de $E$ par des boules (ouvertes)
+de rayon $\veps$.
+\end{defn}
+
+\begin{rmq}
+En particulier, tout espace compact est précompact.
+\end{rmq}
+
+\begin{lem}
+Les compacts de $\R$ sont les fermés bornés de $\R$.
+\end{lem}
+
+\begin{lem}
+Soient $X, Y$ deux espaces topologiques avec $Y$ séparé et $f : X \to Y$ une application continue. 
+Alors, l'image par $f$ de toute partie compacte de $X$ est une partie compacte de $Y$.
+\end{lem}
+
+\begin{lem}
+Soient $X, Y$ deux espaces topologiques non vides. Alors l'espace topologique produit $X \times Y$ est compact si, 
+et seulement si, $X$ et $Y$ le sont.
+\end{lem}
+
+\begin{lem}
+Les compacts de $\R^n$ sont les fermés bornés de $\R^n$.
+\end{lem}
+
+\begin{thm}[Equivalence des normes, page 50]
+Si $E$ est de dimension finie, alors toutes les normes sur $E$ sont équivalentes.
+\end{thm}
+
+\begin{proof}
+Notons $n < \infty$ la dimension de $E$ et munissons ce dernier d'une base $B=(e_1, \dots, e_n)$.
+On peut donc écrire tout $x \in E$ comme $x = \sum_{i=1}^n x_i e_i$. 
+L'application $N$ définie sur $E$ par $N(x) = \sup_{i \in \set{1, \dots, n}} \abs{x_i}$ est une norme sur $E$.
+\begin{enumerate}[label=(\roman*)]
+\item $N(x) = 0 \Rightarrow \forall i \in \set{1, \dots, n}, x_i=0 \Rightarrow x = 0$ ;
+\item $\forall \lambda \in \K, \quad N(\lambda x) = \abs{\lambda} \sup_{i \in \set{1, \dots, n}} \abs{x_i} = \abs{\lambda} N(x)$ ;
+\item $\forall x,y \in E, \forall i \in \set{1, \dots, n}, \quad \abs{x_i+y_i} \leq \abs{x_i} + \abs{y_i} \Rightarrow N(x+y) \leq N(x) + N(y)$.
+\end{enumerate}
+Soit $N'$ une seconde norme sur $E$. On veut montrer que $N'$ est équivalente à $N$.
+On pose $a = \sum_i N'(e_i)$, on a alors, pour $x \in E$ :
+\begin{equation} N'(x) \leq \sum_{i=1}^n N'(x_i e_i) = \sum_{i=1}^n \abs{x_i} N'(e_i) \leq a N(x) . \label{eq:1} \end{equation}
+Munissons $K^n$ de la norme produit $\norminf{\cdot}$ définie par $\forall x=(x_1, \dots, x_n) \in K^n, \norminf{x} = \sup_i(x_i)$. 
+C'est bien une norme sur $K^n$ (pour les mêmes raisons que $N$ est une norme sur $E$). 
+L'application :
+\[ \begin{array}{c c c c} 
+\varphi : & (\K^n, \norminf{\cdot}) & \to & (E, N) \\
+& (x_1, \dots, x_n) & \mapsto & x= \sum_{i=1}^n x_i e_i 
+\end{array} , \]
+est clairement une isométrie. Par ailleurs, l'ensemble $S=\set{x \in E; N(x) =1}$ est l'image de la sphère unité de $K^n$ par $\varphi$.
+L'application $\varphi$ est continue (car isométrique) donc $S$ est un compact de $E$. \\
+En remarquant que :
+\[ \abs{N'(x) - N'(y)} \leq N'(x-y) \leq a N(x-y) \qquad \text{ d'après \ref{eq:1}} , \]
+on déduit que l'application $N' : (E, N) \to \R$ est continue. Ainsi, $N'$ atteint sa borne inférieure sur le compact $S$ et comme
+$x \in S \Rightarrow x \neq 0$ on en déduit que : 
+\[ b = \inf_{x \in S} N'(x) \neq 0 . \]
+En conclusion :
+\[ \forall x \in E, x \neq 0, \quad N'(x) = N(x) N' \left ( \dfrac{x}{N(x)} \right ) \geq b N(x) , \]
+et on a exhibé $a, b$ non nuls tels que $\forall x \in E, \quad b N(x) \leq N'(x) \leq aN(x)$. 
+En d'autres termes, en dimension finie, toutes les normes sont équivalentes à la norme infinie (et à fortiori entre elles).
+\end{proof}
+
+Ce théorème admet un corollaire important.
+
+\begin{coro}
+Une application linéaire d'un espace vectoriel normé $E$ de dimension finie dans un espace vectoriel normé $F$ quelconque est continue.
+\end{coro}
+
+\begin{proof}
+Il suffit de munir $E$ de la norme infinie $\norminf{\cdot}$. 
+En notant $(e_1, \dots, e_n)$ la base de $E$ et $a= \sum_{i=1}^n \norm{f(e_i)}$ on a :
+\[ \forall x \in E, \quad  \norm{f(x)} \leq \norminf{x} \cdot a , \]
+ce qui permet de déduire la continuité en $0$ de $f$ et donc sa continuité globale.
+\end{proof}
+
+Ce théorème nous fournit aussi une démonstration du lemme suivant.
+
+\begin{lem}
+Si $E$ est de dimension finie, alors toute partie fermée et bornée de $E$ est compacte.
+\end{lem}
+
+\begin{proof}
+Si $E$ est de dimension finie $n$, le choix de la norme n'influe par sur la topologie induite (cf. théorème précédent), 
+on choisit de munir $E$ de la norme $\norminf{\cdot}$.
+On munit aussi $E$ d'une base $(e_1, \dots, e_n)$. à laquelle on associe la base $(e_1^{\ast}, \dots, e_n^{\ast})$ du dual de $E$.
+Soit $(x_n)_\N$ une suite d'éléments d'une partie $F$ fermée et bornée de $E$.
+Alors, pour tout $i \in \set{1, \dots, n}$, les suites $(e_i^{\ast}(x_n))_\N \subset (\K, \abs{\cdot})$ sont bornées, 
+donc admettent une sous-suite convergente. 
+En notant $\varphi_i$ l'extractrice correspondante à la suite $(e_i^{\ast}(x_n))_\N$, 
+et en posant $\varphi = \varphi_1 \circ \dots \circ \varphi_n$ 
+on obtient une extractrice pour laquelle $(x_{\varphi(n)})_\N$ est convergente (dans $F$ par fermeture). 
+Donc une partie fermée et bornée de $E$ est bien compacte.
+\end{proof}
+
+
+
+\begin{thm}[de Riesz]
+On suppose $E$ muni d'une norme $\norm{\cdot}$. 
+Alors $E$ est de dimension finie si, et seulement si, la boule unité fermée de $E$ est compacte.
+\end{thm}
+
+\begin{proof}
+Supposons que $E$ soit de dimension finie, comme $B_f(0,1)$ est fermée bornée, elle est compacte. La condition est bien nécessaire.
+
+Réciproquement, supposons que $E$ soit de dimension infinie, 
+on va montrer que $B_f(0,1)$ n'est pas précompacte et donc pas compacte. 
+Par l'absurde, supposons qu'il existe $x_1, \dots, x_n$ tels que :
+\[ B_f(0,1) \subset \bigcup_{i=1}^n B(x_i,1) . \]
+Notons $F=\vect(x_1,\dots,x_n)$. Comme $E$ est de dimension infinie, il existe $x \in E \setminus F$.
+Notons $a= d(x,x_1) < \infty$ et $\Gamma = \set{y \in F ; \norm{x-y} \leq a}$. 
+L'ensemble $\Gamma$ est fermé comme image réciproque du fermé $]-\infty, a]$ par la fonction continue :
+\[ \begin{array}{c c c c}
+\varphi : & F & \to & \R \\
+& y & \mapsto & \norm{y-x}
+\end{array} \]
+De plus, c'est un ensemble borné, en effet pour $y, y' \in \Gamma, \norm{y-y'} \leq 2a$.
+Donc $\Gamma$ est compact, ainsi la fonction $\varphi$ atteint sa borne inférieure sur $\Gamma \subset F$ et il existe donc 
+$y \in F$ tel que $\norm{y-x} = d(x,F)$. \\
+Posons $x_0 = \dfrac{x-y}{\norm{x-y}}$, alors $d(x_0, F) \leq \norm{x_0-0} = 1$ (car $0 \in F$). Par ailleurs :
+\[ \forall z \in F, \quad \norm{x_0-z}= \dfrac1{\norm{x-y}} \norm{x-(y+\norm{x-y}z)} \geq \dfrac{d(x,F)}{\norm{x-y}} = 1, \]
+et finalement, $d(x,F)=1$.
+Or $x_0 \in B_f(0,1)$, donc il existe $i$ tel que $x_0 \in B(x_i, 1)$ de sorte que $d(x_0,x_i) < 1$ ce qui est absurde par définition de
+$d(x,F)=1$. Ainsi, on a démontré que le condition était suffisante.
+
+\end{proof}
+
+\end{document}

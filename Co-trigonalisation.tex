@@ -1,0 +1,91 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Co-trigonalisation}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombalide - Algèbre - page 678
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\begin{nota}
+$E$ est un \Kev de dimension finie $n \geq 1$ sur un corps $\K$.
+\end{nota}
+
+\begin{lem}
+Si un endomorphisme $f$ de $E$ est trigonalisable et si $F$ est un sous espace vectoriel de $E$ stable par $f$, 
+alors la restriction de $f$ à $F$ est trigonalisable.
+\end{lem}
+
+\begin{proof}
+Par calcul direct, on constate que le polynôme caractéristique de $f$ est scindé, à fortiori, le polynôme caractéristique de $\restr{f}{F}$
+l'est, d'où le résultat.
+\end{proof}
+
+\begin{thm}
+Si $(f_i)_{i \in I}$ est une famille d’endomorphismes trigonalisables de $E$ qui
+commutent deux à deux ($I$ ayant au moins deux éléments), il existe alors
+une base commune de trigonalisation dans E pour la famille $(f_i)_{i \in I}$.
+\end{thm}
+
+\begin{proof}
+Le résultat est clair pour une famille d'homothéties. Supposons donc que les $f_i$ ne sont pas tous des homothéties. \\
+
+Montrons tout d'abord qu'il existe un vecteur propre commun à tous les $f_i$ en raisonnant par récurrence sur la dimension de $E$.
+Pour $n=1$, il n'y a rien à démontrer (on revient au cas d'une famille d'homothéties). 
+Supposons maintenant le résultat vrai pour toutes dimensions jusqu'à $n-1 \geq 1$ et supposons que $E$ est de dimension $n$.
+Par hypothèses, il existe un indice $j \in I$ pour lequel $f_j$ n'est pas une homothétie. Etant trigonalisable, cet endomrophisme admet
+néanmoins au moins une valeur propre et le sous-espace propre :
+\[ E_{j, \lambda} = \set { x \in E ; f_j(x) = \lambda x } , \]
+est de dimension au moins 1 et au plus $n-1$ ($f_j$ n'est pas une homothétie). 
+De plus, par commutativité, $E_{j, \lambda}$ est stable pour chaque $f_i$ et, en conséquence, la restriction, à $E_{j, \lambda}$,
+de chaque endomorphisme $f_i$ est trigonalisable. 
+Ainsi, par hypothèse de récurrence, il existe un vecteur propre commun à tous les $\restr{f_i}{E_{j, \lambda}}$ et donc commun à tous
+les $f_i$. \\
+
+Montrons maintenant qu'il existe une base commune de trigonalisation. On procède à nouveau par récurrence sur la dimension de $E$.
+Le résultat est évident pour $n=1$, supposons le acquis pour toutes les dimensions de 1 à $n-1 \geq 1$ et montrons le pour $E$
+de dimension $n$.
+On note $e_1$ un vecteur propre commun à tous les endomoprhismes $f_i$ et on complète ce vecteur en une base $B=(e_1, \dots, e_n)$.
+La matrice de chaque endomorphisme $f_i$ dans $E$ est de la forme :
+\[ A_i = \begin{pmatrix} 
+\lambda_i & \mu_i \\
+0 & B_i
+\end{pmatrix} . \]
+De plus, comme le polynôme caractéristique de chaque $f_i, P_{f_i} = (\lambda_i-X) P_{B_i}(X)$ est scindé sur $\K$ (chaque $f_i$ étant
+trigonalisable), il en est de même de chaque polynôme $P_{B_i}(X)$ et donc la matrice $B_i$ est trigonalisable.
+De plus on a :
+\[ A_i A_j =  \begin{pmatrix} 
+\lambda_i & \mu_i \\
+0 & B_i
+\end{pmatrix} 
+ \begin{pmatrix} 
+\lambda_j & \mu_j \\
+0 & B_j
+\end{pmatrix} 
+=
+ \begin{pmatrix} 
+\lambda_i \lambda_j & \lambda_i \mu_j + mu_i B_j \\
+0 & B_i B_j
+\end{pmatrix} 
+ \]
+et de même :
+\[ A_j A_i =  \begin{pmatrix} 
+\lambda_j \lambda_i & \lambda_j \mu_i + mu_j B_i \\
+0 & B_j B_i
+\end{pmatrix} .
+ \]
+Comme les matrices $A_i$ commutent deux à deux, on en déduit que les matrices $B_i$ commutent aussi deux à deux.
+En d'autres termes, les matrices $B_i$ définissent des endomorphises trigonalisables qui commutent deux à deux.
+En leur appliquant l'hypothèse de récurrence, on trouve une base $(e'_2, \dots, e'_n)$ de l'espace vectoriel $F = \vect(e_2, \dots, e_n)$
+dans lesquels les matrices de ces endomorphismes sont triangulaires. 
+A fortiori, les matrices des endomrophismes $f_i$ dans la base $B'=(e_1, e'_2, \dots, e'_n)$ sont triangulaires.
+\end{proof}
+
+\end{document}

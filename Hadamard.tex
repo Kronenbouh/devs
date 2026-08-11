@@ -1,0 +1,66 @@
+\input{preamble}
+\DeclareMathOperator{\Sp}{\text{Sp}}
+\newcommand{\trans}[1]{\prescript{t}{}{#1}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Ma tête, un peu de cheat sur wiki, j'avoue.
+
+\underline{Leçons :}
+\begin{itemize}
+\item 152 : Endomorphismes diagonalisables en dimension finie
+\item 149 : Déterminant. Exemples et applications. 
+\end{itemize}
+
+\begin{nota}
+$\K = \Cx$. 
+Pour $x \in \K^n$ on note $\norm{x} = \left ( \sum_{i=1}^n \abs{x_i}^2 \right )^{1/2}$.
+Pour $A \in \Mn$ on note $(a_1, \dots, a_n)$ ses vecteurs colonnes et $(a_{i,j})_{1\leq i,j \leq n}$ ses coefficients.
+\end{nota}
+
+\begin{lem}
+Soit $U=(u_1, \dots, u_n) \in \Mn$ telle que $\forall i, \norm{u_i} = 1$.
+Alors, $\forall x=(x_1, \dots, x_n) \in \K^n$ on a :
+\[ \norm{Ux} \leq \norm{x} . \]
+\end{lem}
+
+\begin{proof}
+Par calcul direct :
+\begin{align*}
+\norm{Ux}^2 & = \sum_{i=1}^n \abs*{\sum_{k=1}^n u_{i,k} x_k}^2 \\
+& \leq \sum_{i=1}^n \sum_{k=1}^n \abs{u_{i,k}}^2 \abs{x_k}^2 \\
+& \leq \sum_{k=1}^n \abs{x_k}^2 \sum_{i=1}^n \underbrace{\abs{u_{i,k}}^2}_{=1} \\
+& \leq \norm{x}^2
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Soit $M=(c_1, \dots, c_n)$ une matrice carrée de $\Mn$ et $(c_1, \dots, c_n)$ ses vecteurs colonnes. On a :
+\[ \abs{\det{M}} \leq \prod_{i=1}^n \norm{c_i} \]
+et, si les vecteurs colonnes sont tous non nuls, l'égalité a lieu si, et seulement si, ils sont orthogonaux.
+\end{thm}
+
+\begin{proof}
+Si un des vecteur colonne est nul on a trivialement une égalité. 
+Si le déterminant est nul, l'inégalité est triviale.
+Sinon, on remarque que :
+\[ \det(M) = \det(c_1, \dots, c_n) = \norm{c_1} \cdots \norm{c_n} \det(u_1, \dots, u_n) = \norm{c_1} \cdots \norm{c_n} \det(U), \]
+avec $u_i = \dfrac{c_i}{\norm{c_i}}$.
+Par ailleurs, $\det(U)=\prod_{\lambda \in \Sp(U)} \lambda$ avec $\Sp(U)$ le spectre avec répétition de $U$.
+Or, si $\lambda \in U$, il existe $x \in \K^n$ non nul tel que :
+\[ Ux = \lambda x \Rightarrow \abs{\lambda} \leq 1 , \]
+par application directe du lemme. On en déduit que $\abs{\det{U}} \leq 1$. \\
+
+Si on a égalité (toujours sans vecteur colonne nul), alors on a aussi égalité dans la formule du lemme, et donc :
+\[ \forall x \in \K^n, \quad \norm{Ux} = \trans{Ux} Ux = \trans{x} \trans{U} U x = \norm{x} = \trans{x} x , \]
+avec $\trans{\cdot}$ l'opérateur de transconjugaison. 
+Donc $U$ est une matrice unitaire et elle transforme la base canonique de $\K^n$ en une base orthonormée.
+Réciroquement, si les vecteurs $u_1, \dots, u_n$ sont orthonormés, la matrice $U$ est unitaire et donc $\det{U} = \pm 1$.
+\end{proof}
+
+\end{document}

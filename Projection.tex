@@ -1,0 +1,138 @@
+\input{preamble}
+\newcommand{\ort}{^{\perp}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Le Théorème de projection et ses conséquences}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Li - Analyse fonctionnelle - page 32.
+
+\underline{Leçons :}
+\begin{itemize}
+\item  205 : Espaces complets. Exemples et applications.
+\item  213 : Espaces de Hilbert. Exemples d’applications.
+\item  208 : Espaces vectoriels normés, applications linéaires continues. Exemples.
+\item  219 : Extremums : existence, caractérisation, recherche. Exemples et applications.
+\item  253 : Utilisation de la notion de convexité en analyse.
+
+\end{itemize}
+
+\begin{thm}
+Soit $H$ un espace de Hilbert et soit $C$ une partie convexe et fermée, non vide, de $H$. 
+Alors, pour tout $x \in H$, il existe un unique $y \in C$ tel que :
+\[ \norm{x-y} = d(x,C) = \inf_{c \in C} \norm{x-c} . \]
+On dit que $y=P_C(x)$ est la projection de $x$ sur $C$. Cette projection est caractérisée par :
+\[ y \in C \et \Re{\angl{x-y, z-y} \leq 0}, \forall z \in C . \]
+\end{thm}
+
+\begin{proof}
+On démontre dans un premier temps l'existence d'un tel projeté.
+Notons $d=d(x,C)=\inf_{z \in C} \norm{x-z}$.
+Si $d=0$ alors $x\in \overline{C} = C$, et on a démontré l'existence du projeté (et même son unicité).
+Supposons donc $d >0$. 
+Par définition de la borne inférieure, pour tout $n \geq 1$, il existe $z_n \in C$ tel que :
+\[ d^2 \leq \norm{x-z_n}^2 \leq d^2 + \dfrac1{n} . \]
+Soient $n,p \geq 1$, en appliquant l'identité du parallélogramme à $u=x-z_n$ et $v=x-z_p$ on otient :
+\[ 4 \norm*{x- \dfrac{z_n+z_p}2}^2 + \norm{z_n-z_p}^2 = 2 ( \norm{x-z_n}^2 + \norm{x-z_p}^2 ) . \]
+Comme $C$ est convexe, le point $\dfrac{z_n+z_p}2$ est dans $C$, donc :
+\[ \norm*{x- \dfrac{z_n+z_p}2}^2 \geq d^2 , \]
+en substituant, on obtient :
+\[ \norm{z_n-z_p}^2 \leq 2 \left ( d^2 + \dfrac1{n} + d^2 + \dfrac1{p} \right ) - 4d^2 = 2 \left ( \dfrac1{n} + \dfrac1{p} \right ) . \]
+On en déduit que la suite $(z_n)_{n \geq 1} \subset C$ est de Cauchy dans $H$ complet, elle est donc convergente. 
+On note $y$ sa limite, par fermeture de $C, y \in C$.
+Enfin, le fait que :
+\[ d^2 \leq \norm{x-z_n}^2 \leq d^2 + \dfrac1{n} . \]
+donne, par passage à la limite $\norm{x-y}$. \\
+
+Démontrons maintenant l'unicité de ce projeté. Notons $y, z \in C$ tels que $\norm{x-y}=\norm{x-z}=d$.
+En appliquant l'identité du parallélogramme, on trouve :
+\[ \norm{y-z}^2 + 4 \norm*{x - \dfrac{y-z}2}^2 = 4d^2 , \]
+Or $\dfrac{y-z}2 \in C$ donc :
+\[ \norm{y-z}^2 + 4d^2 \leq 4d^2 ,\]
+soit $\norm{y-z}^2 \leq 0$ ce qui n'est possible que si $y=z$. \\
+
+Il reste à démontrer la caractérisation du projeté.
+Prenons $z \in C$ et $y=P_C(x)$, le segment $[y,c]$ est inclus tout entier dans $C$ donc :
+\[ \forall t \in [0,1], \quad tz + 1(-t)y \in C , \]
+autrement dit :
+\[ \forall t \in [0,1], \quad \norm{x - tz - (1-t)y}^2 = \norm{x-y +t(y-z)}^2 \geq \norm{x-y}^2 , \]
+soit en développant :
+\[ \forall t \in [0,1], \quad t^2 \norm{y-z}^2 +2t \Re{\angl{x-y,y-z}} \geq 0 . \]
+Cette assertion est vraie si, et seulement si, la droite $t \mapsto \norm{y-z}^2 t + 2 \Re{\angl{x-y,y-z}}$ a une ordonnée à l'origine
+positive ou nulle. Or :
+\[ \Re{\angl{x-y,y-z}} \geq 0 \iff \Re{\angl{x-y,z-y}} \leq 0 , \]
+ce qui est à la caractérisation recherchée. \\
+Réciproquement, si $y$ vérifie la caractérisation, pour tout $z \in C$, on a :
+\begin{align*}
+\norm{y-z}^2 & = \norm{(x-y)+(y-z)}^2 = \norm{x-y}^2 + \norm{y-z}^2 + 2 \Re{\angl{x-y,y-z}} \\
+& = \norm{x-y}^2 + \norm{y-z}^2 - \underbrace{2 \Re{\angl{x-y,z-y}}}_{\leq 0} \\
+& \geq \norm{x-y}^2 ,
+\end{align*}
+et donc $y=P_C(x)$ par unité.
+\end{proof}
+
+\begin{prop}
+L'application $P_C : H \to C$ est 1-lipschitzienne, en particulier continue.
+\end{prop}
+
+\begin{proof}
+Prenons $x_1, x_2 \in C, x_1 \neq x_2$ et notons $y_1, y_2$ leurs projetés respectifs. On a alors :
+\[ \left \{ \begin{array}{c c c}
+\Re{\angl{x_1-y_1, z-y_1}} & \leq 0 & \forall z \in C \\
+\Re{\angl{x_2-y_2, z'-y_2}} & \leq 0 & \forall z' \in C
+\end{array} \right. \]
+On prend $z=y_2$ et $z'=y_1$ et on additionne les deux inégalités, on obtient :
+\[ \Re{\angl{(x_1-y_1)-(x_2-y_2),y_2-y_1}} \leq 0 . \]
+En développant $\norm{y_1-y_2}^2$, on obtient :
+\begin{align*}
+\norm{y_1-y_2}^2 = \Re{\norm{y_1-y_2}^2} = \Re{\angl{(y_2-x_2)+(x_2-x_1)+(x_1-y_1),y_2-y_1}} \\
+& = \underbrace{\Re{\angl{(x_1-y_1)-(x_2-y_2),y_2-y_1}}}_{\leq 0} + \Re{\angl{x_2-x_1,y_2-y_1}} \\
+& \leq \Re{\angl{x_2-x_1,y_2-y_1}} \\
+& \leq \abs{\angl{x_2-x_1,y_2-y_1}} \leq \norm{x_2-x_1} \norm{y_2-y_1} ,
+\end{align*}
+d'après l'inégalité de Schwarz. Si $y_1 \neq y_2$ on obtient en divisant par $\norm{y_2-y_1}$ :
+\[ \norm{P_C(x_2)-P_C(x_1)} \leq \norm{x_2 - x_1} , \]
+et l'inégalité reste vraie si $y_1=y_2$.
+\end{proof}
+
+\begin{rmq}
+Si l'espace sur lequel projeter est un \sev fermé de $H$, les propriétés sont plus fortes.
+\end{rmq}
+
+\begin{thm}
+Si $F$ est un \sev fermé de $H$, alors l'application $P_F :H \to F$ est une application linéaire continue,
+et $P_F(x)$ est l'unique point $y \in F$ tel que :
+\[ y \in F \et x-y \in F\ort . \]
+\end{thm}
+
+\begin{proof}
+Démontrons tout d'abord la caractérisation de $y$.
+Si $y = P_F(x)$, en utilisant la caractérisation valable pour $F$ convexe et fermé :
+\[ y \in F \et \Re{\angl{x-y, z-y} \leq 0}, \forall z \in F , \]
+comme de plus $F$ est un \sev, on a :
+\[ \forall \lambda \in \K, \forall z \in F, \quad \omega = y + \lambda z \in F . \]
+Si $H$ est un espace de Hilbert réel, on a :
+\[ \forall \lambda \in \R, \forall z \in F, \quad \lambda \angl{x-y, z} = \angl{x-y, \omega - y} \leq 0 , \]
+ce qui entraîne nécessairement $\forall z \in F, \angl{x-y, z} = 0$ soit $x-y \in F\ort$.
+Si $H$ est complexe, on a :
+\[ \forall \lambda \in \R, \forall z \in F, \quad \lambda \Re{\angl{x-y, z}} = \Re{\angl{x-y, \omega - y}} \leq 0 , \]
+donc $\Re{\angl{x-y, z}} = 0$. Puis, en prenant $\omega = y + i \lambda z$ :
+\[ \forall \lambda \in \R, \forall z \in F, \quad \lambda \Im{\angl{x-y, z}} = \Re{\angl{x-y, \omega - y}} \leq 0 , \]
+donc $\Im{\angl{x-y, z}} = 0$. 
+Ainsi, dans les deux cas, on a bien $x-y \in F\ort$. \\
+
+Réciproquement, si $y$ vérifie la caratérisation de ce théorème, on a alors :
+\[ d(x,F)^2 = \inf_{z \in F} \norm{x-z}^2 = \inf_{z \in F} \norm{x-y+y-z}^2 = \inf_{z \in F} ( \norm{x-y}^2 + \norm{y-z}^2 ) 
+	= \norm{x-y}^2 \]
+et donc $y = P_F(x)$ par unicité. \\
+
+Il reste à démontrer la linéarité de l'application $P_F$. 
+Soient $x_1, x_2 \in H$ et $y_1, y_2$ leurs projetés respectifs. 
+Soit $\lambda \in \K$, on a $\lambda y_1 + y_2 \in F$ et $\lambda (x_1 - y_1) + (x_2-y_2) \in F\ort$ ($F$ et $F\ort$ sont des \sev) 
+donc $\lambda y_1 + y_2 = P_F(\lambda x_1 + x_2)$ d'après la caractérisation.
+\end{proof}
+
+\end{document}

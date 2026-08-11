@@ -1,0 +1,356 @@
+\documentclass{article}
+
+\input{preamble}
+
+\begin{document}
+
+Dans ce document, $\K$ est un corps et $E$ un \Kev de dimension finie $n$.
+
+\section{Des résultats stylés parce que pourquoi pas}
+
+\begin{lem}
+L'ensemble des endomorphismes sur $E$ muni de la loi de composition des applications forme une $\K$-algèbre.
+\end{lem}
+
+\begin{lem}
+Soit $P, Q \in \Kx$ et $f$ un endomorphisme de $E$. Alors, les endomorphismes $P(f)$ et $Q(f)$ commutent.
+\end{lem}
+
+\begin{thm}[Trigonalisation]
+Un endomorphisme $f$ sur $E$ est trigonalisable dans $K$ si, et seulement si, son polynôme caractéristique est scindé.
+\end{thm}
+
+\begin{proof}
+La condition nécessaire est claire (il suffit de développer le déterminant). On va démontrer la condition suffisante par récurrence 
+(sur la dimension $n$ de $E$). \\ 
+Pour $n=1$ il n'y a rien à montrer. \\
+Supposons le résultat vrai au rang $n$. Soit $f$ un endomorphisme sur $E$ de dimension $n+1$. 
+Comme le polynôme caractéristique de $f$ est scindé, $f$ admet au moins un vecteur propre $v$ associé à la valeur propre $\lambda$. 
+On complète ce vecteur en une base $(v, e_1, \dots, e_n)$ de $E$, la matrice de $v$ dans cette base est :
+\[ M = \begin{pmatrix}
+\lambda & \begin{matrix} b_2 & \dots & b_n \end{matrix} \\
+\begin{matrix} 0 \\ \vdots \\ 0 \end{matrix}  &
+  \begin{matrix}
+  \hspace*{-\arraycolsep}
+  \phantom{b_2} & \phantom{\dots} & \phantom{b_n}
+  \hspace*{-\arraycolsep}
+  \\
+  & \raisebox{-0.2\height}[0pt][0pt]{\LARGE$B$} & \\
+  & &
+  \end{matrix}
+\end{pmatrix} \]
+
+Notons $g$ l'endomorphisme dont la matrice est $B$ dans la base $(e_1, \dots, e_n)$ de l'espace vectoriel $F=\vect{(e_1, \dots, e_n)}$.
+Or, $P_f(X) = (\lambda-X) P_g(X)$, et comme $P_f$ est scindé, $P_g$ l'est aussi, donc d'après l'hypothèse de récurrence, il existe une base
+$(\veps_1, \dots, \veps_n)$ de $F$ dans laquelle la matrice de $g$ est triangulaire. 
+Ainsi, la matrice de $f$ sera triangulaire dans la base $(v, \veps_1, \dots, \veps_n)$.
+\end{proof}
+
+\begin{thm}[Diagonalisation simultannée]
+Soient deux endormorphismes diagonalisables, $f$ et $g$. Il existe une base de diagonalisation commune de $f$ et $g$ si,
+et seulement si, $f$ et $g$ commutent.
+\end{thm}
+
+\begin{proof}
+La condition nécessaire est évidente, on va démontrer la condition suffisante.
+Notons $\lambda_1, \dots, \lambda_p$ les valeurs propres de $f$, 
+$F_1, \dots, F_p$ les sous-espaces propres correspondants,
+$\mu_1, \dots, \mu_q$, les valeurs propres de $g$ et 
+$G_1, \dots, G_q$ les espaces sous-espaces propres correspondants.\\
+On montre d'abord que les $F_i$ et les $G_j$ sont respectivement stables par $g$ et $f$. \\
+Soit $i \in \{1, \dots, p \}$ et $x \in F_i$, on a $f \circ g (x) = g \circ f (x) = \lambda_i g(x)$, donc $g(x) \in F_i$. 
+La démonstration est identique pour les $G_j$. \\
+Pour un couple d'indices $(i,j) \in \set{1,\dots,p} \times \set{1, \dots, q}$, on note :
+\[ H_{i,j} = F_i \cap G_j \]
+On remarquera d'abord que, pour $i$ fixé, il est impossible que les $H_{i,j}$ soient tous réduits à $\set{0}$,
+en effet, on a $E = \bigoplus_{j=1}^q G_j$ et $F_i \subset E$. 
+On va montrer que, pour tout $i$, 
+\[ F_i = \bigoplus_{j=1}^q H_{i,j} . \]
+Soit $x \in F_i \subset E$ comme $g$ est diagonalisable on peut écrire, de façon unique,
+\[ x = g_1 + \dots + g_q, \]
+avec $g_j \in G_j$ pour $1 \leq j \leq q$. Or $f(x) = \lambda_i x = f(g_1) + \dots + f(g_q)$, 
+avec $\lambda_i f(g_j) \in G_j$ pour $1 \leq j \leq q$ par stabilité des $G_j$ par $f$.
+Par unicité de la decomposition, on en déduit que :
+\[ \forall 1 \leq j \leq q, f(g_j) = \lambda_i g_j, \] 
+soit $g_j \in H_{i,j}$. L'écriture étant de plus unique, on a bien démontré le résultat. \newline
+
+Ce résultat étant par ailleurs vrai pour tout $i$, on peut écrire :
+\[ E =  \bigoplus_{i, j} H_{i,j} \]
+et les matrices des endomorphismes $f$ et $g$ sont clairement diagonales sur une base composée des bases des $H_{i,j}$.
+\end{proof}
+
+\begin{lem}[Lemme des noyaux]
+Soit $f$ un endomorphisme de $E$ et soit :
+\[ Q(X) = Q_1(X) \dots Q_p(X) \]
+un polynôme factorisé en produit de polynômes deux à deux premiers entre eux. \\
+Si $Q(f) = 0$, alors :
+\[ E = \ker{Q_1(f)} \oplus \dots \oplus \ker{Q_p(f)} \]
+\end{lem}
+
+\begin{proof}
+On démontre le résultat par récurrence sur $p$. \\
+Pour $p=1$, comme $Q_1(f) = 0$, on a clairement $E \subset \ker{Q_1(f)}$ et donc $E = \ker{Q_1(f)}$. \newline
+
+Etudions le cas $p=2$, $Q = Q_1 Q_2$ et les polynômes $Q_1$ et $Q_2$ sont premiers entre eux, 
+il existe donc deux polynômes de $U, V \in \Kx$ tels que $Q_1 U + Q_2 V = 1$ (théorème de Bézout) et donc :
+\[ Q_1(f) U(f) + Q_2(f) V(f) = \id \Rightarrow \ima{ Q_1(f) U(f) + Q_2(f) V(f) } = E \] 
+Or $Q_1 \bigpar{ Q_2(f) V(f) } = 0$ et $Q_2 \bigpar{ Q_1(f) U(f) } = 0$ donc :
+\[ \ima{ Q_2(f) V(f) } \subset \ker{Q_1(f)} \et \ima{ Q_1(f) U(f) } \subset \ker{Q_2(f)} \]
+soit $E \subset \ker{Q_1(f)} +  \ker{Q_2(f)}$ donc :
+\[ E =  \ker{Q_1(f)} +  \ker{Q_2(f)} . \]
+Maintenant si $x \in \ker{Q_1(f)} \cap \ker{Q_2(f)}$, on a :
+\[ Q_1(f) U(f)(x) + Q_2(f) V(f)(x) = x = 0 , \]
+donc $E = \ker{Q_1(f)} \oplus \ker{Q_2(f)}$. \newline
+
+On suppose le résultat vrai pour $p \in \set{1, \dots, n-1}$, on montre le résultat pour $p+1$.
+Comme $Q = Q_1 \dots Q_p Q_{p+1}$, selon le cas $p=2$ on a :
+\[ E = \ker{(Q_1 \dots Q_p)(f)} \oplus \ker{Q_{p+1}(f)} . \]
+Notons $F = \ker{(Q_1 \dots Q_p)(f)}$ et $g$ la restriction de $f$ à $F$ ($g$ est un endomorphisme de $F$),
+d'après l'hypothèse de récurrence, on a :
+\[ F = \ker{Q_1(g)} \oplus \dots \oplus \ker{Q_p(g)} . \]
+Il reste à montrer que pour tout $i \in \set{1, \dots, p }, \ker{Q_i(g)} = \ker{Q_i(f)}$. \\
+Il est clair que $\ker{Q_i(g)} \subset \ker{Q_i(f)}$. Prenons maintenant $x \in \ker{Q_i(f)}$.
+On a $(Q_1 \dots Q_p)(f)(x) = 0$ (par commutativité), donc $x \in F$ et $f(x) = g(x)$ soit $x \in \ker{Q_i(g)}$. Finalement :
+\[ F = \ker{Q_1(f)} \oplus \dots \oplus \ker{Q_p(f)} \Rightarrow E = \ker{Q_1(f)} \oplus \dots \oplus \ker{Q_{p+1}(f)} . \]
+\end{proof}
+
+\section{Théorème de Jordan}
+
+\begin{defn}[Bloc de Jordan]
+On appelle bloc de Jordan (d'ordre n) une matrice carrée du type :
+\[ J(\lambda) = \begin{pmatrix}
+\lambda & 1 & & 0 \\
+ & \ddots & \ddots & \\
+ & & \ddots & 1 \\
+ 0 & & & \lambda
+\end{pmatrix} \]
+(avec $J(\lambda) = (\lambda)$ si $E$ est de dimension 1).
+\end{defn}
+
+\begin{prop}
+\label{prop:blocJordan}
+Pour $J(\lambda)$ un bloc de Jordan d'ordre $n$, on a :
+\[ P_J(X) = (-1)^n(X-\lambda)^n \et
+m_J(X) = (X-\lambda)^n \et
+\dim{E_{\lambda}} = 1
+\]
+\end{prop}
+
+\begin{proof}
+Les premier et dernier point sont évidents. \\
+Pour démontrer le second, on note $A = J(\lambda) - \lambda I_n$, on a :
+\[ A^2 = 
+\begin{pmatrix}
+0 & 0 & 1 & & 0 \\
+ & \ddots & \ddots & \ddots &  \\
+ & & \ddots & \ddots & 1 \\
+  & & & \ddots & 0 \\
+  & & & & 0
+\end{pmatrix} \quad \text{etc...} \quad A^{n-1} = 
+\begin{pmatrix}
+0 & 0 & & 0 & 1 \\
+ & \ddots & \ddots & &  \\
+ & & \ddots & \ddots & 0 \\
+  & & & \ddots & 0 \\
+   & & & & 0
+\end{pmatrix} 
+\]
+donc $n$ est le plus petit exposant tel que $A^n=0$.
+\end{proof}
+
+\begin{thm}[de Jordan]
+Soit $f$ un endomorphisme de $E$, on suppose que le polynôme caractéristique de $f$ est scindé.
+
+\begin{enumerate}
+
+\item
+Si $f$ n'a qu'une seule valeur propre et que :
+\[ P_f(X) = (-1)^n(X-\lambda)^n \et m_f(X) = (X-\lambda)^{\beta} \et \dim{E_{\lambda}} = \gamma \]
+alors, il existe une base $B$ de $E$ telle que :
+\[ M(f)_{B} =
+\begin{pmatrix}
+J_1(\lambda) & & & 0 \\
+ & J_2(\lambda) & & \\
+ & & \ddots & \\
+ & & & J_{\gamma}(\lambda)
+\end{pmatrix} = \tilde{J}(\lambda) \] 
+où les $J_k(\lambda)$ sont des blocs de Jordan avec l'ordre du plus grand bloc égal à $\beta$.
+
+\item
+Si $f$ admet $p$ valeurs propres $\lambda_1, \dots, \lambda_p$ de multiplicités $\alpha_1,\dots, \alpha_p$, i.e. si
+\[ P_f(X) = (-1)^n(X-\lambda_1)^{\alpha_1} \cdots (X-\lambda_p)^{\alpha_p} ~~ (\lambda_i \neq \lambda_j) \]
+alors, il existe une base $B$ de $E$ telle que :
+\[ \begin{pmatrix}
+\tilde{J}_1(\lambda) & & & 0 \\
+ & \tilde{J}_2(\lambda) & & \\
+ & & \ddots & \\
+ & & & \tilde{J}_{\gamma}(\lambda)
+\end{pmatrix} \]
+avec les matrices $\tilde{J}_i$ de taille $\alpha_i \times \alpha_i$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+On va d'abord montrer le premier point du théorème. Puisque $P_f(X)$ est scindé, selon le théorème de Dunford, 
+$f$ se décompose de façon unique en :
+\[ f = \lambda \id + u \]
+avec $u$ un endomorphisme nilpotent. Puisque la matrice de $\lambda \id$ est $\lambda I_n$ en toute base, 
+on est ramené à étudier la réduction des endomorphismes nilpotents. \newline
+
+Soit donc $u$ un endomorphisme et $\beta$ son indice de nilopotence. On a $m_u(X) = X^{\beta}$, donc $u$ est diagonalisable si,
+et seulement si, $\beta=1$ soit $u=0$. On suppose dans dans la suite de cette démonstration que $u \neq 0$. 
+On va démontrer la série de lemmes ci-dessous.
+
+\begin{lem}
+\label{lem:fonda}
+Les propriétés suivantes sont équivalentes :
+
+\begin{enumerate}[label=(\roman*)]
+
+\item $\beta = n$ ;
+\item il existe un vecteur non nul $x \in E$, tel que $(x, u(x), \dots, u^{n-1}(x))$ est une base de $E$ (on dit que $u$ est cyclique) ;
+\item il existe une base de $E$ dans laquelle la matrice de $u$ est :
+\[ \begin{pmatrix}
+0 & 1 &  & 0 \\
+ & \ddots & \ddots &  \\
+ & & \ddots & 1 \\
+  & & & 0
+\end{pmatrix} \]
+Autrement dit, $u$ est représentable par un bloc de Jordan d'ordre $n$.
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+On suppose $n \geq 2$, le cas $n=1$ étant trivial. \\
+Supposons (i) vraie. Comme $u^{n-1} \neq 0$, il existe un vecteur $x \in E, x \neq 0$ tel que $u^{n-1}(x) \neq 0$. 
+Posons $v_1 = u^{n-1}(x), v_2 = u^{n-2}(x), \dots, v_n = x$. On démontre aisément que chaque $v_i$ est non nul 
+(si $v_2$ est nul alors $v_1$ est nul ce qui est exclu et ainsi de suite).
+Supposons qu'il existe une famille de scalaires $(\lambda_1, \dots, \lambda_n)$ telle que :
+\[ \sum_{i=1}^n \lambda_i v_i = 0 \]
+Alors, en appliquant successivement $u^{n-1}, u^{n-2}, \dots, u^2$ on trouve :
+\[ \lambda_n = \lambda_{n-1} = \dots = \lambda_1 = 0 . \]
+Donc la famille $(v_1, \dots, v_n)$ est une base de $E$, ce qui démontre (ii). \newline
+
+Supposons (ii) vraie, la base $(u^{n-1}(x), \dots, x)$ convient. \newline
+
+Supposons (iii) vraie, d'après la propriété des blocs de Jordan (cf. proposition $\ref{prop:blocJordan}$) on a $\beta=n$.
+\end{proof}
+
+\begin{lem}
+Pour tout $p \in \{1, \dots, \beta\}$, note $K_p = \ker{u^p}$ On a la suite d'inclusions strictes
+\[ \{0\} = K_0 \subsetneq K_1 \subsetneq K_2 \subsetneq \dots \subsetneq K_{\beta} = E \]
+\end{lem}
+
+\begin{proof}
+La suite d'inclusion est évidente, si $x \in \ker{u^k}$, alors $u^{k+1}(x) = u(0) = 0$. 
+Par ailleurs, l'existence de $k \in \set{0, 1, \dots, \beta-1}$ tel que $\ker{u^k} = \ker{u^{k+1}}$ est impossible,
+sinon on pourait écrire : 
+\[ u^{\beta} = u^{\beta - k-1} u^{k+1} = u^{\beta - k-1} u^{k} = u^{\beta -1} \]
+ce qui est impossible, par définition de l'indice de nilpotence.
+\end{proof}
+
+Ce lemme garantit que, pour tout $p \in \{1, \dots, \beta\}$, il existe un sous-espace vectoriel $M_p$ non trivial et tel que
+$K_p = K_{p-1} \oplus M_p$. Le lemme suivant permet de garantir qu'il existe de tels $M_p$ vérifiant certaines conditions de stabilité.
+
+\begin{lem}
+Il existe des sous-espaces vectoriels $M_1, M_2, \dots, M_{\beta}$, non triviaux et tels que :
+
+\begin{enumerate}[label=(\roman*)]
+\item $K_p =K_{p-1} \oplus M_p$ pour $p = 1, \dots, \beta$ ;
+\item $u(M_p) \subset M_{p-1}$ pour $p = 2, \dots, \beta$.
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+On choisit pour $M_{\beta}$ un sous-espace supplémentaire quelconque de $K_{\beta-1}$. \\
+Soit $x \in M_{\beta}$, comme $u^{\beta}(x) = u^{\beta-1}(u(x)) = 0$ on a $u(M^{\beta}) \subset K_{\beta-1}$. \\
+De plus, comme $K_{\beta-1} \cap M_{\beta} = \{0\}$, pour tout $x$ non nul, on a $u^{\beta-1}(x) = u^{\beta-2}(u(x)) \neq 0$. \\
+On voit donc que $u(M_{\beta})$ et $K_{\beta-2}$ sont en somme directe dans $K_{\beta-1}$,
+il existe donc un supplémentaire, noté $G_{\beta-1}$, et tel que :
+\[ K_{\beta-1} = K_{\beta-2} \oplus u(M_{\beta}) \oplus G_{\beta-1} . \]
+Ainsi, $M_{\beta-1} = u(M_{\beta}) \oplus G_{\beta-1}$ vérifie (i) et (ii). \newline
+
+On itère ce processus, et, pour $p=2, \dots, \beta$ on obtient :
+\[ M_{p-1} = u(M_{p}) \oplus G_{p-1} . \]
+\end{proof}
+
+\begin{lem}
+\label{lem:somme}
+Pour $M_1, M_2, \dots, M_{\beta}$ tels que définis précédemment, on a :
+\[ E = M_1 \oplus M_2 \oplus \dots \oplus M_{\beta} \]
+\end{lem}
+
+\begin{proof}
+On a $E = K_{\beta} = K_{\beta-1} \oplus M_{\beta}$ puis $K_{\beta-1} = K_{\beta-2} \oplus M_{\beta-1}$
+et ainsi de suite.
+\end{proof}
+
+\begin{lem}
+\label{lem:libre}
+Soit $p \in \{2, \dots, p\}$. L'image par $u$ d'une base de $M_p$ est une famille libre de $M_{p-1}$.
+\end{lem}
+
+\begin{proof}
+Notons $(v_1, \dots, v_k)$ une telle base ($k \geq 1$) et considérons une famille de scalaire $(\lambda_1, \dots, \lambda_k)$ tels que :
+\[ \sum_{i=1}^k \lambda_i f(v_i) = 0 \Rightarrow f \Bigpar{ \sum_{i=1}^k \lambda_i v_i } =0 \]
+on a donc $\sum_{i=1}^k \lambda_i v_i  \in \ker{u} \subset \ker{u^{p-1}}$ qui est en somme directe avec $M_p$. 
+Donc $\sum_{i=1}^k \lambda_i v_i = 0$ et tous les $\lambda_i$ sont nuls.
+\end{proof}
+
+On va maintenant pouvoir construire la base de $E$ permettant de vérifier le résultat 1. \newline
+
+On prend une base quelconque de $M_{\beta}$ que l'on note $B_{\beta}$. \\
+On considère ensuite l'image de cette base par $u$ (qui est libre dans $M_{\beta-1}$ cf. lemme $\ref{lem:libre}$)
+que l'on complète en une base de $M_{\beta-1}$ que l'on note $B_{\beta-1}$. \\
+On obtient ainsi les bases $B_{\beta}, B_{\beta-1}, \dots, B_1$ des sous-espaces vectoriels $M_{\beta}, M_{\beta-1}, \dots, M_1$.
+On note :
+\begin{align*}
+B_{\beta} & = (v_{\beta, 1}, \dots, v_{\beta, n_{\beta}}) \\
+B_{\beta-1} & = (u(v_{\beta, 1}), \dots, u(v_{\beta, n_{\beta}}), v_{\beta-1,1}, \dots, v_{\beta-1, n_{\beta-1}}) \\
+B_{\beta-2} & = (u^2(v_{\beta, 1}), \dots, u^2(v_{\beta, n_{\beta}}), u(v_{\beta-1,1}), \dots, u(v_{\beta-1, n_{\beta-1}}), 
+ v_{\beta-2,1}, \dots, v_{\beta-2, n_{\beta-2}}) \\
+\dots \dots \\
+B_1 & = (u^{\beta-1}(v_{\beta, 1}), \dots, u^{\beta-1}(v_{\beta, n_{\beta}}), 
+u^{\beta-2}(v_{\beta-1,1}), \dots, u^{\beta-2}(v_{\beta-1, n_{\beta-1}}), \dots, 
+u(v_1^{(2)}), \dots, u(v_{n_2}^{(2)}), \\
+v_{1,1}, \dots, v_{1,n_1}) 
+\end{align*}
+
+Selon le lemme $\ref{lem:somme}$, la base $B=(B_{\beta}, B_{\beta-1}, \dots, B_1)$ est une base de $E$.  
+
+Il reste à démontrer un dernier lemme.
+
+\begin{lem}
+Pour $x \in G_p, x \neq 0$ on note $I_p(x) = \vect{x, u(x), \dots u^{p-1}(x)}$. On a alors :
+\begin{enumerate}[label=(\roman*)]
+\item $\dim{I_p(x)} = p$ ;
+\item $I_p(x)$ est stable par $u$ ;
+\item La restriction de $u$ à $I_p(x)$ est cyclique.
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+La famille $(x, u(x), \dots u^{p-1}(x))$ est libre (il suffit de considérer une combinaison linéaire $\sum \lambda_i u^i (x)$ et d'appliquer
+successivement $u^{p-1}, u^{p-2}, \dots, u^2$), ce qui démontre le point (i). \\
+Les points (ii) et (iii) sont évidents.
+\end{proof}
+
+En réorganisant la base $B$, on constate que $E$ est une somme directe des sous-espaces vectoriels :
+\[ I_{\beta}(v_{\beta, 1}), \dots, I_{\beta}(v_{\beta, n_{\beta}}), I_{\beta-1}(v_{\beta-1, 1}), \dots, I_{\beta-1}(v_{\beta-1, n_{\beta}}), 
+\dots, I_1(v_{1,1}), \dots, I_1(v_{1, n_1}), \]  
+et comme $u$ est cyclique sur chacun de ces sous-espaces vectoriels, la matrice de la restriction de $u$ à chacun de ces espaces
+est un bloc de Jordan d'ordre $k$.
+On conclut que la matrice de $u$ dans la base $B$ est :
+\[ M(u)_B = \begin{pmatrix}
+J_1(0) & & & 0 \\
+ & J_2(0) & & \\
+ & & \ddots & \\
+ & & & J_{\gamma}(0)
+\end{pmatrix} \] 
+Et comme $M(f)_B = \lambda I_n + M(u)_B$ on a bien la réduction souhaitée.
+Le plus grand bloc est bien d'ordre $\beta$ (par exemple $J_1(\lambda)$). 
+Comme la dimension de sous-espace propre lié à chaque bloc est égale à 1 (cf. proposition $\ref{prop:blocJordan}$),
+et que $f$ admet $\gamma$ vecteurs propres indépendants, on a nécessairement $\gamma$ blocs de Jordan.
+\end{proof}
+
+\end{document}

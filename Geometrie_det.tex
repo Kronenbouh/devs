@@ -1,0 +1,36 @@
+\documentclass{article}
+
+\input{environment}
+\newcommand{\V}{\text{V}}
+\newcommand{\Vt}{\tilde{V}}
+
+\begin{document}
+
+\begin{thm}
+Soient $v_1, \dots, v_n$ $n$ vecteurs de $\R^n$ ; on note $\V(v_1, \dots, v_n)$ le volume du parallélépipède engengré par les vecteurs 
+$v_1, \dots, v_n$. On a alors :
+\[ \V(v_1, \dots, v_n) = \abs{\det (v_1, \dots, v_n)} \]
+\end{thm}
+
+\begin{proof}
+Posons :
+
+\[ \Vt(v_1, \dots, v_n) = \left \{ 
+	\begin{array}{c c c}  
+		\V(v_1, \dots, v_n) & \quad \text{si} \quad & \det (v_1, \dots, v_n) \geq 0 \\
+		- \V(v_1, \dots, v_n) & \quad \text{si} \quad & \det (v_1, \dots, v_n) < 0
+	\end{array} \right.
+\]
+
+On va montrer que $\Vt(v_1, \dots, v_n) = \det (v_1, \dots, v_n)$ ; pour cela, il suffit de montrer que la forme linéaire $\Vt$ est 
+$n$-linéaire, alternée et telle que $\Vt(e_1, \dots, e_n) = 1$ avec $(e_1, \dots, e_n)$ la base canonique de $K^n$. \newline
+
+Si la famille $(v_1, \dots, v_n)$ est liée, on a immédiatement $\Vt(v_1, \dots, v_n) = 0$, ce qui démontrer que $\Vt$ est alternée. \newline
+
+Il reste à démontrer la $n$-linéarité de $\Vt$. Démontrons d'abord que :
+\[ \forall \lmabda \in \R, \forall i \in \{1, \dots, n \} ; \V(v_1, \dots, \lambda v_i, \dots, v_n) = \abs{\lambda) \V(v_1, \dots, v_n) \]
+Le résultat est évident pour $\lambda = 0$, ou si la famille $(v_1, \dots, v_n)$ est liée. Pour $\lambda=-1
+
+\end{proof}
+
+\end{document}

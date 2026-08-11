@@ -1,0 +1,83 @@
+\input{preamble}
+
+\newcommand{\dse}{développable en série entière }
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Gourdon - Analyse - page 261
+
+\underline{Leçons :}
+\begin{itemize}
+\item 243 : Séries entières, propriétés de la somme. Exemples et applications.
+\item 218 : Formules de Taylor. Exemples et applications.
+\end{itemize}
+
+\begin{thm}
+Soient $a>0$ et $f : ]-a, a[ \to \R$ une fonction de classe $\Cinf$. On suppose que :
+\[ \forall k \in \N, \forall x \in ]-a, a[, \quad f^{(2k)}(x) \geq 0 . \]
+Alors $f$ est développable en série entière sur$]-a,a[$.
+\end{thm}
+
+\begin{proof}
+Soit $b \in ]0,a[$, montrons que $f$ est \dse sur $]-b, b[$.
+
+\begin{enumerate}[label=(\roman*)]
+
+\item
+On considère la fonction $F$ définie sur $]-a,a[$ par $F(x) = f(x) + f(-x)$. 
+On peut appliquer la formule de Taylor avec reste intégral à l'ordre $p +1\in \N$ à $F$, on trouve, pour $x \in [0,b]$ :
+\[ F(x) = \sum_{k=0}^p \dfrac{F^{k}(0)}{k!} x^k + \int_0^b \dfrac{F^{p+1}(t)}{p!} (x-t)^p dt  , \]
+et la fonction $F$ étant paire on a, $F^{(k)}(0) = 0$ pour $k$ impair. Ainsi en écrivant $p=2n+2$ on trouve :
+\[ F(x) = F(0) + \dfrac{F^{2}(0)}{2!} x^2 + \dots + \dfrac{F^{2n}(0)}{(2n)!} x^{2n} + R_n(x), \qquad 
+R_n(x) = \int_0^x \dfrac{F^{2n+2}(t)}{(2n+1)!} (x-t)^{2n+1} . \]
+On remarque que pour tout $k \in \N, F^{(2k)}(0) = 2 f^{(2k)}(0) \geq 0$ donc $0 \leq R_n(b) \leq F(b)$ pour tout $n \in \N$.
+Remarquons aussi que :
+\begin{align*}
+R_n(x) & = \int_0^x \left ( \dfrac{x-t}{b-t} \right )^{2n+1} \dfrac{(b-t)^{2n+1}}{(2n+1)!} F^{2n+2}(t) dt \\
+& \leq \left ( \dfrac{x}{b} \right )^{2n+1} \int_0^x \dfrac{(b-t)^{2n+1}}{(2n+1)!} F^{2n+2}(t) dt \quad 
+\text{car } t \mapsto \dfrac{x-t}{b-t} \text{ décroissante sur } [0,x] \\
+& \leq \left ( \dfrac{x}{b} \right )^{2n+1} R_n(b) \\
+& \leq \left ( \dfrac{x}{b} \right )^{2n+1} F(b)
+\end{align*}
+Ainsi, pour $x \in [0,b[$, on a $\lim_{n \to \infty} R_n(x) = 0$, soit, en passant à la limite dans la formule de Taylor :
+\[ \forall x \in [0,b[, \quad F(x) = \sum_{n=0}^{\infty} \dfrac{F^{n}(0)}{n!} x^n , \]
+et, par parité, on peut étendre ce résultat sur $]-b,b[$. 
+
+\item
+On veut maintenant démontrer le résultat pour $f$. On fixe $x \in ]-b, b[$, et pour $n \in \N$, on écrit :
+\[ f(x) = f(0) + \dots + \dfrac{x^{2n+1}}{(2n+1)!} f^{(2n+1)}(0) + r_n(x) \qquad
+ r_n(x) = \int_0^x \dfrac{(x-t)^{2n+1}}{(2n+1)!} f^{(2n+2)}(t) dt . \]
+Comme $0 \leq  f^{(2n+2)}(t) \leq  f^{(2n+2)}(t) +  f^{(2n+2)}(-t) =  F^{(2n+2)}(t)$.
+Donc, en prolongeant $R_n$ sur $]-b, b[$ par parité, on obtient $0 \leq r_n(x) \leq R_n(x)$ sur $]-b, b[$ 
+et donc $\lim_{n \to \infty} r_n(x) = 0$. En notant :
+\[ \forall p \in \N, \quad S_p(x) = \sum_{k=0}^p \dfrac{x^k}{k!} f^{(k)}(0), \]
+on a montré que :
+\begin{equation} \lim_{n \to \infty} S_{2n+1}(x) = f(x) \label{eq:2} . \end{equation}
+Or, pour $n \geq 1$ :
+\[ S_{2n}(x) - S_{2n-1}(x) = \dfrac{x^{2n}}{(2n)!} f^{(2n)}(0) = \dfrac12 \dfrac{x^{2n}}{(2n)!} F^{(2n)}(0) \to 0 , \]
+comme terme général d'une série convergente, et donc :
+\[ \lim_{n \to \infty} S_{2n}(x) - S_{2n-1}(x) = 0 , \]
+d'où on déduit de (\ref{eq:2}) que $\lim_{n \to \infty} S_n(x) = f(x)$ et donc que $f$ est \dse sur $]-b,b[$.
+Ceci étant valable sur tout ouvert $]-b, b[ \subset ]-a,a[$, c'est vrai sur $]-a,a[$ tout entier.
+
+\end{enumerate}
+\end{proof}
+
+\begin{appl}
+On considère la fonction :
+\[ \begin{array}{c c c} 
+f: ] -\pi/2, \pi/2[ & \to & \R \\
+x & \mapsto & \tan{x} 
+\end{array} \]
+La fonction $f'$ est définie sur ce même intervalle par $f'(x) = \dfrac1{\cos^2{x}}$ et on vérifie que les dérivées d'ordre paires succesives
+de $f'$ sont des fractions rationnelles de monômes de degrés pairs évaluées en $\cos{x}$ et en $\sin{x}$.
+Ainsi, $f'$ satistfait aux conditions du théorème de Bernstein, on conclut donc qu'elle est \dse sur $]-\pi/2, \pi/2[$
+et par suite que la fonction $x \mapsto \tan{x}$ est \dse sur ce même intervalle.
+\end{appl}
+
+\end{document}

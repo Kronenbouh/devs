@@ -68,15 +68,21 @@ car $1-1/q = 1/p$.
 \begin{defn}
 Pour $0< p < \infty$, et pour toute fonction mesurable à valeurs complexes définie sur $X$, on pose :
 \[ \normp{f} = \left ( \int_X \abs{f}^p dm \right )^{1/p} \]
-et on appelle $\Lp(m)$ l'ensemble de toutes les fonctions à valeurs complexes pour lesquelles :
+et on appelle $\Lpc(m)$ l'ensemble de toutes les fonctions à valeurs complexes pour lesquelles :
 \[ \normp{f} < \infty . \]
-Pour $p = \infty$, la norme $\norminf{f}$ est définie comme la plus petite constante $C$ telle que $\abs{f} \leq C$ presque partout,
-et l'espace $\Linf$ est celui des fonctions essentiellement bornées.
+D'après ce qui précède, $\normp{\cdot}$ est une semi-norme sur l'ensemble $\Lpc(m)$.
 \end{defn}
 
 \begin{lem}
-Les espaces $\Lp(m)$ pour $1 \leq p \leq \infty$ sont des \Cev.
+Les espaces $\Lpc(m)$ pour $1 \leq p \leq \infty$ sont des \Cev.
 \end{lem}
+
+\begin{rmq}
+On remarque que $\normp{f} = \normp{g} \Rightarrow f =g  \pp$. Ainsi la norme n'est pas définie.
+Néanmoins, on démontre facilement que la relation \og sont égaux presque partout \fg{} définie une relation d'équivalence sur 
+$\Lpc(m)$. Ainsi, en introduisant l'espace $\Lp(m)$ comme l'espace quotient de $\Lpc(m)$ par cette relation d'équivalence, 
+on obtient un espace vectoriel normé.
+\end{rmq}
 
 \begin{thm}[Riesz-Fisher]
 Pour $1 \leq p \leq \infty$ et pour toute mesure positive $m$, $\Lp(m)$ est un espace métrique complet.

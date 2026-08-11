@@ -1,0 +1,175 @@
+\input{preamble}
+
+\newcommand{\Zpz}{(\Z/p\Z)^{\times}}
+\newcommand{\Zpaz}{(\Z/p^{\alpha}\Z)^{\times}}
+\newcommand{\D}{\mathcal{D}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Cyclicité du groupe $\Zpaz$}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombalid - Algèbre - page 292. \newline
+
+\underline{Leçons :}
+\begin{itemize}
+\item 120 : Anneaux $\Z/n\Z. Applications.$
+\item 121 : Nombres premiers. Applications.
+\item 108 : Exemples de parties génératrices d’un groupe. Applications.
+\item 104 : Groupes finis. Exemples et applications.
+\end{itemize}
+
+\begin{nota}
+On note $p \geq 2$ un nombre premier et pour un entier $n \geq 1, \D_n$ l'ensemble des diviseurs de $n$. \\
+Le symbole $\times$ en indice désigne l'ensemble des élements inversibles (pour la loi multiplicative) d'un anneau. \\
+Pour tout $d \in \D_{p-1}$, on note $\psi(d)$ le nombre d'éléments d'ordre $d$ dans le groupe multiplicatif $\Zpz$. \\
+La fonction indicatrice d'Euler est désigné par $\varphi$.
+\end{nota}
+
+\begin{lem}
+On a, pour $\alpha \geq 2, \varphi(p^{\alpha}) = (p-1)p^{\alpha-1}$
+\end{lem}
+
+\begin{proof}
+Notons $n$ un entier dans $\set{1, \dots, p^{\alpha}}$. Il y a en tout $p^{\alpha}$ tels entiers.
+Parmi eux, seuls ceux dont l'écriture en base $p$ est de la forme $n = a_{\alpha-1}\dots a_1 a_0$ avec $a_0=0$ ne sont pas premiers
+avec $p^{\alpha}$. Il existe $p^{\alpha-1}$ tels entiers (il s'agit de choisir une valeur dans $\set{0, \dots, p-1}$ pour chaque $a_i$,
+exclure $n=0$ et inclure $n=p^{\alpha}$).
+Finalement, on a bien $\varphi(p^{\alpha}) = p^{\alpha} - p^{\alpha-1} = (p-1)p^{\alpha-1}$.
+\end{proof}
+
+\begin{lem}
+\label{lem:iso}
+Tout groupe cyclique d'odre $n$ est isomorphe à $\left( \Z/n\Z, + \right)$.
+\end{lem}
+
+\begin{proof}
+Soit $G = \angl{g}$ un tel groupe, considérons l'application $f : (\Z, +) \to G, k \mapsto g^k$,
+on alors clairement $\ker{f}=n\Z$, et la restriction de $f$ à $\left( \Z/n\Z, + \right)$ induit un isomorphisme. 
+\end{proof}
+
+\begin{lem}
+\label{lem:gen}
+Soit $a \in \Z, \overline{a}$ est un générateur du groupe cyclique $\left( \Z/n\Z, + \right)$ si, et seulement si $a$ est premier avec $n$.
+\end{lem}
+
+\begin{proof}
+$a$ est premier avec $n$ si, et seulement si, il existe $u, v \in \Z$ tels que $au+bv=1$.
+Ce qui équivaut encore à $\overline{a}\overline{u}=\overline{1}$, donc $\overline{1}$ est dans le groupe additif généré par 
+$\overline{a}$ ce qui équivaut à dire que ce groupe est $\Z/n\Z$ tout entier.
+\end{proof}
+
+\begin{rmq}
+On a donc montré que $\left( \Z/n\Z, + \right)$ compte $\varphi(n)$ générateurs, ou encore que le groupe multiplicatif des inversibles
+de $\Z/n\Z$ est d'ordre $\varphi(n)$.
+\end{rmq}
+
+
+\begin{lem}
+Pour tout entier relatif $a$ premier avec $n$, on a $a^{\varphi(n)} \equiv 1 \pmod n$.
+\end{lem}
+
+\begin{proof}
+Si $a$ est premier avec $n$, alors sa classe résiduelle est élement du groupe multiplicatif $(\Z/n\Z)^{\times}$, 
+qui est d'ordre $\varphi(n)$, ce qui entraine directement le résultat (d'après le théorème de Lagrange). 
+\end{proof}
+
+\begin{lem}
+On a $\psi(d) = \varphi(d)$ pour tout $d \in \D_{p-1}$.
+\end{lem}
+
+\begin{proof}
+Si $\psi(d) >0$ alors il existe $x \in \Zpz$ d'ordre $d$ et le groupe $G = \set{\overline{1}, x, \dots, x^{d-1}}$ contient $d$ racines 
+du polynôme $X^d - \overline{1}$ dans $\Z/p\Z$. Ce polynôme a au plus $d$ racines sur tout corps, donc $G$ est exactement l'ensemble
+des racines de ce polynôme. Autrement dit, $G$ est l'ensemble des éléments d'ordre $d$ du groupe $\Zpz$.
+Or, $G$ compte $\varphi(d)$ générateurs (c'est une conséquences des lemmes $\ref{lem:iso}$ et $\ref{lem:gen}$), 
+ce qui montre bien que $\psi(d) = \varphi(d)$.
+\end{proof}
+
+\begin{coro}
+Le groupe $\Zpz$ est cyclique.
+\end{coro}
+
+\begin{proof}
+Le résultat est trivial pour $p=2$, sinon $p-1$ est pair et, selon le lemme précédent $\psi(p-1)=\varphi(p-1) > 0$, ce qui signifie 
+qu'il existe au moins un élément d'ordre $p-1$ dans $\Zpz$ ce qui démontre que ce groupe est cyclique d'ordre $p-1$.
+\end{proof}
+
+\begin{thm}
+Si $p$ est un nombre premier impair et $\alpha$ un entier supérieur ou égal à 2, alors le groupe multiplicatif $\Zpaz$ est cyclique.
+\end{thm}
+
+\begin{proof}
+On démontre la suite de résultats suivants.
+\begin{enumerate}[label=(\roman*)]
+
+\item
+$p$ divise tous les coefficients binomiaux $\binom{p}{k}$ pour $k \in \set{1, \dots, p-1}$, en effet :
+\[ \binom{p}{k} = \dfrac{p \cdot (p-1) \cdots (p-k+1)}{k \cdot (k-1) \cdots 1} = \dfrac{a}{k!} \in \N , \]
+On peut écrire $a = \binom{p^n}{k} k!$.
+On remarque que $p$ et $k!$ sont premiers entre eux, or $p$ divise $a$, donc (théorème de Gauss), $p$ divise $\binom{p^n}{k}$.
+
+\item
+Il existe une suite d'entiers naturels non nuls $(a_k)_\N$ tous premiers avec $p$ et tels que :
+\[ \forall k \in \N, \quad (1+p)^{p^k} = 1 + a_k p^{k+1} . \]
+On construit la suite par récurrence sur $k \in \N$. Pour $k=0, a_0=1$ convient. \\
+Pour $k=1$, on a :
+\[ (1+p)^p = 1 + p^2 + \sum_{k=2}^p \binom{p}{k} p^k = 1 + p^2 ( 1 + \sum_{k=2}^p \binom{p}{k} p^{k-2} ) . \]
+Or, chaque coefficient binomial est divisible par $p$ donc l'entier :
+\[ a_1 = 1 + \sum_{k=2}^p \binom{p}{k} p^{k-2} \]
+est non nul et premier avec $p$, il convient. \\
+Supposons la suite construite jusqu'à un certains rang $k$ et on cherche à construire le terme $a_{k+1}$.
+On a :
+\begin{align*}
+(1+p)^{p^{k+1}} & = \left ( (1 + p)^{p^k} \right )^p = \left ( 1 + a_k p^{k+1} \right )^p \\
+ & = 1 + a_k p^{k+2} + \sum_{i=2}^p \binom{p}{i} a_k^i p^{(k+1)i} 
+ & = 1 + p^{k+2} \left ( a_k + \sum_{i=2}^p \binom{p}{i} a_k^i p^{(k+1)i-2} \right ) .
+\end{align*}
+Comme pour le cas précédent, l'entier :
+\[ a_{k+1} =  a_k + \sum_{i=2}^p \binom{p}{i} a_k^i p^{(k+1)i-2} \]
+est non nul et premier avec $p$, donc convient. Finalement, la suite est constructible pour tout $n \in \N$, elle existe bien.
+
+\item
+La classe résiduelle de $1+p$ dans $\Zpaz$ est d'ordre $p^{\alpha-1}$. \\
+Comme $1+p$ est premier avec $p^{\alpha}$, on a bien $\overline{1+p} \in \Zpaz$ et, selon le point (ii) :
+\[ \left \{ \begin{array}{c c c}
+(1+p)^{\alpha-1} & = 1 + a_{\alpha-1}p^{\alpha} & \equiv 1 \pmod p^{\alpha} \\
+(1+p)^{\alpha-2} & = 1 + a_{\alpha-2}p^{\alpha-1} & \not \equiv 1 \pmod p^{\alpha}
+\end{array} \right. \]
+car $a_{\alpha-2}$ est premier avec $p$, donc $a_{\alpha-2}p^{\alpha-1}$ n'est pas divisible par $p^{\alpha}$.
+On en déduit le résultat annoncé.
+
+\item
+Si $x = k+ p\Z$ est un générateur du groupe cyclique $\Zpz$, alors $y=k^{p^{\alpha-1}}+p^{\alpha}\Z$ est d'ordre $p-1$ dans
+$\Zpaz$. \\
+En effet, comme $x + p\Z$ génère $\Zpz$, sa classe résiduelle (tout comme celle de $k$) est d'ordre $p-1$ dans ce groupe. 
+Par ailleurs, pour tout $\alpha \geq 2$, l'entier $p^{\alpha-1} - 1$ est divisible par $p-1$.
+De plus $x^{p-1} \equiv k^{p-1} \equiv 1 \pmod p$, donc :
+\[ k^{p^{\alpha-1}-1} \equiv k^{p-1} \equiv 1 \pmod p \]
+et, par suite, $k^{p^{\alpha-1}} \equiv k \pmod p$. 
+Autrement dit, la classe résiduelle de $j=k^{p^{\alpha-1}}$ est d'ordre $p-1$ dans $\Zpz$.
+D'autre part :
+\[ j^{p-1} = k^{(p-1)p^{\alpha-1}} = k ^{\varphi(p^{\alpha})} \equiv 1 \pmod p^{\alpha} , \]
+Donc l'ordre de $y$ dans $\Zpaz$ divise $p-1$. Notons $r$ cet ordre, la relation :
+\[ j^r \equiv 1 \pmod p^{\alpha} , \]
+entraîne que $p^{\alpha}$, et donc $p$ divise $j^r-1$.
+Autrement dit, $r$ est un multiple de $p-1$, il est donc égal à $p-1$.
+
+\item
+On peut enfin en déduire que $\Zpaz$ est cyclique. 
+La classe résiduelle de $1+p$ dans $\Zpaz$ est d'ordre $p^{\alpha-1}$ (selon le point (iii)).
+Il existe aussi un élément $y=k^{p^{\alpha-1}}+p^{\alpha}\Z$ dont la classe résiduelle 
+dans $\Zpaz$ est d'ordre $p-1$ (selon le point (iv)).
+Ainsi, l'odre de la classe résiduelle de $(1+p)y$ dans $\Zpaz$ est :
+\[ \ppcm(p^{\alpha-1}, p-1) = (p-1) p^{\alpha-1} = \varphi(p^{\alpha}) , \]
+On a donc montré que le groupe multiplicatif $\Zpaz$, possède un élément dont l'ordre est égal à son cardinal, 
+le groupe est donc bien cyclique.
+\end{enumerate}
+\end{proof}
+
+
+
+
+\end{document}

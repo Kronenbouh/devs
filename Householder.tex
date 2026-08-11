@@ -1,0 +1,41 @@
+\input{preamble}
+\newcommand{\gl}{\text{GL}(n,\Cx)}
+\newcommand{\un}{\text{U}(n,\Cx)}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Grifone
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\begin{nota}
+$\Cx^n$ est muni du produit scalaire canonique.
+\end{nota}
+
+\begin{thm}
+Soit $A \in \gl$, il existe une matrice unitaire $Q \in \un$ et une matrice triangulaire supérieure $R$ telle que $A = QR$.
+\end{thm}
+
+\begin{proof}
+Notons $(e_1, \dots, e_n)$ la base canonique de $\Cx^n$.
+La matrice $A$ étant inversible, elle transforme la base $(e_i)$ en une base $(a_i)$ où les vecteurs $(a_i)$ sont les vecteurs colonnes de $A$.
+En d'autres termes, la matrice $A$ est la matrice de passage de la base $(e_i)$ vers la base $(a_i)$.
+Le procédé d'orthonormalisation de Gram-Schmidt garantit que l'on peut transformer la base $(a_i)$ 
+en une base orthonormée $(b_i)$ de $\Cx^n$.
+Pour $i \in \set{1, \dots, n}$, le vecteur $b_i$ est construit comme combinaison linéaire des vecteurs $(a_j)_{1 \leq j \leq i}$, 
+donc la matrice de passage de la base $(a_i)$ à la base $(b_i)$, notée $R_0$ est une matrice triangulaire supérieure.
+On a $R_0$ inversible et son inverse est encore triangulaire supérieure.
+Notons $U$ la matrice de passage de la base $(e_i)$ à la base $(b_i)$, cette matrice est unitaire.
+Finalement, on a $A=U R_0^{-1}$, soit le résultat attendu avec $R=R_0^{-1}$.
+\end{proof}
+
+
+\end{document}

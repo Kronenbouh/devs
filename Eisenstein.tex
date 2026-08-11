@@ -1,0 +1,207 @@
+\input{preamble}
+\renewcommand{\F}{\mathbb{F}}
+\newcommand{\U}{\mathbb{U}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - page 382.
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\begin{nota}
+Pour $p \geq 2$, on note $\F_p = \Z/p\Z$.
+On note aussi $\U_n = \set{z \in \Cx ; z^n = 1}$ l'ensemble des racines $n$-ièmes de l'unité.
+$\U_n$ est aussi le groupe cyclique engendré par $\omega_1 = \exp \left ( \dfrac{2i \pi}{n} \right )$.
+Pour $\omega \in \U_n$, on désigne par $P_{\omega}$ le polynôme minimal sur $\Q$ de $\omega$,
+i.e. le polynôme unitaire de $\Q[X]$ de degré minimal qui annule $\omega$. Ce polynôme est irréductible.
+On appelle racine primitive $n$-ième de l'unité tout générateur de $\U_n$ et on note $R_n$ l'ensemble
+de ces racines primitives.
+\end{nota}
+
+\section{Le critère d'Eisenstein}
+
+\begin{defn}[Contenu]
+Soit $P$ un polynôme non nul de $\Z[X]$ on appelle contenu de $P$, et on note $c(P)$ le pgcd des coefficients de $P$.
+Si le contenu de $P$ est 1, on dit que $P$ est primitif.
+\end{defn}
+
+\begin{lem}
+\label{lem:1}
+Le produit de deux polynômes primitifs non nuls est primitif.
+\end{lem}
+
+\begin{proof}
+Soient $P, Q$ tels qu'énoncés et $R$ leur produit. Supposons que $R$ n'est pas primitif, il existe donc un nombre premier
+$p$ qui divise tous les coefficients de $R$. Autrement dit $\overline{R} = \overline{0}$ dans l'anneau intègre $\F_p[X]$
+ce qui implique que $\overline{P} = \overline{0}$ ou $\overline{Q} = \overline{0}$, ce qui est absurde.
+\end{proof}
+
+\begin{lem}
+\label{lem:2}
+Pour $P, Q \in \Z[X] \setminus \set{0}$, on a $c(PQ) = c(P)c(Q)$.
+\end{lem}
+
+\begin{proof}
+On écrit :
+\[ PQ = c(P) \left ( \frac{P}{c(P)} \right ) c(Q) \left ( \frac{Q}{c(Q)} \right ) , \]
+avec $\left ( \frac{P}{c(P)} \right )$ et $\left ( \frac{Q}{c(Q)} \right )$ primitifs, autrement dit :
+\[ PQ = c(P) c(Q) R , \]
+avec $R$ primitif selon le lemme précédent. On conclut par homogénéité du pgcd.
+\end{proof}
+
+\begin{lem}
+\label{lem:3}
+Soient $P, Q \in \Q[X]$ deux polynômes unitaires tels que $PQ \in \Z[X]$ alors $P$ et $Q$ sont aussi dans $\Z[X]$.
+\end{lem}
+
+\begin{proof}
+Notons $m$ un dénominateur commun à tous les coefficients de $P$ et $Q$, on a alors $P_1=mP$ et $Q_1=mQ$ deux polynômes 
+de $\Z[X]$ de coefficients dominants égaux à $m$.
+On a alors $m^2 PQ = P_1 Q_1$ et donc $c(m^2 PQ)= m^2 c(PQ) = m^2$ car $P$ et $Q$ sont unitaires et $\Z$ intègre.
+On déduit que $c(P_1)c(Q_1) = m^2$ selon le lemme précédent avec $c(P_1)$ et $c(Q_1)$ qui divisent $m$.
+On a donc $c(P_1)=c(Q_1)=m$, i.e. $m$ divise tous les coefficients de $P$ et $Q$, 
+donc $P=\dfrac1{m} P_1$ et $Q=\dfrac1{m} Q_1$ sont dans $\Z[X]$.
+\end{proof}
+
+\begin{thm}
+Soit $P(X) = \sum_{k=0}^n a_k X^k$ un polynôme non constant dans $\Z[X]$ de degré $n \geq 2$. 
+S'il existe un nombre premier $p$ tel que :
+\begin{enumerate}[label=(\roman*)]
+\item $p$ divise les coefficients $a_0, a_1, \dots, a_{n-1}$ ;
+\item $p$ ne divise par $a_n$ ;
+\item $p^2$ ne divise pas $a_0$ ;
+\end{enumerate}
+alors le poynôme $P$ est irréductible dans $\Q[X]$.
+\end{thm}
+
+\begin{proof}
+Suppons le polynôme $P$ tel qu'énoncé mais réductible dans $\Q[X]$. Alors il est réductible dans $\Z[X]$ selon le lemme précédent.
+On a donc $P=QR$ avec $Q, R$ des polynômes non constants dans $\Z[X]$ et on note :
+\[ Q(X) = \sum_{k=0}^q b_k X^k \et R(X) = \sum_{k=0}^r c_k X^k , \]
+avec les $b_k$ et les $c_k$ dans $\Z$ et $1 \leq q, r \leq n-1$.
+Selon les hypothèses (i) et (ii) on a :
+\[ \overline{P} = \overline{Q} \overline{R} = \overline {a_n} X^n \neq 0 , \]
+dans $\F_p[X]$. Par ailleurs, $\overline{a_n} = \overline{b_q} \overline{c_r}$ dans le corps $\F_p$, donc ni $b_q$ ni $c_r$ ne sont nuls.
+Comme la décomposition en facteurs irréductibles est unique (à l'ordre près) dans $\F_p[X]$, 
+l'égalité $\overline{P} = \overline{b_q} \overline{c_r} X^n$ implique que :
+\[ \overline{Q}(X) = \overline{b_q} X^q \et \overline{R}(X) = \overline{c_r} X^r . \]
+Autrement dit, $p$ divise tous les coefficients (sauf dominants) de $Q$ et $R$, 
+en particulier $p^2$ divise $b_0 c_0 = a_0$ ce qui est contradictoire avec l'hypothèse (iii).
+\end{proof}
+
+\section{Application aux polynômes cyclotomiques}
+
+\begin{lem}
+\label{lem:4}
+La racine $n$-ième de l'unité $\omega_k = \exp \left ( \dfrac{2ik \pi}{n} \right )$ engendre $\U_n$ si, et seulement si, $k$ et $n$
+sont premiers entre eux.
+\end{lem}
+
+\begin{proof}
+Si $\omega_k$ engendre $\U_n$, il existe $p \in \N$ tel que $\omega_k^p = \omega_1 ^{kp} = \omega_1$.
+Alors $\omega_1^{1-kp} = 1$ et on déduit que $n$ divise $1-kp$, il existe donc $q$ tel que $1= nq + kp$ donc $n$ et $p$ sont
+premiers entre eux. \\
+Réciproquement, si $n$ et $p$ sont premiers entre eux, on écrit $nq + kp = 1$ et on a 
+\[ \omega_k^{p} = \omega_1^{1-nq} = \omega_1 , \]
+et donc $\U_n = \angl{ \omega_k}$.
+\end{proof}
+
+\begin{coro}
+On a $\card(R_n) = \varphi(n)$ avec $\varphi$ la fonction indicatrice d'Euler.
+\end{coro}
+
+\begin{lem}
+\label{lem:5}
+Soit $p$ un nombre premier.
+\begin{enumerate}
+\item Si $A_1, \dots, A_k$ sont des polynômes dans $\Z[X]$ et $A = \sum_{i=1}^k A_i$, on a alors l'égalité suivante dans $F_p[X]$ :
+\[ \overline{A^p} = \sum_{i=1}^k \overline{A_i^k} . \]
+\item Si $A$ est un polynôme dans $\Z[X]$, on a alors  l'égalité suivante dans $F_p[X]$ :
+\[ \overline{A^p}(X) = \overline{A}(X^p) . \]
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+\begin{enumerate}
+\item La résultat est vrai pour $k=1$. Pour $k=2$, considérons $A^p=(A_1+A_2)^p$.
+Comme $p$ divise tous les coefficients binomiaux $\binom{p}{i}$ pour $1 \leq i \leq p-1$ on a :
+\[ \overline{A^p} = \overline{A_1^p} + \overline{A_2^p}, \]
+dans $\F_p$. On peut donc conclure par récurrence. 
+\item On écrit $A(X) = \sum a_k X^k$, en utilisant le résultat précédent, on a :
+\[ \overline{A^p}(X) = \sum \overline{a_k^p} X^{kp} . \]
+D'après le théorème de Fermat, $\overline{a_k^p} = \overline{a_k}^p = \overline{a_k}$, et donc :
+\[ \overline{A^p}(X) = \sum \overline{a_k} (X^{p})^k = \overline{A}(X^p) . \]
+\end{enumerate}
+\end{proof}
+
+\begin{lem}
+\label{lem:6}
+Pour tout $\omega \in \U_n$, le polynôme minimal $P_\omega$ est dans $\Z[X]$.
+\end{lem}
+
+\begin{proof}
+Soit $A \in \Q[X]$ s'annulant en $\omega$. Par division euclidienne, il est clair que $A$ est multiple de $P_\omega$ dans $\Q[X]$.
+En particulier, $X^n-1$ est multiplie de $P_\omega$ soit $X^n-1 = P_\omega(X) Q(X)$ avec $Q \in Q[X]$.
+$Q$ est nécessairement unitaire, donc d'après le lemme $\ref{lem:3}$ on déduit que  $P_\omega$ (et $Q$) sont dans $\Z[X]$.
+\end{proof}
+
+\begin{defn}
+Pour $n \in \Ne$, on appelle polynôme cyclotomique le polynôme :
+\[ \phi_n(X) = \prod_{z \in R_n} X-z . \]
+\end{defn}
+
+\begin{thm}
+Pour tout $n \in \Ne, \phi_n$ est irréductible dans $\Q[X]$.
+\end{thm}
+
+\begin{proof}
+Soit $\omega \in R_n, p$ un nombre premier ne divisant pas $n$ et on note $Q_{\omega}$ le polynôme minimal sur $\Q$
+de $\omega^p$. Si $Q_{\omega}$ et $P_{\omega}$ sont différents, comme ils sont irréductibles dans $\Q[X]$, il sont donc premiers
+entre eux dans $\Q[X]$. 
+Il en résulte que le polynôme $X^n-1$ qui s'annule en $\omega$ et en $\omega_p$ est multiple de $Q_{\omega}$ et $P_{\omega}$ 
+donc du produit $Q_{\omega} P_{\omega}$.
+On a donc ,
+\[ X^n-1 = Q_{\omega}(X) P_{\omega}(X) Q(X) , \]
+avec $Q(x) \in \Z[X]$ selon le lemme $\ref{lem:3}$  
+(le polynôme $Q_{\omega} P_{\omega}$ est unitaire dans $\Q[X]$ et $Q$ est nécessairement unitaire). 
+Le polynôme $Q_{\omega}(X^p)$ s'annule en $\omega$, il est donc multiple de $P_{\omega}$ et s'écrit :
+\[ Q_{\omega}(X^p) = P_{\omega}(X) R(X) , \]
+avec $R \in \Q[X]$ nécessairement unitaire et $Q_{\omega} \in \Z[X]$ (cf. lemme $\ref{lem:6}$) 
+donc $R \in \Z[X]$ (cf. lemme $\ref{lem:3}$).
+On se place maintenant dans $\F_p[X]$ et on a, selon le lemme $\ref{lem:5}$ :
+\[ \overline{Q_\omega^p}(X) = \overline{Q_{\omega}}(X^p) = \overline{P_{\omega}}(X) \overline{R}(X) . \]
+Prenons $\overline{S}$ un polynôme irréductible de $\F_p[X]$ qui divise $\overline{\P_\omega}$. 
+Alors $\overline{S}$ divise $\overline{Q_\omega^p} = \overline{Q_\omega}^p$, et donc, par irréductibilité, 
+il divise $\overline{Q_\omega}$. En conséquence, $\overline{S}^2$ divise $X^n - \overline{1}$
+(car ce dernier polynôme est produit de $\overline{\P_\omega}$ et $\overline{\Q_\omega}$).
+On peut donc écrire :
+\[  X^n - \overline{1} = \overline{S}(X) \overline{T}(X) , \]
+avec $T$ un polynôme. En dérivant formellement, on obtient :
+\[ \overline{n} X^{n-1} = \overline{S}(X) \overline{U}(X) , \]
+avec $U$ un polynôme. 
+On déduit que si $\overline{S}$ est irréductible dans $\F_p[X]$ alors il est unitaire et divise $\overline{n} X^{n-1}$.
+De plus, comme $p$ ne divise pas $n$, on a $\overline{n} \neq 0$, donc on a nécessairement $\overline{S} = X$ ou $1$.
+Si $\overline{S} = X$ alors $\overline{S}$ divise $X - \overline{1}$ est contradictoire et donc $\overline{S} = 1$.
+Ceci implique que $\overline{P_\omega}$ est de degré nul ce qui est impossible.
+Donc, l'hypothèse de départ, à savoir $P_\omega \neq Q_\omega$ est fausse, donc $P_\omega = Q_\omega$. \\
+
+Prenons $\omega = \omega_1$, on va conclure en montrant que $P_\omega$ s'annule pour tout $\omega_k \in R_n$. 
+Si $\omega_k \in R_n \subset \U_n$, alors $k$ est premier avec $n$ (et $k \in \set{1, \dots, n}$).
+En écrivant la décomposition en facteurs premiers de $k, k =\prod p_i$ (avec les $p_i$ non nécessairement distincts),
+on sait que chaque $p_i$ est premier avec $n$. On a donc :
+\[ P_{\omega} = P_{\omega^{p_1}} , \]
+et ainsi, de proche en proche :
+\[ P_{\omega} = P_{\omega^{p_1 p_2}} = \dots = P_{\omega^{k}} , \]
+et donc $P_{\omega}(\omega^k) =  P_{\omega^{k}}(\omega^k) = 0$ pour tout $\omega^k \in R_n$.
+On a donc $P_{\omega} = \phi_n$ et ce premier étant irréductible, on déduit le résultat.
+\end{proof}
+
+\end{document}

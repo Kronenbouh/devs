@@ -1,0 +1,226 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Décomposition de Dunford et exponentiation}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Sources :} 
+\begin{enumerate}[label=(\roman*)]
+\item Algèbre linéaire, Grifone - page 188. 
+\item Algèbre, Rombaldi - page 633.
+\end{enumerate}
+
+\underline{Leçons :}
+\begin{itemize}
+\item 150 : Polynômes d’endomorphisme en dimension finie. Réduction d’un endomorphisme en dimension finie. Applications.
+\item 151 : Sous-espaces stables par un endomorphisme ou une famille d’endomorphismes d’un espace vectoriel de dimension finie.
+Applications.
+\item 152 : Endomorphismes diagonalisables en dimension finie.
+\item 155 : Exponentielle de matrices. Applications.
+\item 156 : Endomorphismes trigonalisables. Endomorphismes nilpotents.
+
+\end{itemize}
+
+\begin{nota}
+$E$ est un \Kev de dimension $n$ finie.
+\end{nota}
+
+\section{Décomposition de Dunford}
+
+\begin{lem}
+\label{lem:diagsimu}
+La somme de deux endomorphismes diagonalisables qui commutent est un endomorphisme diagonalisable.
+\end{lem}
+
+\begin{proof}
+Soient $f$ et $g$ deux tels endomorphismes, on note $(F_i)_{i=1}^p$ les espaces propres de $f$ et $\lambda_i$ les valeurs propres
+associées. On note aussi $(G_j)_{j=1}^q$ les espaces propres de $g$ et $\mu_j$ les valeurs propres associées. 
+On montre d'abord que les $G_j$ sont stables par $f$ (resp. que les $F_i$ sont stables par $g$). \\
+Soient $j \in \set{1, \dots, q}$ et $x \in G_j$, on a $g \circ f(x) = f \circ g (x) = f(\mu_j x) = \mu_j f(x)$ donc $f(x) \in G_j$. \\
+
+On pose :
+\[ \forall i \in \set{1, \dots, p}, \forall j \in \set {1, \dots, q} H_{i,j} = F_i \cap G_j . \]
+On remarquera d'abord que, pour $i$ fixé, il est impossible que les $H_{i,j}$ soient tous réduits à $\set{0}$,
+en effet, on a $E = \bigoplus_{j=1}^q G_j$ et $F_i \subset E$. 
+On va montrer que :
+\[ \forall i \in \set{1, \dots, p }, F_i = \bigoplus_{j=1}^q H_{i,j} . \]
+Soit $i$ fixé et $x \in F_i$, on écrit $x = g_1 + \dots + g_q$ avec $g_j \in G_j, j \in \set{1, \dots, q}$. Cette décomposition est par ailleurs
+unique. Or $f(x_i) = \lambda_i x_i = f(g_1) + \dots + f(g_q)$ avec $f(g_j) \in G_j, j \in \set{1, \dots, q}$ selon le point démontré plus haut.
+Par unicité de la décomposition, on conclut que :
+\[ \forall j \in \set{1, \dots, q}, f(g_j) = \lambda_i g_j \text{ soit } g_j \in F_i \cap G_j = H_{i,j} , \]
+et cette décomposition étant unique, on a le résultat cherché. \newline
+
+Ce résultat étant par ailleurs vrai pour tout $i$, on peut écrire :
+\[ E =  \bigoplus_{i, j} H_{i,j} \]
+et les matrices des endomorphismes $f$ et $g$ sont clairement diagonales sur une base composée des bases des $H_{i,j}$.
+\end{proof}
+
+\begin{lem}
+\label{lem:sommenil}
+La somme de deux endormophismes nilpotents qui commutent est un endomorphisme nilpotent.
+\end{lem}
+
+\begin{proof}
+Soient $n$ et $n'$ deux tels endomorphismes d'indices de nilpotences respectifs $r$ et $s$. Alors :
+\begin{align*}
+(n+n')^{r+s} & = \sum_{k=0}^{r+s} \binom{k}{r+s} n^k n'^{r+s-k} \\
+& = \sum_{k=0}^{r} \binom{k}{r+s} n^k n'^{r+s-k} + \sum_{k=r+1}^{r+s} \binom{k}{r+s} n^k n'^{r+s-k}
+& = 0 + 0 
+\end{align*}
+\end{proof}
+
+\begin{thm}[Décomposition de Dunford]
+Soit $f$ un endomorphisme de $E$ dont le polynôme caractéristique est scindé. Alors, $f$ se décompose de manière unique sous la forme :
+\[ f = d + n , \]
+où $d$ est un endomorphisme diagonalisable et $n$ un endomorphisme nilpotent tels que $d$ et $n$ commutent.
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}
+\item Existence \\
+
+Comme le polynôme caractéristique de $f$ est scindé, selon le le lemme des noyaux, on a :
+\[ E = N_{\lambda_1} \oplus \dots \oplus N_{\lambda_p} , p \in \N \]
+avec les $N_{\lambda_i}$ les sous espaces caractéristiques de $f$. 
+On peut donc trouver une base $B$ de $f$ dans laquelle la matrice de $f$ est :
+\begin{gather*} A = M_B(f) = \begin{pmatrix} 
+\begin{pmatrix} 
+\lambda_1 & & * \\
+ & \ddots & \\
+0 & & \lambda_1 \\
+\end{pmatrix} & & & 0 \\
+& \begin{pmatrix} 
+\lambda_2 & & * \\
+ & \ddots & \\
+0 & & \lambda_2 \\
+\end{pmatrix} & & \\
+ & & \ddots & \\
+0 & & & \begin{pmatrix} 
+\lambda_p & & * \\
+ & \ddots & \\
+0 & & \lambda_p \\
+\end{pmatrix} 
+\end{pmatrix} \\
+= \begin{pmatrix} 
+\begin{pmatrix} 
+\lambda_1 & & 0 \\
+ & \ddots & \\
+0 & & \lambda_1 \\
+\end{pmatrix} & 0 \\
+ & \ddots & \\
+0 & & \begin{pmatrix} 
+\lambda_p & & 0 \\
+ & \ddots & \\
+0 & & \lambda_p \\
+\end{pmatrix} 
+\end{pmatrix} 
++ \begin{pmatrix} 
+\begin{pmatrix} 
+0 & & * \\
+ & \ddots & \\
+0 & & 0 \\
+\end{pmatrix} & 0 \\
+ & \ddots & \\
+0 & & \begin{pmatrix} 
+0 & & * \\
+ & \ddots & \\
+0 & & 0 \\
+\end{pmatrix} 
+\end{pmatrix} 
+\end{gather*}
+
+En notant $D$ la première matrice et $N$ la seconde, on a $A = D + N$ et soient $d$ et $n$ les endomorphismes de $E$ qui, 
+dans la base $B$ sont représentés par $D$ et $N$ respectivement. 
+ses endomorphises sont respectivement diagonalisable et nilpotent et ils commutent 
+(les matrices $D$ et $N$ commutent, on le démontre en effectuant un produit par bloc).
+On a donc démontré l'existence.
+
+\item Unicité : on considère une seconde telle décomposition de $f$ soit $f = d + n = d' + n'$, on a alors $h = d - d' = n' - n$. 
+On va montrer que $d$ et $d'$ commutent et que $n$ et $n'$ commutent. \\
+
+On remarque d'abord que $d'$ commute avec $f$ (car il commute avec $d'+n'$). 
+On va montre que les sous-espaces caractéristiques de $f$ sont stables par $d'$. \\
+Prenons $x \in N_{\lambda_i}$, puisque $d'$ et $f$ commutent on a :
+\[ (f-\lambda_i)^{\alpha_i} \circ d'(x) = d' \circ (f-\lambda_i)^{\alpha_i} (x) = 0 , \]
+donc $d'(x) \in N_{\lambda_i}$. \\
+
+Soit $x \in E, x= x_1 + \dots + x_p$, avec $x_i \in N_{\lambda_i}$.
+Ainsi, en notant $q_i$ le projecteur sur $N_{\lambda_i}$ on a : 
+\begin{gather*}
+d' \circ q_i(x) = d'(x_i) \qquad \text{ et} \\
+q_i \circ d'(x) = q_i \circ d'(x_1) + \dots + q_i \circ d'(x_p) = q_i \circ d'(x_i) = d'(x_i)
+\end{gather*}
+Donc $d'$ commute avec chaque projecteur $q_i$. \\
+
+De plus, on a vu que la matrice de $d$ était diagonale dans une base $B$ constituée des bases des sous-espaces caractéristiques.
+On peut donc écrire $d = \lambda_1 q_1 + \dots \lambda_p q_p$ et conclure que $d$ commute avec $d'$. \\
+
+On démontre de la même manière que $n'$ commute avec $f$ et $d$. Enfin :
+\[ n' \circ n = n' \circ (f-d) = (f-d) \circ n' = n \circ n' . \]
+
+Donc, selon les lemmes $\ref{lem:diagsimu}$ et $\ref{lem:sommenil}$ l'endormophisme $h$ est un endomorphisme diagonalisable ET
+nilpotent, c'est donc l'endomorphisme nul, ce qui conclut la preuve d'unicité.
+\end{enumerate}
+
+\end{proof}
+
+\section{Exponentielle d'un endomorphisme}
+
+On suppose que $\K = \C$, et que $\norm{.}$ est une norme sur$\L(E)$. On considère $u \in \L(E)$.
+
+\begin{lem}
+En notant $u = d+v$ le décomposition de Dunford de $u$, on a :
+\[ e^u = e^d e^v =e^d \sum_{k=0}^{q-1} \dfrac{v^k}{k!} , \]
+où $q \geq 1$ est l'indice de nilpotence de $v$ et $e^u$ est un polynôme en $u$.
+\end{lem}
+
+\begin{proof}
+Comme $d$ et $v$ commutent, on a :
+\begin{align*}
+e^{u+v} & = \sum_{n=0}^{\infty} \dfrac1{n!} (u+v)^n \\
+& = \sum_{n=0}^{\infty} \dfrac1{n!} \sum_{k=0}^n \binom{n}{k} u^k v^{n-k} \\
+& = \sum_{n=0}^{\infty} \sum_{k=0}^n \dfrac{u^k}{k!} \dfrac{v^{n-k}}{(n-k)!} \\
+& = e^u e^v .
+\end{align*}
+La simplifciation $e^v =  \sum_{k=0}^{q-1} \dfrac{v^k}{k!}$ s'obtient en remarquant que $v^k = 0$ pour $k \geq q$.
+\end{proof} 
+
+\begin{thm}
+Si $u=d+v$ est la décomposition de Dunford de $u$, alors celle de $e^u$ est donnée par 
+\[ e^u = e^d +e^d(e^v-\id), \]
+avec $e^d$ diagonalisable et $e^d(e^v-\id)$ nilpotente.
+\end{thm}
+
+\begin{proof}
+On a :
+\begin{align*}
+e^u & = e^d e^v = e^d \sum_{k=0}^{q-1} \dfrac{v^k}{k!} = e^d \left ( \id + v \sum_{k=1}^{q-1} \dfrac{v^{k-1}}{k!} \right ) \\
+& = e^d + v e^d \sum_{k=1}^{q-1} \dfrac{v^{k-1}}{k!} = e^d + v \cdot w
+\end{align*}
+en remarquant que $v$ et $e^d$ commutent (car $v$ et $d$ commutent). De même, $v$ et $w$ commutent, on a donc 
+$(v \cdot w)^q = v^q w^q = 0$ en notant $q$ l'indice de nilpotence de $v$. De plus, $e^d$ étant diagonale, on a obtenu, par 
+unicité de ce suivant, la décomposition de Dunford de $e^u$. La partie nilpotente de cette décomposition s'écrit aussi :
+\[ v \cdot w =  e^d \sum_{k=1}^{q-1} \dfrac{v^k}{k!} = e^d(e^v-\id) . \]
+\end{proof}
+
+\begin{coro}
+Un endomorphisme $u$ est diagonalisable si, et seulement si, $e^u$ est diagonalisable.
+\end{coro}
+
+\begin{proof}
+On écrit $u = d+v$ la décomposition de Dunford de $u$. Si $u$ est diagonalisable, alors $v=0$ et, par suite, $e^d(e^v-\id) = 0$ donc
+$e^u$ est diagonalisable. \\
+Réciproquement, si $e^d(e^v-\id) = 0$, alors $e^v = \id$ puisque $e^d$ est inversible. On a donc :
+\[ \sum_{k=0}^q \dfrac{v^k}{k!} = \id \iff \sum_{k=1}^q \dfrac{v^k}{k!} = 0 , \]
+avec $q$ l'indice de nilpotence de $v$. Autrement dit, $P(X) = \sum_{k=1}^q \dfrac{X^k}{k!}$ est un polynôme annulateur de $v$.
+Or $X^q$ est le polynôme minimal de $v$, ce qui impose $q=1$ (par identification du monôme de degré $q$), soit $v=0$ et donc
+$u$ diagonalisable. 
+\end{proof}
+
+
+
+
+\end{document}

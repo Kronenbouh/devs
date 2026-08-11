@@ -1,0 +1,429 @@
+\documentclass[french]{article}
+
+\input{preamble}
+
+\begin{document}
+
+Dans tout ce document, les suites auront pour support $\N$ tout entier. Il est clair que les résultats restent valables pour tout support 
+$S \subset \N$ infini.
+
+\section{Définition et premiers résultats}
+
+\begin{defn}[Série]
+Soit $(a_n)_\N \subset \K$ une suite numérique avec $\K = \R$ ou $\Cx$. 
+On définit la suite $(S_n)_\N$ par :
+\[ \forall N \in \N, S_N = \sum_{n=0}^N a_n . \]
+On appelle $(S_n)_\N$ la série de terme général $a_n$ et on la note $\sum a_n$.
+\end{defn}
+
+\begin{defn}[Convergence]
+Soit $(a_n)_\N \subset \K$ une suite numérique avec $\K = \R$ ou $\C$. 
+On dit que la série $\sum a_n$ converge si, et seulement si, la suite $(S_n)_\N$ converge.
+Dans ce cas, la limite de $(S_n)_\N$ est notée $\sum_{n=0}^{\infty} a_n$.
+\end{defn}
+
+\begin{thm}
+Si la série $\sum a_n$ converge alors la suite $(a_n)_\N$ converge vers 0.
+\end{thm}
+
+\begin{proof}
+La suite $(S_n)_\N$ converge, elle est donc de Cauchy, ce qui implique que $(a_n)_\N$ est de limite nulle.
+\end{proof}
+
+\begin{coro}
+La série harmonique $\sum \frac1{n}$ est divergente.
+\end{coro}
+
+\begin{proof}
+Soit $S_N = \sum_{n=1}^N\frac{1}{n} $, on a 
+\[ S_{2N} - S_N = \sum_{n=N+1}^{2N} \dfrac{1}{n} \geq N \dfrac1{2N} = \dfrac12 , \]
+donc la suite $(S_N)_{\N \geq 1}$ n'est pas de Cauchy, elle n'est pas convergente.
+\end{proof}
+
+\section{Propriétés fondamentales}
+
+\begin{thm}[Linéarité]
+L'ensemble des séries convergentes est un \Kev.
+\end{thm}
+
+\begin{proof}
+Cela revient à dire que l'ensemble des suites convergentes est un \Kev, ce qui est vrai.
+\end{proof}
+
+\begin{coro}
+Soit $\sum a_n$ une série convergente et $\sum v_n$ une série divergente, alors $\sum (a_n+v_n)$ diverge.
+\end{coro}
+
+\begin{proof}
+Sinon, la série $\sum( a_n + v_n - a_n) = \sum v_n$ serait convergente.
+\end{proof}
+
+\begin{thm}[Critères de comparaison]
+Soient $(a_n)_\N$ et $(b_n)_\N$ deux suites réelles positives.
+\begin{enumerate}[label=(\roman*)]
+\item s'il existe $n_0 \in \N$ tel que $\forall n \geq n_0, a_n \leq b_n$ et si $\sum b_n$ converge alors $\sum a_n$ converge ;
+\item s'il existe $n_0 \in \N$ tel que $\forall n \geq n_0, a_n \geq b_n$ et si $\sum b_n$ diverge alors $\sum a_n$ diverge.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+On note $S_N = \sum_{n=0}^N a_n$ et $T_N = \sum_{n=0}^N a_n$. 
+Pour alléger la démonstration, on suppose que $n_0 = 0$ (le cas $n_0$ quelconque se traite de la même manière).
+\begin{enumerate}[label=(\roman*)]
+\item On remarque que les suite $(S_n)_\N$ et $(T_N)_\N$ sont croissantes, on peut donc écrire :
+\[ \forall n \in \N, S_n \leq \sum_{n=0}^{\infty} b_n, \] 
+donc $(S_n)_\N$ est croissante et majorée, elle est donc convergente.
+\item La proposition $\forall n \in \N, b_n \leq a_n$, $\sum b_n$ diverge et $\sum a_n$ converge est fausse selon (i), d'où le résultat.
+\end{enumerate}
+\end{proof}
+
+\begin{thm}[Séries équivalentes]
+Soient $(a_n)_\N$ et $(b_n)_\N$ deux suites réelles. Si $a_n \sim_{\infty} b_n$ et si $a_n$ est de signe constant à partir d'un certains rang,
+alors $\sum a_n$ et $\sum b_n$ sont de même nature.
+\end{thm}
+
+\begin{proof}
+Suppons qu'il existe $n_0 \in \N$ tel que $\forall n \geq n_0, a_n \geq 0$ (la démonstration est la même pour $a_n$ négatif à partir d'un
+certains rang). Notons $(u_n)_\N$ la suite réelle telle que :
+\[ a_n = u_n b_n \et \lim u_n =1 ,\]
+il existe $n_1 \in \N$ tel que $\forall n \geq n_1, \frac12 \leq u_n \leq \frac32$. On note $N = \max(n_0, n_1)$, pour $n \geq N$ on a 
+$b_n \geq 0$ (car $a_n = u_n b_n, a_n \geq 0$ et $u_n \geq 0$) et donc :
+\[ \forall n \geq N, \frac12 b_n \leq a_n \leq \frac32 b_n , \]
+ce qui permet de conclure.
+\end{proof}
+
+\begin{defn}[Convergence absolue]
+Soit $(a_n)_\N \subset \K$ une suite numérique. On dit que $\sum a_n$ converge absoluement si la série $\sum \abs{a_n}$ converge. 
+\end{defn}
+
+\begin{thm}
+Soit $(a_n)_\N \subset \K$ une suite numérique. Si la série $\sum a_n$ converge absoluement alors elle converge.
+\end{thm}
+
+\begin{proof}
+Supposons tout d'abord que $(a_n)_\N$ est une suite à valeurs réelles. On note :
+\[ a_n^{+} = \left \{ \begin{array}{c c} a_n & \text{ si } a_n \geq 0 \\ 0 & \text{ sinon} \end{array} \right.
+\et a_n^{-} = \left \{ \begin{array}{c c} 0 & \text{ si } a_n \geq 0 \\ -a_n & \text{ sinon} \end{array} \right. \]
+Les séries $\sum a_n^{+}$ et $\sum a_n^{-}$ sont à termes positifs et :
+\[ \forall n \in \N, a_n^{+} \leq \abs{a_n} \et a_n^{-} \leq \abs{a_n} , \]
+elles sont donc convergentes. Or $\sum a_n = \sum a_n^{+}- \sum a_n^{-}$ d'où le résultat dans le cas réel. \newline
+
+Dans le cas complexe, on procède de la même façon en écrivant successivement :
+\[ \abs{\Re(z)} \leq \abs{z} \et \abs{\Im(z)} \leq \abs{z} ; \]
+on applique ensuite le cas réel aux deux parties ce qui permet de conclure.
+\end{proof}
+
+\begin{thm}[Généralisation]
+Soit $(E, \norm{.})$ un espace vectoriel normé complet et soit $(a_n)_\N$ une suite d'éléments de $E$.
+Si $\sum \norm{a_n}$ converge alors $\sum a_n$ converge.
+\end{thm}
+
+\begin{proof}
+Comme $\sum \norm{a_n}$ converge, la suite $\sum_{n=0}^{N} \norm{a_n}$ vérifie le critère de Cauchy. 
+Soit $\veps >0$, il existe $n_0 \in \N$ tel que :
+\[ \forall N \geq n_0, \forall k \geq 0, \sum_{n=N+1}^{N+k} \norm{a_n} < \veps . \]
+Donc $\norm*{\sum_{n=N+1}^{N+k} {a_n}} \leq \sum_{n=N+1}^{N+k} \norm{a_n} < \veps$, ainsi la suite des sommes partielles 
+est de Cauchy, elle est donc convergente par complétude de $E$.
+\end{proof}
+
+\section{Comparaison série-intégrale}
+
+Soit $f : \Rp \to \R$ une fonction continue, positive et décroissante. Le but de cette section est d'étudier les séries de la forme :
+$\sum f(n)$.
+
+\begin{thm}
+Soit $f : \Rp \to \R$ une fonction continue, positive et décroissante, la série $\sum f(n)$ converge si, et seulement si, la suite 
+$\Bigpar{\int_{a}^N f(x) dx}_\N$ admet une limite lorsque $N \to \infty$ (avec $a \in \Rp$ quelconque).
+\end{thm}
+
+\begin{proof}
+Soit $n \in \N$, comme $f$ est décroissante et positive, on peut écrire ;
+\[ \forall x \in [n ; n+1], f(n+1) \leq f(x) \et \forall x \in [n ; n+1] f(x) \leq f(n) , \]
+d'où il résulte que :
+\[ \int_1^{N+1} f(x) dx \leq \sum_{n=1}^N f(n) \leq \int_0^{N} f(x) dx . \]
+Ce qui permet d'obtenir le résultat.
+\end{proof}
+
+\begin{coro}[Séries de Riemann]
+Soit $\alpha \in \R \setminus \{1\}$, on appelle série de Riemann la série $\sum_{n \geq 1} \frac{1}{n^{\alpha}}$.
+Cette série converge si, et seulement si, $\alpha > 1$.
+\end{coro}
+
+\begin{proof}
+Si $\alpha \leq 0$, la suite $\bigpar{\frac{1}{n^{\alpha}}}_\N$ ne tend pas vers 0 donc la série diverge.
+Sinon, la fonction $x \mapsto \frac{1}{x^{\alpha}}$ est continue, positive et décroissante sur $]0, \infty[$. De plus :
+\[ \int_1^N \dfrac{1}{n^{\alpha}} = \left [ \dfrac{x^{1-\alpha}}{1-\alpha} \right ]_1^N = \dfrac{N^{1-\alpha}}{1-\alpha} - \dfrac{1}{1-\alpha} . \]
+Ainsi, l'intégrale (et donc la série) converge si, et seulement si $\alpha > 1$.
+\end{proof}
+
+\begin{coro}[Série harmonique]
+Pour $N \geq 1$ on a :
+\[ \sum_{n=1}^N \dfrac1{n} \sim_{\infty} \ln{N} . \]
+\end{coro}
+
+\begin{proof}
+On reprend l'encadrement de la démonstration du théorème, on a :
+\[ \int_2^{N+1} \dfrac1{x} dx \leq \sum_{n=2}^N \dfrac1{n} \leq \int_1^{N} \dfrac1{x} dx . \]
+soit, en ajoutant 1 à chaque terme de l'inégalité :
+\[ 1 + \ln(N+1) - \ln{2} \leq \sum_{n=1}^N \dfrac1{n} \leq 1 + \ln{N} , \]
+d'où on tire l'équivalence.
+\end{proof}
+
+\section{Quelques critères de convergence}
+
+Dans toute section, on suppose que $(a_n)_\N$ est une suite réelle positive. 
+On pourra étendre les critères aux suites à valeurs dans $\K$ en utilisant l'implication convergence absolue $\Rightarrow$ convergence.
+
+\begin{thm}[Critère de D'Alembert]
+On suppose que $\lim \dfrac{a_{n+1}}{a_n} = L$. Alors :
+\begin{enumerate}[label=(\roman*)]
+\item si $L < 1$, la série $\sum a_n$ converge ;
+\item si $L>1$, la série $\sum a_n$ diverge ;
+\item si $L=1$, on ne peut pas conclure.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+\item supposons que $L<1$, alors il existe $q < 1$ et $N \in \N$ tels que :
+\[ \forall n \geq N, \dfrac{a_{n+1}}{a_n} < q . \]
+On peut donc écrire, pour tout $k \in \N, a_{N+k} < a_N q^k$ et on remarque que :
+\[ \sum_{k=0}^n a_{N+k} < a_N \sum_{k=0}^n q^k , \]
+ce qui permet de conclure par comparaison.
+\item si $L>1$, par un raisonnement similaire on montre que pour tout $k \in \N, a_{N+k} > a_N$. 
+La série est donc trivialement divergente.
+\item Prenons la suite définie sur $\Ne$ par $a_n = \frac1{n^{\alpha}}$, on a $a_{n+1}/a_n \to 1$ quelle que soit la valeur de $\alpha$
+et pourtant $\sum a_n$ diverge si $\alpha \leq 1$. 
+\end{enumerate}
+\end{proof}
+
+\begin{rmq}
+On peut énoncer une version alternative de ce critère avec des hypothèses légèrement plus faibles, à savoir :
+\begin{enumerate}[label=(\roman*)]
+\item si $\dfrac{a_{n+1}}{a_n} < q < 1$ à partir d'un certains rang, alors $\sum a_n$ converge ;
+\item si $\dfrac{a_{n+1}}{a_n} > 1$ à partir d'un certains rang, alors $\sum a_n$ diverge.
+\end{enumerate}
+\end{rmq}
+
+\begin{thm}[Critère de Cauchy]
+On suppose que $\lim (a_n)^{1/n} = L$. Alors :
+\begin{enumerate}[label=(\roman*)]
+\item si $L < 1$, la série $\sum a_n$ converge ;
+\item si $L>1$, la série $\sum a_n$ diverge ;
+\item si $L=1$, on ne peut pas conclure.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+La preuve est identique à celle du critère de D'Alembert.
+\end{proof}
+
+\begin{rmq}
+Comme précédemment, on peut énoncer une version alternative de ce critère avec des hypothèses légèrement plus faibles, à savoir :
+\begin{enumerate}[label=(\roman*)]
+\item si $(a_n)^{1/n} < q < 1$ à partir d'un certains rang, alors $\sum a_n$ converge ;
+\item si $(a_n)^{1/n} > 1$ à partir d'un certains rang, alors $\sum a_n$ diverge.
+\end{enumerate}
+\end{rmq}
+
+\begin{thm}[Critère de Riemann]
+\begin{enumerate}[label=(\roman*)]
+\item si $\lim n^{\alpha} a_n = 0$ pour $\alpha > 1$ alors $\sum a_n$ converge ;
+\item si $\lim n^{\alpha} a_n = \infty$ pour $\alpha < 1$ alors $\sum a_n$ diverge.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+La structure de la preuve reste la même.
+\begin{enumerate}[label=(\roman*)]
+\item si $\lim n^{\alpha} a_n = 0$ alors il existe un rang $N \in \N$ à partir duquel $\forall n \geq N, n^{\alpha} a_n \leq 1$ 
+et on obtient le résultat par comparaison avec une série de Riemann.
+\item On démontre de même.
+\end{enumerate}
+\end{proof}
+
+\begin{rmq}
+La version avec les hypothèses légèrement plus faibles est :
+\begin{enumerate}[label=(\roman*)]
+\item si $n^{\alpha} a_n \leq 1$ à partir d'un certains rang pour $\alpha > 1$, alors $\sum a_n$ converge ;
+\item si $n^{\alpha} a_n \geq 1$ à partir d'un certains rang pour $\alpha < 1$, alors $\sum a_n$ diverge.
+\end{enumerate}
+\end{rmq}
+
+\begin{thm}[Séries de Bertrand]
+Soit $\alpha, \beta \in \R$, on appelle série de Bertrand la série 
+\[ \sum_{n \geq 2} \dfrac{1}{n^{\alpha}(\ln{n})^{\beta}} . \]
+Cette série converge si, et seulement si, ($\alpha > 1$) ou ($\alpha = 1$ et $\beta > 1$).
+\end{thm}
+
+\begin{proof}
+Pour $\alpha > 1$, on peut trouver un réel $\gamma$ tel que $1 < \gamma < \alpha$ et :
+\[ \lim_{n \to \infty} n^{\gamma} \dfrac{1}{n^{\alpha}(\ln{n})^{\beta}} = 
+\lim_{n \to \infty} \dfrac{1}{n^{\alpha-\gamma}(\ln{n})^{\beta}} = 0 \]
+
+Pour $\alpha <1$, on peut trouver un réel $\gamma$ tel que $\alpha < \gamma < 1$ et :
+\[ \lim_{n \to \infty} n^{\gamma} \dfrac{1}{n^{\alpha}(\ln{n})^{\beta}} = 
+\lim_{n \to \infty} \dfrac{n^{\alpha-\gamma}}{(\ln{n})^{\beta}} = \infty \]
+
+Pour $\alpha = 1$ on considère plusieurs cas.
+Si $\beta \leq 0$, on a $\forall n \geq 3, \frac{1}{n(\ln{n})^{\beta}} > \frac{1}{n}$ donc la série diverge.
+Sinon, la fonction $x \mapsto \dfrac{1}{x(\ln{x})^\beta}$ est continue, positive et décroissante sur $]1, \infty[$, et
+\[ \arraycolsep=1.4pt\def\arraystretch{2.2}
+\int_2^N \dfrac{1}{x(\ln{x})^{\beta}} = \left \{ \begin{array}{c c}
+\left [ \dfrac{(\ln{x})^{1-\beta}}{1-\beta} \right ]_2^N  & \text{ si } \beta \neq 0 \\
+\left [ \ln(\ln(x)) \right ]_2^N & \text{ sinon}
+\end{array} \right.,  \]
+qui converge si, et seulement si, $\alpha >1$.
+\end{proof}
+
+\section{Séries alternées}
+
+Pour une série $\sum a_n$ convergente vers $S \in \R$, on note, $R_N = S - S_n$.
+
+\begin{defn}[Série alternée]
+Soit $(a_n)_\N$ une suite réelle. On dit que la série $\sum a_n$ est alternée si pour tout $n \in \N, a_{n+1}a_n < 0$,
+c'est-à-dire si pour tout $n \in \N, a_n = (-1)^n u_n$ avec $(u_n)$ de signe constant. 
+\end{defn}
+
+\begin{thm}[Règle de Leibniz]
+Soit $\sum a_n$ une série alternée. Si la suite $(\abs{a_n})_\N$ est décroissante et tend vers 0 alors $\sum a_n$ converge.
+\end{thm}
+
+\begin{proof}
+Quitte à changer le signe de la série, on suppose que $a_0 > 0$.
+On a : $0 < a_0 + a_1 < a_0$ puis $a_0+a_1 < a_0 + a_1 + a_2$ etc.
+Notons, pour $n \in \N, p_n = S_{2n}$ et $i_n = S_{2n+1}$ et montrons que les suites $(p_n)_\N$ et $(i_n)_\N$ sont adjacentes.
+Il est clair que $(p_n)_\N$ est décroissante : $p_{n+1} - p_n = a_{2n+2} + a_{2n+1} < 0$
+et de même $(i_n)_\N$ est croissante. De plus $p_n -  i_n = - a_{2n+1}$ qui tend vers 0.
+Les suites $p_n$ et $i_n$ sont donc adjacentes, on en déduit qu'elles convergent vers la même limite $S$ et, par suite, $S_n \to S$.
+\end{proof}
+
+\begin{thm}[Majoration du reste]
+Soit $\sum a_n$ une série alternée avec $(\abs{a_n})_\N$ décroissante et qui tend vers 0.
+On a alors :
+\[ \forall N \in \N, \abs*{R_N} = \abs*{\sum_{n=N+1}^\infty a_n} \leq \abs{a_{N+1}} . \]
+\end{thm}
+
+\begin{proof}
+Soit $n \in \N$, on va montrer que, pour tout $p \in \N, a_n + a_{n+1} + \dots + a_{n+p}$ est du même signe que $a_n$.
+En effet, tous les couples de la forme $a_{n+2k} + a_{n+2k+1}$ pour $k \geq 0$ sont du même signe que $a_n$. \\
+Ainsi, dans la somme $a_n + a_{n+1} + \dots + a_{n+p}$ on regroupe tous les termes par paires, chaque paire est du même signe que 
+$a_n$. De plus, si le dernier terme est isolé, son rang est nécessairement de la forme $a_{n+2k}$ avec $k \geq 0$ 
+et son signe est le même que celui de $a_n$. 
+Par passage à la limite, on conclut que pour tout $N \in \N, R_N$ est du même signe que $a_{N+1}$.
+Quitte à changer le signe de la série, on peut supposer que $a_{N+1} > 0$. On a alors $R_N > 0$ et $R_{N+1} < 0$
+or $R_N = a_{N+1} + R_{N+1}$ d'où $R_N \leq a_{N+1}$.
+\end{proof}
+
+\begin{lem}[Transformation d'Abel]
+Pour toute suite $u=(u_n)_\N$ réelle ou complexe, on définit une suite $Du$ par :
+\[ \forall n \in \N, Du_n = u_{n+1} - u_n . \]
+Pour deux suites réelles ou complexes $(u_n)_\N$ et $(v_n)_\N$ on a :
+\[ \sum_{k=0}^{n-1} Du_k v_{k+1} = (u_n v_n - u_0 v_0) - \sum_{k=0}^{n-1} u_k Dv_k . \] 
+\end{lem}
+
+\begin{proof}
+Il suffit de faire le calcul :
+\begin{align*}
+\sum_{k=0}^{n-1} Du_k v_{k+1} &= \sum_{k=0}^{n-1} u_{k+1} v_{k+1} - \sum_{k=0}^{n-1} u_k v_{k+1} \\
+& = \sum_{k=1}^{n} u_{k} v_{k} - \sum_{k=0}^{n-1} u_k v_{k+1} \\
+& = (u_n v_n - u_0 v_0) - (\sum_{k=0}^{n-1} u_k v_{k+1} - \sum_{k=0}^{n-1} u_k v_{k} \\
+& = (u_n v_n - u_0 v_0) - \sum_{k=0}^{n-1} u_k Dv_k
+\end{align*}
+\end{proof}
+
+\begin{thm}[Théorème d'Abel]
+Soit $(a_n)_\N$ une suite réelle décroissante qui tend vers 0 (donc positive).
+Soit $(b_n)_\N$ une suite réelle ou complexe. On note $B_N = \sum_{n=0}^N b_n$ et on suppose que la suite $(B_n)_\N$ est bornée.
+Alors la série $\sum a_n b_n$ converge.
+\end{thm}
+
+\begin{proof}
+On remarque que $\forall N \in \N, DB_k = b_{k+1}$. On a donc :
+\begin{align*}
+\sum_{k=0}^n a_k b_k & = a_0 b_0 + \sum_{k=0}^{n-1} a_{k+1} b_{k+1} \\
+& =  a_0 b_0 + \sum_{k=0}^{n-1} a_{k+1} DB_k \\
+& = a_0 b_0 + B_n a_n - B_0 a_0 - \sum_{k=0}^{n-1} Da_k B_k \text{ transformation d'Abel} \\
+& = B_n a_n - \sum_{k=0}^{n-1} (a_{k+1} - a_k) B_k
+\end{align*}
+Comme $(B_n)_\N$ est bornée, on peut écrire $\forall n \in \N, \abs{B_n} \leq B$. On a :
+\begin{align*}
+\abs*{ \sum_{k=0}^{n-1} (a_{k+1} - a_k) B_k} & \leq B \sum_{k=0}^{n-1} (a_k - a_{k+1}) \\
+& \leq B (a_0 - a_n) 
+\end{align*}
+Donc la série $\sum (a_{k+1} - a_k) B_k$ est absolument convergente. De plus, la suite $(B_n a_n)_\N$ converge vers 0. 
+On peut donc conclure que la série $\sum a_n b_n$ converge.
+\end{proof}
+
+\section{Produit de Cauchy}
+
+\begin{defn}
+Soient $\sum a_n$ et $\sum b_n$ deux séries à valeurs dans $\Cx$. On pose :
+\[ \forall n \in \N, c_n = \sum_{k=0}^n a_k b_{n-k} . \]
+La série $\sum c_n$ est appelée produit de Cauchy des séries $\sum a_n$ et $\sum b_n$.
+\end{defn}
+
+\begin{thm}
+Si $\sum a_n$ et $\sum b_n$ sont \textbf{absolument} convergentes alors $\sum c_n$ converge et 
+\[ \sum_{n=0}^{\infty} c_n = \sum_{n=0}^{\infty} a_n \sum_{n=0}^{\infty} b_{n} . \]
+\end{thm}
+
+\begin{proof}
+On suppose d'abord que les suites $(a_n)_\N$ et $(b_n)_\N$ sont positives et on note :
+\[ A_N = \sum_{n=0}^{N} a_n \et B_N = \sum_{n=0}^{N} b_n \et C_N = \sum_{n=0}^{N} c_n , \]
+avec $\lim A_N = A$ et $\lim B_N = B$. On note aussi les ensembles d'indices :
+\[ I_n = \set{ (i,j) \in \N^2 \tq 0 \leq i, j \leq n} \et J_n = \set{ (i,j) \in \N^2 \tq 0 \leq i, j \leq n \text{ et } i+j = n} . \]
+On remarque que :
+\[ A_N B_N = \sum_{(i,j) \in I_N} a_i b_j  \et C_N = \sum_{(i,j) \in J_N} a_i b_j . \]
+Les inclusions $I_N \subset J_{2N} \subset I_{2N}$ permettent d'affirmer que  
+\[ A_N B_N \leq C_N \leq A_{2N} B_{2N} . \]
+donc, d'après le théorème des gendarmes la suite $\bigpar{\sum_{k=0}^{2N} c_n}_{N \in \N}$ converge vers $AB$.
+Comme de plus :
+\[ \sum_{k=0}^{2N} c_n \leq \sum_{k=0}^{2N+1} c_n \leq \sum_{k=0}^{2N+2} c_n, \]
+on peut bien affirmer que $\bigpar{\sum_{k=0}^{N} c_n}_{N \in \N}$ converge vers $AB$. \newline
+
+Supposons maintenant que les suites $(a_n)_\N$ et $(b_n)_\N$ sont de signe quelconque. Alors, d'après le cas précédent, la série
+de terme général $d_n = \sum_{k=0}^n \abs{a_k} \abs{b_{n-k}}$ converge. 
+Or $\abs{c_n} \leq d_n$ donc la série $\sum c_n$ converge absolument.
+On introduit les notations :
+\[ A'_N = \sum_{n=0}^{N} \abs{a_n} \et B'_N = \sum_{n=0}^{N} \abs{b_n} \et C'_N = \sum_{n=0}^{N} \abs{c_n} , \]
+on a alors :
+\begin{align*}
+\abs{A_N B_N - C_N} & = \abs*{\sum_{(i,j) \in I_N} a_i b_j - \sum_{(i,j) \in J_N} a_i b_j} \\
+& = \abs*{\sum_{(i,j) \in I_N \setminus J_N} a_i b_j} \\
+& \leq \sum_{(i,j) \in I_N \setminus J_N} \abs{a_i} \abs{b_j} \\
+& \leq \sum_{(i,j) \in I_N} \abs{a_i} \abs{b_j} - \sum_{(i,j) \in J_N} \abs{a_i} \abs{b_j} \\
+& \leq A'N B'N - C'N
+\end{align*}
+Et, en revenant au cas précédent, on a $\lim (A'N B'N - C'N) = 0$ d'où :
+\[ \sum_{n=0}^{\infty} c_n = \sum_{n=0}^{\infty} a_n \sum_{n=0}^{\infty} b_{n} . \]
+\end{proof}
+
+\section{Sommation par paquets}
+
+\begin{defn}
+Soit $\sum a_n$ une série numérique et soit $\varphi : \N \to \N$ une application strictement croissante avec $\varphi(0)=0$.
+Pour tout $n \in \N$, on note 
+\[ b_n = \sum_{k=\varphi(n)}^{\varphi{n+1}-1} a_k . \]
+ $\sum b_n$ est alors une sommation par paquets de $\sum a_n$.
+\end{defn}
+
+\begin{lem}
+Si $\sum a_n$ converge alors toute sommation par paquets de $\sum a_n$ converge.
+\end{lem}
+
+\begin{thm}
+Si il existe $M$ tel que $\forall n \in \N, \varphi(n+1) - \varphi(n) \leq M$ (la \og taille des paquets \fg~ est bornée) et si 
+$\lim a_n = 0$ alors $\sum b_n$ converge implique que $\sum a_n$ converge.
+\end{thm}
+
+\begin{proof}
+Pour tout $N \in \N$, il existe $p \in \N$ tel que $\varphi(p) \leq N < \varphi(p+1)$ donc 
+\[ \abs*{\sum_{n=0}^N a_n - \sum_{n=0}^p b_n} = \abs*{\sum{n=N+1}^{\varphi(p+1)-1} a_n}, \]
+avec $\sum{n=N+1}^{\varphi(p+1)-1} a_n = 0$ si $N = \varphi(p+1)-1$. Or
+\[ \abs*{\sum{n=N+1}^{\varphi(p+1)-1} a_n} \leq M \cdot \sup_{\varphi(p) \leq n \leq \varphi(p+1)} (\abs{a_n}) , \]
+avec $\sup_{\varphi(p) \leq n \leq \varphi(p+1)} (\abs{a_n}) \to 0$ pour $N \to \infty$.
+On conclut donc que $\sum a_n \to \sum b_n$.
+\end{proof}
+
+\end{document}

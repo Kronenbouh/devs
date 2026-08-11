@@ -70,7 +70,7 @@ absolument. On vérifie ensuite le résultat par calcul :
 et de même pour $\left ( \sum_{n=0}^{\infty} u^n \right ) (\id - u)$.
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Inversion locale]
 Soient $E$ et $F$ deux espaces de Banach, $U$ un ouvert de $E$ et $f:U \to F$ une application de classe $\C^1$.
 On suppose qu'il existe $a \in U$ tel que $df_a$ soit un isomorphisme bicontinu de $E$ sur $F$. 
 Alors il existe un voisinage ouvert $V$ de $a$ et un voisinage ouvert $W$ de $f(a)$ tels que :
@@ -141,6 +141,63 @@ est continue, l'application $y \mapsto dg_y = df_{g(y)}^{-1}$ est continue, donc
 \end{enumerate}
 
 \end{proof}
+
+\begin{defn}
+Soient $E_1, \dots, E_n, F$ des e.v.n. et une application $f: \Omega \subset E_1 \times \dots \times E_n \to F$, où $\Omega$ 
+est un ouvert de $E_1 \times \dots \times E_n $. Soit $a=(a_1, \dots, a_n) \in \Omega$. 
+Pour $i \in \set{1, \dots, n}$, la fonction $f_i : x \mapsto f(a_1, \dots, a_{i-1},x,a_{i+1}, \dots, a_n)$ est définie sur un voisinage de $a_i$ 
+dans $E_i$. Si elle est différentiable en $a_i$, on dit que $f$ admet une différentielle partielle d'indice $i$, et on appelle différentielle
+partielle d'indice $i$ la différentielle $df_{i,a_i}$, notée $\partial_i f_{(a_1, \dots, a_n)}$.
+\end{defn}
+
+\begin{rmq}
+Si une telle fonction $f$ est différentiable en $a=(a_1, \dots, a_n)$ alors $\partial_i f_{(a_1, \dots, a_n)}$ existe pour tout $i$ et :
+\[ \forall h \in E_i, \quad \partial_i f_{(a_1, \dots, a_n)}(h) = df_a(0, \dots, 0, h, 0, \dots, 0) , \]
+ce qui entraîne :
+\[ \forall h=(h_1, \dots, h_n) \in E_1 \times \dots \times E_n, \quad df_a(h) = \sum_{i=1}^n \partial_i f_{(a_1, \dots, a_n)}(h_i) . \]
+\end{rmq}
+
+\begin{thm}[Fonctions implicites]
+Soient $E, F, G$ trois espaces de Banach, $U$ un ouvert de $E$ et $V$ un ouvert de $F$.
+On considère l'application :
+\[ \begin{array}{c c c c}
+f : & U \times V & \to & G \\
+& (x,y) & \mapsto & f(x,y)
+\end{array} \]
+de classe $\C^1$. On suppose de plus que pour tout $(a,b) \in U \times V, \partial_2 f_{(a,b)}$ est un isomorphisme bicontinu de $F$ sur
+$G$. Alors il existe :
+\begin{enumerate}[label=(\roman*)]
+\item un voisinage ouvert $U'$ de $a$ avec $U' \subset U$,
+\item un voisinage ouvert $W$ de $f(a,b)$,
+\item un voisinage ouvert $\Omega$ de $(a,b)$ avec $\Omega \subset U \times V$,
+\item une fonction $\varphi : U' \times W \to V$ de classe $\C^1$ et vérifiant,
+\item pour tout $x \in U'$, pour tout $z \in W$, il existe une unique solution $y$ de $f(x,y)=z$, 
+avec $(x,y) \in \Omega$ et on a $y=\varphi(x,z)$.
+\end{enumerate}
+En particulier, $f(x, \varphi(x,z))=z$ pour tout $(x,z) \in U' \times W$.
+\end{thm}
+
+\begin{proof}
+On introduit la fonction :
+\[ \begin{array}{c c c c}
+F : & E \times F & \to E \times G \\
+& (x,y) & \mapsto & (x, f(x,y))
+\end{array} \]
+Cette fonction est de classe $\C^1$ et :
+\[ dF_{(a,b)}(h_1,h_2) = (h_1, df_{(a,b)}(h_1, h_2)) = (h_1, \partial_1 f_{(a,b)}(h_1) + \partial_2 f_{(a,b)}(h_2)) . \]
+Ainsi, $dF_{(a,b)}$ est un isomorphisme bicontinu de $ E \times F$ sur $E \times G$ et son isomorphisme inverse est donné par :
+\[ (l_1, l_2) \mapsto (l_1, \partial_2 f_{(a,b)}^{-1}(l_2 - \partial_1 f_{(a,b)}(l_1)) . \]
+On peut donc appliquer le théorème d'inversion locale, ce qui entraîne l'existence d'un voisinage ouvert $\Omega$ de $(a,b)$
+et d'un voisinage ouvert $\Gamma$ de $(a,f(a,b))$ tels que $F$ soit un $\C^1$-difféomorphisme de $\Omega$ sur $\Gamma$.
+Quitte à restreindre $\Gamma$  on peut même écrire $\Gamma = U' \times W$ où $U'$ est un voisinage ouvert de $a$ et $W$ un 
+voisinage ouvert de $f(a,b)$. \\
+Comme $F(x,y)=(x, f(x,y))$, le difféomoprhisme inverse $F^{-1} : \Gamma \to \Omega$ s'écrit sous la forme :
+\[ F^{-1}(x,z) = (x, \varphi(x,z)) , \]
+avec $\varphi$ de classe $\C^1$. On en déduit que, pour tout $(x,z) \in \Gamma = U' \times W$, il existe un unique $y$ tel que
+$(x,y) \in \Omega$ et $f(x,y)=z$, et de plus $y=\varphi(x,z)$. 
+\end{proof}
+
+\newpage
 
 \section*{Annexe : inégalités des accroissements finis}
 

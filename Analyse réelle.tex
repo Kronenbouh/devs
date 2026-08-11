@@ -1,0 +1,231 @@
+\documentclass{article}
+
+\input{preamble}
+
+\begin{document}
+
+Sauf mention contraire, $I$ est un intervalle réel.
+
+\section{Sur la continuité}
+
+\begin{thm}[des valeurs intermédiaires]
+Soit $I$ un intervalle réel non réduit à un point, $f$ une fonction continue de $I$ dans $\R$, et $a<b$ deux réels dans $I$ tels que 
+$f(a)f(b)<0$. Dans ces conditions, il existe au moins un réel $c \in ]a,b[$ tel que $f(c)=0$.
+\end{thm}
+
+\begin{proof}
+Quitte à remplacer $f$ par $-f$ on peut supposer que $f(a) < 0 < f(b)$. Notons $A = \bigset{x \in [a,b] \tq f(x) < 0}$. L'ensemble $A$
+est non vide ($a \in A$) et majoré (par $b$), il admet donc une borne supérieure que l'on note $c$.
+Par continuité (à gauche) de $f$ en $a$, on peut trouver $\alpha_1 >0$ tel que $f$ est négative sur tout l'intervalle $[a, a+\alpha_1]$.
+De même, par continuité (à droite) de $f$ en $b$, on peut trouver $\alpha_2 > 0$ tel que $f$ est positive sur tout l'intervalle 
+$[b - \alpha_2, b]$. En posant $\alpha = \min(\alpha_1, \alpha_2, (b-a)/2)$ on a :
+\[ \forall x \in [a, a + \alpha ], f(x) \leq 0 \et \forall x \in [b-\alpha , b], f(x) \geq 0 , \]
+avec $a < a + \alpha \leq c \leq b - \alpha < b$. Ainsi, $c$ est intérieur à $[a,b]$, il existe donc $n_0 \in \N$ tel que :
+\[ \left [ c - \dfrac1{n_0} , c + \dfrac1{n_0} \right ] \subset [a,b] . \]
+Pour tout $n \geq n_0, \exists x_n \in [c - 1/n, c] \cap A$, par définition de la borne supérieure, et $f(x_n) < 0$.
+On définit $y_n = c + 1/n$, comme $y_n \in [a,b] \setminus A$, on a $f(y_n) \geq 0$. Or les suites $(x_n)_\N$ et $(y_n)_\N$ convergent 
+toutes les deux vers $c$, par continuité, on déduit que :
+\[ \lim_{n \to \infty} f(x_n) \leq 0 \et \lim_{n \to \infty} f(y_n) \geq 0, \]
+soit $f(c) = 0$.
+\end{proof}
+
+\begin{coro}
+Soit $I$ un intervalle réel non réduit à un point, $f$ une fonction continue de $I$ dans $\R$, $a<b$ deux réels dans $I$ et $\lambda$ un réel
+compris entre $f(a)$ et $f(b)$. Alors il existe un réel $c \in [a,b]$, tel que $f(c)=\lambda$.
+\end{coro}
+
+\begin{proof}
+Quitte à remplacer $f$ par $-f$ on peut supposer que $f(a) < f(b)$. On applique le théorème précédent à la fonction 
+$g : x \mapsto f(x) - \lambda$.
+\end{proof}
+
+\begin{thm}
+Soit $f$ une fonction continue de $I$ dans $\R$, $f$ est injective si, et seulement si, elle est strictement monotone.
+\end{thm}
+
+\begin{proof}
+Supposons que $f$ est injective mais qu'elle n'est pas strictement monotone. Par exemple, supposons qu'il existse $x, y, z \in I$ tels que :
+\[ x < y < z \et f(x) > f(y) ; f(y) < f(z) . \]
+Si $f(x) < f(z)$ alors selon la propriété des valeurs intermédiaires, il existe $a \in ]y, z[$ tel que $f(a) = f(x)$. Si $f(z) < f(x)$, 
+il existe $b \in ]x, y[$ tel que $f(b) = f(z)$. Ceci démontre la condition nécessaire. \newline
+
+Supposons que $f$ est strictement monotone, par exemple strictement croissante. Il est clair que si $x \neq y$, par exemple $x < y$ alors
+$f(x) < f(y)$ donc $f$ est injective.
+\end{proof}
+
+\section{Sur la dérivabilité}
+
+\begin{thm}
+Soient $I$ un intervalle réel d'intérieur non vide et $f$ une fonction à valeurs réelles définie sur $I$ et dérivable en un point $a$ intérieur
+à $I$. Si $f$ admet un extremum local en $a$, on a alors $f'(a) = 0$.
+\end{thm}
+
+\begin{proof}
+Supposons que $f$ admet un maximum local en $a$. Comme $a$ est intérieur à $I$, il existe un intervalle ouvert centré en $a$ sur lequel 
+$f$ est défini. En écrivant :
+\[ f'(a) = \lim_{\substack{t \to 0 \\ t \leq 0}} \dfrac{f(a+t)-f(a)}{t} \geq 0 \et 
+f'(a) = \lim_{\substack{t \to 0 \\ t \geq 0}} \dfrac{f(a+t)-f(a)}{t} \leq 0 , \]
+on déduit que $f'(a) = 0$. 
+\end{proof}
+
+\begin{thm}
+Soit $f$ une fonction numérique continue définie sur un intervalle compact $I = [a,b]$. Alors $f$ est bornée et atteint ses bornes.
+\end{thm}
+
+\begin{proof}
+Supposons que $f$ n'est pas majorée. Alors, pour tout $n \in \N$, il existe $x_n \in [a,b] \tq f(x_n) \geq n$. On définit ainsi une suite
+$(x_n)_\N$ dont on peut extraire une suite convergente  et dont on note $x$ la limite. Par continuité de $f$, la suite $(f(x_n))_\N$ converge
+vers $f(x)$ ce qui est clairement contradictoire. On mène le même raisonnement pour $f$ non minorée ($f(x_n) \leq -n$ etc.). \newline
+
+Notons $M = \sup \set{f(x) ; x \in I}$. Par définition de la borne supérieure, pour tout $n \in \Ne$, il existe $x_n \in [a,b]$ tel que 
+$M - \frac{1}{n} \leq f(x_n) \leq M$. Notons $S$ le support (infini) de la suite extraite $(x_n)_S$ convergente et $x$ sa limite. 
+Par passage à la limite dans l'inégalité précédente, on a, par conitnuité $f(x) = M$. On montre de même pour la borne inférieure.
+\end{proof}
+
+\section{Théorème de Rolle et conséquences}
+
+\begin{thm}[Rolle]
+Soit $f$ une fonction définie sur un intervalle compact $[a,b], a<b$, continue sur $[a,b]$, dérivable sur $]a,b[$ et telle que $f(a)=f(b)$.
+Alors il existe $c \in ]a,b[$ tel que $f'(c)=0$.
+\end{thm}
+
+\begin{proof}
+Comme $f$ est continue sur un compact, elle est bornée et atteint ses bornes (notées respectivement $m$ et $M$). 
+On note $\alpha \in [a,b]$, le réel tel que $f(\alpha) = m$ et $\beta \in [a,b]$ le réel tel que $f(\beta)=M$.
+Supposons que $\alpha, \beta \in \{a, b\}$, alors $f$ est constante et le théorème est vérifié. \newline
+
+Sinon, $f$ admet un extremum local en un point intérieur de $[a,b]$, sa dérivée est donc nulle en ce point.
+\end{proof}
+
+\begin{thm}[Rolle à l'infini]
+Soit $f$ une fonction définie sur un intervalle $[a, \infty[$, continue sur cet intervalle et dérivable sur $]a,\infty[$ avec 
+$\lim_{x \to \infty} f(x) = f(a)$, alors il existe $c \in ]a,\infty[$ tel que $f'(c)=0$.
+\end{thm}
+
+\begin{proof}
+On effectue le changement de variable $t = e^{-x}$ et on définit sur $[0, e^{-a}]$ la fonction $g$ par :
+\[ g(0) = f(a) \et g(t) = f(-\ln(t)) \text{ pour } t \in ]0, e^{-a}] . \]
+Cette fonction est continue sur $]0, e^{-a}]$ comme composée de fonctions continues et 
+$\lim_{t \to 0} g(t) = \lim_{t \to \infty} f(t) = f(a)$, donc $g$ est continue en $a$.
+De plus, $g$ est dérivable sur $]0, e^{-a}[$ et a pour dérivée $g'(t) = \dfrac{f'(-\ln(t))}{t}$. 
+On utilise donc le théorème de Rolle sur la fonction $g$, il existe $d \in ]0, e^{-a}]$ tel que $g'(d) = 0$, soit, 
+en posant $c=-\ln(d) \in [a, \infty[$, on a bien $f'(c)=0$. 
+\end{proof}
+
+\begin{thm}[Rolle sur $\R$]
+Soit $f$ une fonction définie sur $\R$, dérivable et telle que $\lim_{x \to -\infty} f(x) = \lim_{x \to \infty} f(x)$. Alors, il existe un réel
+$c$ tel que $f'(c) = 0$.
+\end{thm}
+
+\begin{proof}
+On effectue le changement de variable $t = \arctan(x)$ et on procède comme précédemment.
+\end{proof}
+
+\begin{thm}[Rolle itéré]
+Soit $f$ une fonction à valeurs réelles de classe $\C^m, m \in \N$ sur un intervalle réel $I$ et qui s'annule en $m+1$ points distincts.
+Alors, il existe un point $c$ dans $I$ tel que $f^{(m)}(c)=0$.
+\end{thm}
+
+\begin{proof}
+Le résultat est évident pour $m=0$. Supposons le résultat vrai pour $m \in \N$ quelconque et considérons $f$ de classe $\C^{m+1}$
+et qui s'annule en $m+2$ points distincts. D'après le théorème de Rolle, la fonction $f'$ admet $m+1$ racines distinctes (car dans des intervalles ouverts d'intersections vides) donc, d'après l'hypothèse de récurrence $f^{(m+1)}$ admet bien une racine.
+\end{proof}
+
+\begin{thm}[Darboux]
+Si $f$ est une fonction à valeurs réelles définie et dérivable sur un intervalle $I$, sa fonction dérivée $f'$ vérifie alors la propriété des
+valeurs intermédiaires.
+\end{thm}
+
+\begin{proof}
+Soient $a, b \in I, a < b$ si $f'(a)=f'(b)$ alors il n'y a rien à démontrer. Supposons donc que $f'(a) < f'(b)$ et prenons 
+$\lambda \in ]f'(a), f'(b)[$. On définit la fonction $g$ sur $[a,b]$ par $g(x) = f(x) - \lambda x$, cette fonction est dérivable et vérifie :
+$g'(a) < 0 < g'(b)$. Donc $g$ n'est pas strictement monotone, donc elle n'est pas injective. On en déduit qu'il existe $x, y \in [a,b]$ tels que 
+$x < y$ et $g(x) = g(y)$, donc, selon le théorème de Rolle, il existe $c \in ]x, y[$ tel que $g'(c) = 0$ et par suite $f'(c) = \lambda$.
+\end{proof}
+
+\begin{thm}[Accroissements finis]
+Soit $f : [a,b] \to \R$ une fonction continue sur $[a,b]$ (non réduit à un point) et dérivable sur $]a,b[$, il existe alors un point $c$ dans $]a,b[$, tel que $f(b)-f(a)=f'(c)(b-a)$.
+\end{thm}
+
+\begin{proof}
+On définit sur $[a,b]$ la fonction $g$ par :
+\[ g(x) = f(x) - \dfrac{f(b)-f(a)}{b-a} x , \]
+$g$ est continue sur $[a,b]$ et dérivable sur $]a,b[$ et on vérifie que $g(a) = g(b)$. Il existe donc $c \in ]a,b[$ tel que $g'(c) = 0$ soit
+$(b-a)f'(c) = f(b) - f(a)$.
+\end{proof}
+
+\begin{thm}[Accroissement finis généralisés]
+Si $f, g$ sont deux fonctions à valeurs réelles définies et continues sur $[a,b]$ (non réduit à un point) et dérivables sur $]a,b[$, il existe
+alors un point $c$ dans $]a,b[$, tel que :
+\[ (f(b)-f(a))g'(c) = (g(b)-g(a))f'(c) . \]
+\end{thm}
+ 
+\begin{proof}
+On considère la fonction $h$ définie sur $[a,b]$ par $h(x) = (f(b)-f(a))g(x) = (g(b)-g(a))f(x)$. Elle vérifie toutes les conditions du théorème de 
+Rolle et permet de conclure.
+\end{proof}
+
+\begin{thm}[Règle de l'Hospital]
+Soient $f, g$ deux fonctions à valeurs réelles continues sur un intervlle ouvert $I$, dérivables sur $I \setminus \set{c}$ avec $g'(x) \neq 0$
+pour tout $x \in I \setminus \set{c}$, où $c \in I$. On a alors :
+\[ \lim_{x \to c} \dfrac{f'(x)}{g'(x)} = l \Rightarrow \lim_{x \to c} \dfrac{f(x)-f(c)}{g(x)-g(c)} = l . \]
+\end{thm}
+
+\begin{proof}
+Comme $g'(x) \neq 0$ pour tout $x \in I \setminus \set{c}$ on a $g(x) \neq g(c)$.
+Soit $x \in I \setminus \set{c}$, on applique le théorème des accroissements finis généralisés aux fonctions $f, g$ sur le compact
+d'extrémités $x$ et $c$ :
+\[ \dfrac{f(x)-f(c)}{g(x)-g(c)} = \dfrac{f'(d_x)}{g'(d_x)}, \]
+avec $d_x$ strictement compris entre $x$ et $c$. Ainsi, $\lim_{x \to c} d_x = c$, ce qui permet de conclure.
+\end{proof}
+
+\begin{thm}[Taylor-Young]
+Si $f$ est dérivable à l'ordre $n \geq 1$ en un point $a$, elle admet alors, au voisinage de $a$, le développement limité d'ordre n,
+\[ f(x) = \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!}(x-a)^k + \tio{(x-a)^n} . \]
+\end{thm}
+
+\begin{proof}
+Pour $n=1$, on a :
+\[ \dfrac{f(x) - f(a) - f'(a)(x-a)}{x-a} = \dfrac{f(x) - f(a)}{x-a} - f'(a) \underset{x \to a}\to 0 , \]
+par défintion du nombre dérivé.
+Supposons le résultat vrai pour $n \geq 1$ quelconque et démontrons le à l'ordre $n+1$. 
+Soit $f$ dérivable à l'ordre $n+1$ en $a$. On note $I$ un voisinage de $a$ sur lequel $f$ est dérivable.
+Alors $f'$ est dérivable à l'ordre $n$ sur $I$ et, selon l'hypothèse de récurrence :
+\[ f'(x) = \sum_{k=0}^n \dfrac{f^{(k+1)}(a)}{k!}(x-a)^k + \tio{(x_a)^n} . \]
+On note :
+\[ r(x) = f(x) - \sum_{k=0}^{n+1} \dfrac{f^{(k)}(a)}{k!}(x-a)^k . \]
+Cette fonction est dérivable sur $I$ et on constate que :
+\[ r'(x) = f'(x) - \sum_{k=0}^{n} \dfrac{f^{(k+1)}(a)}{k!}(x-a)^k . \]
+De plus, selon l'hypothèse de récurrence :
+\[ \lim_{x \to a} \dfrac{r'(x)}{(x-a)^n} = 0 , \]
+on applique donc la règle de L'Hospital aux fonctions $r$ et $x \mapsto \frac1{n+1} (x-a)^{n+1}$
+\[ \lim_{x \to a} \dfrac{(n+1)(r(x)-r(a))}{(x-a)^{n+1}} = 0 , \]
+avec $r(a) = 0$ soit $r(x) = \tio{(x-a)^{n+1}}$, ce qui permet de conclure.
+\end{proof}
+
+\begin{thm}[Taylor-Lagrange]
+Soit $f:[a,b] \to \R$ de classe $C^n$ et qui est $n+1$ fois dérivable sur l'intervalle ouvert $]a,b[$. Alors, il existe $c \in ]a,b[$ tel que
+\[ f(b) = \sum_{k=0}^n \dfrac{f^{(k)}(a)}{k!} (b-a)^k + \dfrac{f^{(n+1)}(c)}{(n+1)!} (b-a)^{n+1} . \]
+\end{thm}
+ 
+\begin{proof}
+On définit la fonction $g$ sur $[a,b]$ par :
+\[ g(x) = f(b) - \sum_{k=0}^n \dfrac{f^{(k)}(x)}{k!} (b-x)^k - A(b-x)^{n+1} , \]
+en choisissant $A$ de telle façon que $g(a)=g(b)=0$. La fonction $g$ est continue sur $[a,b]$, dérivable sur $]a,b[$, donc, d'après le
+théorème de Rolle, il existe $c \in ]a,b[$ tel que $g'(c) = 0$, soit :
+\begin{align*}
+& - \sum_{k=0}^n \dfrac{f^{(k+1)}(c)}{k!} (b-c)^k + \sum_{k=1}^n \dfrac{f^{(k)}(c)}{(k-1)!} (b-c)^{k-1} + A(n+1)(b-c)^n = 0 \\
+\iff & - \dfrac{f^{(n+1)}}{n!} (b-c)^n + A(n+1)(b-c)^n = 0 
+\end{align*}
+d'où $A = \dfrac{f^{(n+1)}}{(n+1)!}$. Or $g(a)=0$ et on obtient le résultat en substituant $A$ par son expression.
+\end{proof}
+
+\begin{thm}
+
+\end{thm}
+ 
+\begin{proof}
+ 
+\end{proof}
+
+\end{document}

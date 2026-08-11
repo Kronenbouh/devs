@@ -1,0 +1,255 @@
+\input{preamble}
+
+\DeclareMathOperator{\fix}{Fix}
+\DeclareMathOperator{\stab}{Stab}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Berhuy - Algèbre (le grand combat) - page 61
+
+\underline{Leçons :}
+\begin{itemize}
+\item 101 - Groupe opérant sur un ensemble. Exemples et applications.
+\end{itemize}
+
+On suppose que $E$ est un ensemble fini de cardinal $n$ et $G$ un groupe fini agissant sur $E$.
+
+\begin{defn}[Fixateur]
+Pour tout $g \in G$, on note :
+\[ \fix(g) = \set{x \in E ; g \cdot x = x } , \]
+le fixateur de $g$, i.e. l'ensemble des points de $E$ laissés fixes par l'action de $g$.
+\end{defn}
+
+\begin{thm}[Formule de Burnside]
+En notant $\Omega$ l'ensemble des orbites de $E$ sous l'action de $G$, on a l'égalité :
+\[ \card(\Omega) = \dfrac1{\abs{\Omega}} \sum_{g \in G} \abs{\fix(g)} . \]
+\end{thm}
+
+\begin{proof}
+Notons :
+\[ C = \set{ (g,x) \in G \times E ; g \cdot x = x } , \]
+on va calculer le cardinal de $C$ de deux manières différentes.
+On remarque d'abord que :
+\[ C = \bigcup_{x \in E} \stab_G(x) \times \set{x} . \]
+Cette union étant disjointe, on a :
+\begin{align*}
+\abs{C} & = \sum_{x \in E} \card(\stab_G(x) \times \set{x}) \\
+& = \sum_{x \in E} \abs{ \stab_G(x) } \\
+& = \sum_{x \in E} \dfrac{\abs{G}}{\abs{O_x}} 
+ = \abs{G} \sum_{x \in E} \dfrac1{\abs{O_x}} \\
+\end{align*}
+Or, l'ensemble des orbites sous l'action de $G$ forme une partition de $E$. 
+De plus, pour $x \in \omega \subset \Omega$ on a $O_x = \omega$, on peut donc écrire :
+\begin{align*}
+\abs{C} & = \abs{G} \sum_{\omega \in \Omega} \sum_{x \in \omega} \dfrac1{\abs{O_x}} \\
+& = \abs{G} \sum_{\omega \in \Omega} \sum_{x \in \omega} \dfrac1{\abs{\omega}} \\
+& = \abs{G} \sum_{\omega \in \Omega} \abs{\omega} \dfrac1{\abs{\omega}} \\
+& = \abs{G} \abs{\Omega}
+\end{align*}
+D'autre part, on peut écrire :
+\[ C = \bigcup_{g \in G} \set{g} \times \fix(g) , \]
+et cette union étant aussi distincte on déduit :
+\[ \abs{C} = \sum_{g \in G}  \abs{\fix(g)} , \]
+ce qui donne directement la formule recherchée.
+\end{proof}
+
+Dans la suite on supposera que le groupe $G$ est inclus dans l'ensemble des permutations de $E$, 
+de sorte que $G$ agisse naturellement sur $E$. 
+Pour $x \in E$ et $g \in G$, on note $g(x)$ la permutation de $x$ par $g$ et on appelle $g$-orbite de $x$ l'ensemble des éléments
+de $E$ obtenu par applications successives de $g$ à $x$.
+On rappelle que l'ensemble de ces $g$-orbites forment une partition de $E$.
+
+\begin{defn}[Coloriage]
+On appelle coloriage de $E$ en au plus $q \in \Ne$ couleurs une application :
+\[ f : E \to \set{1, \dots, q} . \]
+On note $C(E, q)$ l'ensemble de ces coloriages. Pour $f \in C(E,q)$ on appelle type de $f$ le $q$-uplet :
+\[ \xi(f) = (n_1, \dots, n_q) \subset \set{1, \dots, n}^q, \]
+i.e. le nombre d'utilisation de chaque couleur, ou encore :
+\[ \xi(f) = ( \abs{f^{-1}(1)}, \dots, \abs{f^{-1}(q)} )  . \]
+On note $C(E,q,\xi)$ l'ensemble des coloriages de type $\xi \in \set{1, \dots, n}^q$.
+\end{defn}
+
+\begin{lem}
+\label{lem:1}
+L'application :
+\[ \begin{array}{c c c}
+G \times C(E,q) & \to & C(E,q) \\
+(g,f) & \mapsto & g \cdot f ,
+\end{array} \]
+avec $g \cdot f : x \mapsto f(g^{-1}(x))$, définit une action de $G$ sur $C(E,q)$.
+De plus, elle induit, par restriction, une action de $G$ sur $C(E,q,\xi)$.
+\end{lem}
+
+\begin{proof}
+Pour $x \in E, f \in C(E,q)$, on a bien $(1_G \cdot f)(x) = f(1_G(x)) = f(x)$ soit $1_G \cdot f = f$. \\
+Pour $g, g' \in G$, on a :
+\begin{align*}
+(g \cdot (g' \cdot f))(x) & = (g' \cdot f)(g^{-1}(x)) \\
+& = f(g'^{-1} (g^{-1} (x))) \\
+& = f((gg')^{-1}(x)) \\
+& = (gg' \cdot f)(x)
+\end{align*}
+on a bien une action de $G$ sur $C(E,q)$. \\
+On remarque de plus que le type d'un coloriage est invariant par action de $G$,
+en effet pour $g \in G$ et $f \in C(E,q)$ on a :
+\[ (g \cdot f)(x) = i \iff f(g^{-1}(x)) = x , \]
+et donc : 
+\[ x \in (g \cdot f)^{-1}(\set{i}) \iff g^{-1}(x) \in f^{-1}(\set{i}) \iff x \in g(f^{-1}(\set{i}) ). \]
+Donc $(g \cdot f)^{-1}(\set{i}) = g(f^{-1}(\set{i}) )$ et comme $g \in S(E)$ est une bijection on déduit que :
+\[ \abs{(g \cdot f)^{-1}(\set{i}) } = \abs{ f^{-1}(\set{i}) } , \]
+ce qui revient à dire que l'action de $G$ préserve le type, et ce qui permet de restreindre l'action.
+\end{proof}
+
+\begin{defn}
+On dit que deux coloriages $f, f' \in C(E,q)$ (resp. de $C(E,q, \xi)$) sont $G$-équivalents s'ils sont dans la même orbite 
+sous l'action de $G$. On note $C_G(E,q)$ (resp. $C_G(E,q,\xi)$) l'ensemble des orbites des coloriages sous l'action de G
+(resp. l'ensemble des orbites des coloriages de type $\xi$ sous l'action de $G$).
+\end{defn}
+
+\begin{rmq}
+Cela correspond à l'idée intuitive du coloriage d'un objet : il est invariant, quelle que soit la façon dont on observe l'objet.
+\end{rmq}
+
+\begin{nota}
+Soient $X_1, \dots, X_q, q$ indéterminées. Pour un type $\xi=(n_1, \dots, n_q)$, on note $X^{\xi}$ le monôme :
+\[ X^{\xi} = X_1^{n_1} \cdots X_q^{n_q} . \]
+\end{nota}
+
+\begin{defn}[Inventaire]
+On appelle inventaire de $E$ sous l'action de $G$ le polynôme :
+\[ W_{E,G} = \sum_{\xi \in \set{1, \dots, n}^q} \abs{C_G(E,q,\xi)} X^{\xi} \in \Q[X_1, \dots, X_q] . \]
+\end{defn}
+
+\begin{lem}
+\label{lem:2}
+On a :
+\[ W_{E,G} = \dfrac1{\abs{G}} \sum_{g \in G} \sum_{f \in C(E,q)(g)} X^{\xi(f)} , \]
+en notant $C(E,q)(g) = \set{f \in C(E,q) ; g \cdot f = f}$ le fixateur de $g$ relativement à l'action de $G$ sur $C(E,q)$.
+\end{lem}
+
+\begin{proof}
+Par application directe de la formule de Burnside, on a :
+\[ \abs{C_G(E,q,\xi)} = \dfrac1{\abs{G}} \sum_{g \in G} \abs{C(E,q,\xi)(g)} , \]
+avec $C(E,q, \xi)(g) = \set{f \in C(E,q, \xi) ; g \cdot f = f}$ le fixateur de $g$ relativement à l'action de $G$ sur $C(E,q, \xi)$.
+En sommant sur les types on obtient :
+\begin{align*}
+\sum_{\xi \in \set{1, \dots, n}^q} \abs{C_G(E,q,\xi)} X^{\xi} & =  
+\dfrac1{\abs{G}} \sum_{\xi \in \set{1, \dots, n}^q} \sum_{g \in G} \abs{C(E,q,\xi)(g)}  X^{\xi} \\
+& = W_{E,G}
+\end{align*}
+Les variables $g$ et $\xi$ étant indépendantes, on peut écrire :
+\[ W_{E,G} = \dfrac1{\abs{G}} \sum_{g \in G} \sum_{\xi \in \set{1, \dots, n}^q} \abs{C(E,q,\xi)(g)}  X^{\xi} . \]
+Pour $g \in G$, on a :
+\[ C(E,q)(g) = \bigcup_{\xi \in \set{1, \dots, n}^q} C(E,q,\xi)(g) , \]
+cette union étant disjointe, ce qui permet d'écrire :
+\begin{align*}
+\sum_{f \in C(E,q)(g)} X^{\xi(f)} & = \sum_{\xi \in \set{1, \dots, n}^q} \sum_{f \in C(E,q,\xi)(g)} X^{\xi(f)} \\
+& = \sum_{\xi \in \set{1, \dots, n}^q} \sum_{f \in C(E,q,\xi)(g)} X^{\xi} \\
+& = \sum_{\xi \in \set{1, \dots, n}^q} \abs{C(E,q,\xi)(g)} X^{\xi} .
+\end{align*} 
+ce qui permet de conclure.
+\end{proof}
+
+\begin{lem}
+\label{lem:3}
+Soit $g \in G$. Un coloriage $f$ est élément de $C(E,q)(g)$ (i.e. est fixe sous l'action de $g$) si, et seulement si, $f$ est constant sur 
+chaque $g$-orbite.
+\end{lem}
+
+\begin{proof}
+Il est clair que si $g \cdot f = f$ alors $\forall x \in E, f(g^{-1}(x) = f(x)$ et on montre facilement que pour tout entier $p \in \N$,
+et pour tout $x \in E, f(g^p(x)) = f(x)$. \\
+Réciproquement, comme $g^{-1}(x)$ et $x$ sont dans le même $g$-orbite, il est clair que si $f$ est constant sur chaque $g$-orbite
+alors il est fixe sous l'action de $G$.
+\end{proof}
+
+\begin{nota}
+Fixons $g \in G$, il y a un nombre fini de $g$ orbite que l'on note $\omega_1, \dots, \omega_r$. 
+Notant $Y= \set{1, \dots, r}$ on définit l'application :
+\[ \begin{array}{c c c c}
+\varphi : & C(Y,q) & \to & C(E,q)(g) \\
+& g & \mapsto & \varphi(g) 
+\end{array} \]
+avec $\varphi(g)(x) = g(i)$, où $i$ est l'indice de $\omega_i$, la $g$-orbite de $x$. 
+Par construction, $\varphi(g)$ est constant sur chaque $g$-orbite et est donc fixe sous l'action de $g$ donc $\varphi$ est bien définie.
+Elle est de plus bijective car l'application $\psi$ définie sur $C(E,q)(g)$ par :
+\[ \forall i \in \set{1, \dots, r}, \quad  \psi(f)(i) = f(x) , \]
+avec $x$ un élément arbitraire de $\omega_i$ est bien définie. En effet, $f$ est fixe sous l'action de $g$ donc constante sur $\omega_i$
+et donc l'image de $i$ par $\psi(f)$ ne dépend pas du représentant choisi. De plus, pour $g \in C(Y,q)$, on a :
+\begin{align*}
+\forall i \in \set{1, \dots, r}, \psi(\varphi(g))(i) & = \varphi(g)(x) \qquad (x \in \omega_i) \\
+& = g(i) ,
+\end{align*}
+Autrement dit, $\psi(\varphi(g)) = g$ et de même $\varphi(\psi(f)) = f$ pour $f \in C(E,q)(g)$.
+\end{nota}
+
+\begin{lem}
+\label{lem:4}
+Soit $g \in G$ et soient $p_1, \dots, p_r$ les cardinaux des $g$-orbites $\omega_1, \dots, \omega_r$.  On a alors :
+\[ \sum_{f \in C(E,q)(g)} X^{\xi(f)} = \prod_{i=1}^r(X_1^{p_i}+\dots+X_q^{p_i}) . \]
+\end{lem}
+
+\begin{proof}
+Soit $f$ un coloriage, on a $X^{\xi(f)} = \prod_{x \in E} X_{f(x)}$. De plus, en utilisant la bijection $\varphi$, on a :
+\[ \sum_{f \in C(E,q)(g)} X^{\xi(f)} = \sum_{g \in C(Y,q)} X^{\xi(\varphi(g))} = \sum_{g \in C(Y,q)} \prod_{x \in E} X_{\varphi(g)(x)} . \]
+Comme les $g$-orbites forment une partition de $E$ et que $\varphi(g)$ est constante sur chacune de ces orbites, on a :
+\[ \sum_{f \in C(E,q)(g)} X^{\xi(f)} = \sum_{g \in C(Y,q)} \prod_{i=1}^r X_g(i)^{p_i} . \]
+En posant $g(i) = m_i$, on déduit :
+\[ \sum_{f \in C(E,q)(g)} X^{\xi(f)} = \sum_{1 \leq m_1, \dots, m_r \leq q} \prod_{i=1}^r X_{m_i}^{p_i}
+= \sum_{1 \leq m_1, \dots, m_r \leq q} X_{m_1}^{p_1} \cdots X_{m_r}^{p_r} . \] 
+On reconnait alors le terme général du produit :
+\[ \prod_{i=1}^r (X_1^{p_i} + \dots + X_q^{p_i}) , \]
+ce qui permet de conclure.
+\end{proof}
+
+\begin{thm}[Polya]
+L'inventaire de $E$ sous l'action de $G$ peut être exprimé par :
+\[ W_{E,G} = \dfrac1{\abs{G}} \sum_{g \in G} \prod_{i=1}^n (X_1^i + \dots + X_q^i)^{e_i(g)} , \]
+où $e_i(g)$ est le nombre de $g$-orbites à $i$ éléments.
+\end{thm}
+
+\begin{proof}
+On remarque tout d'abord que les $g$-orbites sont toutes de cardinal compris entre 1 et $n$, autrement dit le nombre $e_i(g)$
+est éventuellement non nul si, et seulement si, $i \in \set{1, \dots, n}$.
+En reprenant la formule du lemme précédent, on peut écrire :
+\[ \sum_{f \in C(E,q)(g)} X^{\xi(f)} = \prod_{i=1}^n (X_1^{p_i}+\dots+X_q^{p_i})^{e_i(g)}, \]
+en regroupant les orbites de même cardinal (avec $e_i(g)$ éventuellement nul).
+On conclut en substituant cette expression dans celle du lemme $\ref{lem:2}$.
+\end{proof}
+
+\begin{coro}
+Le nombre $\abs{C_G(E,q)}$ de classes de $G$-équivalence de coloriages de $E$ en au plus $q$ couleurs est égal à :
+\[ \abs{C_G(E,q)} = \dfrac1{\abs{G}} \sum_{g \in G} q^{r(g)} , \]
+où $r(g)$ est le nombre de $g$-orbites.
+\end{coro}
+
+\begin{proof}
+En utilisant l'union disjointe :
+\[ C_G(E,q) = \bigcup_{\xi \in \set{1, \dots, n}^q} C_G(E,q, \xi) , \]
+on déduit :
+\[ \abs{C_G(E,q)} = \sum_{\xi \in \set{1, \dots, n}^q} \abs{C_G(E,q, \xi)} = W_{E,G}(1, \dots, 1) , \]
+soit d'après le théorème de Polya :
+\[ \abs{C_G(E,q)} = \dfrac1{\abs{G}} \sum_{g \in G} \prod_{i=1}^n q^{e_i(g)} = \dfrac1{\abs{G}} \sum_{g \in G} q^{\sum_{i=1}^n e_i(g)} , \]
+et on conclut en remarquant que $\sum_{i=1}^n e_i(g) = r(g)$.
+\end{proof}
+
+\begin{appl}
+Considérons un polygone régulier à $n$ sommets dont on veut colorer les arêtes avec au plus $q$ couleurs.
+Les isométries possibles sont toutes les rotations d'angle $2k\pi/n$, avec $k \in \set{0, \dots, n-1}$, soit $\abs{G} = n$.
+Le théorème de Lagrange nous dit que, pour tout élément $g \in G$, le cardinal du groupe cyclique $\angl{g}$ est un diviseur de $n$.
+Donc, pour $g \in G$, la longueur des $g$-orbites est $d$, un diviseur de $n$, et il existe donc $n/d$ telles $g$ orbites.
+Enfin, en utilisant l'égalité :
+\[ n = \sum_{d | n} \varphi(d) , \]
+avec $\varphi$ la fonctin indicatrice d'Euler.
+On déduit qu'il existe exactement $\varphi(d)$ isométries dont l'orbite est de longueur $d$ (les isométries formant une partition de E).
+Ce qui permet d'écrire :
+\[ C = \dfrac1{n} \sum_{d | n} \varphi(d) q^{n/d} . \]
+Par exemple, il existe 14 coloriages d'un hexagone régulier utilisant au plus 2 couleurs.
+\end{appl}
+
+\end{document}

@@ -1,0 +1,133 @@
+\input{preamble}
+\newcommand{\Bfr}{\widebar{B_r}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} 
+\begin{itemize}
+\item Rouvière - Petit guide - page 223
+\item Gourdon - Analyse - page 341
+\end{itemize}
+
+\underline{Leçons :}
+\begin{itemize}
+\item 215 : Applications différentiables définies sur un ouvert de Rn. Exemples et applications.
+\item 214 : Théorème d’inversion locale, théorème des fonctions implicites. Illustrations en analyse et en géométrie.
+\end{itemize}
+
+\begin{nota}
+On note $\normt{\cdot}$ la norme définie sur $\mathcal{L}(\R^n, \R^n)$ par :
+\[ \forall u \in \L(\R^n, \R^n), \quad \normt{u} = \sup_{\norm{v}=1} \norm{u(v)} . \]
+\end{nota}
+
+\begin{thm}
+Soit $U$ un voisinage ouvert de $\R^n, n \geq 1$ et $f:U \to \R^n$ une application de classe $\C^1$.
+On suppose qu'il existe $a \in U$ tel que $df_a$ soit un isomorphisme bicontinu de $\R^n$.
+Alors il existe un voisinage ouvert $V$ de $a$ et un voisinage ouvert $W$ de $f(a)$, tous deux dans $\R^n$ 
+et tels que $f$ soit un $\C^1$-difféomorphisme de $V$ sur $W$.
+\end{thm}
+
+\begin{proof}
+La démonstration est divisée en plusieurs parties pour simplifier sa lecture.
+\begin{enumerate}[label=(\roman*)]
+
+\item
+On montre dans un premier temps que le problème peut être ramené au cas $a=f(a)=0$ et $df(0)=\id$. 
+En effet, on peut toujours substituer à $f$ la fonction $x \mapsto df(a)^{-1}(f(a+x) - f(a))$,
+i.e. on \og centre \fg{} la fonction en $a$ (ce qui est possible car $f$ est défini sur un ouvert contenant $a$) et on étudie la variation
+de $f$ autour de $a$ (soit $f(a+x)-f(a)$). De plus, comme $df(a)$ est une bijection on peut appliquer à ces variations la transformation
+linéaire inverse $df(a)^{-1}$. Ainsi, au voisinage du point $a$, la fonction nouvellement obtenue est l'application linéaire identique plus
+un petit reste négligeable devant la norme de la variation à $a$. \\
+
+\item
+Ces hypothèses étant prises, on pose, pour $y \in \R^n$, $F_y$ l'application définie sur $U$ par :
+\[ F_y(x) = x + y - f(x) . \]
+Soit $\veps \in ]0,1[$, on va montrer qu'il existe $r>0$, indépendant de $y$, tel que :
+\[ \normt{dF_y(x)} \leq \veps \text{ pour } \norm{x} \leq r . \]
+L'application $F_y$ est de classe $\C^1$ et on a $dF_y(x) = \id - df(x)$. 
+On en déduit que $dF_y(0) = 0$ et, par continuité, qu'il existe $r$ tel que $\norm{x} \leq r \Rightarrow \normt{dF_y(x)} \leq \veps$.
+De plus, comme $dF_y(x)$ est indépendante de $y$, le choix de $r$ l'est aussi. \\
+
+\item
+Notons $B_r$ la boule ouverte $B(0, r)$ de $\R^n$, $\Bfr$ sa fermeture et $W$ l'ensemble des $y \in \R^n$ tels que :
+\[ \norm{y} < (1-\veps)r . \]
+On va montrer que $F_y(\Bfr) \subset B_r$ pour $y \in W$.
+Soit $x \in \Bfr$, on a vu que $\normt{dF_y(x)} \leq \veps$, donc, par l'inégalité de la moyenne :
+\[ \norm{F_y(x)} \leq \norm{F_y(0)} + \norm{F_y(x) - F_y(0)} \leq \norm{y} + \norm{F_y(x) - y} < (1-\veps)r + \veps r < r , \]
+et ainsi, on a bien $F_y(x) \in B_r$.
+
+\item 
+Posons $V = B_r \cap f^{-1}(W)$, on va démontrer que $f$ est une bijection de $V$ sur $W$.
+Le point (i) affirme que $F_y$ est $\veps$-contractante sur $\Bfr$ et (ii) affirme que $F_y$ laisse $\Bfr$ stable si $y \in W$.
+D'après le théorème du point fixe de Picard, $F_y$ admet un unique point fixe et que ce point fixe est limite de tout orbite suivant $F$.
+Par fermeture, ce point fixe est donc un élément $\Bfr$ (obtenu en suivant par exemple l'orbite selon $F$ débuté en 0), 
+comme de plus $F_y(\Bfr) \subset B_r$ selon (ii), on déduit que $x \in B_r$.
+En résumé, on a démontré qu'il existe un voisinage ouvert de 0, $W$, tel que, tout point $y \in W$ admette un antécédent unique par $f$
+dans $B_r$. 
+Cependant, certains points de $B_r$ pourraient avoir leurs images par $f$ en dehors de $W$, on pose donc $V = B_r \cap f^{-1}(W)$,
+$V$ contient bien 0 ($f(0)=0$) et est ouvert. On a $f(V) \subset W$ et tout point de $W$ admet un antécédent unique dans $V$, 
+ce qui démontre que $f$ est une bijection de $V$ dans $W$.
+
+\item
+On veut maintenant montrer que l'image par $f$ de $\Bfr$ est telle que :
+\[ (1-\veps)\Bfr \subset f(\Bfr) \subset (1+\veps)\Bfr . \]
+Soit $x \in \Bfr$, on remarque d'abord que, pour $y$ fixé on a :
+\begin{align*}
+\norm{f(x)} & = \norm{F_y(x) - F_y(0) - x} \\
+& \leq \norm{F_y(x) - F_y(0)} + \norm{x} \\
+& \leq \veps \norm{x} + \norm{x} = (1+\veps) r ,
+\end{align*}
+selon l'inégalité de la moyenne, ce qui prouve l'inclusion de droite. \\
+Par hypothèse $W = B(0, (1-\veps)r) = (1-\veps)B_r$. Or, selon le point (iii), tout $y \in W$ admet un unique antécédent dans $\Bfr$
+ainsi, on a nécessairement $W \subset f(\Bfr)$. Comme $f$ est continue et $\Bfr$ compact, on déduit que $f(\Bfr)$ est compact
+et ainsi, toute suite convergente de points de $W$ converge dans la fermeture de $W$ et par suite dans $f(\Bfr)$.
+Finalement, $(1-\veps)\Bfr \subset f(\Bfr)$, ce qui démontre l'inclusion de gauche.
+
+\item
+Montrons maintenant que l'application $f^{-1}$ définie sur $W$ est continue. Soit $y, y' \in W$, il existe $x, x' \in V$ tels que
+$f(x)=y$ et $f(x')=y'$. Par construction, $x$ et $x'$ sont les points fixes respectifs de $F_y$ et $F_{y'}$ donc :
+\begin{align*}
+x-x' & = F_y(x) - F_{y'}(x') \\
+& = (F_y(x) - F_y(x')) + (F_y(x')-F_{y'}(x')) \\
+& = (F_y(x) - F_y(x')) + (y-y')
+\end{align*}
+Donc, en utilisant à nouveau l'inégalité de la moyenne :
+\[ \norm{x-x'} \leq \veps \norm{x-x'} + \norm{y-y'} , \]
+soit,
+\[ \norm{f^{-1}(y) - f^{-1}(y')} \leq \dfrac1{1-\veps} \norm{y-y'} , \]
+ce qui montre que $f^{-1}$ est lipschitzienne donc continue sur $W$.
+
+\item 
+Prenons $x \in \Bfr$ et démontrons que $df(x)$ est inversible. 
+Selon le point (ii), on a $\normt{dF_y(x)} = \normt{\id - df(x)} = \veps < 1$.
+Par ailleurs, il est clair que $\normt{(\id-df(x))^n} \leq \normt{\id - df(x)}^n < 1$ pour tout $n \in \N$, ainsi la série $\sum \id - df(x)$ converge
+absolument. De plus :
+\[ \id - (\id - df(x)) \sum_{n=0}^{\infty} (\id - df(x))^n =  \sum_{n=0}^{\infty} (\id - df(x))^n -  \sum_{n=1}^{\infty} (\id - df(x))^n = \id , \]
+ce qui montre que $df(x)$ est inversible d'inverse la limite de la série $\sum \id - df(x)$.
+
+\item
+On va enfin démontrer que $f^{-1}$ est de classe $\C^1$. Pour cela, on prend $y, y' \in W$ et $x, x' \in V$ tels que $f(x)=y$ et $f(x')=y'$.
+On a :
+\begin{equation} y - y' = f(x) - f(x') = df(x)(x'-x) + R(x'-x) , \label{eq:1} \end{equation}
+avec $R$ une fonction négligeable devant $\norm{x'-x}$ pour $x'-x \to 0$. Donc, pour tout $\eta >0$, on peut trouver $\alpha >0$ tel que :
+\[ \norm{x'-x} \leq \alpha \Rightarrow \norm{R(x'-x)} \leq \eta \norm{x'-x} . \]
+D'après le point (vi), on a $\norm{x'-x} \leq \dfrac1{1-\veps} \norm{y'-y}$, ainsi en prenant $y, y'$ tels que $\dfrac1{1-\veps} \norm{y'-y} \leq \alpha$
+on a :
+\[ \norm{R(x'-x)} \leq \eta \norm{x'-y} \leq \dfrac{\eta}{1-\veps} \norm{y'-y}, \]
+autrement dit $R$ est négligeable devant $\norm{y'-y}$. On peut donc réecrire (\ref{eq:1}) en :
+\[ df(x)(x'-x) = y'-y + o(\norm{y'-y}) , \]
+et $df(x)$ étant inversible selon le point (vii), on déduit que :
+\[ x'-x = f^{-1}(y') - f^{-1}(y) = df(x)^{-1}(y'-y) + o(\norm{y'-y}) , \]
+ce qui établit que la fonction $ f^{-1}$ est différentiable sur $W$ avec, par unicité de la différentielle :
+\[ df^{-1}(y) = df(f^{-1}(y))^{-1} . \]
+Pour finir, $f^{-1}$ est bien de classe $\C^1$ car son application différentielle est la composée de trois applications continues :
+\[ y \mapsto x=f^{-1}(y) \et x \mapsto df(x) \et u \in \mathcal{L}(\R^n, \R^n)^{\ast} \mapsto u^{-1} . \]
+\end{enumerate}
+\end{proof}
+
+\end{document}

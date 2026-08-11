@@ -7,6 +7,15 @@
 
 \begin{document}
 
+\underline{Source :} Rombaldi - Analyse - pages 247-248
+
+\underline{Leçons :}
+\begin{itemize}
+\item 201 : Espaces de fonctions. Exemples et applications.
+\item 203 : Utilisation de la notion de compacité.
+\item 209 : Approximation d’une fonction par des fonctions régulières. Exemples d’applications.
+\end{itemize}
+
 Dans ce développement, $(E,d)$ est un espace métrique que l'on désignera simplement par $E$.	
 
 \begin{defn}[Complétude]
@@ -141,46 +150,6 @@ autrement dit une suite de Cauchy. Cette suite converge dans $K$ par complétude
 
 \end{proof}
 
-\begin{thm}[Dini]
-\label{thm:Dini}
-Soient $K$ un compact de $E, (f_n)_{n \in \N}$ une suite croissante dans $\C^0(K, \R)$ (i.e. pour tout $x \in K$, la suite réelle $(f_n(x))_{n \in \N}$ est croissante) et $f \in \C^0(K, \R)$. La suite $(f_n)_{n \in \N}$ converge uniformément vers la fonction $f$ si, et seulement si, elle converge simplement vers $f$.
-\end{thm}
-
-\begin{proof}
-La condition nécessaire est évidente. Il suffit donc de démontrer la condition suffisante. \newline
-
-%Comme $K$ est compact, il vérifie la propriété de Borel-Lebesgue. Soit $\veps >0$, pour $x \in K$, notons $\alpha_x >0$ le réel tel que :
-%\[ y \in B(x, \alpha_x) \Rightarrow d(f(x), f(y)) < \veps/3.  \]
-%$\alpha_x$ existe par continuité de la fonction $f$ sur K. On extrait du recouvrement :
-%\[ K \subset \bigcup_{x \in K} B(x, \alpha_x) \]
-%un recouvrement fini. Notons $N \geq 1$ le cardinal du recouvrement, $x_1, \dots, x_N$ les centres des boules et $\alpha_1, \dots,  \alpha_N$ les rayons associés. Pour $x \in K$ quelconque, il existe $i \in \{1, \dots, N\} \tq x \in B(x_i, \alpha_i)$ et, par suite :
-%\[ d(f(x), f(x_i)) < \veps/3 . \]
-%Par convergence simple de la suite $(f_n)_{n \in \N}$, on a 
-%\[ \forall i \in \{1, \dots, N\}, \exists M_i \in \N, \forall n \in N : n \geq M_i \Rightarrow d(f_n(x_i),f(x_i)) < \veps/3 . \]
-%Notons $M = \max \{M_i, i \in \{1, \dots, N\} \}$, pour $n \geq M$ on a 
-%\[ \forall i \in \{1, \dots, N\},  d(f_n(x_i),f(x_i)) < \veps/3 . \] 
-%De plus, par croissance et convergence de la suite $(f_n)_{n \in \N}$, il existe $M' \in \N$ tel que 
-%\[ n \geq M' d(f(x), f_n(x)) < \veps/3 . \] 
-%Finalement, en notant $M''=max(M, M')$ 
-%\[ n \geq M'' \Rightarrow \forall x \in K, d(f(x), f_n(x)) < \veps, \]
-%ce qui démontre bien la convergence uniforme.
-
-Soit $\veps >0$, onsidérons les ensembles, 
-\[ O_{n, \veps} = \{x \in K ; f(x)-f_n(x) < \veps \} . \] 
-On remarque que, pour tout $n \in \N, O_{n, \veps}=(f-f_n)^{-1}(]-\infty, \veps[)$, 
-et comme les fonctions $f-f_n$ sont continues sur $K$ pour tout $n \in \N$, 
-on en déduit que les ensembles $O_{n, \veps}$ sont des ouverts.
-De plus, par convergence simple de la suite $(f_n)_{n \in \N}$ vers f, on a
-\[ K \subset \bigcup_{n \in \N} O_{n, \veps} . \]
-Par compacité de $K$, il existe $m \in \N$ tel que 
-\[ K \subset \bigcup_{i=1}^m O_{n_i, \veps} \text{ avec la suite des indices $(n_i)$ croissante,} \]
-et comme la suite $f_n$ est croissante, $\forall n \in \N, O_{n, \veps} \subset O_{n+1,\veps}$. Finalement 
-\[ K \subset O_{n_m, \veps} . \]
-On conclut donc que :
-\[ \exists n_m \in \N, \forall n \in \N : n \geq n_m \Rightarrow \forall x \in K, \abs{f(x)-f_n(x)} < \veps , \]
-ce qui démontre la convergence uniforme de la suite $(f_n)$.
-\end{proof}
-
 \begin{lem}
 \label{lem:Weier}
 La suite de fonctions polynomiales $(P_n)_{n \in \N}$, définie sur $[-1,1]$ par $P_0(x)=0$ et $P_{n+1}(x)=P_n(x) + \frac{x^2-P_n^2(x)}2$ converge uniformément sur $[-1,1]$ vers la fonction $x \mapsto \abs{x}$.
@@ -229,7 +198,7 @@ Dans ce cas $\A$ est partout dense dans $(\C^0(K, \R), \norminf{.})$.
 \end{thm}
 
 \begin{proof}
-~
+On divise la démonstration en plusieurs étapes pour la rendre plus digeste.
 \begin{enumerate}[start=1,label={\bfseries Etape~\arabic* :}, wide, labelwidth=!, labelindent=0pt]
 \item
 On va d'abord \mq, pour toute fonction $f \in \A$, la fonction $\abs{f}$ est dans l'adhérence de $\A$ (relativement à $\C^0(K, \R)$). 

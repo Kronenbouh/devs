@@ -1,0 +1,152 @@
+\input{preamble}
+\newcommand{\Gln}{\text{GL}(n,\K)}
+\newcommand{\Sln}{\text{SL}(n,\K)}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - page 688
+
+\underline{Leçons :}
+\begin{itemize}
+\item 106 : Groupe linéaire d’un espace vectoriel de dimension finie E, sous-groupes de GL(E). Applications.
+\item 108 : Exemples de parties génératrices d’un groupe. Applications.
+\item 162 : Systèmes d’équations linéaires ; opérations élémentaires, aspects algorithmiques et conséquences théoriques.
+\item 204 : Connexité. Exemples d’applications.
+\end{itemize}
+
+\begin{nota}
+Pour $i,j \in \set{1, \dots, n}$ on note $E_{i,j}$ la matrice dont tous les coefficients sont nuls exceptés celui d'indice $(i,j)$.
+L'ensemble de ces matrices forme une base de $\Mn$. \\
+On appelle matrice de transvection une matrice de la forme 
+$T_{i,j}(\lambda) = I_n + \lambda E_{i,j}$, avec $i \neq j$ et $\lambda \in \K$. \\
+On appelle matrice de dilatation une matrice de la forme $D_i(\lambda) = I_n + (\lambda-1)E_{i,i}$.
+\end{nota}
+
+\begin{rmq}
+La multiplication à gauche (resp. droite) par une matrice de dilatation $D_i(\lambda)$ a pour effet de multiplier la ligne (resp. colonne) $i$
+par $\lambda$. \\
+La multiplication à gauche (resp. droite) par une matrice de transvection $T_{i,j}(\lambda)$ a pour effet de remplacer la ligne 
+(resp. colonne) $L_i$ par $L_i + \lambda L_j$.
+\end{rmq}
+
+\begin{lem}
+\label{lem:1}
+Le déterminant d'une matrice de transvection est égal à 1;
+\end{lem}
+
+\begin{proof}
+Par calcul direct.
+\end{proof}
+
+\begin{lem}
+\label{lem:2}
+L'inverse de la matrice de transvection $T_{i,j}(\lambda)$ est la matrice $T_{i,j}(-\lambda)$.
+\end{lem}
+
+\begin{proof}
+Pout $X \in \Mn$ quelconque, il est clair qu'appliquer successivement ces transvections (à gauche ou à droite) laisse $X$ invariante.
+\end{proof}
+
+\begin{thm}
+Toute matrice $A \in \Gln$ s'écrit :
+\[ A = \prod_{k=1}^r P_k D_n(\lambda) \prod_{j=1}^s Q_j, \]
+où $P_1, \dots, P_r$ et $Q_1, \dots, Q_s$ sont des matrices de transvection et $\lambda = \det(A)$. 
+Autrement dit, le groupe $\Gln$ est engendré par l'ensemble des matrices de transvection et des matrices de dilatation.
+\end{thm}
+
+\begin{proof}
+Pour simplifier les notations, après chaque multiplication d'une matrice $A$ par une matrice de transvection $T$, on supposera que 
+$A \longleftarrow T A$, 
+c'est-à-dire que la matrice $A$ sera systématiquement remplacée par la matrice obtenue en appliquant la transvection à $A$. \\
+ 
+On démontre le résultat par récurrence sur la dimension $n$ des matrices.
+Le résultat est trivial pour $n=1$. Supposons le résultat acquis pour les matrices inversibles d'ordre $n-1 \geq 1$ et prenons $A \in \Gln$.
+On peut toujours supposer que le coefficient $a_{2,1}$ de cette matrice est non nul. En effet, cette matrice étant inversible, sa première
+colonne n'est pas le vecteur nul, donc il existe $i$ tel que $a_{i,1} \neq 0$. 
+Dans le cas où $a_{2,1}$ serait nul, on transforme la matrice $A$ en la multipliant à gauche par la matrice $T_{2,i}(1)$. \\
+Ceci étant supposé, on se ramène au cas où $a_{1,1} = 1$ en multipliant la matrice $A$  à gauche par $T_{1,2}(x)$ 
+avec $x$ solution de $a_{1,1} + x a_{2,1} = 1$. \\ 
+On commence ensuite un processus d'échelonnement en multipliant successivement $A$ à gauche par les matrices $T_{i,1}(-a_{i,1})$,
+pour $i \in \set{2, \dots, n}$.
+On obtient donc $l \geq 1$ matrices de transvections $P_1, \dots, P_l$ telles que $P_1 \cdots P_l A$ est de la forme :
+\[ \begin{pmatrix}
+1 & a'_{1,2} & \dots & a'_{1,n} \\
+0 & a'_{2,2} & \dots & a'_{2,n} \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & a'_{n,2} & \dots & a'_{n,n}
+\end{pmatrix} \]
+En appliquant le même processus aux colonnes de $A$ on obtient $m$ matrices de transvections $Q_1, \dots, Q_m$ telles que
+$P_1 \cdots P_l A Q_1 \dots Q_m$ est de la forme :
+\[ \begin{pmatrix}
+1 & 0 & \dots & 0 \\
+0 & b_{2,2} & \dots & b_{2,n} \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & b_{n,2} & \dots & b_{n,n}
+\end{pmatrix} =
+\begin{pmatrix} 
+1 & \begin{matrix} 0 & \dots & 0 \end{matrix} \\
+\begin{matrix} 0 \\ \vdots \\ 0 \end{matrix} & \begin{matrix} B \end{matrix}
+\end{pmatrix} . \]
+Notons $B = (b_{i,j})_{2 \leq i,j \leq n}$, matrice d'ordre $n-1$. Il est clair que $\det(B)=\det(A) \neq 0$ (cf. lemme $\ref{lem:1}$),
+on peut donc appliquer l'hypothèse de récurrence à $B$ et l'écrire sous la forme :
+\[ B = \prod_{k=1}^r R_k D_{n-1}(\lambda) \prod_{j=1}^s S_j, \]
+avec les matrices $R_i$ et $S_i$ des matrices de transvection et $D_{n-1}(\lambda)$ une matrice de dilatation.
+Pour une quelconque de ces matrices $C$ apparaissant dans la décomposition de $B$, en bordant ainsi $C$ :
+\[ \begin{pmatrix} 
+1 & \begin{matrix} 0 & \dots & 0 \end{matrix} \\
+\begin{matrix} 0 \\ \vdots \\ 0 \end{matrix} & \begin{matrix} C \end{matrix}
+\end{pmatrix} . \]
+on obtient une matrice pouvant opérer sur $A$ et, par suite, on obtient la décomposition souhaitée. \\
+Réciproquement, il est clair que toute matrice de cette forme est bien élément de $\Gln$.
+\end{proof}
+
+\begin{coro}
+Le sous-groupe $\Sln$ de $\Gln$ est engendré par l'ensemble des matrices de transvection.
+\end{coro}
+
+\begin{proof}
+C'est une conséquence immédiate du fait que $D_n(1) = I_n$.
+\end{proof}
+
+\begin{coro}
+Le sous-groupe $\Sln$ est connexe par arc pour $\K = \R$ ou $\Cx$ et le groupe $\Gln$ est connexe par arc pour $\K = \Cx$.
+\end{coro}
+
+\begin{proof}
+Supposons $\K = \R$ ou $\Cx$ et soit $A \in \Sln$. On écrit $A = \prod_{k=1}^m R_k$ avec les $R_k$ des matrices de transvections.
+Pour toute matrice de transvection $T=T_{i,j}(\lambda)$ et pour tout $t \in [0,1]$ on note $T(t) = T_{i,j}(t \lambda)$.
+On peut donc définir l'application $\gamma$ sur $[0,1]$ par :
+\[ \begin{array}{c c c c}
+\gamma : & [0,1] & \to & \Sln \\
+& t & \mapsto & A(t) = \prod_{k=1}^m R_k(t) 
+\end{array} \]
+Montrons que cette application est continue. L'espace $\Mn$ étant de dimension finie, toutes les normes sur cet espace sont
+équivalentes, on choisit donc de le normer avec la norme $\norminf{\cdot}$ définie par :
+\[ \forall A=(a_{i,j}) \in \Mn, \quad \norminf{A} = \sup_{i,j}(\abs{a_{i,j}}) . \]
+Ainsi l'ensemble $\Sln$ est muni d'une norme induite. 
+Par ailleurs, il est clair que tous les coefficients de la matrice $A(t)$ sont donnés par un polynôme en $t$ de degré au plus $m$,
+donc, pour $t, t' \in [0,1]$ :
+\[ \norminf{\gamma(t')-\gamma(t)} = \max_{i,j} \abs{P_{i,j}(t'-t)} , \]
+où $P_{i,j}$ est le polynôme donnant le coefficient $i,j$ de $A(t)$.
+Chacun de ces polynômes étant continu, on déduit que l'application $\gamma$ est continue.
+De plus, comme $\gamma(0) = I_n$ et $\gamma(1) = A$, on a démontré que $\Sln$ est connexe par arcs. \\
+
+Pour démontrer la connexité par arcs de $\text{GL}(n ,\Cx)$ on se base sur un argument simillaire.
+Soit $A \in \text{GL}(n ,\Cx)$, on peut écrire :
+\[ A = \prod_{k=1}^r P_k \cdot D_n(\det(A)) \cdot \prod_{l=1}^s Q_l , \]
+où les $P_k$ et $Q_l$ sont des amatrices de transvections. \\
+Comme $\Cx^{\ast}$ est connexe par arcs, il existe une application continue $\varphi : [0,1] \to \Cx$ telle que $\varphi(0)=1$
+et $\varphi(1)=\det(A)$. On définit l'application $\gamma$ sur $[0,1]$ par :
+\[ \begin{array}{c c c c}
+\gamma : & [0,1] & \to & \Sln \\
+& t & \mapsto & A(t) = \prod_{k=1}^r P_k(t) D_n(\varphi(t)) \prod_{l=1}^s Q_l(t) .
+\end{array} \]
+Cette application est bien continue et vérifie $\gamma(0) = I_n$ et $\gamma(1)=A$ ce qui démontre la connexité par arcs.
+\end{proof}
+
+\end{document}

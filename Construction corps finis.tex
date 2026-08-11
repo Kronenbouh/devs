@@ -1,0 +1,151 @@
+\input{preamble}
+\renewcommand{\L}{\mathbb{L}}
+\renewcommand{\F}{\mathbb{F}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\D}{\mathcal{D}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - pages 422, 425
+
+\underline{Leçons :}
+\begin{itemize}
+\item  123 : Corps finis. Applications.
+\item   141 : Polynômes irréductibles à une indéterminée. Corps de rupture. Exemples et applications.
+\item   125 : Extensions de corps. Exemples et applications
+
+\end{itemize}
+
+\begin{nota}
+Dans ce développement, $p \geq 2$ est un nombre premier.
+On note $\U_n(p)$ l'ensemble des polynômes unitaires irréductibles de degré $n$ à coefficients dans $\F_p$
+et $I_n(p)$ le cardinal de cet ensemble (éventuellement égal à 0).
+Pour tout entier $n \in \Ne$, on note $P_n(X) = X^{p^n} - X \in \F_p[X]$.
+\end{nota}
+
+\begin{lem}
+\label{lem:PdivPn}
+Tout diviseur irréductible de $P_n$ dans $F_p[X]$ est de degré divisant $n$.
+Réciproquement, pour tout diviseur $d$ de $n$, tout polynôme $P \in \U_d(p)$ divise le polynôme $P_n(X) = X^{p^n} - X$ 
+dans $\F_p[X]$.
+\end{lem}
+
+\begin{proof}
+Soit $P \in \U_d(p)$ (avec $d \leq n$) qui divise $P_n$.
+On a $\overline{P_n} = \overline{0}$ dans le corps $\F^{p^d}=\F_p[X]/(P)$ et donc $\overline{X}^{p^n} = \overline{X}$. 
+Comme $(\overline{X}^k)_{0 \leq k \leq d-1}$ est une base du $\F_p$-espace vectoriel $F_p[X]/(P)$, tout élément $Q$ de ce dernier
+s'écrit sous la forme :
+\[ Q = \sum_{k=0}^{d-1} a_k \overline{X}^k \qquad (a_k \in \F_p) , \]
+et on déduit que :
+\[ Q^{p^n} = \left ( \sum_{k=0}^{d-1} a_k \overline{X}^k \right )^{p^n} 
+	= \sum_{k=0}^{d-1} a_k^{p^n} \left ( \overline{X}^k \right )^{p^n} , \]
+car $p$ divise tous les coefficients binomiaux $\binom{p^n}{i}$ avec $1 \leq i \leq p^n-1$.
+De plus $a_k^{p^n} = a_k$ dans $\F_p$ selon le théorème de Fermat 
+et $\left ( \overline{X}^k \right )^{p^n} = \left ( \overline{X}^{p^n} \right)^k = \overline{X}^k$.
+On conclut donc que :
+\[ Q^{p^n} = \sum_{k=0}^{d-1} a_k \overline{X}^k = Q . \]
+En conséquence, pour $Q \in \F_{p^d}^{\ast}$, on a $Q^{p^n-1} = 1$.
+Le groupe multiplicatif $\F_{p^d}^{\ast}$ étant d'ordre $p^d-1$, pour tout $Q \in \F_{p^d}^{\ast}$ on a $Q^{p^d-1} = 1$.
+Autrement dit, $p^d-1$ divise $p^n-1$ ce qui implique que $d$ divise $n$.
+En effet, $n=dq+r$ avec $0 \leq r < d$ et donc :
+\[ p^n-1 = p^{dq} p^r - 1 = (p^{dq}-1)p^r + p^r - 1 , \]
+et le fait que $p^d-1$ divise $p^{dq}-1$ et $p^n-1$ entraîne qu'il divise $p^r-1$ soit $r=0$. \\
+
+Soit $P \in \U_d(p), \F_{p^d} = \F_p[X]/(P)$ est un corps de cardinal $p^d$ (car $P$ est irréductible), 
+donc $\F_{p^d}^{\ast}$ est un groupe multiplicatif de cardinal $p^d-1$,
+et $\bar{X}^{p^d-1} = \bar{1}$ (théorème de Lagrange), donc $\bar{X}^{p^d} = \bar{X}$. Par récurrence, on peut montrer que 
+$\bar{X}^{p^{kd}} = \bar{X}$ pour tout $k \in \N$ (en effet $\bar{X}^{p^{(k+1)d}} = \bigpar { \bar{X}^{p^{kd}} }^{p^d}$). \\
+Comme $d$ divise $n$, il existe $q$ tel que $n=dq$ et par conséquence, $\bar{X}^{p^n} = \bar{X}^{p^{qd}} = \bar{X}$, 
+autrement dit, $\widebar{P_n} = \bar{0}$ dans $F_{p^d}$, ce qui démontre que $P$ divise $P_n$.
+\end{proof}
+
+\begin{thm}
+Le polynôme $P_n(X) = X^{p^n} - X$ est sans facteur carré dans $\F_p[X]$ et on a la décomposition en facteurs irréductibles :
+\[ X^{p^n} - X = \prod_{d \in \D_n} \prod_{P \in \U_d(p)} P . \]
+\end{thm}
+
+\begin{proof}
+Par dérivation on a $P_n'(X) = p^n X^{p^n-1} - 1 = -1$ et donc $P_n$ et $P'_n$ sont premiers entre eux, ce qui démontre que $P_n$
+est sans facteur carré. Du lemme $\ref{lem:PdivPn}$ on déduit la forme de la décomposition en facteurs irréductibles.
+\end{proof}
+
+\begin{coro}
+On a la formule :
+\[ p^n = \sum_{d \in \D_n} d \cdot I_d(p) . \]
+\end{coro}
+
+\begin{thm}
+Pour tout entier naturel non nul $n$, on a :
+\[ n I_n(p) = \sum_{d \in \D_n} \mu \left ( \dfrac{n}{d} \right ) p^d . \]
+\end{thm}
+
+\begin{proof}
+On utilise la formule d'inversion de Möbius :
+\[ p^n = \sum_{d \in \D_n} d \cdot I_d(p) \iff n I_n(p) = \sum_{d \in \D_n} \mu(d) p^{n/d} 
+	= \sum_{d \in \D_n} \mu \left ( \dfrac{n}{d} \right ) p^d , \]
+la dernière égalité étant obtenu en considérant que $d \mapsto n/d$ est une permutation des éléments de $\D_n$.
+\end{proof}
+
+\begin{coro}
+Pour tout entier naturel, il existe dans $F_p[X]$ des polynômes irréductibles de degré $n$ et on a :
+\[ I_n(p) \sim_{n \to \infty} \dfrac{p^n}{n} . \]
+\end{coro}
+
+\begin{proof}
+Pour $n=1$ on a $I_1(p) = p \geq 2$ et
+pour $n=2, I_2(p) = \dfrac{p^2 - p}{2} \geq 1$. \\
+Pour $n \geq 3$, on a :
+\[ n \cdot I_n(p) = p^n + \sum_{d \in \D_n \setminus \set{n}} \mu \left ( \dfrac{n}{d} \right ) p^d . \]
+On remarque que pour tout $d \in \D_n \setminus \set{n}$ on a $n=qd$ avec $2 \leq q \leq n$ soit $1 \leq d \leq E(n/2)$.
+De plus $\abs*{\mu \left ( \dfrac{n}{d} \right )} \leq 1$, donc :
+\begin{align*}
+\abs*{\sum_{d \in \D_n \setminus \set{n}} \mu \left ( \dfrac{n}{d} \right ) p^d} & \leq \sum_{k=1}^{E(n/2)} p^d \\
+& \leq p \dfrac{p^{E(n/2)} - 1}{p-1} \\
+& < p^{E(n/2)+1} \leq p^{n/2+1} .
+\end{align*}
+On déduit donc que $n I_n(p) > p^n - p{n/2+1} \geq 0$ et :
+\[ \abs*{\dfrac{n \cdot I_n(p)}{p^n} - 1} < \dfrac{p^{n/2+1}}{p^n} = p^{1-n/2} \to_{n \to \infty} 0 , \]
+soit l'équivalent $I_n(p) \sim_{n \to \infty} \dfrac{p^n}{n}$.
+\end{proof}
+
+\begin{rmq}
+Ce dernier corollaire nous dit qu'on peut construire un corps comportement exactement $p^n$ éléments,
+à savoir le corps $\F_{p^n} = \F_p[X] / (P)$, où $P \in U_n(p)$.
+\end{rmq}
+
+\begin{thm}
+A un isomorphisme près, il n'existe qu'un seul corps à $p^n$ éléments, c'est le corps $\F_{p^n} = \F_p[X] / (P)$,
+où $P \in U_n(p)$.
+\end{thm}
+
+\begin{proof}
+On désigne par $\K$ un corps fini à $p^n$ éléments, donc de caractéristique $p$
+Le sous-corps premier de $\K$ est donc isomoprhe à $\F_p$,
+et on peut donc identifier tout polynôme dans $\F_p[X]$ à un polynôme dans $\K[X]$. \newline
+
+Selon le lemme $\ref{lem:PdivPn}$, le polynôme $P$ divise $P_n(X) = X^{p^n} - X$ dans $F_p[X]$ donc dans $\K[X]$. 
+Or, selon le théorème de Lagrange, comme $\card{\Ket} = p^n-1$, on a $\lambda^{p^n} = \lambda$ 
+pour tout $\lambda$ dans $\K$ donc  le polynôme $P_n$ est nul pour tout élément de $\K$, on peut donc écrire :
+\[ P_n(X) = \prod_{\lambda \in \K} (X - \lambda) . \]
+$P_n$ est scindé et à racines simples dans $\K[X]$, il en est donc de même pour $P$ qui divise $P_n$. \newline
+
+Considérons maintenant l'application :
+\[ \begin{array}{c c c c}
+f : & \F_p[X] & \to & \K \\
+& Q & \mapsto & Q(\lambda) , 
+\end{array} \]
+avec $\lambda \in \K$ racine de $P$. $f$ est un morphisme d'anneaux et son noyau est donc un idéal de $\K[X]$.
+Comme l'anneau $\K[X]$ est principal, il existe $Q \in \F_p[X]$ unitaire et tel que $\ker{f} = (Q)$.
+De plus, l'idéal $(P)$ est inclus dans $(Q)$, donc le polynôme $Q$ divise le polynôme unitaire irréductible $P$ dans $\F_p[X]$.
+Le cas $Q=1$ est exclu, car alors $\lambda$ est racine de tout polynôme de $\F_p[X]$ ce qui est absurde. 
+On conclut donc que $P=Q$ et, par suite, $\ker{f} = (P)$. La restriction de $f$ à $\F_{p^n}$ est donc une injection dans $\K$.
+Ces deux corps étant de même cardinal, on conclut qu'ils sont isomorphes.
+\end{proof}
+
+
+\end{document}

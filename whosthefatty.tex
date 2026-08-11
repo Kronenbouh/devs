@@ -1,0 +1,128 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} 
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Le poblème}
+
+On dispose de douze pièce dont une que l'on sait fausse. 
+Elle est en fait plus lourde ou plus légère que les 11 autres (qui ont le même poids).
+On dispose d'une balance classique (deux plateaux) et on veut déterminer la fausse pièce en 3 pesées.
+
+\section{Résolution \og directe \fg{}}
+
+On sépare les 12 pièces en 3 groupes de 4 et on effectue une première pesée. On doit alors séparer deux cas.
+\begin{enumerate}
+
+\item Cas 1 : la 1ère pesée est inégale.
+Dans ce cas, on numérote de 1 à 4 les pièces potentiellement plus lourdes
+et de 5 à 8 les pièces potentiellement plus légères.
+Les pièces de 9 à 12 sont des références.
+On effectue la deuxième pesée ainsi :
+\[ \set{1,2,3,5} \text{ vs } \set{4, 9, 10, 11} . \]
+On distingue à nouveau deux cas.
+\begin{enumerate}
+\item Cas 1.1 : la 2ème pesée est égale.
+Alors les pièces 6, 7 ou 8 sont potentiellement plus légères.
+Il suffit donc de comparer les pièces 6 et 7.
+\item Cas 1.2 : la 2ème pesée penche à gauche.
+Alors les pièces 1, 2 ou 3 sont potentiellement plus lourdes.
+Il suffit donc de comparer les pièces 1 et 2.
+\item Cas 1.3 : la 2ème pesée penche à droite.
+Alors soit la pièce 5 est plus légère soit la 4 est plus lourde.
+Il suffit donc de les comparer.
+\end{enumerate}
+\item Cas 2 : la pesée est égale.
+On utilise la même numérotation que pour le cas 1, et on effectue la deuxième pesée ainsi :
+\[ \set{9,10,11,1} \text{ vs } \set{2, 3, 4, 5} . \]
+On distingue à nouveau deux cas.
+\begin{enumerate}
+\item Cas 2.1 : la pesée est égale.
+Dans ce cas la pièce 12 est différente. 
+Une dernière pesée contre la 1 permet de déterminer si elle est plus lourde ou plus légère.
+\item Cas 2.2 : la pesée penche à gauche.
+Alors les pièces 9, 10 ou 11 sont plus lourdes. On compare donc 9 à 10.
+\item Cas 2.3 : la pesée penche à droite.
+Il s'agit du symétrique du cas 2.2.
+\end{enumerate}
+\end{enumerate}
+
+\section{Résolution par signature}
+
+L'idée est la suivante : si on effectue 3 pesées de 4 pièces contre 4, 
+chaque pièce peut se trouver, pour chaque pesée, dans une de ces trois situations :
+\begin{enumerate}
+\item sur le plateau de gauche ;
+\item sur le plateau de droite ;
+\item non pesée.
+\end{enumerate}
+Si on encode ces 3 situations par 1, 0 et -1 respectivement, 
+on peut donner une signature pour chaque pièce qui est un vecteur de $\set{-1,0,1}^3$.
+En définissant la somme vectorielle usuelle on peut définir 12 signatures uniques à conditions de respecter les règles suivantes :
+\begin{enumerate}[label=(\roman*)]
+\item si un vecteur $(a,b,c)$ est utilisé, le vecteur $(-a,-b,-c)$ n'est pas utilisé ;
+\item parmi les 12 signatures 4 comportent un 1 (resp. 0 et -1) en première composante (resp. en deuxième et troisième composante).
+\end{enumerate}
+La règle (i) assure que deux pièces différentes sont distinguables par leurs signatures (pour rappel, on ne sait pas si la pièce incriminée
+est plus lourde ou plus légère, ainsi si la balance penche 3 fois à gauche, les signatures (1,1,1) et (-1,-1,-1) ne sont pas distinguables).
+La règle (ii) assure qu'à chaque pesée il y a 4 pièces à gauche, 4 à droite et 4 non pesées.
+Il reste à démontrer que l'on peut en effet exhiber une tel jeu de 12 signatures.
+On propose le jeu suivant :
+\begin{center}
+\begin{tabular}{ | c || c | c | c | c | c | c | c | c | c | c | c | c |}
+\cline{1-13}
+$p_1$ & 1 & 0 & -1 & 1 & 0 & -1 & 1 & 0 & -1 & 1 & 0 & -1 \\ \hline
+$p_2$ & 1 & -1 & 0 & 1 & -1 & 0 & 1 & -1 & 0 & -1 & 0 & 1 \\ \hline
+$p_3$ & 1 & 1 & 1 & 0 & 0 & 0 & -1 & -1 & -1 & -1 & 1 & 0 \\ \hline
+\end{tabular}
+\end{center}
+
+où $p_i$ désigne la pesée numéro $i$.
+
+Ainsi, si la balance penche trois fois à gauche (resp. à droite), alors c'est la pièce 1 qui est plus lourde (resp. plus légère), 
+et ainsi de suite.
+
+\section{Généralisation}
+
+\subsection{Solution maximale}
+
+Maintenant que l'on dispose d'une solution pour 12 pièces et 3 pesées, peut-on généraliser le problème à $n$ pesées et $x=f(n)$ pièces ?
+Il faut déjà déterminer la fonction $f$.
+On remarque que notre protocole de construction des signatures consiste en : 
+\begin{enumerate}
+\item donner toutes les chaînes de $\set{-1,0,1}^n$ soit $3^n$ chaînes ;
+\item retirer la chaîne identiquement nulle (qui n'apporte pas d'information) ;
+\item sélectionner le nombre maximal de chaînes parmi les $3^n - 1$ restantes en ne prenant jamais une chaîne et sa chaîne opposée.
+\end{enumerate}
+On peut donc choisir \textbf{au plus} $\dfrac{3^n-1}{2}$ signatures. 
+Néanmoins, chaque pesée devant être équilibrée, on doit pouvoir regrouper les signatures en 3 groupes égaux : 
+les signatures comportant des 1 en pesée 1, celles comportant des 0, et celles comportant des -1.
+Ainsi, une solution maximale comporte $\dfrac{3^n-3}{2}$ signatures. 
+
+\subsection{Construction des solutions}
+
+Pour $n=3$ on dispose déjà d'une solution maximale (on pourrait aussi en exhiber une pour $n=2$).
+On propose l'algorithme suivant permettant de construire les signatures pour $n=4$ :
+\begin{enumerate}
+\item on considère les 12 signatures proposées, à chacune d'entre elles on ajoute soit -1, soit 0 soit 1 pour quatrième composante ;
+\item on considère la signature (0,0,0) on lui ajoute 1 (resp. -1) pour quatrième composante ;
+\item on considère les 2 signatures non identiquement nulles non utilisées pour $n=3$ 
+(au sens où ni la signature ni son inverse ne figure dans le tableau exhibé, ces deux signatures sont logiquement inverses l'une de l'autre),
+ici ce sont les signatures (1,-1,1) et (-1,1,-1). On ajoute à ces signatures les deux nombres non uitlisés en 2. soit 0 et -1 (resp. 1). 
+\end{enumerate}
+Par construction, on génère $3 \cdot \dfrac{3^n-3}{2} + 3 = \dfrac{3^{n+1}-3}{2}$ signatures dont aucune n'est inverse d'une autre.
+En itérant cet algorithme, on résout le problème pour $n \geq 2$ quelconque.
+
+
+\end{document}

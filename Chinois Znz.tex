@@ -1,0 +1,139 @@
+\input{preamble}
+\newcommand{\Znz}{\Z/n\Z}
+\newcommand{\Znzx}{\Z/n\Z^{\times}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - page 285
+
+\underline{Leçons :}
+\begin{itemize}
+\item Leçon 120 : Anneaux Z/nZ. Applications. 
+\end{itemize}
+
+\begin{lem}
+\label{lem:1}
+Soit $(n_j)_{1 \leq j \leq r}$ une suite de $r \geq 2$ entiers naturels distincts de 0 et 1.
+\begin{enumerate}
+\item si les $n_j$ sont deux à deux premiers entre eux, alors leur $\ppcm$ est leur produit ;
+\item sinon, on a $\ppcm(n_1, \dots, n_r) < \prod_j n_j$.
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+\begin{enumerate}
+\item Dans ce cas, il n'y a aucun facteur commun dans les décompositions en facteurs premiers des $n_j$,
+or un multiple de $n = \prod_i p_i^{m_i}$ est de la forme $k \prod_i p_i^{m_i}$. On en déduit le résultat.
+\item Dans ce cas, il existe $p_1$ premier apparaissant dans deux décompositions en facteurs premiers des $n_j$.
+En notant $\prod_j n_j=\prod_i p_i^{m_i}$, on a $m_1 \geq 2$. 
+Donc $\prod_i p_i^{m_i}$ avec $m_1=1$ est un multiple commun de tous les $n_j$ et il divise $\prod_j n_j$ d'où le résultat.
+\end{enumerate}
+\end{proof}
+
+\begin{thm}
+Soit $(n_j)_{1 \leq j \leq r}$ une suite de $r \geq 2$ entiers naturels distincts de 0 et 1 et soit $n = \prod n_j$.
+Les entiers $(n_j)_{1 \leq j \leq r}$ sont deux à deux premiers entre eux si, et seulement si, les anneaux $\Znz$ et 
+$\prod_j \Z/n_j\Z$ sont isomorphes.
+Dans ce cas, l'application :
+\[ \begin{array}{c c c c}
+\phi : & \Znz & \to & \prod_{j=1}^r \Z/n_j\Z \\
+& \pi_n(k) & \mapsto & (\pi_{n_1}(k), \dots, \pi_{n_r}(k))
+\end{array} \]
+est un isomorphisme d'anneau d'inverse :
+\[ \begin{array}{c c c c}
+\phi^{-1} : &  \prod_{j=1}^r \Z/n_j & \to & \Znz \\
+& (\pi_{n_1}(a_1), \dots, \pi_{n_r}(a_r)) & \mapsto & \pi_n \left ( \sum_{j=1}^r a_j u_j \dfrac{n}{n_j} \right ) ,
+\end{array} \]
+où $(u_j)_{1 \leq j \leq r}$ est une suite d'entiers relatifs telle que $\sum_{j=1}^r a_j u_j \dfrac{n}{n_j} = 1$.
+\end{thm}
+
+\begin{proof}
+Le produit cartésien $\prod_j \Z/n_j\Z$ est muni de la structure d'anneau produit.
+\begin{enumerate}[label=(\roman*)]
+
+\item
+Supposons les $(n_j)_{1 \leq j \leq r}$ deux à deux premiers entre eux.
+L'application :
+\[ \begin{array}{c c c c}
+f : & \Z & \to & \prod_{j=1}^r \Z/n_j\Z \\
+& k & \mapsto & (\pi_{n_1}(k), \dots, \pi_{n_r}(k))
+\end{array} \]
+est un morphisme d'anneaux et son noyau est formé des entiers multiples de tous les $n_j$, donc de leur $\ppcm$ qui est égal à
+$n=\prod_j n_j$ selon le lemme $\ref{lem:1}$. On peut donc le factoriser en un morphisme injectif :
+\[ \begin{array}{c c c c}
+\phi : & \Z/n\Z & \to & \prod_{j=1}^r \Z/n_j\Z \\
+& \pi_n(k) & \mapsto & (\pi_{n_1}(k), \dots, \pi_{n_r}(k))
+\end{array} \]
+Par dénombrement direct, on remarque que ces deux anneaux ont le même cardinal, donc $\phi$ est un isomorphisme.
+
+\item
+Si les $(n_j)_{1 \leq j \leq r}$ ne sont pas deux à deux premiers entre eux, alors $d = \ppcm(n_1, \dots, n_r) < n$.
+Alors, $\phi(\overline{d}) = (1, \dots, 1)$ et donc $\phi$ n'est pas injective, en particulier, les anneaux ne sont pas isomorphes.
+
+\item
+On suppose à nouveau que les entiers $(n_j)_{1 \leq j \leq r}$ sont deux à deux premiers entre eux.
+On désigne par $(m_j)_{1 \leq j \leq r}$ la suite d'entiers définis par :
+\[ m_j = \dfrac{n}{n_j} = \prod_{\substack{i=1 \\ i \neq j}}^r n_i , \]
+de façon à ce que chaque $m_j$ soit divisible par tous les $n_i$ excepté $n_j$.
+Les $m_j$ sont premiers entre eux dans leur ensemble. 
+En effet, si $p$ premier divise tous les $m_j$ alors, il apparait dans les décompositions en facteurs premiers de tous les $n_j$ ce qui est
+impossible.
+On déduit, d'après l'identité de Bézout qu'il existe une suite $(u_i)_{1 \leq j \leq r}$ d'entiers tels que :
+\[ \sum_{j=1}^r m_j u_j = 1 , \]
+et par suite :
+\[ \pi_j(1) = \pi_j \left ( \sum_{j=1}^r m_j u_j  \right ) = \pi_j(m_j) \pi_j(u_j) = 1 , \]
+autrement dit, $ \pi_j(m_j)$ est inversible dans $\Z/n_j\Z$ et d'inverse $\pi_j(u_j)$.
+Soit $(a_1, \dots, a_r) \in \prod_j \Z/n_j\Z$ on pose :
+\[ k = \sum_{j=1}^r a_j u_j m_j , \]
+on a :
+\[ \pi_j(k) = \pi_j(a_j)\pi_j(u_j)\pi_j(m_j) = \pi_j(a_j) , \]
+et donc :
+\[ \phi(\pi_n(k)) = (\pi_1(k), \dots, \pi_r(k)) = (\pi_1(a_1), \dots, \pi_r(a_r)) . \]
+On a donc bien démontré que l'isomorphisme inverse est donné par :
+\[ \phi^{-1}(\pi_1(a_1), \dots, \pi_r(a_r)) = \pi_n(k) , \]
+avec $k$ ayant la forme énoncé.
+\end{enumerate}
+\end{proof}
+
+\begin{lem}
+\label{lem:2}
+Si $A, B$ sont deux anneaux unitaires et $\psi$ est un isomorphisme d'anneaux de $A$ sur $B$, 
+alors $\psi$ réalise un isomorphisme de groupe de $(A^{\times}, \cdot)$ sur $(B^{\times}, \cdot)$.
+\end{lem}
+
+\begin{proof}
+Si $a \in A^{\times}$ alors $\psi(aa^{-1}) = \psi(a) \psi(a^{-1}) = 1_B$ donc $\psi(a) \in A^{\times}$ 
+et $\psi(a)^{-1} = \psi(a^{-1})$. Ainsi $\psi$ applique $A^{\times}$ dans $B^{\times}$.
+Comme $\psi$ est injective sur $A$ elle l'est sur $A^{\times}$.
+Soit $b \in B^{\times}$, il existe $c \in B^{\times}$ tel que $bc=1_B$. 
+Par surjectivité de $\psi$, il existe $a, a' \in A$ tels que $b=\psi(a)$ et $c=\psi(a')$ et donc,
+$\psi(a)\psi(a') = \psi(aa') = 1_B$ soit $aa' = 1_A$ par injectivité et $a \in A^{\times}$.
+On a bien le résultat attendu.
+\end{proof}
+
+\begin{coro}
+Soit $n \geq 2$ et $\prod_i p_i^{m_i}$ sa décomposition en facteurs premiers.
+En notant $\varphi$ la fonction indicatrice d'euler, on déduit que :
+\[ \varphi(n) = \prod_i \varphi(p_i^{m_i}) . \]
+\end{coro}
+
+\begin{lem}
+Pour tout nombre premier $p$ et tout entier naturel $m$, on a $\varphi(p^m) = (p-1) p^{m-1}$.
+\end{lem}
+
+\begin{proof}
+Parmi les nombres de 1 à $p^m$, seuls les multiples de $p$ ne sont pas premiers avec $p^m$, soit $p^{m-1}$ possibilités.
+\end{proof}
+
+\begin{thm}
+Soit $n \geq 2$ et $\prod_i p_i^{m_i}$ sa décomposition en facteurs premiers.
+On a alors :
+\[ \varphi(n) = \prod_i (p_i-1) p_i^{m_i-1} = n \prod_i \left ( 1 - \dfrac1{p_i} \right ) . \]
+\end{thm}
+
+\end{document}

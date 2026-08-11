@@ -1,0 +1,26 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+Un visiteur viste $p$ villes, on se demande combien de carnets de voyage il peut écrire.
+Un carnet de voyage est considéré non ordonné, il y a donc $\binom{p}{k}$ carnets de voyages comportant $k$ villes.
+On exclut le carnet vide et le carnet total, on sait que tous les entiers $\binom{p}{k}$ sont divisibles par $p$ si $p$ premier. \\
+
+Si maintenant $p$ est toujours premier et qu'on ajoute $p$ quartiers dans chaque ville. 
+Il y a maintenant $\binom{p^2}{k}$ carnets de voyage comportant $k$ quartiers.
+On exclut à nouveau le carnet vide et le carnet total. Un carnet comportant $k$ quartiers va comporter $k_1, k_2, \dots$ quartiers dans les
+villes $v_1, v_2, \dots$. 
+Le nombre total de carnet comportant $k$ quartiers est donc un produit de la forme :
+\[ \prod_{(k_1, k_2, \dots) } \binom{p}{k_1} \binom{p}{k_2} \dots \]
+sur l'ensemble des tulpe $(k_1, k_2, \dots)$ vérifiant $k_1 + k_2 + \dots = k$ et chaque $k_i \in \set{0, 1, \dots, p}$.
+Chacun des termes de ce produit est soit égal à 1 soit un multiple de $p$. 
+On conclut que $p$ divise tous les $\binom{p^2}{k}$ pour $k \in \set{1, \dots, p^2-1}$. \\
+
+On itère ce processus en rafinant la métaphore...
+
+\end{document}

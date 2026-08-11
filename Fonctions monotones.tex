@@ -1,0 +1,140 @@
+\input{preamble}
+\newcommand{\Mnr}{M_n(\R)}
+\newcommand{\So}{\text{SO}(n,\R)}
+\newcommand{\Sl}{\text{SL}(n,\R)}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Gourdon - Analyse - page 341
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\begin{lem}[Inégalité de Cauchy-Schwarz, cas euclidien]
+Soit $E$ un espace euclidien (de fimension finie $m$), dont le produit scalaire est dénoté par $\angl{\cdot, \cdot}$.
+Pour $x, y \in E$ on a :
+\[ \abs{\angl{x,y}} \leq \norm{x} \norm{y} , \]
+où $\norm{\cdot}$ est la norme issue du produit scalaire.
+\end{lem}
+
+\begin{proof}
+Soient $x, y \in E$, avec $y$ non nul et $t \in \R$, on a :
+\begin{align*}
+\angl{x+ty, x+ty} & = \norm{x+ty} \\
+& = \norm{x}^2 + t^2 \norm{y}^2 + 2t \angl{x,y}
+& = P(t)
+\end{align*}
+Il s'agit donc d'un polynôme de degré 2 en $t$ qui, par définition, est positif ou nul pour tout $t$. Son discriminant est donc négatif ou nul,
+soit :
+\[ 4 \angl{x,y} - 4 \norm{x}^2 \norm{y}^2 \leq 0 , \]
+ce qui donne directement le résultat. Dans le cas où $y=0$, l'inégalité est triviale.
+\end{proof}
+
+\begin{lem}[Continuité de la norme]
+Soit $E$ un \Kev de dimension finie et $N$ une norme sur $E$. Alors $N$ est une application continue de $E$ dans $\R$.
+\end{lem}
+
+\begin{thm}[Passer à l'oral]
+Soit $f : U \subset \R^n \to F, n \geq 1$, une application, avec $U$ un ouvert de $\R^n$ et $F$ un e.v.n.
+Si toutes les dérivées partielles de $f$ sur $U$ existent et si elles sont continues en un point $a$ de $U$, 
+alors $f$ est différentiable en $a$ et on a :
+\[ df_a = \sum_{i=1}^n \dfrac{\partial f}{\partial x_i} (a) dx_i , \]
+où $(dx_1, \dots, dx_n)$ est la base duale (canonique) de $\R^n$.
+\end{thm}
+
+\begin{proof}
+$\R^n$ étant de dimension fini, on peut le normer de façon quelconque, on choisit donc la norme $\norm{\cdot}$ définie par :
+\[ \forall x \in \R^n, \quad \norm{x} = \sum_{i=1}^n \abs{x_i} . \]
+On va étudier l'application $g$ définie par :
+\[ \forall x \in U, \quad g(x) = f(x) - \sum_{i=1}^n \dfrac{\partial f}{\partial x_i} (a) x_i , \]
+en particulier, on cherche à montrer que :
+\[ g(x) - g(a) = f(x) - f(a) - \sum_{i=1}^n (x_i-a_i) \dfrac{\partial f}{\partial x_i} (a) = o(\norm{x-a}) , \]
+au voisinage de $a$ (i.e. pour $\norm{x-a} \to 0$).
+Soit $\veps>0$, par hypothèse de continuité sur les dérivées partielles on peut écrire :
+\[ \exists \alpha >0, \forall x \in U, \norm{x-a} < \alpha, \forall i \in \set{1, \dots, n}, \quad 
+	\norm*{\dfrac{\partial g}{\partial x_i}(x)} = \norm*{\dfrac{\partial f}{\partial x_i}(x) - \dfrac{\partial f}{\partial x_i}(a)} < \veps . \]
+De plus, quitte à réduire $\alpha$, on peut toujours supposer que $B(a, \alpha) \subset U$.
+Prenons maintenant $x \in B(a, \alpha)$, et considérons les points :
+\[ y_0 = (a_1, \dots, a_n) \et \forall k \in \set{1, \dots, n} y_k = (x_1, \dots, x_k, a_{k+1}, \dots, a_n) , \]
+de sorte que $y_0 = a$ et $y_n=x$. Pour $k \in \set{1, \dots, n}$, on définit la fonction $g_k$ par :
+\[ \begin{array}{c c c c}
+g_k : & (a_k, x_k) & \to & F \\
+& t & \mapsto & g(x_1, \dots, x_{k-1}, t, a_{k+1}, a_n) , 
+\end{array} \]
+où $(a_k, x_k)$ est l'intervalle de bornes $a_k$ et $x_k$. Cette fonction vérifie :
+\[ g'_k(t) = \dfrac{\partial g}{\partial x_k}(x_1, \dots, x_{k-1}, t, a_{k+1}, a_n) , \]
+donc clairement, $\norm{g'_k(t)} < \veps$ sur $(a_k, x_k)$. On en déduit que :
+\[ \norm{g_k(x_k) - g_k(a_k)} \leq \veps \abs{x_k-a_k} , \]
+or $g_k(x_k) = g(y_k)$ et $g_k(a_k) = g(y_{k-1})$ donc :
+\[ \norm{g(y_k) - g(y_{k-1})} \leq \veps \abs{x_k-a_k} , \]
+et par suite :
+\[ \norm{g(x) - g(a)} = \norm*{\sum_{k=1}^n (g(y_k) - g(y_{k-1}))} \leq sum_{k=1}^n \norm{g(y_k) - g(y_{k-1})}
+	\leq \veps sum_{k=1}^n \abs{x_k-a_k} = \veps \norm{x-a} . \]
+Et ainsi, on a montré que $g(x)-g(a) \in o(\norm{x-a})$ au voisinage de $a$.
+\end{proof}
+
+\begin{lem}[Régularité du déterminant]
+L'application $\det$ définie sur $\Mnr, n \geq 1$ et à valeur dans $\R$ est de classe $\C^{\infty}$.
+\end{lem}
+
+\begin{proof}
+L'espace vectoriel $\Mnr$ est de dimension finie, on peut donc le munir d'une norme quelconque, par exemple la norme 
+$\norminf{\cdot}$. Le déterminant est une fonction polynômiale des coefficients de la matrice, donc une application $\C^{\infty}$.
+\end{proof}
+
+\begin{lem}[Différentielle du déterminant]
+L'application $\det$ admet une différentielle en tout point $M \in \Mnr$ que l'on note $D \det_M$ et on a : 
+\[ D \det_M : H \mapsto \tr(C^T H) , \]
+où $C=(C_{i,j)}$ est la matrice des cofacteurs de la matrice $M$.
+\end{thm}
+
+\begin{proof}
+La différentiabilité de l'application déterminant est conséquence dans la continuité de toutes ses dérivées partielles 
+(le déterminant d'une matrice est un polynôme en les coefficients de cette dernière).
+Soit $M=(m_{i,j}) \in \Mnr$, on va calculer les dérivées partielles de l'application $\det$ au point $M$.
+Pour cela, on note $A=(a_{i,j})$ la forme générale des éléments de $\Mnr$, 
+et $(E_{i,j})_{1 \leq i,j \leq n}$ la base canonique de $\Mnr$.
+On va calculer :
+\[ \dfrac{\partial \det}{\partial a{i,j}}(M) , \]
+pour chaque couple d'indices $(i,j)$. On a :
+\[ \dfrac{\partial \det}{\partial a{i,j}}(M) = \lim_{\substack{t \to 0 \\ t \neq 0}} \dfrac{ \det(M + t E_{i,j}) - \det{M}}{t} = C_{i,j} . \]
+Donc, pour $H = (h_{i,j}) \in \Mnr$ on a :
+\[ D \det_M = \sum_{i,j} \dfrac{\partial \det}{\partial a{i,j}}(M) h_{i,j} = \sum_{i,j} h_{i,j} C_{i,j} = \tr(C^TH) . \]
+\end{proof}
+
+\begin{thm}
+Soit $n \in \Ne$, on munit $\Mn$ de la norme :
+\[ \forall M=(m_{i,j}) \in \Mn, \quad \norm{M} = (\sum_{i,j} m_{i,j}^2)^{1/2} . \]
+Le groupe des matrices orthogonales directes $\So$ est l'ensemble des éléments de $\Sl$ de norme minimale.
+\end{thm}
+
+\begin{proof}
+On va déjà montrer que l'application définie est bien une norme sur $\Mn$.
+\begin{enumerate}[label=(\roman*)]
+\item Soit $M \in \Mn$ telle que $\sum_{i,j} m_{i,j}^2 = 0$, il est alors clair que $M$ est la matrice nulle.
+\item Soit $M \in \Mn$ et $\lambda \in \R$, par calcul direct on a bien :
+\[ \norm{\lambda M} = (\sum_{i,j} \lambda^2 m_{i,j}^2)^{1/2} = \abs{\lambda} \norm{M}. \]
+\item La sous-additivité de l'application $\norm{.}$ est une conséquence directe de l'inégalité de Cauchy-Schwarz
+(en identifiant une matrice de $\Mn$ à un vecteur de $\R^{n^2}$).
+\end{enumerate}
+Ceci étant fait, on remarque que $\norm{M}^2 = \tr(M^TM)$, ainsi le résultat du théorème est un problème de minimisation
+de la fonction $f : M \mapsto \tr(M^TM)$ sous la contrainte $g(M) = 0$ avec $g: M \mapsto \det(M)-1$.
+Il est clair que $f$ et $g$ sont des applications continues. En particulier, l'ensemble :
+\[ \Sln =g^{-1}(\set{0}) , \]
+est un fermé de $\Mnr$. Notons $d = \inf \set{\norm{M} ; M \in \Sln}$, alors l'ensemble $\Delta = \Sln \cap B_f(0,d+1)$ est un fermé
+borné de $\Mnr$ (ici $B_f(0,d+1)$ est une boule fermée dans $\Mnr$) donc un compact.
+Par suite, la fonction $f$ atteint sa borne inférieure sur ce compact. 
+Notons $A \in \Sln$ la matrice minimisant $f$ sur $\Sln$.
+La différentielle de la fonction $g$ en $A$ est l'application $dg_A$ définie par :
+\[ \forall H \in \Mnr, \quad dg_A = \tr(C^TH) , \]
+où $C$ est la comatrice de $A$.
+\end{proof}
+ 
+\end{document}

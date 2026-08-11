@@ -1,0 +1,235 @@
+\documentclass{article}
+
+\input{preamble}
+
+\begin{document}
+
+$\K$ désigne $\R$ ou $\Cx$.
+Soit $D$ un ensemble quelconque et $(E, \norm{.})$ un \Kev normé. 
+On appelle suite de fonctions une suite d'applications de $D$ dans $E$.
+On notera $(f_n)_\N$ cette suite.
+
+\section{Convergence simple}
+
+\begin{defn}
+Soit $(f_n)_\N$ une suite d'applications de $D$ dans $E$ et soit $f:D \to E$. On dit que $(f_n)_\N$ converge simplement vers $f$ si,
+pour tout $x \in D, \lim_{n \to \infty} f_n(x) = f(x)$. Autrement dit :
+\[ \forall x \in D, \forall \veps > 0, \exists N \in \N : \forall n \in \N, n \geq N \Rightarrow \norm{f_n(x)-f(x)} < \veps . \]
+\end{defn}
+
+\begin{thm}
+Soit $(f_n)_\N$ une suite d'applications de $D$ dans $\R$ et soit $f:D \to \R$. On suppose que $(f_n)_\N$ converge simplement vers $f$.
+Soit $N \in \N$.
+\begin{enumerate}[label=(\roman*)]
+\item si $\forall n \geq N, f_n \geq 0$ alors $f \geq 0$ ;
+\item si $D \subset \R$ et $\forall n \geq N, f_n$ est croissante alors $f$ est croissante ;
+\item si $D = \R$ et $ \forall n \geq N, f_n$ est $T$-périodique alors $f$ est $T$-périodique.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+\item Pour $x \in D$, la suite $(f_n(x))_{n \geq N}$ est convergente et positive, notons $l$ sa limite. Si $l <0$, en prenant $\veps > 0 $ tel que
+$l + \veps < 0$ on a, à partir d'un certains rang $f_n(x) \in ]l-\veps, l + \veps [$ ce qui est absurde.
+\item DPrenons $x, y \in D$ tels que $x \leq y$ et supposons que $f(x) > f(y)$. On prend $\veps > 0$ tel que $x + \veps < y - \veps$, 
+il existe un rang à partir duquel $f_n(x) \leq f_n(y), f(x) < f_n(x) + \veps$ et $f(y) > f_n(y) + \veps$ ce qui est absurde.
+\item La démonstration est identique.
+\end{enumerate}
+\end{proof}
+
+\begin{thm}
+Soit $(f_n)_\N$ une suite d'applications de $D$ dans $\K$ et soit $f:D \to \K$. On suppose que $(f_n)_\N$ converge simplement vers $f$.
+Soit $N \in \N$.
+\begin{enumerate}[label=(\roman*)]
+\item si $\forall n \geq N, f_n$ continue alors $f$ \textbf{n'est pas} nécessairement continue ;
+\item si $\forall n \geq N, f_n$ dérivable alors $f$ \textbf{n'est pas} nécessairement dérivable ;
+\item si $\forall n \geq N, f_n$ bornée alors $f$ \textbf{n'est pas} nécessairement bornée.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+Il suffit d'exhiber des contre-exemples pour chaque cas.
+\begin{enumerate}[label=(\roman*)]
+\item les fonctions $x \mapsto x^n$ sont continues sur $[0,1]$ et convergent simplement vers :
+\[ f : x \mapsto \left \{ \begin{array}{c c c} 0 & \text{ si } x \i [0, 1[ \\ 1 & \text{ sinon} \end{array} \right. , \]
+qui n'est pas continue.
+\item Les fonctions $x \mapsto \sqrt{(nx^2+1)/n}$ sont dérivables sur $\R$ et convergent simplement vers la fonction valeur absolue,
+qui n'est pas dérivable sur $\R$.
+\item Les fonctions $x \mapsto \frac{nx}{nx^2+1}$ sont bornées sur $\R$ et convergente vers la fonction inverse qui ne l'est pas.
+\end{enumerate}
+\end{proof}
+
+\begin{rmq}
+La convergence est très peu stable car elle ne correspond pas à une norme sur le \Kev des applications de $D$ dans $E$.
+A vrai dire, il n'existe pas de norme explicite sur ce \Kev, il faut donc se restreindre à sous s.e.v., par exemple l'ensemble des applications
+bornées et prendre la norme infinie.
+\end{rmq}
+
+\section{Convergence uniforme}
+
+\begin{defn}[Norme infinie]
+On note $\Linf(D)$ l'ensemble des applications bornées de $D$ dans $\K$. Sur cet ensemble, on définit la norme infinie par :
+\[ \forall f \in \Linf(D), \norminf{f} = \sup_{x \in D} \abs{f(x)} . \]
+\end{defn}
+
+\begin{defn}
+Soit $(f_n)_\N$ une suite de fonctions de $D$ dans $\K$ et soit $f:D \to \K$. Si la suite $(f_n)_\N$ converge vers $f$ pour la norme infinie,
+c'est-à-dire si $\lim_{n \to \infty} \norminf{f_n-f} = 0$, on dit que $(f_n)_\N$ converge uniformément vers $f$.
+\end{defn}
+
+\begin{rmq}
+Dans cette définition, on n'a pas besoin de l'hypothèse $(f_n)_\N \subset \Linf(D)$. Il suffit en effet que la différence $f_n - f$ soit 
+dans cet espace pour tout $n$. Par exemple, la suite de fonctions $f_n : x \mapsto e^x + 1/n$ converge uniformément vers 
+$f : x \mapsto e^x$ et pourtant aucune fonction $f_n$ est bornée.
+\end{rmq}
+
+\begin{thm}[Continuité]
+\label{thm:continuité}
+Soit $(f_n)_\N$ une suite de fonctions de $D$ dans $\K$ et soit $f:D \to \K$. Si la suite $(f_n)_\N$ converge uniformément vers $f$ et si,
+les fonctions $f_n$ sont continues à partir d'un certains rang, alors $f$ est continue.
+\end{thm}
+
+\begin{proof}
+On va démontrer la propriété pour un point $a \in D$. Soit $\veps >0$, il existe $N \in \N$ tel que $\forall n \geq N, f_n$ est continue, soit
+\[ \exists \alpha > 0, \forall x \in D : \abs{x-a} < \alpha \Rightarrow \abs{f_n(x) - f_n(a)} < \veps/3 . \]
+Comme la suite $(f_n)_\N$ converge uniformément vers $f$, on peut aussi trouver un rang $N'$ tel que :
+\[ \forall x \in D, \forall n \in \N, n \geq N' \Rightarrow \abs{f_n(x)-f(x)} < \veps/3 . \]
+Ainsi, en prenant $n \geq \max(N, N')$, on a :
+\[ \forall x \in D : \abs{x-a} < \alpha \Rightarrow \abs{f(x)-f(a)} \leq \abs{f(x)-f_n(x)} + \abs{f_n(x)-f_n(a)} + \abs{f_n(a)-f(a)} < \veps . \]
+Ce qui démontre la continuité de $f$. 
+\end{proof}
+
+\begin{thm}[Intégration]
+\label{thm:intégration}
+Soient $a, b \in \R, a < b$ et $(f_n)_\N$ une suite de fonctions continues de $[a,b]$ dans $\K$ et soit $f : [a,b] \to \K$.
+Si la suite $(f_n)_\N$ converge uniformément vers $f$ alors :
+\[ \int_a^b f(x) dx = \lim_{n \to \infty} \int_a^b f_n(x) dx . \]
+\end{thm}
+
+\begin{proof}
+Il suffit de considérer :
+\[ \abs*{\int_a^b f_n(x) dx - \int_a^b f_(x) dx} = \abs*{\int_a^b (f_n(x)-f(x)) dx} \leq (b-a) \norminf{f_n-f} , \]
+d'où le résultat, comme $\norminf{f_n-f} \to 0$ pour $n \to \infty$.
+\end{proof}
+
+\begin{thm}[Dérivation]
+Soit $I$ un intervalle de $\R$ et $(f_n)_\N$ une suite de fonctions de classe $\C^1$ de $I$ dans $\K$.
+On suppose que :
+\begin{enumerate}[label=(\roman*)]
+\item il existe $x_0 \in I$ tel que la suite $(f_n(x_0))_\N$ converge ;
+\item la suite $(f'_n)_\N$ converge uniformément sur $I$ (ou sur tout segment de $I$) vers une application $g:I \to \K$.
+\end{enumerate}
+Alors $(f_n)_\N$ converge simplement vers une fonction $f:I \to \K$ de classe $\C^1$ vérifiant $\forall x \in I, f'(x)=g(x)$.
+De plus, la convergence est uniforme sur tout segment $[a,b] \subset I$.
+\end{thm}
+
+\begin{proof}
+$(f'_n)_\N$ converge uniformément vers $g$, donc $g$ est continue (cf. théorème $\ref{thm:continuité}$) et :
+\[ \forall x \in I, \lim_{n \to \infty} \int_{x_0}^x f'_n(t) dt = \int{x_0}^x g(t)dt \text{ cf. théorème } \ref{thm:intégration} . \] 
+On note $l = \lim f_n(x_0)$, et posons 
+\[ \forall x \in I, f(x) = \int{x_0}^x g(t)dt + l. \]
+Or $\int_{x_0}^x f'_n(t) = f_n(x) - l$, ce qui donne, par passage à la limite : $\lim f_n(x) = f(x)$.
+De plus, le théorème fondamental de l'analyse nous : 
+\[ \forall x \in I, f'(x) = g(x) . \] 
+Soit maintenant un segment $[a,b] \subset I$, et $\veps > 0$, on a :
+\begin{align*} \forall n \in \N, \forall x \in [a,b], \abs{f_n(x) - f(x)} & = \abs*{\int_a^x f'_n(t)dt + f_n(a) - \int_a^x g(t)dt - f(a)} \\
+& \leq \abs*{\int_a^x (f'_n(t) - g(t))dt} + \abs{f_n(a)-f(a)} \\
+& \leq (b-a) \sup_{t \in [a,b]} \abs*{f'_n(t)-g(t)} + \abs{f_n(a)-f(a)} 
+\end{align*}
+Par convergence uniforme de $(f'_n)_\N$, il existe $N_1 \in \N$ tel que 
+\[ \forall n \geq N_1 \abs*{f'_n(t)-g(t)} \leq \veps/(2(b-a)) , \]
+et, par convergence simple de $(f_n)_\N$, il existe $N_2 \in \N$ tel que 
+\[ \forall n \geq N_1 \abs*{f_n(a)-f(a)} \leq \veps/2. \]
+Ainsi 
+\[ \forall n \geq \max(N_1, N_2), \forall x \in [a,b], \abs{f_n(x) - f(x)}  \leq \veps . \]
+Donc $(f_n)_\N$ converge uniformémement vers $f$ sur tout segment $[a,b]  \subset I$.
+\end{proof}
+
+\begin{coro}[Dérivation en chaîne]
+Soit $I$ un intervalle de $\R$ et $(f_n)_\N$ une suite de fonctions de classe $\C^p, p \in \Ne$ de $I$ dans $\K$.
+On suppose que :
+\begin{enumerate}[label=(\roman*)]
+\item il existe $x_0 \in I$ tel que, $\forall k \in \set{0, \dots, p-1}$ la suite $(f^{(k)}_n(x_0))_\N$ converge ;
+\item la suite $(f^{(p)}_n)_\N$ converge uniformément sur $I$ (ou sur tout segment de $I$) vers une application $g_p:I \to \K$.
+\end{enumerate}
+Alors $(f_n)_\N$ converge simplement vers une fonction $f:I \to \K$ de classe $\C^p$ sur $I$ et vérifiant 
+\[ \forall  k \in \set{0, \dots, p-1}, f^{(k)} = g_k . \]
+Et la convergence est uniforme sur tout segment $[a,b] \subset I$.
+\end{coro}
+
+\begin{proof}
+On itère $p$ fois le théorème précédent.
+\end{proof}
+
+\begin{coro}[Application aux séries entières]
+Soit $S = \sum a_n x_n$ une série entière réell de rayon de convergence $R$ strictement positif. Alors, $S$ est de classe $\C^{\inf}$ 
+sur $]-R, R[$.
+\end{coro}
+
+\begin{defn}[Critère de Cauchy uniforme]
+Soit $(f_n)_\N$ une suite de fonctions de $D$ dans $\K$. On dit que la suite $(f_n)_\N$ vérifie le \textbf{critère de Cauchy uniforme} (ou est une suite de Cauchy pour la norme infinie) lorsque l'on a :
+\[ \forall \veps > 0, \exists N \in \N, \forall p,q \in \N : (p \geq N, q \geq \N) \Rightarrow \norminf{f_p - f_q} \leq \veps . \]
+\end{defn}
+
+\begin{thm}
+Soit $(f_n)_\N$ une suite de fonctions de $D$ dans $\K$. La suite $(f_n)_\N$ vérifie le critère de Cauchy uniforme si, et seulement si,
+elle converge uniformément vers une application $f : D \to \K$.
+\end{thm}
+
+\begin{proof}
+La condition suffisante se démontre aisément. Prenons $\veps >0$, il existe $N \in \N$ tel que :
+\[ \forall n \in \N : n \geq N \Rightarrow \norminf{f_n-f} \leq \veps/2. \]
+Donc, pour $p \geq N$ et $q \geq N$, on a : 
+\[ \norminf{f_p - f_q} \leq \norminf{f_p -f} + \norminf{f_q - q} \leq \veps . \] 
+Démontrons maintenant la condition nécessaire. Comme la suite $(f_n)_\N$ vérifie le critère de Cauchy uniforme on a :
+\[ \forall \veps > 0, \exists N \in \N, \forall p,q \in \N :  (p \geq N, q \geq \N) \Rightarrow \forall x \in D, \abs{f_p(x) - f_q(x)} \leq \veps. \]
+Donc, pour $x \in D$ fixé, la suite $(f_n(x))_\N$ est de Cauchy dans $\K$ complet, elle est donc convergente.
+On peut ainsi définir une fonction $f$ sur $D$ de la façon suivante :
+\[ \forall x \in D, f(x) = \lim_{n \to \infty} f_n(x) , \]
+autrement dit, $f$ est la limite simple de la suite $(f_n)_\N$. En faisant tendre $q \to \infty$ dans la proposition précédente, on obtient :
+\[ \forall \veps > 0, \exists N \in \N, \forall p \in \N :  p \geq N \Rightarrow \forall x \in D, \abs{f_p(x) - f(x)} \leq \veps, \]
+autrement dit, $(f_n)_\N$ converge vers $f$ uniformément.
+\end{proof}
+
+\begin{thm}[de la double limite]
+Soit $(f_n)_\N$ une suite de fonctions de $[a,b[, b \in \R \cup \{\infty\}$ dans $\K$ et soit $f:[a,b[ \to \K$. On suppose que :
+\begin{enumerate}[label=(\roman*)]
+\item la suite $(f_n)_\N$ converge uniformément vers $f$ ;
+\item il existe une suite $(l_n)_\N \subset \K$ telle que $\forall n \in \N, \lim_{x \to b} f_n(x) = l_n$.
+\end{enumerate}
+Alors, la suite $(l_n)_\N$ converge vers $l \in \K$ et $\lim_{x \to b} f(x) = l$.
+En d'autres termes, on peut permuter les opérateurs limite :
+\[ \lim_{n \to \infty} \lim_{x \to b} f_n(x) = \lim_{x \to b} \lim_{n \to \infty} f_n(x) . \]
+\end{thm}
+
+\begin{proof}
+Comme la suite $(f_n)_\N$ converge uniformément vers $f$, elle vérifie le critère de Cauchy uniforme, soit :
+\[ \forall \veps > 0, \exists N \in \N, \forall p,q \in \N : 
+(p \geq N, q \geq \N) \Rightarrow \forall x \in D \abs{f_p(x) - f_q(x)} \leq \veps/3 . \]
+Supposons $p$ et $q$ deux entiers supérieurs ou égaux à $N$ et fixés. Alors :
+\[ \exists t_1 > 0, \forall x \in ]a+t_1 , b[, \abs{f_p(x) - l_p} \leq \veps/3 \et 
+\exists t_2 > 0, \forall x \in ]a+t_2 , b[, \abs{f_q(x) - l_q} \leq \veps/3 , \]
+donc, pour $x \in ]a+\max(t_1, t_2) , b[$, on a :
+\[ \abs{l_p-l_q} \leq \abs{l_p - f_p(x)} + \abs{f_p(x) - f_q(x)} + \abs{f_q(x) - l_q} \leq \veps . \]
+Ceci étant vrai pour tout couple $(p,q) \in \N^2$ tel que $p \geq N$ et $q \geq N$, la suite $(l_n)_\N$ est une suite de Cauchy de $\K$ 
+(complet), donc elle converge.  On note $l$ sa limite. \newline
+
+Soit $\veps >0$. Comme la suite $(f_n)_\N$ converge uniformément vers $f$, 
+il existe $n_1 \in \N$ tel que $\norminf{f_{n_1}-f} \leq \veps/3$.
+De plus, par convergence simple de la suite $(l_n)_\N$, il existe $n_2 \in \N$ tel que $\abs{l_{n_2} - l} < \veps/3$.
+Pour $n = \max(n_1, n_2) \in \N$ fixé, il existe $t >0$ tel que :
+\[ \forall x \in ]a+t , b[, \abs{f_n(x) - l_n} \leq \veps/3 . \]
+On peut donc conclure que :
+\[ \forall x \in ]a+t , b[, \abs{f(x) - l} \leq \abs{f(x)-f_n(x)} + \abs{f_n(x) - l_n} + \abs{l_n - l} \leq \veps , \]
+ce qui démontre que $\lim_{x \to b} f(x) = l$.
+ \end{proof}
+ 
+\begin{rmq}
+Le théorème reste valable pour $(f_n)_\N$ une suite de fonctions de $]a,b], a \in \R \cup \{-\infty\}$
+\end{rmq}
+
+\begin{thm}[Fejér]
+Toute application $f:\R \to \R$, $2\pi$-périodique et conitnue est limite uniforme d'une suite de polynômes trigonométriques.
+\end{thm}
+
+\end{document}

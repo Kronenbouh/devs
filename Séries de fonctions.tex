@@ -1,0 +1,110 @@
+\documentclass[french]{article}
+
+\input{preamble}
+
+\begin{document}
+
+Dans ce document, $I$ désigne un intervalle de $\R$ (non réduit à un point) et $\K$ désigne $\R$ ou $\Cx$.
+On prendra, le plus souvent, $\N$ tout entier comme support des suites (et des séries) mais on peut étendre les résultats à des supports 
+$S \subset \N$ infinis.
+
+\section{Convergence simple et uniforme}
+
+\begin{defn}
+Soit $(f_n)_\N$ une suite de fonctions de $I$ dans $\K$.
+Soit $(S_N)_\N$, la suite de fonctions définie par :
+\[ \forall N \in \N, \forall x \in I, S_N(x) = \sum_{n=0}^N f_n(x) . \]
+On appelle $(S_N)_\N$, la série de fonctions de terme général $f_n$, et on la note $\sum f_n$.
+\end{defn}
+
+\begin{defn}[Convergence simple]
+Soit $(f_n)_\N$ une suite de fonctions de $I$ dans $\K$.
+Lorsque la suite $(S_N)_\N$ des sommes partielles converge simplement vers une fonction $S$, on dit que la série $\sum f_n$ converge 
+simplement et on note $S = \sum_{n=0}^{\infty}f_n$.
+\end{defn}
+
+\begin{defn}[Convergence absolue]
+Soit $(f_n)_\N$ une suite de fonctions de $I$ dans $\K$.
+On dit que la série $\sum f_n$ converge absolument si la série $\sum \abs{f_n}$ converge simplement.
+\end{defn}
+
+\begin{thm}
+Pour toute série de fonctions de $I$ dans $\K$, la convergence absolue implique la convergence simple.
+\end{thm}
+
+\begin{proof}
+Pour $x \in I$ fixé, la convergence absolue de la série numérique $\sum f_n(x)$ implique la convergence de cette série.
+Donc, la convergence absolue de la série de fonctions implique la convergence des séries numériques $\sum f_n(x)$ pour toutes les
+valeurs de $x \in I$, ce qui est la définition de la convergence simple.
+\end{proof}
+
+\begin{rmq}
+Si une série de fonctions converge simplement mais pas absolument, elle est dite \og semi-convergente \fg.
+\end{rmq}
+
+\begin{defn}[Convergence uniforme]
+Soit $(f_n)_\N$ une suite de fonctions de $I$ dans $\K$.
+Lorsque la suite $(S_N)_\N$ des sommes partielles converge uniformément vers une fonction $S$, 
+on dit que la série $\sum f_n$ converge uniformément.
+\end{defn}
+
+\begin{thm}
+Pour toute série de fonctions de $I$ dans $\K$, la convergence uniforme implique la convergence simple.
+\end{thm}
+
+\begin{proof}
+C'est un résultat classique des suites de fonctions.
+\end{proof}
+
+\begin{rmq}
+Si on note
+\[ R_N = \sum_{n=N+1}^{\infty} f_n , \]
+il y a alors équivalence entre convergence uniforme de la série $\sum f_n$ et convergence uniforme de la suite des restes $(R_N)_\N$ 
+vers la fonction nulle.
+\end{rmq}
+
+\section{Convergence normale}
+
+\begin{defn}[Convergence normale]
+Soit $(f_n)_\N$ une suite de fonctions de $I$ dans $\K$.
+On dit que la série $\sum f_n$ converge normalement si la série $\sum \norminf{f_n}$ est convergente.
+\end{defn}
+
+\begin{rmq}
+En pratique, une série de fonction $\sum f_n$ converge normalement si, et seulement si, il existe une suite réelle $(u_n)_\N$ telle que :
+\begin{enumerate}[label=(\roman*)]
+\item $\forall n \in \N, \forall x \in I, \abs{f_n(x)} \leq u_n$ :
+\item $\sum u_n$ converge.
+\end{enumerate}
+\end{rmq}
+
+\begin{thm}
+Soit $(f_n)_\N$ une suite de fonctions de $I$ dans $\K$.
+Si la série $\sum f_n$ converge normalement alors elle converge absolument et uniformément.
+\end{thm}
+
+\begin{proof}
+Il est clair que $\forall x \in I, \abs{f_n(x)} \leq \norminf{f_n}$ donc si $\sum \norminf{f_n}$ converge alors, la série $\sum f_n$ converge
+absolument. \\
+On note : 
+\[ \forall x \in I, S(x) = \sum_{n=0}^{\infty} f_n(x) \et S_N(x) = \sum_{n=0}^N f_n(x) ,\]
+On vient de démontrer que si la série $\sum f_n$ converge normalement, alors elle converge absolument (et donc simplement), ce qui
+implique que $S$ est bien définie (comme limite simple de la suite $(S_N)_\N$). Or :
+\begin{align*}
+\forall x \in I, \abs{S(x) - S_N(x)} & = \abs*{ \sum_{n=N+1}^{\infty} f_n(x) } \\
+& \leq  \sum_{n=N+1}^{\infty}  \abs{f_n(x)} \\
+& \leq \sum_{n=N+1}^{\infty} \norminf{f_n}
+\end{align*}
+Donc $\norminf{S(x) - S_N(x)} \leq \sum_{n=N+1}^{\infty} \norminf{f_n} \to 0$ pour $N \to \infty$.
+\end{proof}
+
+\begin{thm}
+
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
+
+
+\end{document}

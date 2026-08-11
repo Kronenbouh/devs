@@ -1,0 +1,85 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Tauvel - Analyse complexe - pages 126-128 puis 135
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\begin{nota}
+On note $U$ un ouvert de $\Cx$.
+\end{nota}
+
+\begin{defn}[arc, lacet]
+Un arc $\gamma$ de $U$ est une application continue d'un compact de $[x,y] \subset \R$ dans $U$.
+L'origine d'un arc est l'image de $x$ par $\gamma$ et son extrémité l'image de $y$.
+Un arc est appelé lacet si origine et extrémité sont confondus.
+\end{defn}
+
+\begin{rmq}
+Par changement de variable $t' = (1-t)x + ty$ on peut toujours se ramener au compact $[0,1]$. 
+Dans la suite, on considère donc tous les arcs définis sur [0,1].
+\end{rmq}
+
+\begin{defn}[déformation]
+Soient $\gamma_1, \gamma_2$ deux arcs de $U$. On appelle déformation de $\gamma_1$ à $\gamma_2$ toute application continue :
+\[ \begin{array}{c c c c}
+\delta : & [0,1]^2 & \to & U \\
+& (t,u) & \mapsto & \delta(t,u) 
+\end{array} \]
+vérifiant $\delta(t,0) = \gamma_1(t)$ et $\delta(t,1) = \gamma_2(t)$.
+\end{defn}
+
+\begin{defn}[homotopie]
+\begin{enumerate}[label=(\roman*)]
+\item Deux arcs $\gamma_1, \gamma_2$ de $U$ ayant même origine $a$ et même extrémité $b$ sont dits homotopes dans $U$
+s'il existe une déformation $\delta$ de $\gamma_1$ à $\gamma_2$ telle que :
+\[ \forall u \in [0,1], \quad \delta(0,u)=a \et \delta(1,u)=b . \]
+S'il en est ainsi on dit que $\delta$ est une homotopie de $\gamma_1$ à $\gamma_2$.
+\item Deux lacets $\gamma_1, \gamma_2$ de $U$ sont dits homotopes dans $U$ s'il existe une déformation $\delta$ 
+de $\gamma_1$ à $\gamma_2$ telle que :
+\[ forall u \in [0,1], \quad \delta(0,u) = (1,u) . \]
+S'il en est ainsi on dit que $\delta$ est une homotopie de $\gamma_1$ à $\gamma_2$.
+\end{enumerate}
+\end{defn}
+
+\begin{lem}
+\label{lem:1}
+Soient $\gamma_1, \gamma_2$ des arcs (resp. des lacets) de $U$ homotopes dans $U$.
+Alors $\gamma_1$ et $\gamma_2$ appartiennent à la même composante connexe de $U$.
+\end{lem}
+
+\begin{proof}
+Soit $\delta$ la déformation permettant de passer d'un lacet à l'autre et soit $t \in [0,1]$.
+Comme [0,1] est connexe et $\delta(t,u)$ continue en $u$, l'ensemble $\delta(t, [0,1])$ est un connexe de $U$.
+Donc $\gamma_1(t)$ et $\gamma_2(t)$ appartiennent à la même classe d'équivalence et ce résultat est vrai pour tout $t \in [0,1]$.
+\end{proof}
+
+\begin{thm}[Cauchy pour un convexe, admis]
+
+\begin{thm}[Cauchy]
+Soient $\gamma_1, \gamma_2$ des arcs (resp. des lacets) de $U$ homotopes dans $U$.
+Pour toute fonction $f$ holomorphe dans $U$, on a :
+\[ \int_{\gamma_1} f(z) dz = \int_{\gamma_2} f(z) dz . \]
+\end{thm}
+
+\begin{proof}
+Selon le lemme $\ref{lem:1}$, les deux arcs (reps. lacets) appartiennent à la même composante connexe de $U$, 
+on peut donc toujours supposer $U$ connexe.
+Si $U = \Cx$, on prend $\veps >0$ quelconque, sinon on prend $\veps = d(\im{\gamma_1}, \Cx \setminus U)$.
+Dans les deux cas, le disque $D_t = D(\gamma_1(t), \veps)$ est contenu dans $U$.
+Par continuité de $\gamma_1$, il existe $\eta > 0$ tel que :
+\[ \forall t, t' \in [0,1], \abs{t-t'} < \eta \Rightarrow \abs{\gamma_1(t) - \gamma_1(t')} < \veps . \]
+Posons $0=t_0 < t_1 < \dots < t_n = 1$ une subdivision de [0,1] de pas maximal strictement inférieur à $\eta$.
+
+\end{proof}
+
+\end{document}

@@ -1,0 +1,357 @@
+\documentclass[french]{article}
+
+\input{preamble}
+
+\begin{document}
+
+\begin{defn}[Série entière]
+Une série entière est une série numérique de la forme $\sum a_n z^n$, où $(a_n)_\N$ est une suite de nombres complexes.
+En désignant par D l’ensemble des nombres complexes z pour lesquels la série $z \mapsto a_n z^n$ est convergente, on note,
+pour tout $z \in D, S(z) =  \sum_{n=0}^{\infty} a_n z^n$ la somme de cette série, et on définit ainsi la fonction $S$ de D dans $\Cx$.
+\end{defn}
+
+\section{Rayon de convergence}
+
+\begin{thm}[Abel]
+Soit $\sum a_n z^n$ une série entière. S'il existe un scalaire non nul $z_0$ tel que la suite $(a_n z_0^n)_\N$ soit bornée, alors la 
+série entière $\sum a_n z^n$ converge absolument pour tout nombre complexe $z$ tel que $\abs{z} < \abs{z_0}$.
+\end{thm}
+
+\begin{proof}
+Pour $N \in \N$ fixé, on a :
+\begin{align*}
+\sum_{n=0}^N a_n \abs{z_n}^n = \sum _{n=0}^N a_n \abs{z_0}^n \dfrac{\abs{z_n}^n}{\abs{z_0}^n} \\
+& \leq \sum _{n=0}^N M \dfrac{\abs{z_n}^n}{\abs{z_0}^n} ,
+\end{align*}
+où $M$ est un majorant de la suite $(a_n z_0^n)_\N$. Pour $\abs{z} < \abs{z_0}$, la série converge (série géométrique).
+\end{proof}
+
+\begin{thm}
+Soit $\sum a_n z^n$ une série entière. L'ensemble $I$ des réels positifs ou nuls tels que la suite $(a_n r^n)$ soit bornée est un 
+intervalle qui est, soit réduit à $\{0\}$, soit de la forme $[0,R]$ ou $[0,R[$ avec $R >0$, soit égal à $\Rp$ tout entier.
+\end{thm}
+
+\begin{proof}
+Il est évident que la série $\sum a_n z^n$ converge pour $z=0$, donc $I$ contient toujours au moins $0$. \\
+Supposons que $I \neq \set{0}$, selon le théorème précédent, si $r \in I$ alors $I$ contient $[0,r]$ tout entier. En effet, pour tout 
+réel $s \in [0,r[$, la série $\sum a_n s^n$ converge donc la suite $(a_n s^n)_\N$ converge vers 0, ce qui implique qu'elle est bornée. \\
+Finalement, l'ensemble $I$ est un intervalle de $\Rp$ qui contient 0, il a donc une des formes proposées.
+\end{proof}
+
+\begin{rmq}
+En particulier, $I$ admet une borne supérieure.
+\end{rmq}
+
+\begin{defn}
+La rayon de convergence de la série entière $\sum a_n z^n$ est l'élément de $\widebar{\Rp}$ défini par :
+\[ R = \sup \set{ r \in \R+ \tq (a_n r^n)_\N \text{ est bornée} } . \]
+\end{defn}
+
+\begin{rmq}
+Si $\abs{z} > R$, alors $\abs{a_n}\abs{z}^n$ ne tend pas vers 0 donc la série $\sum a_n z^n$ diverge trivialement.
+\end{rmq}
+
+\begin{thm}
+Soient $\sum a_n z^n$ et $\sum b_n z^n$ deux séries entières de rayons de convergence respectifs $R$ et $R'$.
+\begin{enumerate}[label=(\roman)]
+\item Si $\abs{a_n} \leq \abs{b_n}$ pour tout $n \in \N$, alors $R \geq R'$.
+\item Si $a_n = \gro{b_n}$, alors $R \geq R'$.
+\item Si $a_n \sim b_n$, alors $R = R'$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman)]
+\item Clairement :
+\[ \set{ r \in \R+ \tq (b_n r^n)_\N \text{ est bornée} } \subset \set { r \in \R+ \tq (a_n r^n)_\N \text{ est bornée} } \]
+d'où l'inégalité sur les $\sup$.  
+\item Si $a_n = \gro{b_n}$, alors il existe une suite $(\varpi(n))_\N$ bornée tel que $a_n = \varphi_n b_n$ à patir d'un certain rang.
+ Donc, en notant $M >0$ le réel tel que $\forall n \in \N, \abs{\varphi(n)} \leq M$ on déduit que 
+$\abs{a_n} \leq M \abs{b_n}$ pour tout $n \in \N$. Or
+ \[ \set{ r \in \R+ \tq (b_n r^n)_\N \text{ est bornée} } = \set{ r \in \R+ \tq (M b_n r^n)_\N \text{ est bornée} } , \]
+ d'où le résultat, selon (i).
+\item Si $a_n \sim b_n$, alors il existe une suite $(\varpi(n))_\N$ de limite égale à 1 telle que $a_n = \varphi_n b_n$ à partir d'un 
+certain rang. Ce qui assure que $a_n = \gro{b_n}$ et $b_n = \gro{a_n}$ à partir d'un certain rang (afin d'éviter toute annulation de 
+$\varphi_n$). D'où le résultat selon (ii). 
+\end{enumerate}
+\end{proof}
+
+\begin{thm}
+Soit $\sum a_n z^n$ une série entière de rayon de convergence $R$.
+\begin{enumerate}[label=(\roman)]
+\item si $R > 0$, la série $\sum a_n z^n$ est absolument convergente pour tout $z$ tel que $\abs{z} < R$ ;
+\item si $R$ est fini, la série $\sum a_n z^n$ est divergente pour tout $z$ tel que $\abs{z} > R$.
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman)]
+\item Si $R>0$ et $\abs{z} < R$, alors il existe $r \in \R$ tel que $z < r < R$ et $r$ est dans l'ensemble $I$ défini plus tôt.
+Donc, d'après le théorème d'Abel, la série $\sum a_n z^n$ est absolument convergente.
+\item si $R$ est fini et $\abs{z} > R$, alors $\abs{z} \not \in I$ donc la suite $(a_n z^n)$ n'est pas bornée, par suite, la série diverge
+trivialement.
+\end{enumerate}
+\end{proof}
+
+\begin{thm}[D'Alembert]
+Soit $\sum a_n z^n$ une série entière telle que $a_n \neq 0$ à partir d'un certain rang. Si
+\[ \lim \abs*{\dfrac{a_{n+1}}{a_n}} = l \in [0, \infty], \]
+alors le rayon de convergence de la série est $\dfrac1{l}$ (avec $1/0 = \infty$ et $1/\infty = 0$). 
+\end{thm}
+
+\begin{proof}
+Il s'agit d'une application directe de la règle de D'Alembert pour les séries, en effet :
+\[ \lim \abs*{\dfrac{a_{n+1}z^{n+1}}{a_nz^n}} = \abs{z} l . \]
+Ainsi, si $\abs{z} < \frac{1}{l}$ la série converge. De même si $\abs{z} > \frac{1}{l}$, alors la série diverge.
+\end{proof}
+
+\begin{thm}[Cauchy]
+Soit $\sum a_n z^n$ une série entière. Si 
+\[ \lim \abs*{a_n}^{1/n} = l \in [0, \infty], \]
+alors le rayon de convergence de la série est $\dfrac1{l}$. 
+\end{thm}
+
+\begin{proof}
+Il s'agit à nouveau d'une application du critère de Cauchy à la série de terme général $a_n z^n$.
+\end{proof}
+
+\begin{thm}[Hadamard]
+Soit $\sum a_n z^n$ une série entière. Si 
+\[ \limsup \abs*{a_n}^{1/n} = l \in [0, \infty], \]
+alors le rayon de convergence de la série est $\dfrac1{l}$.
+\end{thm}
+
+\begin{proof}
+Supposons dans un premier temps que $l \in ]0, \infty[$ et soit $z \in \Cx$ tel que $0 < \abs{z} < \frac1{l}$.
+Il existe donc $b \in \Rp$ tel que $0 < l < b < \frac{1}{\abs{z}}$.
+Comme $l = \limsup \abs*{a_n}^{1/n}$, il existe $N \in \N$ tel que $\forall n \geq N, \abs*{a_n}^{1/n} < b$.
+Autrement dit 
+\[ \exists N \in \N, \forall n \in \N : n \geq N \Rightarrow \abs*{a_n} \abs{z}^n < b^n \abs{z}^n = (b\abs{z})^n . \]
+Or, $b\abs{z} < 1$, donc $\sum a_n z^n$ converge absolument. \\
+Pour $z \in \Cx$ tel que $\abs{z} > \frac1{l}$, on procède de la même manière. Il existe $b \in \R$ tel que 
+$0 < \frac{1}{\abs{z}} < b < l$ et 
+\[ \forall N \in \N, \exists n \in \N \tq n \geq N \text{ et } \abs*{a_n} \abs{z}^n \geq b^n \abs{z}^n = (b\abs{z})^n . \]
+Or, $b\abs{z} > 1$, donc la suite $(\abs{a_n} \abs{z}^n)$ ne tend pas vers 0 et la série diverge trivialement. \newline
+
+Si $l=0$, alors pour tout $z \in \Cx$ non nul, il existe $b \in \Rp$ tel que $0 < b < \frac{1}{\abs{z}}$. 
+Par le même raisonnement, on conclut que la série converge. \newline
+
+Si $l=\infty$, considérons $z \in \Cx$ non nul. On a :
+\[ \forall  N \in \N, \exists n \in \N \tq n \geq N \text{ et } \abs*{a_n}^{1/n} > \dfrac1{\abs{z}} . \]
+Donc la suite $(\abs{a_n} \abs{z}^n)$ ne tend pas vers 0 et la série diverge trivialement. 
+Donc le rayon de convergence est strictement inférieur à $\abs{z}$ pour tout $z$ non nul, donc $R=0$.
+\end{proof}
+
+\section{Opérations sur les séries entières}
+
+\begin{defn}[Série somme]
+La somme des séries entières $\sum a_n z^n$ et $\sum b_n z^n$ est $\sum (a_n + b_n) z^n$
+\end{defn}
+
+\begin{thm}
+Soient $\sum a_n z^n$, $\sum b_n z^n$ deux séries entières de rayons de convergence respectifs $R$ et $R'$. On note aussi
+$R''$ le rayon de convergence de la série entière somme $\sum (a_n + b_n) z^n$.
+Pour $R \neq R'$ on a $R'' = \min(R, R')$ et pour $R=R'$ on a $R'' \geq \min(R,R')$. 
+Dans tous les cas, pour $\abs{z} < \min(R, R')$ on a :
+\[ \sum_{n=0}^{\infty}(a_n+b_n) z^n = \sum_{n=0}^{\infty}a_n z^n + \sum_{n=0}^{\infty}b_n z^n . \]
+\end{thm}
+
+\begin{proof}
+Il est clair que si $\abs{z} < \min(R, R')$ la série somme est absolument convergente comme somme de deux séries absolument 
+convergente et on a bien la formule annoncée. On a donc $R'' \geq \min(R,R')$. \\
+Supposons que $R \neq R'$, par exemple $0 \leq R < R'$. On peut alors trouver un réel $r$ tel que $R < r < R'$ et la série 
+$\sum (a_n + b_n)r^n$ est divergente comme somme de la série divergente $\sum a_n r^n$ et de la série convergente 
+$\sum r_n z^n$. Donc $R'' \leq R$ soit $R'' = R$ dans ce cas.
+\end{proof}
+
+\begin{defn}[Série produit]
+Soient $\sum a_n z^n$ et $\sum b_n z^n$ des séries entières, la série entière produit est la série $\sum c_n z^n$ avec 
+\[ c_n = \sum_{k=0}^n a_k b_{n-k} . \]
+\end{defn}
+
+\begin{thm}
+Soit $\sum a_n z^n$ une série entière de rayon de convergence $R$. La série dérivée $\sum n a_n z^{n-1}$ et la série primitive 
+$\sum \dfrac{a_n}{n+1} z^{n+1}$ ont le même rayon de convergence égal à $R$.
+\end{thm}
+
+\begin{proof}
+Il suffit d'étudier le rayon de convergence de la sériee dérivée (car la dérivée de la série primitive est la série entière). On note :
+\[ I = \set{ r \in \R+ \tq (a_n r^n)_\N \text{ est bornée} } \et I' = \set{ r \in \R+ \tq (n a_n r^{n-1})_\N \text{ est bornée} } . \]
+Ce sont des intervalles de $\Rp$ contenant 0 et de bornes supérieures respectives $R$ et $R'$.
+Or, pour $n \geq 1$, on a $\abs{a_n r^n} \leq \abs{n a_n r^n} = r \abs{n a_n r^{n-1}$, on en déduit que $R' \leq R$.
+Si $R=0$, alors $R'=0$, sinon pour $r \in ]0, R[$, on peut trouver $s$ tel que $r < s < R$, et en posant $h = s - r >0$, on a :
+\[ \forall n \geq 1, s^n = (r+h)^n = \sum_{k=0}^n \binom{k}{n} r^{n-k} h^k \geq n r^{n-1} h , \]
+et donc $\abs{n a_n r^{n-1} \leq \dfrac1{h} \abs{a_n s^n}$. Or $s \in I$, donc la suite $(a_n s^n)_\N$ est bornée et en conséquence,
+$r \in I'$. Ceci étant vrai pour tout $r \in ]0, R[$, on a donc $]0, R[ \subset I'$ ce qui entraîne $R \leq R'$ et $R=R'$.
+\end{proof}
+
+\section{Fonctions développables en série entière}
+
+\begin{defn}
+
+\end{defn}
+
+%\begin{rmq}
+%A noter que si une série $S = \sum a_n z^n$ a pour rayon de convergence $R$, alors $\limsup \abs*{a_n}^{1/n}=1/R$.
+%\end{rmq}
+%
+%\section{Propriétés analytiques}
+%
+%\begin{lem}[Abel]
+%Soit $S = \sum a_n z^n$ où $(a_n)_\N \subset \Cx$, une série entière. On suppose que son rayon de convergence $R \in [0, \infty]$
+%est strictement positif. Pour tout $A \in ]0, R[$, la série converge uniformément sur le disque fermé de centre $O$ et de rayon $A$ :
+%$D(0, A) = \set{z \in \Cx ; \abs{z} \leq A}$.
+%\end{lem}
+%
+%\begin{proof}
+%On va démontrer que la convergence est même normale sur le disque, en effet :
+%\[ \sup_{D(0,A)} \abs{a_n z^n} = \abs{a_n} A^n , \]
+%et comme $A<R$, $\sum \abs{a_n}A^n$ converge.
+%\end{proof}
+%
+%\begin{defn}
+%Soit $S = \sum a_n z^n$ une série entière. On appelle série dérivée de $S$, et on note $S'$, la série définie par :
+%\[ S' = \sum (n+1) a_{n+1} z^n . \]
+%\end{defn}
+%
+%\begin{thm}
+%\label{thm:rayonderivée}
+%La série dérivée de $S$ a le même rayon de convergence que $S$.
+%\end{thm}
+%
+%\begin{proof}
+%On se ramène à l'étude de la série $\sum n a_n z^n$ en multipliant $S'$ par $z$ (ce qui ne change pas son rayon de convergence). \\
+%On remarque que $\lim n^{1/n} = \lim \exp(\frac{1}{n} \ln(n)) = 1$. \\
+%Donc, pour tout $\veps \in ]0, 1[$, il existe $N \in \N$ tel que $\forall n \geq N, n^{1/n} \in [1-\veps, 1+\veps]$. \\
+%A partir du rang $N$, on peut donc écrire :
+%\[ (1-\veps) \abs{a_{n}}^{1/n} \leq \abs{na_{n}}^{1/n} \leq (1+\veps) \abs{a_{n}}^{1/n} \]
+%soit, en passant à la limite supérieure :
+%\[ (1-\veps) \limsup \abs{a_{n}}^{1/n} \leq \limsup \abs{na_{n}}^{1/n} \leq (1+\veps) \limsup \abs{a_{n}}^{1/n} . \]
+%Ceci étant vrai pour tout $\veps \in ]0,1[$, on conclut que :
+%\[ \limsup \abs{a_{n}}^{1/n} = \limsup \abs{na_{n}}^{1/n} \]
+%ce qui achève la démonstration selon le critère de Hadamard.
+%\end{proof}
+%
+%\begin{coro}
+%Soit $S : x \mapsto \sum_{n=0}^{\infty} a_n x^n$ la somme d'une série entière réelle de rayon de convergence $R$ strictement positif.
+%Alors $S$ est de classe $\C^{\infty}$ sur $]-R, R[$. De plus, $\forall x \in ]-R, R[, \forall k \in \Ne$ :
+%\[ S^{(k)}(x) = \sum_{n=k}^{\infty} \dfrac{n!}{k!} a_n x^{n-k} . \]
+%\end{coro}
+%
+%\begin{proof}
+%La suite de fonctions $\Bigpar{f_n = \sum_{k=0}^n a_k x^k}_{n \in \N}$ est de classe $\C^{\infty}$ sur $]-R, R[$. De plus :
+%\begin{enumerate}[label=(\roman*)]
+%\item il existe $x_0 \in ]-R, R[$ tel que la suite $(f_n(x_0))_\N$ converge (par exemple $x_0=0$) ;
+%\item la suite $(f'_n)_\N$ converge uniformément sur tout segment $[-A, A] \subset ]-R, R[$ vers la série dérivée de $S$ 
+%(selon le lemme d'Abel et le théorème $\ref{thm:rayonderivée}$).
+%\end{enumerate}
+%Donc, d'après le théorème de dérivation des suites de fonctions, la suite $(f_n)_\N$ converge uniformément vers $S$, de classe $C^1$, 
+%sur tout segment  $[-A, A] \subset ]-R, R[$ donc sur $]-R, R[$. 
+%En itérant ce raisonnement, on démontre que $S$ est de classe $C^{\infty}$ sur $]-R,R[$.
+%\end{proof}
+%
+%\begin{thm}[Intégration terme à termes]
+%Soit $S : x \mapsto \sum_{n=0}^{\infty} a_n x^n$ la somme d'une série entière réelle de rayon de convergence $R$ strictement positif.
+%\[\forall x \in ]-R, R[, \text{ on a } \int_0^x S(t) dt = \sum_{n=0}^{\infty} \dfrac{a_n}{n+1} x^{n+1} \]
+%\end{thm}
+%
+%\begin{proof}
+%Il s'agit d'une conséquence de l'intégration terme à termes d'une suite de fonctions et du fait que les sommes partielles convergent 
+%uniformément vers $S$ sur tout segment $[-A, A] \subset ]-R, R[$.
+%\end{proof}
+%
+%\begin{thm}[Abel]
+%Soit $S : x \mapsto \sum_{n=0}^{\infty} a_n x^n$ la somme d'une série entière réelle de rayon de convergence $R$ strictement positif.
+%Si $S$ est définie en $R$, i.e. si $\sum_{n=0}^{\infty} a_n R^n$ converge, alors $S$ converge uniformément sur $[0,R]$.
+%Et donc $S$ est continue en $R$, $\lim_{x \to \R} S(x) = S(R)$.
+%\end{thm}
+%
+%\begin{rmq}
+%On a le même résultat en $-R$ (il suffit de considérer la fonction $T : x \mapsto S(-x)$).
+%\end{rmq}
+%
+%\begin{proof}
+%On veut montrer que la série $S$ converge uniformément sur $[0,R]$, ce qui est équivalent à montrer que :
+%\[ \lim_{N\to \infty} \sup_{x \in [0,R]} \abs*{\sum_{n=N}^{\infty} a_n x^n} = 0  . \]
+%Comme la série numérique $S(R)$ converge, la suite $r_N = \sum_{n=N}^{\infty} a_n R^n$ tend vers 0, autrement dit :
+%\[ \forall \veps > 0, \exists N_{\veps} \in \N, \forall n \in \N :~ n \geq N_{\veps} \Rightarrow \abs{r_n} \leq \veps . \]
+%On va s'intéresser aux restes partiels de la série $S$ :
+%\begin{align*}
+%\sum_{n=p}^q a_n x^n & = \sum_{n=p}^q a_n R^n \left ( \dfrac{x}{R} \right)^n \\
+%& = \sum_{n=p}^q (r_n - r_{n+1}) \left ( \dfrac{x}{R} \right )^n \text{ on utilise la transformation d'Abel} \\
+%& = \sum_{n=p}^q r_n \left ( \dfrac{x}{R} \right)^n - \sum_{n=p}^q r_{n+1} \left ( \dfrac{x}{R} \right )^n \\
+%& = r_p \left ( \dfrac{x}{R} \right)^p - r_{q+1} \left ( \dfrac{x}{R} \right)^q + 
+%\sum_{n=p+1}^q r_n \left ( \left ( \dfrac{x}{R} \right)^n - \left ( \dfrac{x}{R} \right)^{n-1} \right) 
+%\end{align*}
+%Donc, pour $p \geq N_{\veps}$ :
+%\begin{align*} 
+%\abs*{\sum_{n=p}^q a_n x^n} & \leq \abs*{r_p \left ( \dfrac{x}{R} \right )^p } + \abs*{ r_{q+1} \left ( \dfrac{x}{R} \right )^q}  
+%+ \sum_{n=p+1}^q \abs{r_n} \abs*{ \left ( \dfrac{x}{R} \right )^n - \left ( \dfrac{x}{R} \right)^{n-1} } \\
+%& \leq \veps \left( \left ( \dfrac{x}{R} \right) ^p + \left ( \dfrac{x}{R} \right)^q + 
+%\sum_{n=p+1}^q  \abs*{ \left ( \dfrac{x}{R} \right)^n - \left ( \dfrac{x}{R} \right)^{n-1} } \right ) \\
+%& \leq \veps \left( \left ( \dfrac{x}{R} \right) ^p + \left ( \dfrac{x}{R} \right)^q + 
+%\sum_{n=p+1}^q \left ( \dfrac{x}{R} \right)^{n-1} - \left ( \dfrac{x}{R} \right)^n \right ) \text{ car } \dfrac{x}{R} \leq 1 \\
+%& \leq 2 \veps \left ( \dfrac{x}{R} \right) ^p \text{ somme téléscopique } \\
+%& \leq 2 \veps
+%\end{align*}
+%On passe à la limite quand $q \to \infty$ et on conclut que :
+%\[ \forall \veps > 0, \exists N_{\veps} \in \N, \forall p \in \N :~ 
+%p \geq N_{\veps} \Rightarrow \forall x \in [0, R], \abs*{\sum_{n=p}^{\infty} a_n x^n} \leq 2\veps . \]
+%Donc la suite converge bien uniformément sur $[0,R]$, ce qui entraîne la continuité de $S$ sur ce même intervalle. 
+%\end{proof}
+%
+%\begin{rmq}
+%A cette formulation du théorème, restreinte aux séries entières réelles, on peut préférer la formulation ci-dessous.
+%\end{rmq}
+%
+%\begin{thm}[Abel Radial]
+%Soit $\sum a_n z^n$ une série entière à coefficients complexes de rayon de convergence $R$ fini et strictement positif.
+%On note $S(z)$ sa somme pour $z \in D(0, R)$.
+%On suppose qu'il existe $z_0 \in S(0,R)$ tel que la série $\sum a_n z_0^n$ soit convergente. Dans ce cas, on a :
+%\[ \lim{t \to 1^{-1}} \sum_{n=0}^{\infty} a_n z_0^n t^n = \sum_{n=0}^{\infty} a_n z_0^n . \]
+%\end{thm}
+%
+%\begin{proof}
+%Pour tous $n \in \Ne$ et $t \in [0,1]$, on note :
+%\[ S_n(t) = \sum_{k=0}^n a_k z_0^k t^k \et \varphi(t) = S(tz_0) = \sum_{n_0}^{\infty} a_n z_0^n t^t . \]
+%On note que $\varphi$ est bien définie par hypothèse. De plus :
+%\begin{align*}
+%S_n(t) & = a_0 + \sum_{k=1}^n a_k z_0^k t^k  \\
+%& S_0(1) + \sum_{k=1}^n ( S_k(1) - S_{k-1}(1) ) t^k \text{ on utilise la transformation d'Abel} \\
+%& S_0(1) + \sum_{k=1}^n S_k(1) t^k - \sum_{k=0}^{n-1} S_k(1) t^{k+1} \\
+%& \sum_{k=0}^{n-1} S_k(1) ( t^k - t^{k+1} ) + S_n(1)t^n \\
+%& = (1-t) \sum_{k=0}^{n-1} S_k(1) t^k + S_n(1)t^n .
+%\end{align*} 
+%Pour $t \in [0, 1[$, on a $\lim_{n \to \infty} S_n(1) t^n = \varphi(1) \cdot 0 = 0$, on en déduit donc que la série $\sum S_n t^n$ converge
+%sur $[0,1[$ et, par passage à la limite dans l'égalité ci-dessus, que :
+%\[ \varphi(t) = (1-t) \sum_{n=0}^{\infty} S_n(1) t^n , \text{ pour } t \in [0,1[ . \]
+%En utilisant le fait que $\sum t^n \to \dfrac{1}{1-t}$ pour $t \in [0,1 [$ on peut écrire :
+%\begin{align*}
+%\varphi(t) - varphi(1) & = (1-t) \sum_{n=0}^{\infty} S_n(1) t^n - \varphi(1) (1-t) \sum_{n=0}^{\infty} t^n \\
+%& = (1-t) \sum_{n=0}^{\infty} ( S_n(1) - \varphi(i)) t^n . 
+%\end{align*}
+%Comme $\lim S_n(1) = \varphi(1)$, pour tout réel $\veps >0$, il existe un entier $N_{\veps}$ tel que 
+%\[ \forall n > N_{\veps}, \abs{S_n(1) - \varphi(1) \leq \veps , \]
+%ce qui donne :
+%\begin{align*}
+%\abs{\varphi(t) - varphi(1)} & \leq  (1-t) \left ( \sum_{n=0}^{N_{\veps}} \abs{ S_n(1) - \varphi(i) } t^n 
+%+ \veps \sum_{n=N_{\veps}}^{\infty} t^n \right ) \\
+%& \leq (1-t) \sum_{n=0}^{N_{\veps}} \abs{ S_n(1) - \varphi(i) } + \veps (1-t) \sum_{n=0}^{\infty}  t^n \\
+%& \leq A_{\veps}(1-t) + \veps ,
+%\end{align*}
+%en posant $A_{\veps} = \sum_{n=0}^{N_{\veps}} \abs{ S_n(1) - \varphi(i) }$. Et en se plaçant dans un voisinage (à gauche) de 1 tel que 
+%$A_{\veps}(1-t) \leq \veps}$ on a finalement $\abs{\varphi(t) - varphi(1)} \leq 2 \veps$, et ce pour tout $\veps >0$.
+%Autrement dit :
+%\[ \lim{t \to 1^{-1}} \varphi(t) = varphi(1) , \]
+%ce qui est le résultat annoncé. 
+%\end{proof}
+%
+%\begin{coro}
+%Soit $\sum a_n z^n$ une série entière à coefficients complexes de rayon de convergence $R$ fini et strictement positif.
+%Si la série $\sum a_n R^n$ (resp. $\sum a_n (-1)^n R^n$) est convergente, alors la restriction de la fonction somme $S$ à $]-R, R[$
+%se prolonge par continuité en $R$ (resp. en $-R$) et on a :
+%\[ S(R) = \sum_{n=0}^{\infty} a_n R^n = \lim_{x \to R} S(x) 
+%\text{(resp. } S(-R) = \sum_{n=0}^{\infty} a_n (-1)^, R^n = \lim_{x \to -R} S(x) ) . \]
+%\end{coro}
+
+\end{document}

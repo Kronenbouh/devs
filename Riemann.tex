@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\input{preamble}
+
+\begin{document}
+
+\begin{thm}
+Si $f$ est une fonction continue par morceaux sur un intervalle $[a,b]$ de $\R$, alors $f$ est limite uniforme d'une suite $(f_n)_\N$ 
+de fonctions en escaliers sur $[a,b]$.
+\end{thm}
+
+\begin{proof}
+Supposons dans un premier temps $f$ continue sur $[a,b]$. D'après le théorème de Heine, $f$ est uniformément continue sur ce même
+intervalle. 
+Pour $n \geq 1$, on construit la subdivision régulière $x_0 < \dots < x_n$ (donc de pas $\frac{b-a}{n}$), 
+et on considère la fonction en escalier $f_n$ qui vaut $f(x_i)$ sur chaque intervalle $[x_i, x_{i+1}[$ pour $0 \leq i \leq n-1$ 
+et telle que $f_n(b)=f(b)$. \\
+
+Soit $\veps > 0$, il existe $\alpha >0$ tel que 
+\[ \forall x, y \in [a,b], \abs{x-y} \leq \alpha \Rightarrow \abs{f(x)-f(y)} \leq \veps . \]
+En prenant $N$ tel que $\frac{b-a}{N} \leq \alpha$ on a :
+\[ \forall n \in \N, n \geq N \Rightarrow \sup_{[a,b]} \abs{f-f_n} \leq \veps , \]
+d'où le résultat pour une fonction continue. Si $f$ est continue par morceaux sur $[a,b]$, on note $a_0 < \dots < a_N, N \geq 1$ 
+une subdivision de $[a,b]$ telle que $f$ est continue et prolongeable par continuité sur chaque $[a_i, a_{i+1}]$.
+On note $\tilde{f}_i$ ces fonctions prolongées et on applique le premier résultat à chacune de ces fonctions,
+on a bien entendu, pour tout $n \in \N$ :
+\[ \sup_{[a,b]} \abs{f-f_n} \leq \sup_{1 \leq i \leq N} \Bigpar{ \sup_{[a_i, a_{i+1}]} \abs{\tilde{f} - f_n} } \]
+en prenant soin de fixer la valeur des fonctions $f_n$ aux extrémités $a_1, \dots, a_N$ comme précédemment.
+\end{proof}
+
+\end{document}

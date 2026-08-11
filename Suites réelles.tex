@@ -1,0 +1,74 @@
+\documentclass{article}
+
+\input{preamble}
+
+\begin{document}
+
+\begin{thm}
+Toute suite numérique croissante et majorée (resp. décroissante et minorée) est convergente.
+\end{thm}
+
+\begin{proof}
+Soit $(u_n)_S$ une telle suite. L'ensemble $\set{u_n ; n \in \N}$ est non vide et majoré, il admet donc une borne supérieure.
+Notons $l$ cette borne supérieure. Soit $\veps > 0$, il existe $N \in \N$ tel que $\forall n \geq N, l - \veps \leq u_n \leq l $ par définition
+d'une borne supérieure, d'où le résultat.
+\end{proof}
+
+\begin{coro}
+Toute suite numérique croissante (resp. décroissante et minorée) est convergente dans $\Rb$.
+\end{coro}
+
+\begin{thm}[Suites adjacentes]
+Soient $(u_n)_\N$ et $(v_n)_\N$ deux suites numériques telles que :
+\begin{enumerate}[label=(\roman*)]
+\item $(u_n)_\N$ est croissante et $(v_n)_S$ est décroissante ;
+\item la suite $(u_n-v_n)_\N$ converge vers 0.
+\end{enumerate}
+Alors les suites $(u_n)_\N$ et $(v_n)_\N$ sont convergentes et de même limite $l$ et de plus
+\[ \forall n \in \N, u_n \leq l \leq v_n . \]
+\end{thm}
+
+\begin{proof}
+Il est clair que $\forall n \in \N, u_n \leq v_n$, sinon, en prenant $N \in \N$ tel que $u_N > v_N$, on aurait, 
+par monotonie des deux suites 
+\[ \forall n \geq N, u_n \geq u_N > v_N \geq v_n , \]
+ce qui est incompatible avec (ii).
+Ainsi, la suite $(u_n)_\N$ est croissante et majorée par $v_0$ donc convergente, et de même pour $(v_n)_\N$.
+L'égalité des limites est une conséquence directe de la linéarité de l'opérateur limite.
+\end{proof}
+
+\begin{thm}
+De toute suite numérique, on peut extraire une suite monotone.
+\end{thm}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{thm}[Bolzano-Weierstrass]
+De toute suite numérique bornée on peut extraire une suite convergente.
+\end{thm}
+
+\begin{proof}
+Soit $(u_n)_\N \subset \R$ une suite bornée. Notons $a, b \in \R$ les réels tels que $\forall n \in \N, a \leq u_n \leq b$.
+On pose $a_0 = a, b_0 = b$ ainsi que les deux ensembles :
+\[ \Bigset{p \in \N, a \leq u_p \leq \dfrac{a+b}2} \et \Bigset{p \in \N, \dfrac{a+b}2 \leq u_p \leq b} . \]
+L'union de ces deux ensembles est égal à $\N$, donc un des deux ensembles est infini.
+Si c'est le premier, on note $a_1 = a_0 ~;~ b_1 = \frac{a+b}{2}$ sinon, on note $a_1= \frac{a+b}{2} ~;~ b_1 = b_0$.
+On itère ce processus et on construit ainsi deux suites $(a_n)$ et $(b_n)$ respectivement croissante et majorée et décroissante et minorée.
+Par ailleurs, les intervalles $[a_n ; b_n]$ sont ainsi construits que leur diamètre est égal à $\frac{b-a}{2^n}$, donc les suites 
+$(a_n)$ et $(b_n)$ sont adjacentes. On note $l$ la limite commune de ces deux suites.
+On construit une extratrice $\varphi : \N \to \N$ de la façon suivante :
+\begin{enumerate}[label=(\alph*)]
+\item on pose $\varphi(0) = 0$ ;
+\item les images de $0, 1, \dots, n$ étant supposées construites pour $n \in \N$, on construit $\varphi(n+1)$ comme suivant :
+\[ u_{\varphi(n+1)} \in [a_{n+1} ; b_{n+1}] \et \varphi(n+1) > \varphi(n) , \]
+ceci est toujours possible car les intervalles $[a_n; b_n]$ contiennent une infinité de points de la suite $(u_n)_\N$.
+\end{enumerate}
+Ainsi, par construction, pour tout $\veps > 0$, il existe $N \in \N$ tel que : 
+\[ \forall n \in \N, n \geq N \Rightarrow \abs{u_{\varphi(n)} - l} \leq \veps , \]
+d'où le résultat.
+\end{proof}
+
+
+\end{document}

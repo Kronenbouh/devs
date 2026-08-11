@@ -1,0 +1,91 @@
+\input{preamble}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Gourdon - Analyse - page 41 puis 75 puis 327
+
+\underline{Leçons :}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\begin{thm}
+Les espaces connexes de $\R$ sont les intervalles de $\R$.
+\end{thm}
+
+\begin{proof}
+On montre dans un premier temps qu'un connexe $C$ de $\R$ est un intervalle. 
+Par l'absurde, si $C$ n'est pas un intervalle on peut trouver $a,b \in C$ et $x \in \R$ tels que $a<x<b$ et $x \not \in C$.
+On a alors $C \subset ]-\infty; x [ \cup ] x ; \infty [$ et donc $C$ n'est pas connexe. \\
+
+Réciproquement, soit $I$ un intervalle de $\R$. $I$ est connexe s'il est réduit à un point, on suppose donc $a<b$.
+On distingue plusieurs cas.
+\begin{enumerate}[label=(\roman*)]
+\item 
+Si $I=]a,b[$ avec $-\infty \leq a < b \leq \infty$. 
+On muni l'ensemble $\set{0,1}$ de la distance discrète $\delta$ et on considère l'application continue $f: I \to \set{0,1}$.
+Si $f$ n'est pas constante sur $I$, il existe $x,y$ tels que $a<x<y<b$ et $f(x) \neq f(y)$.
+On suppose $f(x)=0$ (la démonstration dans le cas $f(x)=1$ est identique).
+On considère l'ensemble :
+\[ \Gamma = \set{ z \in I ; z \geq x, \forall t \in [x,z], f(t) = 0 } . \]
+Cet ensemble est non vide (car il contient $x$) et il est majoré par $y$, il admet donc une borne supérieure que l'on note $c$.
+Par continuité de $f$, on a $f(c)=0$. Toujours par continuité, il existe $\veps >0$ tel que :
+\[ \forall t \in [c, c+\veps], \quad \delta(f(t), f(c)) \leq \dfrac12 , \]
+autrement dit, $f(c+\veps) = 0$ ce qui contredit la définition de $c$ comme borne supérieure de $\Gamma$.
+Ainsi, l'hypothèse selon laquelle $f$ n'est pas constante sur $\set{0,1}$ est fausse et donc $I$ est connexe.
+
+\item
+Si $I$ est un intervalle quelconque de $\R$, alors on peut toujours trouver un intervalle ouvert $J$ de $\R$ tel que 
+$J \subset I \subset \overline{J}$ avec $J$ convexe selon le point (i). Donc $I$ est convexe.
+\end{enumerate}
+\end{proof}
+
+\begin{coro}[Théorème des valeurs intermédiaires]
+Soit $I$ un intervalle de $\R$ et $f$ une fonction continue sur $I$. Alors $f(I)$ est un intervalle.
+\end{coro}
+
+\begin{thm}
+Soient $E$ un \Rev normé, $[a,b]$ un intervalle de $\R, F : [a,b] \to E$ et $g : [a,b] \to \R$ deux applications continues sur $[a,b]$
+et dérivables sur $]a,b[$. Si on a :
+\begin{equation} \forall t \in ]a,b[, \quad \norm{F'(t)} \leq g'(t) , \label{eq:1} \end{equation}
+alors $\norm{F(b) - F(a)} \leq g(b) - g(a)$.
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}[label=(\alph*)]
+
+\item
+Supposons d'abord que l'inégalité (\ref{eq:1}) est sticte. On peut réécrire cette inégalité comme :
+\[ \lim_{\substack{t \to x \\ x < t}} \left ( \norm*{\dfrac{F(t) - F(x)}{t-x}} - \dfrac{g(t)-g(x)}{t-x} \right ) < 0 , \]
+donc, par continuité, l'assertion ci-dessous est vraie :
+\begin{equation} \forall x \in ]a,b[, \exists y \in ]x,b[ ,\forall t \in [x,y], \quad \norm{F(t) - F(x)} \leq g(t) - g(x) . \label{eq:2} \end{equation}
+On va maintenant démontrer que l'assertion suivante est vraie :
+\begin{equation} \forall [\alpha, \beta] \subset ]a,b[, \quad \norm{F(\beta) - F(\alpha)} \leq g(\beta) - g(\alpha) , \label{eq:3} \end{equation}
+qui permettra d'obtenir le résultat par continuité.
+On note :
+\[ \Gamma = \set{d \in ]\alpha, \beta] ; \forall t \in [\alpha, d], \norm{F(t) - F(\alpha)} \leq g(t) - g(\alpha) ,  \]
+Selon l'assertion (\ref{eq:2}) en prenant $x=\alpha$ on déduit que $\Gamma$ est non vide.
+Comme cet ensemble est majoré, il admet une borne supérieure que l'on note $m$. 
+On veut simplement démontrer que $m = \beta$. Supposons $m < \beta$.
+Par continuité des fonctions $F$ et $g$, on a $\norm{F(m)-F(\alpha)} \leq g(m) - g(\alpha)$, et, d'après l'assertion (\ref{eq:2}) :
+\[ \exists y \in ]m,\beta[ ,\forall t \in [m,y], \quad \norm{F(t) - F(m)} \leq g(t) - g(m) , \]
+et donc :
+\[ \forall t \in [m, y], \quad \norm{F(t)-F(\alpha)} \leq  \norm{F(t) - F(m)} + \norm{F(m)-F(\alpha)} \leq g(t) - g(\alpha) . \]
+Autrement dit, $y \in \Gamma$ ce qui est absurde car $y > m = \sup{\Gamma}$.
+On a donc $m = \beta$, l'assertion (\ref{eq:3)) est donc vraie sur tout compact inclus dans $]a,b[$, elle est donc vraie (par continuité) 
+sur l'intervalle ouvert $]a,b[$, ce qui démontre le résultat dans le cas où l'inégalité (\ref{eq:1}) est sticte
+
+\item
+On revient au cas général, prenons $\veps >0$ et définissons la foncton $g_{\veps}$ sur $[a,b]$ par $g_{\veps}(t)=g(t)+\veps(t)$.
+On a bien, pour tout $t \in ]a,b[, \norm{F'(t)} < g_{\veps}'(t)$ et donc : 
+\[ \norm{F(b) - F(a)} \leq g_{\veps}(b) - g_\veps(a) = g(b) - g(a) + \veps(b-a) , \]
+en vertu du point (i). Ceci étant vrai pour tout $\veps >0$, on a bien le résultat attendu.
+\end{enumerate}
+\end{proof}
+
+\end{document}

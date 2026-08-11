@@ -1,0 +1,209 @@
+\input{preamble}
+\newcommand{\Ae}{A^{\ast}}
+\newcommand{\Zi}{\Z[i]}
+\newcommand{\Zie}{\Z[i]^{\ast}}
+\newcommand{\Sd}{\Sigma_2}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{Entiers de Gauss et théorème des deux carrés}
+
+\begin{document}
+
+\underline{Sources :} Rombaldi - Algèbre - page 261 puis 267. \newline
+
+\underline{Un brin d'histoire :} l'anneau des entiers de Gauss a été construit par le mathématicien homonyme afin de résoudre des
+problèmes de congruence de carrés, c'est-à-dire afin de résoudre des équations de la forme :
+\[ x^2 \equiv y^2 \pmod n , \]
+en ignorant les solutions triviales. On verra lors de ce développement que, la structure d'anneau des entiers de Gauss, 
+permet de caractériser les entiers naturels qui sont somme de deux carrés.
+
+\vspace{10pt}
+
+On considère comme acquis le résultat suivant :
+
+\begin{thm}[Fermat]
+\label{thm:Fermat}
+Soit $p$ un entier naturel premier. Pour tout entier relatif $a$ premier avec $p$, on a 
+\[ a^{p-1} \equiv 1 \pmod p \]
+ et pour tout entier relatif a, on a
+\[ a^{p} \equiv a \pmod p \]
+\end{thm}
+
+On utilisera aussi le résulat suivant :
+
+\begin{lem}
+\label{lem:kdiff}
+Pour $k \in \N$, la $k$ème différence de la suite de termes $1^k, 2^k, 3^k, \dots... $ est égale à $k!$.
+\end{lem}
+
+\begin{proof}
+En notant $\Delta$ l'opérateur différence, défini pour une fonction $f$ par :
+\[ \Delta(f)(n) = f(n+1) - f(n) \]
+Pour un polynôme $f$ de degré $k$ on a :
+\[ \Delta(f)(n) = a_k[(x+1)^k - x^k] + \dots a_1[x+1 - x] \]
+où $a_p$ est le coefficient du monome de degré $p$. Or chaque monôme $(x+1)^p - x^p$ est de degré $p-1$, 
+donc application de l'opérateur $\Delta$ diminue le degré $k$ du polynôme de 1 et le coefficient de plus haut degré est $k a_k$.
+Donc, pour $k$ applications, $\Delta^k(f)$ est une constante égale à $ak!$.
+En particulier, pour $f(x)=x^k$, on déduit le résultat.
+
+\end{proof}
+
+\begin{defn}[Stathme]
+On appelle stathme sur un anneau commutatif et intègre $A$ une application $\varphi : \Ae to \N$.
+\end{defn}
+
+\begin{defn}[Anneau euclidien]
+Un anneau commutatif et intègre $A$ est dit euclidien s'il existe un stathme $\varphi$ tel que, pour tout couple $(a,b)$ d'éléments de $A$
+avec $b \neq 0$, il existe un couple $(q,r)$ d'éléments de $A$ tel que :
+\[ a = bq + r \et r = 0 \ou \varphi(r) < \varphi(b) . \]
+\end{defn}
+
+\begin{rmq}
+Cette expression permet de définir une division euclidienne.
+\end{rmq}
+
+\begin{thm}
+Un anneau euclidien est principal. Précisément, pour tout idéal $I$ de $A$ non réduit à $\set{0}$, 
+il existe un élément $a_0 \in I \setminus \set{0}$ tel que :
+\[ \varphi(a_0) = \min_{a \in I \setminus \set{0}} \varphi(a) \et I = a_0 A . \]
+\end{thm}
+
+\begin{proof}
+Si $I$ est réduit à 0, il est l'idéal engendré par 0. Sinon, $I \setminus \set{0}$ est non vide et l'image de cet ensemble par $\varphi$
+est donc une partie non vide de $\N$, elle admet donc un minimum, noté $n_0$, et il existe $a_0 \in I \setminus \set{0}$ tel que 
+$n_0 = \varphi(a_0)$. Soit $x$ un élément quelconque de $I$, en effectuant la division euclidienne de $x$ par $a_0$, on trouve :
+\[ x = a_0 q + r \qquad r=0 \ou \varphi(r) < \varphi(a_0) . \]
+Or $r \neq 0$ et $\varphi(r) < \varphi(a_0)$ est impossible (car $r = x - a_0 q \in I \setminus \set {0}$), on a donc montré que $x$ est un 
+multiple de $a_0$. Comme par ailleurs, tout multiple de $a_0$ est un élément de $I$, on a bien montré que $I = a_0 A$. 
+\end{proof}
+
+\begin{nota}
+On note $\Zi = \set{a+ib ; (a,b) \in \Z^2}$ l'ensemble des entiers dits de Gauss.
+\end{nota}
+
+\begin{thm}
+$\Zi$ est un sous-anneau de $\Cx$ stable par l'opération de conjugaison complexe et il est euclidien pour le stathme :
+\[ \varphi : u = a+ib \in \Zie \mapsto \abs{u}^2 = a^2 + b^2. \]
+\end{thm}
+
+\begin{proof}
+Soient $u = a+ ib, v=c+id$ deux éléments de $\Zi$, on a :
+\[ u+v = (a+c)+i(b+d) \in \Zi \et uv = (ac - bd) + i(ad +cb) \in \Zi , \]
+par ailleurs $1 = 1 + 0i \in \Zi$, donc $\Zi$ est bien un sous-anneau de $\Cx$. 
+De plus, $\bar{u} = a-ib \in \Zi$, donc $\Zi$ est stable par l'opération de conjugaison complexe.
+Enfin, $\Zi$ hérite des propriétés de commutativité et d'intégrité de $\Cx$. \\
+$\varphi$ applique $\Zi$ dans $\N$, c'est donc un stathme sur cet anneau, il reste à démontrer que celui ci est euclidien.
+On suppose que $v \neq 0$ et on définit $z = \dfrac{u}{v} = x + iy$ avec $x, y \in \Q$. En utilisant la partition :
+\[ \R = \bigcup_{k \in \Z} \left [ k - \dfrac12 ; k + \dfrac12 \right [ , \]
+on peut trouver un unique couple d'entiers relatifs $(r,s)$ tel que :
+\[ x \in  \left [ r - \dfrac12 ; r + \dfrac12 \right [ \et y \in \left [ s - \dfrac12 ; s + \dfrac12 \right [ . \]
+On note $q = r +is \in \Zi$, et on remarque que :
+\[ \abs{z - q}^2 = (x-r)^2 + (y-s)^2 \leq \dfrac14 + \dfrac12 < 1 ; \]
+ce qui revient à affirmer que $\abs{u-qv}^2 < \abs{v}^2$. On pose donc $r = u -qv \in \Zi$ et on a :
+\[ u = qv + r \qquad r=0 \ou \abs{r}^2 < \abs{v}^2 , \]
+ce qui démontre le caractère euclidien de $\Zi$.
+\end{proof}
+
+\begin{nota}
+On note $\Sd = \set { n \in \N ; \exists (a,b) \in \Z^2, n = a^2+b^2}$, l'ensemble des entiers naturels qui s'écrivent comme somme
+de deux carrés.
+\end{nota}
+
+\begin{lem}
+\label{lem:1}
+Si $n \in \Sd$ il est alors congru à 0, 1 ou 2 modulo 4. En particulier, si $n$ est impair il est congru à 1 modulo 4.
+\end{lem}
+
+\begin{proof}
+Il suffit de remarquer que si $a \in \Z$, alors $a^2 = 4n^2$ ou $a^2 = 4(n^2+n)+1$ 
+donc $n=a^2+b^2$ est congru à 0, 1 ou 2 modulo 4.
+\end{proof}
+
+\begin{lem}
+L'ensemble $\Sd$ est stable pour le produit.
+\end{lem}
+
+\begin{proof}
+Soit $n, m \in \Sd, a = a^2 + b^2$ et $m = c^2 +d^2$. On peut donc écrire $n = \abs{u}$ et $m = \abs{v}$ avec $u, v$ les entiers
+de Gauss définis par $u = a+ib, v = c+id$. Or $nm = \abs{uv}$ et $uv \in \Zi$ donc il existe $x, y \in \Z$ tels que $nm = x^2 + y^2$.
+\end{proof}
+
+Cette propriété de stabilité nous permet de simplifier le problème : en effet, si tous les facteurs premiers d'un entier sont des éléments
+de $\Sd$, alors cet entier sera lui aussi un élément de $\Sd$. 
+
+\begin{thm}
+Un nombre premier $p$ est somme de deux carrés si, et seulement si, il égal à 2 ou congru à 1 modulo 4.
+\end{thm}
+
+\begin{proof}
+Il est clair que $2 \in \Sd$. Si $p>2$, et $p \in \Sd$, alors selon le lemme $\ref{lem:1}$, $p$ est congru à 1 modulo 4. 
+Réciproquement, si $p$ est un nombre premier impair congru à 1 modulo 4, alors il existe $n \in \N \tq p=1+4n$
+et, selon le petit théorème de Fermat (cf. $\ref{thm:Fermat}$), on peut écrire :
+\begin{align*}
+1 \equiv 1 \pmod p \\
+2^{4n} \equiv 1 \pmod p \\
+\dots \\
+(4n)^{4n} \equi 1 \pmod p
+\end{align*} 
+Autrement dit, $p$ divise tous les nombres suivants :
+\begin{align*}
+2^{4n}-1 & = (2^{2n} + 1)(2^{2n}-1) \\
+3^{4n}-2^{4n} & = (3^{2n} + 2^{2n})(3^{2n}-2^{2n}) \\
+\dots \\
+(4n)^{4n}-(4n-1)^{4n} & = ((4n)^{2n} + (4n-1)^{2n})((4n)^{2n}-(4n-1)^{2n}) .
+\end{align*}
+Comme $p$ est premier, il divise pour chacun de ces nombres de la forme $AB$, un des deux facteurs $A$ ou $B$.
+Supposons que $p$ ne divise que les facteurs $B$, c'est-à-dire $p$ divise :
+\[ 2^{2n}-1, \et 3^{2n}-2^{2n}, \quad \dots \et (4n)^{2n}-(4n-1)^{2n} , \]
+Alors $p$ divise toutes les différences successives de la suite de nombres $1, 2^{2n}, 3^{2n}, \dots, (4n)^{2n}$,
+donc, selon le lemme $\ref{lem:kdiff}$ il divise la $2n$-ème différene successive qui est égale à $(2n)!$. 
+Comme $p$ est premier et $p=4n-1$, ceci est absurde.
+Donc $p$ divise au moins un facteur $A$, c'est-à-dire qu'il existe $r = 1, \dots, 4n$ tel que $p$ divise $(r^n)^2 + ((r+1)^n)^2$.
+Clairement, $a=r^n$ et $b=(r+1)^n$ sont premiers entre eux, 
+on peut donc affirmer que $p$ divise une somme de deux carrés premiers entre eux. \\
+
+Supposons maintenant que $p$ soit premier dans $\Zi$, comme cet anneau est principal, et que $p$ divise 
+$a^2 + b^2 = (a+ib)(a-ib)$, alors $p$ va diviser l'un ou l'autre de ces facteurs dans $\Zi$, donc va diviser $a$ et $b$ dans $\Z$
+ce qui contredit le fait que $a$ et $b$ sont premiers entre eux.
+Ainsi, $p$ est réductible dans $\Zi$ et il existe $u, v \in \Zi$ non inversibles et tels que $p=uv$. On a donc :
+\[ p^2 = \abs{p}^2 = \abs{u}^2 \abs{v}^2, \]
+avec $\abs{u}^2, \abs{v}^2 \in \N \setminus \set{0,1}$, donc $\abs{u}^2=\abs{v}^2=p$, et $p$ est donc somme de deux carrés.
+\end{proof}
+
+\begin{lem}
+\label{lem:exppair}
+Si $n \in \Sd \setminus \set {0}$ admet un diviseur premier $p$ congru à 3 modulo 4, alors $p^2$ divise $n$ et $\dfrac{n}{p^2} \in \Sd$.
+\end{lem}
+
+\begin{proof}
+Prenons $n$ et $p$ tels qu'annoncés. \\
+On a donc $n = a^2 + b^2 \equiv 0 \pmod p$ soit $\bar{a}^2 = - \bar{b}^2$ dans $\Z_p$.
+Si on suppose une de ces classes d'équivalence non nulle, on a alors $x = \dfrac{\bar{a}}{\bar{b}}$ (ou $x = \dfrac{\bar{b}}{\bar{a}}$)
+qui est solution de l'équation $x^2 = - \bar{1}$ dans $\Z_p$. 
+Il s'ensuit que :
+\[ (x^2)^{(p-1)/2} \equiv (-1)^{(p-1)/2} \pmod p \et x^{p-1} \equiv 1 \pmod p , \]
+Donc $(p-1)/2$ est pair et $p-1 \equiv 0 \pmod 4$.
+Comme on a supposé $p$ congru à 3 modulo 4, on a nécessairement $\bar{a}=\bar{b}=0$, donc $p^2$ divise $a$ et $b$ soit :
+\[ a = \alpha p \quad ; \quad b = \beta p \et n = p^2(\alpha^2+\beta^2) . \]
+\end{proof}
+
+\begin{thm}
+Un entier $n \in \Ne$ est somme de deux carrés si, et seulement si, ses éventuels diviseurs premiers congrus à 3 modulo 4 qui
+apparaissent dans sa décomposition en facteurs premiers y figurent avec un exposant pair.
+\end{thm}
+
+\begin{proof}
+Pour la condition nécessaire, on procède par récurrence sur $n \geq 1$. La proposition est trivialement vraie pour $n=1$.
+On la suppose vraie pour les entiers de $\Sd \setminus \set{0}$ inférieurs ou égaux à $n-1$, avec $n \in \Sd$ et montrons que la
+propriété reste vraie our $n$. Selon le lemme $\ref{lem:exppair}$, si $n$ admet un diviseur premier $p$ congru à 3 modulo 4,
+alors $p^2$ apparait dans la décomposition en facteurs premiers de $n$ 
+et $\dfrac{n}{p^2} < n$ est un élément de $\Sd \setminus \set{0}$, donc on peut lui appliquer l'hypothèse de récurrence.
+On a donc montré que la proposition est héréditaire. \\
+
+La condition suffisante est triviale si on considère la stabilité de $\Sd$ par la multiplication et le fait qu'un nombre premier
+congru à 3 modulo 4 aura un carré congru à 1 modulo 4.
+\end{proof}
+
+\end{document}

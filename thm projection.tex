@@ -1,0 +1,119 @@
+\input{preamble}
+\newcommand{\Ee}{E^{\ast}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{Théorème de projection sur un convexe}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Sources :} 
+\begin{itemize}
+\item Hassan - Topologie - page 355 (353 pour caractérisation) ;
+\item Hirsch Lacombe - analyse - page 91 ;
+\end{itemize}
+
+\underline{Leçons :}
+\begin{itemize}
+\item  205 : Espaces complets. Exemples et applications.
+\item  213 : Espaces de Hilbert. Exemples d’applications.
+\item  208 : Espaces vectoriels normés, applications linéaires continues. Exemples.
+\item  219 : Extremums : existence, caractérisation, recherche. Exemples et applications.
+\item  253 : Utilisation de la notion de convexité en analyse.
+\end{itemize}
+
+\begin{nota}
+Le corps $\K$ est $\R$ ou $\Cx$ et $(E, \angl{,})$ est un $\K$-espace préhilbertien.
+\end{nota}
+
+\begin{lem}[Identité du parallélogramme]
+Pour tous $x, y \in E$, on a :
+\[ \norm{x+y}^2 + \norm{x-y}^2 = 2( \norm{x}^2 + \norm{y}^2) . \]
+\end{lem}
+
+\begin{proof}
+Par calcul direct :
+\begin{align*}
+\angl{x+y,x+y} + \angl{x-y,x-y} & = \angl{x,x} + \angl{x,y} + \angl{y,x} + \angl{y,y} + \angl{x,x} - \angl{x,y} - \angl{y,x} + \angl{y,y} \\
+& = 2\angl{x,x} + 2\angl{y,y} 
+\end{align*}
+\end{proof}
+
+\begin{thm}
+Soit $A$ une partie non vide convexe de $E$. 
+On suppose de plus que $A$ est complète lorsque munie de la distance induite par la norme sur $E$ (ce qui est le cas pour $E$ Hilbertien
+et $A$ une partie non vide convexe et fermée de $E$).
+Pour tout $x \in E$, il existe un unique point $a \in A$ tel que :
+\[ \norm{x-a} = d(x,A) . \]
+Ce point est appelé le projeté de $x$ sur $A$ et est noté $P_A(x)$.
+Ce projeté est caractérisée par :
+\begin{equation}
+\forall z \in A, \quad \Re{\angl{x-a,z-a}} \leq 0 . \label{eq:1}
+\end{equation}
+\end{thm}
+
+\begin{proof}
+Il est clair que si $E$ est complet et que si $A$ est fermé, alors, toute suite de Cauchy d'éléments de $A$ converge dans $A$. \\
+
+Considérons $x \in E$ et prenons $(a_n)_\N$ une suite de $A$ telle que $\norm{x-a_n} \to d(x,A)$ lorsque $n \to \infty$. 
+On remarque qu'une telle suite existe car, par définition de la borne inférieure :
+\[ \forall n \in \N, \exists a_n \in A \tq \norm{a_n-x} \leq d(x,A) + 1/2^n . \]
+Considérons $n, m \in \N$, on applique l'identité du parallélogramme aux points $x-a_n$ et $x-a_m$ : 
+\[ \norm{2x- a_n - a_m}^2 + \norm{a_n - a_m}^2 = 2(\norm{x-a_n}^2 + \norm{x-a_m}^2) , \]
+d'où on déduit :
+\[ \norm{a_n-a_m}^2 = 2(\norm{x-a_n}^2 + \norm{x-a_m}^2) - 4 \norm{x - \dfrac{a-n+a_m}{2}}^2 . \]
+Par convexité de $A$, on a $\dfrac{a-n+a_m}{2} \in A$ et donc $\norm{x - \dfrac{a-n+a_m}{2} }^2 \geq d(x,A)$, soit :
+\begin{equation}
+\norm{a_n-a_m}^2 \leq 2(\norm{x-a_n}^2 + \norm{x-a_m}^2) - 4 d(x,A) , \label{eq:2} 
+\end{equation}
+et clairement, comme $\norm{x-a_n} \to 0$, on déduit que la suite $(a_n)_\N$ est de Cauchy dans $A$, donc convergente vers $a \in A$.
+Finalement, on a $d(x,A) = \norm{x-a}$. \\
+
+Supposons qu'il existe deux tels points de $A$ notés $a$ et $b$, alors, selon l'équation (\ref{eq:2}), on a :
+\[ \norm{a-b}^2 \leq 2(\norm{x-a}^2 + \norm{x-b}^2) - 4 d(x,A) = 0 , \]
+soit $a=b$. \\
+
+Il reste à montrer la caractérisation du projeté. Soit $z \in A$, par convexité le segment $[z,a]$ est inclus dans $A$ donc :
+\[ \forall t \in [0,1], \quad \norm{x-[(1-t)a+tz]}^2 \geq \norm{x-a}^2 , \]
+soit :
+\begin{align*}
+\norm{x-a+t(a-z)}^2 \geq \norm{x-a}^2 & \\
+& \Rightarrow \norm{x-a}^2 + 2t \Re(\angl{x-a,a-z}) + t^2 \norm{a-z}^2 \geq \norm{x-a}^2 \\
+& \Rightarrow \Re{\angl{x-a,z-a}} \leq \dfrac{t}2 \norm{a-z}^2 .
+\end{align*}
+Ainsi, en faisant tendre $t$ vers 0, on obtient l'inégalité recherchée. \\
+Réciproquement, si $a \in A$ vérifie (\ref{eq:1}), alors, pour tout $z \in A$ : 
+\begin{align*}
+\norm{x-z}^2 & = \norm{x-a + a - z}^2 \\
+& = \norm{x-a}^2 + \norm{a-z}^2 + 2 \Re(\angl{x-a, a-z}) \geq \norm{x-a}^2 ,
+\end{align*}
+autrement dit, $a = \inf{z \in C ; \norm{x-z} }$.
+\end{proof}
+
+\begin{thm}
+Sous les conditions du théorème précédent l'application $P_C$ qui, à un point $x \in E$ associe son projeté $P_A(x)$ sur $A$ est 1-lipschitizenne.
+\end{thm}
+
+\begin{proof}
+Soient $x, y \in E$ et notons $a = P_A(x), b=P_A(x')$ et $z=x-y-(a-b)$. On a :
+\begin{align*}
+\norm{x-y}^2 & = \norm{z + (a-b)}^2 \\
+& = \norm{z}^2 + \norm{a-b}^2 + 2\Re{\angl{z, a-b}} . 
+\end{align*}
+D'autre part :
+\begin{align*}
+\Re{\angl{z, a-b}} & = \Re(\angl{x-a - (y-b), a-b}) \\
+& = - \Re{\angl{x-a, b-a}} - \Re(\angl{y-b, a-b}) \geq 0 \qquad (\text{caractérisation du projeté}) .
+\end{align*}
+On a ainsi montré que $\norm{x-y} \geq \norm{a-b} = \norm{P_A(x) - P_A(y)}$, ce qui montre que l'application $P_A$ est 1-lipschitizienne,
+en particulier continue. 
+\end{proof}
+
+Pour aller plus loin, on peut proposer le résultat suivant :
+
+\begin{thm}
+L'espace $E$ est la somme directe topologique de $A$ et $A^{\perp}$ et, pour tout $x \in E$, on a $a = P_A(x)+P_{A^{\perp}}(x)$.
+\end{thm}
+
+\end{document}

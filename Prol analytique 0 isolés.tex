@@ -32,7 +32,6 @@ Soit $X$ un espace topologique, les propriétés suivants sont équivalentes :
 \item toute application continue de $X$ dans l'espace discret $\Z$ est constante ;
 \item toute application continue de $X$ dans l'espace discret $\set{0,1}$ est constante.
 \end{enumerate}
-\end{enumerate}
 \end{thm}
 
 \begin{proof}
@@ -54,7 +53,7 @@ L'application $f$ définie sur $X$ par $f(x) = 0$ si $x \in U$ ; $f(x) = 1$ sino
 
 \begin{thm}[Principe du prolongement analytique]
 \label{thm:1}
-Soient $U$ un ouvert connexe de $\Cx$, a \in U$ et $f$ une fonction analytique sur $U$. Les conditions suivantes sont équivalentes :
+Soient $U$ un ouvert connexe de $\Cx, a \in U$ et $f$ une fonction analytique sur $U$. Les conditions suivantes sont équivalentes :
 \begin{enumerate}[label=(\roman*)]
 \item $f$ est identiquement nulle sur $U$ ;
 \item $f$ est identiquement nulle sur un voisinage de $a$ ;
@@ -72,7 +71,7 @@ $(ii) \Rightarrow (i)$ Soit $V$ l'ensemble des $z \in U$ tel que $f$ soit identi
 $V$ est non vide par hypothèse et si $z \in V$, alors il existe un ouvert contenant $z$ et sur lequel $f$ est identiquement nulle.
 Donc cet ouvert est dans $V$ ce qui démontre que $V$ est ouvert.
 Prenons $(z_n)_\N$ une suite de points de $V$ convergeant vers $z \in U$. 
-Pour tous $n,k$ \in \N$, on a $f^{k}(z_n)=0$. Par continuité de chaque $f^{k}$, il vient que $f^{k}(z)=0$ pour tout $k \in \N$.
+Pour tous $n,k \in \N$, on a $f^{k}(z_n)=0$. Par continuité de chaque $f^{k}$, il vient que $f^{k}(z)=0$ pour tout $k \in \N$.
 Comme $f$ est développable en série entière autour de $z$, on en déduit que $f$ est identiquement nulle au voisinage de $z$, soit 
 $z \in V$ et $V$ est fermé. Par connexité de $U$, on déduit que $U=V$ et la fonction est identiquement nulle sur $U$.
 \end{proof}
@@ -93,7 +92,7 @@ Soient $U$ un ouvert de $\Cx$ et $A$ une partie de $U$. Les propositions suivant
 \begin{enumerate}[label=(\roman*)]
 \item Tout $z \in U$ possède un voisinage $V$ tel que $V \cap A$ soit fini ;
 \item pour tout compact $K$ de $U$, l'ensemble $K \cap A$ est fini ;
-\iem $A$ est une partie discrète et fermée de $U$.
+\item $A$ est une partie discrète et fermée de $U$.
 \end{enumerate}
 Si ces conditions sont vérifiées, on dit que $A$ est une partie localement finie de $U$.
 \end{thm}
@@ -110,7 +109,7 @@ exhiber un voisinage $W_z$ de $z$ tel que $W_z \cap A = \set{z}$ donc $A$ est un
 Prenons maintenant $z \in \overline{A}$, l'adhérence de $A$ dans $U$, si $z \not \in A$, alors le voisinage $W_z$ précédemment
 exhibé est tel que $W_z \cap A = \emptyset$ ce qui est contradictoire. Donc $A$ est fermé. \\
 
-$(iii) \Rightarrow (i)$ Prenons $z \in U$, si $z \in A$ alors il existe un voisinage $V$ de $z$ tel que $V \cap A = \se{z}$ car $A$
+$(iii) \Rightarrow (i)$ Prenons $z \in U$, si $z \in A$ alors il existe un voisinage $V$ de $z$ tel que $V \cap A = \set{z}$ car $A$
 est une partie discrète. Sinon, comme $A$ est fermé, il existe un voisinage $V$ de $z$ tel que $V \cap A = \emptyset$.
 \end{proof}
 
@@ -130,10 +129,8 @@ avec $a_k \neq 0$. On définit la fonction $g$ sur ce voisinage par :
 Cette fonction est nulle en $u$ et développable en série entière en ce point, et en particulier continue en $u$.
 Donc, il existe un voisinage $V$ de $u$ sur lequel $\abs{g(z)} \leq \abs{a_k}$.
 Ainsi, pour tout $z \in V \setminus \set{z}$, on a :
-\[ \abs{f(z)} \ leq \abs{z-u}^k ( \abs{a_k} - \abs{g(z)} > 0 . \]
+\[ \abs{f(z)} \geq \abs{z-u}^k ( \abs{a_k} - \abs{g(z)} > 0 . \]
 Ainsi, $Z(f) \cap V = \set{u}$, ce qui achève la démonstration.
 \end{proof}
-
-
 
 \end{document}

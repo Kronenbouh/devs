@@ -1,0 +1,125 @@
+\input{preamble}
+\newcommand{\Gln}{\text{GL}(n,\K)}
+\newcommand{\trans}[1]{\prescript{t}{}{#1}}
+
+\pagestyle{fancy}
+
+\fancyhead[C]{}
+\fancyhead[R]{}
+
+\begin{document}
+
+\underline{Source :} Rombaldi - Algèbre - page 690 (LU - Cholesky) et 478 (CN, Sylvester)
+
+\underline{Leçons :}
+\begin{itemize}
+\item  157 : Matrices symétriques réelles, matrices hermitiennes.
+\item  170 : Formes quadratiques sur un espace vectoriel de dimension finie. Orthogonalité. Applications.
+\item  171 : Formes quadratiques réelles. Coniques. Exemples et applications.
+\item  162 : Systèmes d’équations linéaires ; opérations élémentaires, aspects algorithmiques et conséquences théoriques.
+\end{itemize}
+
+\begin{lem}
+\label{lem:1}
+Si elle existe, l'inverse d'une matrice triangulaire inférieure (resp. triangulaire supérieure) est triangulaire inférieure
+(resp. triangulaire supérieure).
+En particulier, si cette matrice est de diagonale unité, alors son inverse l'est aussi.
+\end{lem}
+
+\begin{proof}
+Soit $A = (a_{i,j}) \in \Gln$ une matrice triangulaire inférieure. Notons $B = (b_{i,j}) \in \Gln$ son inverse.
+Pour $(i,j) \in \set{1, \dots, n}^2$ donné, on a :
+\[ \sum_{k=1}^n a_{i,k} b_{k,j} = \sum_{k=1}^i a_{i,k} b_{k,j} = \delta_{i,j} . \]
+Pour $i=1$, cette relation donne directement $b_{1,2} = \dots = b_{1, n} = 0$. \\
+Pour $i=2$, tenant compte du résultat précédent, on obtient de même $b_{2,3} = \dots = b_{2,n} = 0$. \\
+En parcourant ainsi les valeurs de $i$ jusque $n$ on déduit que $B$ est triangulaire inférieure (la démonstration est identique
+dans le cas triangulaire supérieure).
+Si de plus $\forall i \in \set{1 \dots, n}, a_{i,i} = 1$ on déduit par calcul direct que tous les $b_{i,i}$ sont aussi égaux à 1.
+\end{proof}
+
+\begin{defn}[Sous-matrices principales]
+Les sous-matrices principales de $A=(a_{i,j}) \in \Mn$ sont les matrices $(a_{i,j})_{1 \leq, i,j \leq k}$
+et les déterminants principaux sont les déterminants associés.
+\end{defn}
+
+\begin{thm}[Décomposition LU]
+Une matrice $A \in \Gln$ admet une décomposition $A = LU$ avec $L$ une matrice triangulaire inférieure de diagonale unité
+et $U$ une matrice triangulaire supérieure si, et seulement si, tous les déterminants principaux de $A$ sont non nuls.
+De plus, si une telle décomposition existe, elle est unique.
+\end{thm}
+
+\begin{proof}
+On démontre d'abord l'équivalence par récurrence sur $n$. Le résultat est trivial pour $n=1$. 
+Supposons qu'il soit vrai à un rang $n \geq 1$ quelconque et démontrons qu'il reste vrai au rang $n+1$. \\
+Soit $A \in \Gln$ dont tous les déterminants principaux sont non nuls, on écrit :
+\[ A = \begin{pmatrix} A_1 & B_1 \\ C_1 & a_{n,n} \end{pmatrix} , \]
+avec $A_1 \in \text{GL}(n-1,\K)$ (par hypothèse sur $A$), $B_1 \in M_{1, n-1}(\K), C_1 \in M_{n-1,1}(\K)$ et $a_{n,n} \in \K$.
+Par hypothèse de récurrence, on peut écrire $A_1 = L_1 U_1$ avec $L_1$ et $U_1$ telles que décrites dans l'énoncé.
+Posons :
+\[ L = \begin{pmatrix} L_1 & (0) \\ D_1 & 1 \end{pmatrix} \et U = \begin{pmatrix} U_1 & E_1 \\ (0) & \alpha \end{pmatrix} \]
+avec $D_1 \in M_{1,n-1}(\K), E_1 \in  M_{n-1,1}(\K)$ et $\alpha \in \K$ à déterminer. 
+L'équation $A=LU$ donne :
+\[ \left \{ \begin{array}{c}
+L_1 U_1 = A_1 \\
+L_1 E_1 = B_1 \\
+D_1 U_1  = C_1 \\
+D_1 E_1 + \alpha = a_{n,n} 
+ \end{array} \right . \]
+Comme $L_1, U_1 \in \text{GL}(n-1,\K)$ ($\det(AB)=\det(A)\det(B)$) les matrices $E_1$ et $D_1$ existent et sont uniquement déterminées.
+Par suite, il en est de même de $\alpha$. \\
+
+Réciproquement, soit $A \in \Gln$ décomposable sous la forme $A=LU$ avec $L$ et $U$ telles qu'énoncées.
+En reprenant la décomposition par blocs de $L$ et $U$ réalisée pour la condition suffisante, on peut alors écrire :
+\[ A = \begin{pmatrix} A_1 & B_1 \\ C_1 & a_{n,n} \end{pmatrix} , \]
+avec $A_1 = L_1 U_1$ satisfaisant l'hypothèse de récurrence, donc dont tous les déterminants principaux sont non nuls.
+Ainsi, tous les déterminants principaux de $A$ sont inversibles ce qui démontre la condition nécessaire et, par suite,
+l'hérédité du résultat. \newline
+
+On démontre maintenant l'unicité. On écrit $A = L_1 U_1 = L_2 U_2$ où toutes ces matrices sont inversibles, on a alors
+$L_1 L_2^{-1} = U_1^{-1} U_2$ avec la matrice du membre de gauche triangulaire inférieure et la matrice du membre de droite 
+triangulaire supérieure (cf. lemme $\ref{lem:1}$).
+Ces deux matrices étant égales, on déduit qu'elles sont diagonales de diagonale unitaire (toujours d'après le lemme $\ref{lem:1}$),
+donc égales à $I_n$ ce qui démontre l'unicité.
+\end{proof}
+
+\begin{lem}
+\label{lem:3}
+Soit $A$ la matrice d'une forme quadratique $q$ dans une base quelconque. 
+Si la forme $q$ est définie positive alors tous les déterminants principaux de $A$ sont strictement positifs.
+\end{lem}
+
+\begin{proof}
+Notons $B=(e_1, \dots, e_n)$ la base telle que $A=M_B(q)$. 
+Les sous-matrices principales de $A$ sont les matrices des restrictions de la forme quadratique $q$ aux sous-espaces vectoriels
+engendrés par $\vect(e_1, \dots, e_k)$, pour $k \in \set{1, \dots, n}$, en particulier ces matrices sont toutes de déterminant 
+strictement positif, ce qui démontre le résultat.
+\end{proof}
+
+\begin{rmq}
+Une matrice définie positive est une matrice d'une forme quadratique définie positive et vice-versa.
+\end{rmq}
+
+\begin{thm}[Cholesky]
+Une matrice $A$ à coefficients réels est symétrique et définie positive si, et seulement si, il existe une matrice $B$ triangulaire inférieure
+et inversible telle que $A =B\trans{B}$. De plus, une telle décomposition est unique si on impose la positivité des coefficients diagonaux
+de la matrice $B$. 
+\end{thm}
+
+\begin{proof}
+Si $A$ est symétrique et définie positive alors, selon le lemme $\ref{lem:2}$ et le théorème précédent, $A$ admet une décomposition
+$LU$ et de plus comme $\det{U} = \det{A} \neq 0$ on peut écrire $U = D U'$ avec $U'$ une matrice triangulaire supérieure 
+de diagonale unité. On a ainsi $A=LDU'$ et comme $A=\trans{A}=U'^{T}D\trans{L}$, l'unicité de la décomposition $LU$ impose que 
+$\trans{U'} = L$, ce qui permet d'écrire $A=LD\trans{L}$. 
+Ainsi, la matrice $A$ étant définie positive, les coefficients $(d_i)$ de la matrice $D$ sont strictement positifs (on retrouve indirectement
+qu'en dimension finie, il existe toujours une base $q$-orthogonale), 
+ainsi on peut écrire $D = D'^2$ avec $D'$ une matrice diagonale dont les coefficients sont égaux à 
+$\pm \sqrt{d_i}$ avec $d_i$ les coefficients de $D$. Par suite, $A=LD'D'\trans{L} = (LD')\trans{(LD')}$, ce qui est la forme attendue. 
+De plus, la décomposition est bien unique si on impose la positivité des coefficients de la matrice $D'$. \\
+
+Réciproquement, si $A=B \trans{B}$ avec $B$ inversible, alors pour toute matrice colonne $x$ non nulle, on a :
+\[ \trans{x} A x = \trans{x} B \trans{B} x = \angl{\trans{B} x, \trans{B} x} > 0, \]
+car $B$ est inversible (et donc $\trans{B} x$ non nul).
+\end{proof}
+
+
+\end{document}
